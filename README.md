@@ -1,2 +1,8 @@
 # angube
-Angular training project
+Angular training project using YouTube API
+
+# Installation
+
+```
+# npm install 
+```
