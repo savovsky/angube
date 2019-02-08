@@ -1,0 +1,2 @@
+# angube
+Angular training project
