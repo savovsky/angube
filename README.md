@@ -1,13 +1,13 @@
 # angube
 Angular training project using YouTube API
 
-# Installation
+## Installation
 
 ```
 # npm install 
 ```
 
-# Pr
+## Project generated
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
