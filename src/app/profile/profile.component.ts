@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  userId: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
   ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get('id');
+
+    // Another way for cases when component will not be destroyed.
+    // (ex. Prev-Next btns inside the component)
+    // this.route.paramMap
+    //   .subscribe((params) => {
+    //     this.userId = params.get('id');
+    //     console.log(this.userId);
+    // });
+  }
+
+  onSubmit() {
+    this.router.navigate(['/users'], {
+      queryParams: { page: 1, order: 'newest' }
+    });
   }
 
 }

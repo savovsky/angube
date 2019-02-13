@@ -37,7 +37,7 @@ import { UsersComponent } from './users/users.component';
         component: HomeComponent
       },
       {
-        path: 'users/:username',
+        path: 'users/:id/:username',
         component: ProfileComponent
       },
       {
