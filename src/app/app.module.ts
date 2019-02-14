@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatButtonModule } from "@angular/material";
+import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from "@angular/material";
 import {MatInputModule} from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { UsersComponent } from './users/users.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -70,7 +71,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         path: '**',
         component: NotFoundComponent
       },
-    ])
+    ]),
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

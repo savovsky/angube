@@ -1,18 +1,29 @@
-<ul>
-  <li routerLinkActive="current">
-    <a
-      routerLink="/users"
-      [queryParams]="{ page:1, order: 'newest' }"
-    >Users
-    </a>
-  </li>
-  <li routerLinkActive="current">
-    <a routerLink="/posts">Posts</a>
-  </li>
-  <li routerLinkActive="current">
-    <a routerLink="/signin">Sign in</a>
-  </li>
-  <li routerLinkActive="current">
-    <a routerLink="/signup">Sign Up</a>
-  </li>
-</ul>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/users" routerLinkActive="current" [queryParams]="{ page:1, order: 'newest' }">Users</a>
+      <a mat-list-item routerLink="/posts" routerLinkActive="current">Posts</a>
+      <a mat-list-item routerLink="/signin" routerLinkActive="current">Sign In</a>
+      <a mat-list-item routerLink="/signup" routerLinkActive="current">Sign Up</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>angube</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
