@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
 
 import { MatButtonModule } from "@angular/material";
 import {MatInputModule} from '@angular/material/input';
@@ -18,7 +17,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersComponent } from './users/users.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -58,6 +57,14 @@ import { ReactiveFormsModule } from '@angular/forms';
       {
         path: 'posts',
         component: PostsComponent
+      },
+      {
+        path: 'signin',
+        component: SigninComponent
+      },
+      {
+        path: 'signup',
+        component: SignupComponent
       },
       {
         path: '**',
