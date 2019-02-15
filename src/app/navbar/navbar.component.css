@@ -19,3 +19,25 @@
 .current {
   color: goldenrod;
 }
+
+.hidden {
+  display: none;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar a {
+  display: inline-block ;
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px/32px;
+}
+
+/* @media (min-width: 300px) {
+  .sidenav {
+    display: none;
+  }
+} */

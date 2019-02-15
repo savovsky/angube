@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { PasswordValidators } from 'src/app/common/validators/password.validators';
 import { UsernameValidators } from 'src/app/common/validators/username.validators';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class SignupComponent implements OnInit {
     ])
   });
 
+
+
   get email() {
     return this.signUpForm.get('emailFormControl');
   }
@@ -40,18 +43,23 @@ export class SignupComponent implements OnInit {
     return this.signUpForm.get('userNameFormControl');
   }
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   onSignUp() {
-    console.log('submit ', this.signUpForm);
+    const email : string = this.signUpForm.value.emailFormControl;
+    const password : string = this.signUpForm.value.passwordFormControl;
+    // console.log('submit ', this.signUpForm);
+    // console.log('email = ', email);
+    // console.log('password = ', password);
+    this.authService.signUpUser(email, password);
   }
 
   onClick() {
     // console.log(this.signUpForm);
-    console.log(this.signUpForm.get('userNameFormControl'));
+    // console.log(this.signUpForm.get('userNameFormControl'));
   }
 
 }

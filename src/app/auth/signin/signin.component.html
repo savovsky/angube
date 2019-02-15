@@ -1,6 +1,6 @@
 <div class="flex-container">
   <div class="card">
-      <form class="example-form" [formGroup]="signInForm">
+      <form class="example-form" [formGroup]="signInForm"  (ngSubmit)="onSignIn()">
           <mat-form-field class="example-full-width">
             <input
               matInput placeholder="Email"

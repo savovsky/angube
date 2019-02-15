@@ -19,6 +19,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AuthService } from './service/auth.service';
+import { DataStorageService } from './service/data-storage.service';
 
 
 @NgModule({
@@ -78,7 +80,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatIconModule,
     MatListModule
   ],
-  providers: [],
+  providers: [AuthService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
