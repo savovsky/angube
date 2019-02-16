@@ -1,0 +1,77 @@
+<div class="flex-container">
+  <div class="card">
+      <form class="example-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+          <!-- Email -->
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="emailFormControl"
+            >
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="email.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- User Name -->
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="User Name"
+              formControlName="userNameFormControl"
+            >
+            <mat-error *ngIf="userName.pending">
+              Checking...
+            </mat-error>
+            <mat-error *ngIf="userName.hasError('required')">
+              User Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="userName.hasError('minlength')">
+              Name should be minimum <strong>{{userName.errors.minlength.requiredLength}}</strong> characters.
+            </mat-error>
+            <mat-error *ngIf="userName.hasError('shouldBeUnique')">
+              User name is already taken.
+            </mat-error>
+            <mat-error *ngIf="userName.hasError('cannotContainSpace')">
+              Name cannot contain <strong>space</strong>.
+            </mat-error>
+            <mat-error
+              *ngIf="userName.touched && !userName.hasError('required') && !userName.hasError('minlength') && !userName.hasError('cannotContainSpace') && !userName.hasError('shouldBeUnique')"
+              >Please enter a user name
+            </mat-error>
+          </mat-form-field>
+          <!-- Password -->
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Password"
+              formControlName="passwordFormControl"
+            >
+            <mat-error *ngIf="password.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="password.hasError('minlength')">
+              Password should be minimum <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
+            </mat-error>
+            <mat-error *ngIf="password.hasError('cannotContainSpace')">
+              Password cannot contain <strong>space</strong>.
+            </mat-error>
+            <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength') && !password.hasError('cannotContainSpace')">
+              Please enter a password
+            </mat-error>
+          </mat-form-field>
+          <div class="flex-right">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="onClick()"
+              [disabled]="!signUpForm.valid && !signUpForm.touched"
+            >Sign Up
+            </button>
+          </div>
+      </form>
+  </div>
+</div>

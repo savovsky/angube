@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // import { Observable } from "rxjs";
 import { combineLatest } from 'rxjs'
+import { DataStorageService } from '../service/data-storage.service';
+
 
 // import 'rxjs/add/observable/combineLatest';
 // import 'rxjs/add/operator/map';
@@ -22,7 +24,12 @@ export class UsersComponent implements OnInit {
     {id: 3, name: 'Ben'}
   ];
 
-  constructor(private route: ActivatedRoute) { }
+  items: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit() {
     combineLatest([
@@ -32,13 +39,30 @@ export class UsersComponent implements OnInit {
       .subscribe((combined) => {
         this.userId = combined[0].get('id');
         this.page = combined[1].get('page');
-        console.log(this.userId);
-        console.log(this.page);
+        // console.log(this.userId);
+        // console.log(this.page);
       });
 
     // Another way for cases when component will be destroyed.
     // this.page = this.route.snapshot.queryParamMap.get('page');
     // console.log(this.page);
+
+    this.dataStorageService.getItems()
+    .subscribe(
+      (response) => {
+        console.log('getItems', response);
+        this.items = response;
+      }
+    );
+  }
+
+  onSaveData() {
+    this.dataStorageService.storeItems()
+      .subscribe(
+        (response) => {
+          console.log('storeItems', response);
+        }
+      );
   }
 
 }

@@ -1,0 +1,43 @@
+<div class="flex-container">
+  <div class="card">
+      <form class="example-form" [formGroup]="signInForm"  (ngSubmit)="onSignIn()">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput placeholder="Email"
+              formControlName="emailFormControl"
+            >
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="email.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input
+              matInput placeholder="Password"
+              formControlName="passwordFormControl"
+            >
+            <mat-error *ngIf="password.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="password.hasError('minlength')">
+              Password should be minimum <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
+            </mat-error>
+            <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
+              Please enter a password
+            </mat-error>
+          </mat-form-field>
+          <div class="flex-right">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="onClick()"
+              [disabled]="!signInForm.valid && !signInForm.touched"
+            >Sign In
+            </button>
+          </div>
+      </form>
+  </div>
+</div>
