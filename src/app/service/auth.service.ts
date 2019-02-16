@@ -10,7 +10,7 @@ export class AuthService {
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .catch(
             (err) => console.log(err)
-        )
+        );
     }
 
     signInUser(email: string, password: string) {
@@ -24,7 +24,7 @@ export class AuthService {
                         });
                 }
             )
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
     }
 
     getToken() {
@@ -39,5 +39,5 @@ export class AuthService {
         // console.log('isToken', this.token !== null)
         return this.token !== null;
     }
-    
+
 }
