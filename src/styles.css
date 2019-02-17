@@ -8,3 +8,64 @@ body {
     margin: 0;
     font-family: Roboto,"Helvetica Neue", sans-serif;
 }
+
+.container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    min-width: 250px;
+    /* display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    margin: 10px;
+    min-width: 150px;
+    max-width: 350px;
+    /* width: 100%; */
+    /* position: relative; */
+    background-color: rgb(255, 255, 255);
+    color: rgba(0,0,0,.87);
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),
+                0 1px 1px 0 rgba(0,0,0,.14),
+                0 1px 3px 0 rgba(0,0,0,.12);
+    align-items: center;
+    justify-content: center;
+    /* -webkit-transition: background-color 0.5s ease-out, box-shadow 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out, box-shadow 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out, box-shadow 0.5s ease-out;
+    transition: background-color 0.5s ease-out, box-shadow 0.5s ease-out; */
+
+}
+
+/* div.card:hover {
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),
+                0 1px 1px 0 rgba(0,0,0,.2),
+                0 1px 3px 0 rgba(0,0,0,.2);
+} */
+
+.flex-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+  
+.example-full-width {
+    width: 100%;
+    padding-bottom: 15px;
+}

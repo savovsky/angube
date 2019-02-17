@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+  title = 'Angube';
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSignIn() {
+    console.log('onSignIn');
+  }
+
+  onSignUp() {
+    console.log('onSignUp');
   }
 
 }

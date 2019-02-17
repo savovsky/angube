@@ -47,6 +47,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
     RouterModule.forRoot([
       {
         path: '',
+        component: WelcomeComponent
+      },
+      {
+        path: 'home',
         component: HomeComponent
       },
       {
