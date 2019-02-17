@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from "@angular/material";
-import {MatInputModule} from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AuthService } from './service/auth.service';
 import { DataStorageService } from './service/data-storage.service';
+import { MatComponentsModule } from './mat-components.module';
 
 
 @NgModule({
@@ -41,9 +40,8 @@ import { DataStorageService } from './service/data-storage.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatButtonModule,
-    MatInputModule,
     HttpClientModule,
+    MatComponentsModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -74,11 +72,7 @@ import { DataStorageService } from './service/data-storage.service';
         component: NotFoundComponent
       },
     ]),
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
+    LayoutModule
   ],
   providers: [AuthService, DataStorageService],
   bootstrap: [AppComponent]
