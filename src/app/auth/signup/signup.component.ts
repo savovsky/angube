@@ -49,17 +49,12 @@ export class SignupComponent implements OnInit {
   }
 
   onSignUp() {
-    const email : string = this.signUpForm.value.emailFormControl;
-    const password : string = this.signUpForm.value.passwordFormControl;
+    const email: string = this.signUpForm.value.emailFormControl;
+    const password: string = this.signUpForm.value.passwordFormControl;
     // console.log('submit ', this.signUpForm);
     // console.log('email = ', email);
     // console.log('password = ', password);
     this.authService.signUpUser(email, password);
-  }
-
-  onClick() {
-    // console.log(this.signUpForm);
-    // console.log(this.signUpForm.get('userNameFormControl'));
   }
 
 }

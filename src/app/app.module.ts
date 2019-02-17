@@ -1,11 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from "@angular/material";
-import {MatInputModule} from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AuthService } from './service/auth.service';
 import { DataStorageService } from './service/data-storage.service';
+import { MatComponentsModule } from './mat-components.module';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
@@ -33,7 +32,8 @@ import { DataStorageService } from './service/data-storage.service';
     NotFoundComponent,
     UsersComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,44 +41,9 @@ import { DataStorageService } from './service/data-storage.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatButtonModule,
-    MatInputModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'users/:id/:username',
-        component: ProfileComponent
-      },
-      {
-        path: 'users',
-        component: UsersComponent
-      },
-      {
-        path: 'posts',
-        component: PostsComponent
-      },
-      {
-        path: 'signin',
-        component: SigninComponent
-      },
-      {
-        path: 'signup',
-        component: SignupComponent
-      },
-      {
-        path: '**',
-        component: NotFoundComponent
-      },
-    ]),
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
+    MatComponentsModule,
+    LayoutModule
   ],
   providers: [AuthService, DataStorageService],
   bootstrap: [AppComponent]

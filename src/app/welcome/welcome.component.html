@@ -1,0 +1,27 @@
+<div class="container">
+  <div>
+    <h1>Welcome to {{ title }}</h1>
+    
+    <div class="card">
+      <div class="top-note">Already have an account?</div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="wide"
+        routerLink="/signin"
+        >Sign In
+      </button>
+    </div>
+    
+    <div class="card">
+      <div class="top-note">First Time User?</div>
+      <button
+        mat-raised-button
+        color="accent"
+        class="wide"
+        routerLink="/signup"
+        >Sign Up
+      </button>
+    </div>
+  </div>
+</div>

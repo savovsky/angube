@@ -34,16 +34,10 @@ export class SigninComponent implements OnInit {
 
   onSignIn() {
     // console.log(this.signInForm);
-    const email : string = this.signInForm.value.emailFormControl;
-    const password : string = this.signInForm.value.passwordFormControl;
+    const email: string = this.signInForm.value.emailFormControl;
+    const password: string = this.signInForm.value.passwordFormControl;
     // console.log('email = ', email);
     // console.log('password = ', password);
     this.authService.signInUser(email, password);
   }
-
-  onClick() {
-    // console.log(this.signInForm);
-    // console.log(this.signInForm.get('passwordFormControl'));
-  }
-
 }
