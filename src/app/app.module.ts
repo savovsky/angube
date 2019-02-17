@@ -20,6 +20,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AuthService } from './service/auth.service';
 import { DataStorageService } from './service/data-storage.service';
 import { MatComponentsModule } from './mat-components.module';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatComponentsModule } from './mat-components.module';
     NotFoundComponent,
     UsersComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
