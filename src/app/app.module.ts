@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -44,40 +43,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     FormsModule,
     HttpClientModule,
     MatComponentsModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: WelcomeComponent
-      },
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'users/:id/:username',
-        component: ProfileComponent
-      },
-      {
-        path: 'users',
-        component: UsersComponent
-      },
-      {
-        path: 'posts',
-        component: PostsComponent
-      },
-      {
-        path: 'signin',
-        component: SigninComponent
-      },
-      {
-        path: 'signup',
-        component: SignupComponent
-      },
-      {
-        path: '**',
-        component: NotFoundComponent
-      },
-    ]),
     LayoutModule
   ],
   providers: [AuthService, DataStorageService],
