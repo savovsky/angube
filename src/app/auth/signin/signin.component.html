@@ -1,47 +1,47 @@
-
-<div class="card">
-    <div class="flex-right">Sign In</div>
-  <form class="example-form" [formGroup]="signInForm"  (ngSubmit)="onSignIn()">
-      <mat-form-field class="example-full-width">
-        <input
-          matInput placeholder="Email"
-          formControlName="emailFormControl"
-        >
-        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="email.hasError('required')">
-          Email is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          matInput placeholder="Password"
-          formControlName="passwordFormControl"
-        >
-        <mat-error *ngIf="password.hasError('required')">
-          Password is <strong>required</strong>
-        </mat-error>
-        <mat-error *ngIf="password.hasError('minlength')">
-          Password should be minimum <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
-        </mat-error>
-        <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
-          Please enter a password
-        </mat-error>
-      </mat-form-field>
-
-      <button
-        mat-raised-button
-        class="wide"
-        color="primary"
-        type="submit"
-        (click)="onClick()"
-      >LOGIN
-      </button>
-      <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
-
-  </form>
-  <div class="bottom-note">Not registered yet?</div>
-  <a routerLink="/signup">Sign Up</a>
+<div class="container">
+  <div class="card">
+      <div class="flex-right">Sign In</div>
+    <form class="example-form" [formGroup]="signInForm"  (ngSubmit)="onSignIn()">
+        <mat-form-field class="example-full-width">
+          <input
+            matInput placeholder="Email"
+            formControlName="emailFormControl"
+          >
+          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput placeholder="Password"
+            formControlName="passwordFormControl"
+          >
+          <mat-error *ngIf="password.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="password.hasError('minlength')">
+            Password should be minimum <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
+          </mat-error>
+          <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
+            Please enter a password
+          </mat-error>
+        </mat-form-field>
+  
+        <button
+          mat-raised-button
+          class="wide"
+          color="primary"
+          type="submit"
+        >LOGIN
+        </button>
+        <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
+  
+    </form>
+    <div class="bottom-note">Not registered yet?</div>
+    <a routerLink="/signup">Sign Up</a>
+  </div>
 </div>
 

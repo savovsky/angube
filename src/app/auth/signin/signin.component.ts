@@ -40,10 +40,4 @@ export class SigninComponent implements OnInit {
     // console.log('password = ', password);
     this.authService.signInUser(email, password);
   }
-
-  onClick() {
-    // console.log(this.signInForm);
-    // console.log(this.signInForm.get('passwordFormControl'));
-  }
-
 }

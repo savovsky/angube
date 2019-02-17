@@ -19,6 +19,6 @@ export class NavbarComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService
-  ) {}
+  ) { }
 
 }

@@ -1,5 +1,5 @@
-
-<div class="card">
+<div class="container">
+  <div class="card">
     <div class="flex-right">Create Account</div>
     <form class="example-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
         <!-- Email -->
@@ -83,7 +83,6 @@
           class="wide"
           color="primary"
           type="submit"
-          (click)="onClick()"
         >SUBMIT
         </button>
         <!-- [disabled]="!signUpForm.valid && !signUpForm.touched" -->
@@ -91,5 +90,6 @@
     </form>
     <div class="bottom-note">Already have an account?</div>
     <a routerLink="/signin">Sign In</a>
+  </div>
 </div>
 
