@@ -31,6 +31,21 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- First Name -->
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="nameFormControl"
+          >
+          <mat-error *ngIf="userName.hasError('minlength')">
+            Name should be minimum <strong>{{userName.errors.minlength.requiredLength}}</strong> characters.
+          </mat-error>
+          <mat-error *ngIf="userName.hasError('cannotContainSpace')">
+            Name cannot contain <strong>space</strong>.
+          </mat-error>
+        </mat-form-field>
+
         <button
           mat-raised-button
           class="wide"

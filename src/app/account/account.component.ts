@@ -18,6 +18,10 @@ export class AccountComponent implements OnInit {
       Validators.minLength(3),
       UsernameValidators.cannotContainSpace,
       UsernameValidators.shouldBeUnique
+    ]),
+    nameFormControl: new FormControl('', [
+      Validators.minLength(1),
+      UsernameValidators.cannotContainSpace
     ])
   });
 
@@ -43,9 +47,11 @@ export class AccountComponent implements OnInit {
     console.log('User uid = ', userId);
     this.dataStorageService.addUser(userName)
       .subscribe(
-        (response) => {
+        (response: {name: string}) => {
           console.log('addUser response = ', response);
-          this.router.navigate(['home']);
+          if (response.name) {
+            this.router.navigate(['home']);
+          }
         }
       );
   }
