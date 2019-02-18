@@ -16,6 +16,7 @@ export class AuthService {
         .then(
             (response) => {
                 console.log('signUpUser response', response);
+                this.router.navigate(['account']);
                 const uid = firebase.auth().currentUser.uid;
                 console.log('uid =', uid);
                 this.uid = uid;
