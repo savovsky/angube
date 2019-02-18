@@ -28,10 +28,10 @@ export class DataStorageService {
         return this.http.get(this.url + token);
     }
 
-    addUser(name) {
+    addUser(user: {}) {
         const token = this.authService.getToken();
         const uid = this.authService.uid;
-        const user: {} = {name: name};
+
         return this.http.put(this.url + uid + '.json?auth=' + token, user);
     }
 }

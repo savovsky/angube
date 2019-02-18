@@ -36,12 +36,12 @@
           <input
             matInput
             placeholder="First Name"
-            formControlName="nameFormControl"
+            formControlName="firstNameFormControl"
           >
-          <mat-error *ngIf="userName.hasError('minlength')">
-            Name should be minimum <strong>{{userName.errors.minlength.requiredLength}}</strong> characters.
+          <mat-error *ngIf="firstName.hasError('minlength')">
+            Name should be minimum <strong>{{firstName.errors.minlength.requiredLength}}</strong> characters.
           </mat-error>
-          <mat-error *ngIf="userName.hasError('cannotContainSpace')">
+          <mat-error *ngIf="firstName.hasError('cannotContainSpace')">
             Name cannot contain <strong>space</strong>.
           </mat-error>
         </mat-form-field>
