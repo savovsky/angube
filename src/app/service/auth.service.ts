@@ -11,6 +11,11 @@ export class AuthService {
 
     signUpUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(
+            (response) => {
+                console.log('signUpUser response', response);
+            }
+        )
         .catch(
             (err) => console.log(err)
         );
@@ -25,22 +30,35 @@ export class AuthService {
                     firebase.auth().currentUser.getIdToken()
                         .then((token: string) => {
                             this.token = token;
+                            console.log('signInUser, getIdToken', this.token);
                         });
                 }
             )
             .catch((err) => console.log('signInUser error', err));
     }
 
+    logOutUser() {
+        firebase.auth().signOut()
+        .then(
+            (response) => {
+                console.log('logOutUser response', response);
+                this.token = null;
+            }
+        )
+        .catch((err) => console.log('logOutUser error', err));
+    }
+
     getToken() {
         firebase.auth().currentUser.getIdToken()
             .then((token: string) => {
                 this.token = token;
+                console.log('getToken', this.token);
             });
         return this.token;
     }
 
     isAuthenticated() {
-        // console.log('isToken', this.token !== null)
+        // console.log('isAuthenticated', this.token !== null); // TODO Memory leak ?
         return this.token !== null;
     }
 
