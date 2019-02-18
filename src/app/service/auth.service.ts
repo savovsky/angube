@@ -6,6 +6,8 @@ import 'firebase/auth';
 @Injectable()
 export class AuthService {
     token: string;
+    uid: string;
+
 
     constructor(private router: Router) { }
 
@@ -14,6 +16,9 @@ export class AuthService {
         .then(
             (response) => {
                 console.log('signUpUser response', response);
+                const uid = firebase.auth().currentUser.uid;
+                console.log('uid =', uid);
+                this.uid = uid;
             }
         )
         .catch(
@@ -56,6 +61,7 @@ export class AuthService {
             });
         return this.token;
     }
+
 
     isAuthenticated() {
         // console.log('isAuthenticated', this.token !== null); // TODO Memory leak ?

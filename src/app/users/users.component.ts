@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // import { Observable } from "rxjs";
-import { combineLatest } from 'rxjs'
+import { combineLatest } from 'rxjs';
 import { DataStorageService } from '../service/data-storage.service';
 
 
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
     this.dataStorageService.storeItems()
       .subscribe(
         (response) => {
-          console.log('storeItems', response);
+          console.log('storeItems ', response);
         }
       );
   }

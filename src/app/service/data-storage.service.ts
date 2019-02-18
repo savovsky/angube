@@ -15,7 +15,7 @@ export class DataStorageService {
 
     storeItems() {
         const token = this.authService.getToken();
-        let item: {}[] = [
+        const item: {}[] = [
             {id: 1, title: 'item1'},
             {id: 2, title: 'item2'}
         ];
@@ -26,5 +26,11 @@ export class DataStorageService {
     getItems() {
         const token = this.authService.getToken();
         return this.http.get(this.url + token);
+    }
+
+    addUser() {
+        const token = this.authService.getToken();
+        const uid = this.authService.uid;
+        return this.http.put(this.url + token, uid);
     }
 }
