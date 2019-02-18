@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class DataStorageService {
 
-    private url = 'https://angube-92c87.firebaseio.com/items.json?auth=';
+    private url = 'https://angube-92c87.firebaseio.com/users/';
 
     constructor(
         private http: HttpClient,
@@ -28,9 +28,10 @@ export class DataStorageService {
         return this.http.get(this.url + token);
     }
 
-    addUser() {
+    addUser(name) {
         const token = this.authService.getToken();
         const uid = this.authService.uid;
-        return this.http.put(this.url + token, uid);
+        const user: {} = {name: name};
+        return this.http.put(this.url + uid + '.json?auth=' + token, user);
     }
 }
