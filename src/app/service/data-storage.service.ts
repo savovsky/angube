@@ -15,7 +15,7 @@ export class DataStorageService {
 
     storeItems() {
         const token = this.authService.getToken();
-        let item: {}[] = [
+        const item: {}[] = [
             {id: 1, title: 'item1'},
             {id: 2, title: 'item2'}
         ];
