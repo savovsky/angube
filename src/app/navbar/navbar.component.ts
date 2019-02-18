@@ -21,4 +21,8 @@ export class NavbarComponent {
     public authService: AuthService
   ) { }
 
+  onLogout() {
+    this.authService.logOutUser();
+  }
+
 }

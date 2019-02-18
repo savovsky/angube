@@ -27,7 +27,7 @@
       </button>
       <span>angube</span>
       <span class="spacer"></span>
-      <ng-template *ngIf="authService.isAuthenticated()">Auth</ng-template>
+      <a routerLink="" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
       <span *ngIf="!(isHandset$ | async)">
           <a routerLink="/signin" routerLinkActive="current">Sign In</a>
           <a routerLink="/signup" routerLinkActive="current">Sign Up</a>
