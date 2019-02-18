@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
     this.dataStorageService.storeItems()
       .subscribe(
         (response) => {
-          console.log('storeItems', response);
+          console.log('storeItems ', response);
         }
       );
   }

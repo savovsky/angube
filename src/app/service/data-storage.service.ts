@@ -27,4 +27,10 @@ export class DataStorageService {
         const token = this.authService.getToken();
         return this.http.get(this.url + token);
     }
+
+    addUser() {
+        const token = this.authService.getToken();
+        const uid = this.authService.uid;
+        return this.http.put(this.url + token, uid);
+    }
 }
