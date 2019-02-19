@@ -22,6 +22,8 @@ export class SignupComponent {
     ])
   });
 
+  hide = true;
+
   constructor(private authService: AuthService) { }
 
   get email() {

@@ -1,10 +1,17 @@
 <div class="container">
   <div class="card">
       <div class="flex-right">Sign In</div>
-    <form class="example-form" [formGroup]="signInForm"  (ngSubmit)="onSignIn()">
+    <form
+      class="example-form"
+      [formGroup]="signInForm" 
+      (ngSubmit)="onSignIn()"
+    >
+        <!-- Email -->
         <mat-form-field class="example-full-width">
           <input
-            matInput placeholder="Email"
+            matInput
+            type="email"
+            placeholder="Email"
             formControlName="emailFormControl"
           >
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
@@ -14,11 +21,21 @@
             Email is <strong>required</strong>
           </mat-error>
         </mat-form-field>
+
+        <!-- Password -->
         <mat-form-field class="example-full-width">
           <input
-            matInput placeholder="Password"
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Password"
             formControlName="passwordFormControl"
           >
+          <mat-icon
+            matSuffix
+            style="cursor: pointer;"
+            (click)="hide = !hide"
+          >{{ hide ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
           <mat-error *ngIf="password.hasError('required')">
             Password is <strong>required</strong>
           </mat-error>

@@ -22,6 +22,7 @@ import { MatComponentsModule } from './mat-components.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
 import { QuestionComponent } from './question/question.component';
+import { MenuIconsComponent } from './menu-icons/menu-icons.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { QuestionComponent } from './question/question.component';
     SignupComponent,
     WelcomeComponent,
     AccountComponent,
-    QuestionComponent
+    QuestionComponent,
+    MenuIconsComponent
   ],
   imports: [
     BrowserModule,

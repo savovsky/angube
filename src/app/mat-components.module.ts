@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 import {
   MatListModule,
   MatIconModule,
@@ -16,7 +17,8 @@ import {
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ]
 })
 export class MatComponentsModule { }

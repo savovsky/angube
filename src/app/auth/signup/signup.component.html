@@ -1,7 +1,11 @@
 <div class="container">
   <div class="card">
     <div class="flex-right">Sign Up</div>
-    <form class="example-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+    <form
+      class="example-form"
+      [formGroup]="signUpForm"
+      (ngSubmit)="onSignUp()"
+    >
         <!-- Email -->
         <mat-form-field class="example-full-width">
           <input
@@ -22,10 +26,17 @@
         <mat-form-field class="example-full-width">
           <input
             matInput
-            type="password"
+            [type]="hide ? 'password' : 'text'"
             placeholder="Password"
             formControlName="passwordFormControl"
           >
+          <mat-icon
+            matSuffix
+            style="cursor: pointer;"
+            (click)="hide = !hide"
+          >{{ hide ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+
           <mat-error *ngIf="password.hasError('required')">
             Password is <strong>required</strong>
           </mat-error>
@@ -43,7 +54,7 @@
         <mat-form-field class="example-full-width">
           <input
             matInput
-            type="password"
+            [type]="hide ? 'password' : 'text'"
             placeholder="Confirm Password"
             formControlName="passwordFormControl"
           >

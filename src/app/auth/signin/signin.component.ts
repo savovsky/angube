@@ -19,6 +19,8 @@ export class SigninComponent implements OnInit {
     ]),
   });
 
+  hide = true;
+
   get email() {
     return this.signInForm.get('emailFormControl');
   }

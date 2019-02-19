@@ -27,14 +27,18 @@
       </button>
       <span>angube</span>
       <span class="spacer"></span>
-      <a routerLink="" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
-      <span *ngIf="!(isHandset$ | async)">
-          <a routerLink="/signin" routerLinkActive="current">Sign In</a>
-          <a routerLink="/signup" routerLinkActive="current">Sign Up</a>
-      </span>
+      <app-menu-icons></app-menu-icons>
 
     </mat-toolbar>
+      <mat-toolbar color="accent" *ngIf="!(isHandset$ | async)">
+          <span class="spacer"></span>
+          <a routerLink="/signin" routerLinkActive="current">Sign In</a>
+          <a routerLink="/signup" routerLinkActive="current">Sign Up</a>
+          <a routerLink="" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
+      </mat-toolbar>
+
     <!-- Add Content Here -->
+
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
