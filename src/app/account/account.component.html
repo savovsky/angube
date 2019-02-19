@@ -1,7 +1,11 @@
 <div class="container">
   <div class="card">
-    <div class="flex-right">My Account</div>
-    <form class="example-form" [formGroup]="signUpForm" (ngSubmit)="onAccountSave()">
+    <div class="right">My Account</div>
+    <form
+      class="example-form"
+      [formGroup]="signUpForm"
+      (ngSubmit)="onAccountSave()"
+    >
 
         <!-- User Name -->
         <mat-form-field class="example-full-width">
@@ -46,13 +50,24 @@
           </mat-error>
         </mat-form-field>
 
-        <button
-          mat-raised-button
-          class="wide"
-          color="primary"
-          type="submit"
-        >SAVE
-        </button>
+        <div class="space-between">
+          <!-- Save btn -->
+          <button
+            mat-raised-button
+            class="wide-45"
+            color="primary"
+            type="submit"
+          >Save
+          </button>
+          <!-- Cancel btn -->
+          <button
+            mat-raised-button
+            class="wide-45"
+            type="button"
+            routerLink="/home"
+          >Cancel
+          </button>
+        </div>
 
     </form>
   </div>

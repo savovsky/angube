@@ -58,9 +58,14 @@ body {
                 0 1px 3px 0 rgba(0,0,0,.2);
 } */
 
-.flex-right {
+.right {
     display: flex;
     justify-content: flex-end;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
 }
 
 .example-form {
@@ -74,8 +79,12 @@ body {
     padding-bottom: 25px;
 }
 
-.wide {
+.wide-100 {
     width: 100%;
+}
+
+.wide-45 {
+    width: 45%;
 }
 
 .top-note {

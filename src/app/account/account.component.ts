@@ -13,6 +13,7 @@ import 'firebase/auth';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+
   signUpForm = new FormGroup({
 
     userNameFormControl: new FormControl('', [
@@ -43,32 +44,28 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const name = this.authService.getCurrentUserName();
+    this.signUpForm.get('userNameFormControl').reset(name);
   }
 
   onAccountSave() {
     const userName = this.signUpForm.get('userNameFormControl').value;
     const firstName = this.signUpForm.get('firstNameFormControl').value;
-    const userId = this.authService.uid;
-    console.log('onAccountSave - clicked');
-    console.log('User name = ', userName);
-    console.log('User uid = ', userId);
-    const user = {
-      userName,
-      firstName
-    };
+
+    const user = { userName, firstName };
 
     this.dataStorageService.addUser(user)
       .subscribe(
         (response: {userName: string}) => {
-          console.log('addUser response = ', response);
+          // console.log('addUser response = ', response);
           if (response.userName) {
             firebase.auth().currentUser.updateProfile({
-              displayName: firstName,
+              displayName: userName,
               photoURL: null
             })
               .then(() => {
                 this.router.navigate(['home']);
-                console.log(firebase.auth().currentUser);
+                // console.log(firebase.auth().currentUser);
               })
               .catch(
                 (err) => console.log(err)
