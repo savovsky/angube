@@ -13,21 +13,21 @@ export class AuthService {
 
     signUpUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(
-            (response) => {
-                console.log('signUpUser response', response);
-                this.router.navigate(['question']);
-                this.getCurrentUser().getIdToken()
-                        .then((token: string) => {
-                            this.token = token;
-                            console.log('signUpUser, getIdToken', this.token);
-                        });
-                this.uid = this.getCurrentUserUid();
-            }
-        )
-        .catch(
-            (err) => console.log(err)
-        );
+            .then(
+                (response) => {
+                    console.log('signUpUser response', response);
+                    this.router.navigate(['question']);
+                    this.getCurrentUser().getIdToken()
+                            .then((token: string) => {
+                                this.token = token;
+                                console.log('signUpUser, getIdToken', this.token);
+                            });
+                    this.uid = this.getCurrentUserUid();
+                }
+            )
+            .catch(
+                (err) => console.log(err)
+            );
     }
 
     signInUser(email: string, password: string) {
