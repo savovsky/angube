@@ -1,17 +1,30 @@
 <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+  <mat-icon>more_vert</mat-icon>
+</button>
   <mat-menu #menu="matMenu">
+
+    <!-- My Account -->
     <button mat-menu-item>
-      <mat-icon>dialpad</mat-icon>
-      <span>Redial</span>
+      <mat-icon>person</mat-icon>
+      <span>My Account</span>
     </button>
-    <button mat-menu-item disabled>
-      <mat-icon>voicemail</mat-icon>
-      <span>Check voicemail</span>
-    </button>
+
+    <!-- My Dashboard -->
+    <!-- <button mat-menu-item disabled> -->
     <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
+      <mat-icon>web</mat-icon>
+      <span>My Dashboard</span>
     </button>
+
+    <!-- Log Out -->
+    <button
+    mat-menu-item
+    routerLink=""
+    *ngIf="authService.isAuthenticated()"
+    (click)="onLogout()"
+    >
+      <mat-icon>power_off</mat-icon>
+      <span>Log Out</span>
+    </button>
+  
   </mat-menu>
