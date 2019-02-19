@@ -16,6 +16,12 @@ export class AuthService {
         .then(
             (response) => {
                 console.log('signUpUser response', response);
+                this.router.navigate(['account']);
+                firebase.auth().currentUser.getIdToken()
+                        .then((token: string) => {
+                            this.token = token;
+                            console.log('signUpUser, getIdToken', this.token);
+                        });
                 const uid = firebase.auth().currentUser.uid;
                 console.log('uid =', uid);
                 this.uid = uid;
@@ -48,6 +54,7 @@ export class AuthService {
             (response) => {
                 console.log('logOutUser response', response);
                 this.token = null;
+                this.uid = null;
             }
         )
         .catch((err) => console.log('logOutUser error', err));

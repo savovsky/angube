@@ -20,6 +20,7 @@ import { AuthService } from './service/auth.service';
 import { DataStorageService } from './service/data-storage.service';
 import { MatComponentsModule } from './mat-components.module';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     UsersComponent,
     SigninComponent,
     SignupComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
