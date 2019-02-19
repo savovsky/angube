@@ -17,14 +17,12 @@ export class AuthService {
             (response) => {
                 console.log('signUpUser response', response);
                 this.router.navigate(['question']);
-                firebase.auth().currentUser.getIdToken()
+                this.getCurrentUser().getIdToken()
                         .then((token: string) => {
                             this.token = token;
                             console.log('signUpUser, getIdToken', this.token);
                         });
-                const uid = firebase.auth().currentUser.uid;
-                console.log('uid =', uid);
-                this.uid = uid;
+                this.uid = this.getCurrentUserUid();
             }
         )
         .catch(
@@ -38,7 +36,7 @@ export class AuthService {
                 (response) => {
                     console.log('signInUser response', response);
                     this.router.navigate(['home']);
-                    firebase.auth().currentUser.getIdToken()
+                    this.getCurrentUser().getIdToken()
                         .then((token: string) => {
                             this.token = token;
                             console.log('signInUser, getIdToken', this.token);
@@ -61,7 +59,7 @@ export class AuthService {
     }
 
     getToken() {
-        firebase.auth().currentUser.getIdToken()
+        this.getCurrentUser().getIdToken()
             .then((token: string) => {
                 this.token = token;
                 console.log('getToken', this.token);
@@ -70,8 +68,33 @@ export class AuthService {
     }
 
     getCurrentUserName() {
-        return !this.isAuthenticated() ? firebase.auth().currentUser.displayName : 'none';
+        if (this.getCurrentUser()) {
+            const currentUserName = this.getCurrentUserDisplayName();
+            return currentUserName ? currentUserName : this.getCurrentUserEmailLocalPart();
+        } else {
+            return 'none';
+        }
+    }
 
+    getCurrentUser() {
+        return firebase.auth().currentUser;
+    }
+
+    getCurrentUserUid() {
+        return this.getCurrentUser().uid;
+    }
+
+    getCurrentUserDisplayName() {
+        return this.getCurrentUser().displayName;
+    }
+
+    getCurrentUserEmail() {
+        return this.getCurrentUser().email;
+    }
+
+    getCurrentUserEmailLocalPart() {
+        const email = this.getCurrentUserEmail();
+        return email.substring(0, email.lastIndexOf('@'));
     }
 
 
