@@ -11,8 +11,8 @@
     <mat-nav-list (click)="drawer.toggle()">
       <a mat-list-item routerLink="/users" routerLinkActive="current" [queryParams]="{ page:1, order: 'newest' }">Users</a>
       <a mat-list-item routerLink="/posts" routerLinkActive="current">Posts</a>
-      <a mat-list-item routerLink="/signin" routerLinkActive="current">Sign In</a>
-      <a mat-list-item routerLink="/signup" routerLinkActive="current">Sign Up</a>
+      <!-- <a mat-list-item routerLink="/signin" routerLinkActive="current">Sign In</a> -->
+      <!-- <a mat-list-item routerLink="/signup" routerLinkActive="current">Sign Up</a> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -27,14 +27,18 @@
       </button>
       <span>angube</span>
       <span class="spacer"></span>
-      <a routerLink="" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
-      <span *ngIf="!(isHandset$ | async)">
-          <a routerLink="/signin" routerLinkActive="current">Sign In</a>
-          <a routerLink="/signup" routerLinkActive="current">Sign Up</a>
-      </span>
+      <span>{{ userName }}</span>
+      <app-menu-icons></app-menu-icons>
 
     </mat-toolbar>
+      <mat-toolbar color="accent" *ngIf="!(isHandset$ | async)">
+          <span class="spacer"></span>
+          <a routerLink="/signin" routerLinkActive="current">Sign In</a>
+          <a routerLink="/signup" routerLinkActive="current">Sign Up</a>
+      </mat-toolbar>
+
     <!-- Add Content Here -->
+
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
