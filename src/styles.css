@@ -23,6 +23,15 @@ body {
     justify-content: center;
 }
 
+@media (max-width: 350px) {
+    .container {
+        display: inline-block;
+        padding-top: 50px;
+        height: auto;
+
+    }
+}
+
 .card {
     margin: 10px;
     min-width: 150px;
