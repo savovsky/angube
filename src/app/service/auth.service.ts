@@ -69,6 +69,11 @@ export class AuthService {
         return this.token;
     }
 
+    getCurrentUserName() {
+        return !this.isAuthenticated() ? firebase.auth().currentUser.displayName : 'none';
+
+    }
+
 
     isAuthenticated() {
         // console.log('isAuthenticated', this.token !== null); // TODO Memory leak ?
