@@ -9,6 +9,7 @@ import { PostsComponent } from './posts/posts.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { QuestionComponent } from './question/question.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'question',
+    component: QuestionComponent
   },
   {
     path: 'account',

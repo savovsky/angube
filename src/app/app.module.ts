@@ -21,6 +21,7 @@ import { DataStorageService } from './service/data-storage.service';
 import { MatComponentsModule } from './mat-components.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
+import { QuestionComponent } from './question/question.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { AccountComponent } from './account/account.component';
     SigninComponent,
     SignupComponent,
     WelcomeComponent,
-    AccountComponent
+    AccountComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,

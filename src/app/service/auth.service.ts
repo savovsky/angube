@@ -16,7 +16,7 @@ export class AuthService {
         .then(
             (response) => {
                 console.log('signUpUser response', response);
-                this.router.navigate(['account']);
+                this.router.navigate(['question']);
                 firebase.auth().currentUser.getIdToken()
                         .then((token: string) => {
                             this.token = token;
