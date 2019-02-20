@@ -17,8 +17,12 @@ export class SignupComponent {
     ]),
     passwordFormControl: new FormControl('', [
       Validators.required,
-      Validators.minLength(5),
+      Validators.minLength(6),
       PasswordValidators.cannotContainSpace
+    ]),
+    confirmPasswordFormControl: new FormControl('', [
+      Validators.required,
+      PasswordValidators.mustBeEqualToPassword('passwordFormControl')
     ])
   });
 
@@ -34,11 +38,25 @@ export class SignupComponent {
     return this.signUpForm.get('passwordFormControl');
   }
 
+  passwordConfirm = this.signUpForm.get('confirmPasswordFormControl');
+
+  isPasswordConfirmEmpty() {
+    return this.passwordConfirm.hasError('required');
+  }
+
+  isPasswordConfirmMatch() {
+    return this.passwordConfirm.hasError('mustBeEqualToPassword');
+  }
+
   onSignUp() {
     const email: string = this.signUpForm.value.emailFormControl;
     const password: string = this.signUpForm.value.passwordFormControl;
 
-    this.authService.signUpUser(email, password);
+    if (
+      !this.isPasswordConfirmMatch() &&
+      !this.isPasswordConfirmEmpty()
+    ) {
+      this.authService.signUpUser(email, password);
+    }
   }
-
 }

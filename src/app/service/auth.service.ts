@@ -26,7 +26,7 @@ export class AuthService {
                 }
             )
             .catch(
-                (err) => console.log(err)
+                (err) => console.log('signUpUser error', err)
             );
     }
 

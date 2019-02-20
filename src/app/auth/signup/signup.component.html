@@ -41,7 +41,7 @@
             Password is <strong>required</strong>
           </mat-error>
           <mat-error *ngIf="password.hasError('minlength')">
-            Password should be minimum <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
+              Password should be at least <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
           </mat-error>
           <mat-error *ngIf="password.hasError('cannotContainSpace')">
             Password cannot contain <strong>space</strong>.
@@ -56,11 +56,14 @@
             matInput
             [type]="hide ? 'password' : 'text'"
             placeholder="Confirm Password"
-            formControlName="passwordFormControl"
+            formControlName="confirmPasswordFormControl"
           >
-          <!-- <mat-error *ngIf="password.hasError('required')">
-            Password is <strong>required</strong>
-          </mat-error> -->
+          <mat-error *ngIf="isPasswordConfirmEmpty()">
+            Password confirmation is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="isPasswordConfirmMatch()">
+            Password <strong>does not match</strong>
+          </mat-error>
         </mat-form-field>
 
         <button
