@@ -75,7 +75,11 @@
         </button>
         <!-- [disabled]="!signUpForm.valid && !signUpForm.touched" -->
 
-          <mat-error>{{ error }}</mat-error>
+        <div class="progress-err-container">
+          <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
+          <div class="err-msg">{{ error }}</div>
+        </div>
+
 
 
     </form>

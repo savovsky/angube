@@ -1,11 +1,9 @@
-// import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 // @Injectable({
-//   providedIn: 'root'
+//   providedIn: 'root' // TODO What is this?
 // })
 export class HttpResponseService {
-    httpResponse = new Subject();
-
-    constructor() { }
+    // signUpUserSuccess = new Subject();
+    signUpUserError = new Subject();  // TODO Is there a better way?
 }

@@ -30,6 +30,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   passwordConfirm = this.signUpForm.get('confirmPasswordFormControl');
   error: any;
+  isFetching = false;
 
   constructor(
     private authService: AuthService,
@@ -37,10 +38,14 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.httpResponseService.httpResponse.subscribe((err: {code: string, message: string}) => {
-      console.log('eroooooor = ', err);
-      this.error = err.message;
-    });
+    this.httpResponseService.signUpUserError
+      .subscribe((err: {code: string, message: string}) => {
+        this.error = err.message;
+        this.isFetching = false;
+      });
+
+    // this.httpResponseService.signUpUserSuccess
+    //   .subscribe(() => this.isFetching = false);
   }
 
   get email() {
@@ -63,12 +68,12 @@ export class SignupComponent implements OnInit {
     const email: string = this.signUpForm.value.emailFormControl;
     const password: string = this.signUpForm.value.passwordFormControl;
 
-    console.log('ehooo = ', this.error);
-
     if (
       !this.isPasswordConfirmMatch() &&
       !this.isPasswordConfirmEmpty()
     ) {
+      this.isFetching = true;
+      this.error = null;
       this.authService.signUpUser(email, password);
     }
   }
