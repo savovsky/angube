@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { HttpResponseService } from './http-response.service';
 
 @Injectable()
 export class AuthService {
+
     token: string;
     uid: string;
 
-
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private httpResponseService: HttpResponseService
+    ) { }
 
     signUpUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -26,7 +30,10 @@ export class AuthService {
                 }
             )
             .catch(
-                (err) => console.log('signUpUser error', err)
+                (err) => {
+                    console.log('signUpUser error', err);
+                    this.httpResponseService.httpResponse.next(err);
+                }
             );
     }
 
