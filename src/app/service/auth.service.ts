@@ -20,6 +20,7 @@ export class AuthService {
             .then(
                 (response) => {
                     console.log('signUpUser response', response);
+                    // this.httpResponseService.signUpUserSuccess.next(); // TODO Remove if you do not need it!
                     this.router.navigate(['question']);
                     this.getCurrentUser().getIdToken()
                             .then((token: string) => {
@@ -32,7 +33,7 @@ export class AuthService {
             .catch(
                 (err) => {
                     console.log('signUpUser error', err);
-                    this.httpResponseService.httpResponse.next(err);
+                    this.httpResponseService.signUpUserError.next(err);
                 }
             );
     }

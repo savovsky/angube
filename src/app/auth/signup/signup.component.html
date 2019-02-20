@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-    <div class="right">Sign Up</div>
+    <div class="right primary">Sign Up</div>
     <form
       class="example-form"
       [formGroup]="signUpForm"
@@ -75,18 +75,24 @@
         </button>
         <!-- [disabled]="!signUpForm.valid && !signUpForm.touched" -->
 
-          <mat-error>{{ error }}</mat-error>
+        <div class="progress-err-container">
+          <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
+          <div class="err-msg">{{ error }}</div>
+        </div>
+
 
 
     </form>
-    <div class="bottom-note">Already have an account?</div>
-    <button
-      mat-stroked-button
-      color="primary"
-      type="button"
-      routerLink="/signin"
-    >Sign In
+    <div class="top-5">
+      <span class="right-10">Already have an account?</span>
+      <button
+        mat-stroked-button
+        type="button"
+        routerLink="/signin"
+      >Sign In
     </button>
+    </div>
+
   </div>
 </div>
 
