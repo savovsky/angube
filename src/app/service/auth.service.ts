@@ -51,7 +51,12 @@ export class AuthService {
                         });
                 }
             )
-            .catch((err) => console.log('signInUser error', err));
+            .catch(
+                (err) => {
+                    console.log('signInUser error', err);
+                    this.httpResponseService.signInUserError.next(err);
+                }
+            );
     }
 
     logOutUser() {

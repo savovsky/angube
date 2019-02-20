@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-      <div class="right">Sign In</div>
+      <div class="right primary">Sign In</div>
     <form
       class="example-form"
       [formGroup]="signInForm" 
@@ -39,12 +39,9 @@
           <mat-error *ngIf="password.hasError('required')">
             Password is <strong>required</strong>
           </mat-error>
-          <mat-error *ngIf="password.hasError('minlength')">
-            Password should be minimum <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
-          </mat-error>
-          <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
+          <!-- <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
             Please enter a password
-          </mat-error>
+          </mat-error> -->
         </mat-form-field>
   
         <button
@@ -55,16 +52,22 @@
         >LOGIN
         </button>
         <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
+
+        <div class="progress-err-container">
+            <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
+            <div class="err-msg">{{ error }}</div>
+          </div>
   
     </form>
-    <div class="top-5">Not registered yet?</div>
-    <button
-      mat-stroked-button
-      color="primary"
-      type="button"
-      routerLink="/signup"
-    >Sign Up
-    </button>
+    <div class="top-5">
+        <span class="right-10">Not registered yet?</span>
+        <button
+          mat-stroked-button
+          type="button"
+          routerLink="/signup"
+        >Sign Up
+        </button>
+      </div>
   </div>
 </div>
 
