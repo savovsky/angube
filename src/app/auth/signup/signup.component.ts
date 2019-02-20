@@ -69,8 +69,9 @@ export class SignupComponent implements OnInit {
     const password: string = this.signUpForm.value.passwordFormControl;
 
     if (
-      !this.isPasswordConfirmMatch() &&
-      !this.isPasswordConfirmEmpty()
+      !this.signUpForm.get('emailFormControl').invalid &&
+      !this.signUpForm.get('passwordFormControl').invalid &&
+      !this.signUpForm.get('confirmPasswordFormControl').invalid
     ) {
       this.isFetching = true;
       this.error = null;

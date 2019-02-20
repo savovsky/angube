@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
+import { HttpResponseService } from 'src/app/service/http-response.service';
 
 @Component({
   selector: 'app-signin',
@@ -14,12 +15,13 @@ export class SigninComponent implements OnInit {
       Validators.email
     ]),
     passwordFormControl: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
+      Validators.required
     ]),
   });
 
   hide = true;
+  error: any;
+  isFetching = false;
 
   get email() {
     return this.signInForm.get('emailFormControl');
@@ -29,17 +31,31 @@ export class SigninComponent implements OnInit {
     return this.signInForm.get('passwordFormControl');
   }
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private httpResponseService: HttpResponseService
+  ) { }
 
   ngOnInit() {
+    this.httpResponseService.signInUserError
+    .subscribe((err: {code: string, message: string}) => {
+      this.error = err.message;
+      this.isFetching = false;
+    });
   }
 
+
   onSignIn() {
-    // console.log(this.signInForm);
     const email: string = this.signInForm.value.emailFormControl;
     const password: string = this.signInForm.value.passwordFormControl;
-    // console.log('email = ', email);
-    // console.log('password = ', password);
+
+    if (
+      !this.signInForm.get('emailFormControl').invalid &&
+      !this.signInForm.get('passwordFormControl').invalid
+    ) {
+    this.isFetching = true;
+    this.error = null;
     this.authService.signInUser(email, password);
+    }
   }
 }
