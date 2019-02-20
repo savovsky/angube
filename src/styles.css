@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-    height: auto;
+    height: 100%;
     padding: 0;
     margin: 0;
     min-width: 330px;
@@ -60,6 +60,11 @@ body {
     justify-content: flex-end;
 }
 
+.right.primary {
+    color: #673ab7;
+    font-weight: bold
+}
+
 .space-between {
     display: flex;
     justify-content: space-between;
@@ -89,9 +94,12 @@ body {
     text-align: center;
 }
 
-.bottom-note {
-    display: inline-block;
-    padding: 20px 10px 0 0;
+.top-5 {
+    margin-top: 5px;
+}
+
+.right-10 {
+    margin-right: 10px;
 }
 
 .padd-5 {

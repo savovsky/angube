@@ -20,7 +20,7 @@ export class AuthService {
             .then(
                 (response) => {
                     console.log('signUpUser response', response);
-                    // this.httpResponseService.signUpUserSuccess.next();
+                    // this.httpResponseService.signUpUserSuccess.next(); // TODO Remove if you do not need it!
                     this.router.navigate(['question']);
                     this.getCurrentUser().getIdToken()
                             .then((token: string) => {

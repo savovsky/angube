@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
         this.isFetching = false;
       });
 
-    // this.httpResponseService.signUpUserSuccess
+    // this.httpResponseService.signUpUserSuccess // TODO Remove if you do not need it!
     //   .subscribe(() => this.isFetching = false);
   }
 
