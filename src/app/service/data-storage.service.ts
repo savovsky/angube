@@ -11,7 +11,7 @@ export class DataStorageService {
     constructor(
         private http: HttpClient,
         private authService: AuthService
-    ) {}
+    ) { }
 
     storeItems() {
         const token = this.authService.getToken();

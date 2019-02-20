@@ -23,6 +23,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
 import { QuestionComponent } from './question/question.component';
 import { MenuIconsComponent } from './menu-icons/menu-icons.component';
+import { HttpResponseService } from './service/http-response.service';
 
 
 @NgModule({
@@ -51,7 +52,11 @@ import { MenuIconsComponent } from './menu-icons/menu-icons.component';
     MatComponentsModule,
     LayoutModule
   ],
-  providers: [AuthService, DataStorageService],
+  providers: [
+    AuthService,
+    DataStorageService,
+    HttpResponseService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
