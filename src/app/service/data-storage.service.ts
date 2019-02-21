@@ -39,26 +39,26 @@ export class DataStorageService {
         return this.http.get(this.url + uid + '.json?auth=' + token);
     }
 
-    addNewUser(user: { uid: string, userName: string, firstName: string, lastName: string }) {
+    updateUserAccount(user: { uid: string, userName: string, firstName: string, lastName: string }, isNewUser: boolean) {
         const token = this.authService.getToken();
         const uid = this.authService.uid;
 
         this.http.put(this.url + uid + '.json?auth=' + token, user)
             .subscribe(
-                (response: {userName: string}) => {
-                console.log('addNewUser response: ', response);
-                if (response.userName) {
+                (res: {userName: string}) => {
+                console.log('updateUserAccount response: ', res);
+                if (res.userName) {
                     firebase.auth().currentUser.updateProfile({
                     displayName: user.userName,
                     photoURL: null
                     })
                     .then(() => {
                         console.log('updateProfile->currentUser.displayName: ', firebase.auth().currentUser.displayName);
-                        this.router.navigate(['home']);
+                        isNewUser ? this.router.navigate(['question']) : this.router.navigate(['home']);
                     })
                     .catch(
                         (err) => {
-                            console.log('addNewUser error: ', err);
+                            console.log('updateUserAccount error: ', err);
                         }
                     );
                 }

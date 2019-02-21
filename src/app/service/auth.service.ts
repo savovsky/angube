@@ -20,7 +20,6 @@ export class AuthService {
             .then(
                 (res) => {
                     console.log('signUpUser Response: ', res);
-                    this.router.navigate(['question']);
                     this.uid = this.getCurrentUserUid();
                     this.getCurrentUser().getIdToken()
                             .then(

@@ -122,7 +122,7 @@ export class AccountComponent implements OnInit {
 
       this.error = null;
       this.isRequesting = true;
-      this.dataStorageService.addNewUser(userAccount);
+      this.dataStorageService.updateUserAccount(userAccount, false);
     }
   }
 }
