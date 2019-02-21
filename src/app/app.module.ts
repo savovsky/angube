@@ -24,6 +24,7 @@ import { AccountComponent } from './account/account.component';
 import { QuestionComponent } from './question/question.component';
 import { MenuIconsComponent } from './menu-icons/menu-icons.component';
 import { HttpResponseService } from './service/http-response.service';
+import { CardComponent } from './card/card.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { HttpResponseService } from './service/http-response.service';
     WelcomeComponent,
     AccountComponent,
     QuestionComponent,
-    MenuIconsComponent
+    MenuIconsComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
