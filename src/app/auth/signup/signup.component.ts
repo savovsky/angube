@@ -3,6 +3,8 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { PasswordValidators } from 'src/app/common/validators/password.validators';
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpResponseService } from 'src/app/service/http-response.service';
+import { DataStorageService } from 'src/app/service/data-storage.service';
+import { Account } from 'src/app/account/account.model';
 
 
 @Component({
@@ -34,18 +36,26 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private httpResponseService: HttpResponseService
+    private httpResponseService: HttpResponseService,
+    private dataStorageService: DataStorageService
   ) { }
 
   ngOnInit() {
     this.httpResponseService.signUpUserError
       .subscribe((err: {code: string, message: string}) => {
-        this.error = err.message;
         this.isFetching = false;
+        this.error = err.message;
       });
 
-    // this.httpResponseService.signUpUserSuccess // TODO Remove if you do not need it!
-    //   .subscribe(() => this.isFetching = false);
+    this.httpResponseService.signUpUserSuccess
+      .subscribe(() => {
+        // this.isFetching = false;
+        const uid = this.authService.getCurrentUserUid();
+        const userName = this.authService.getCurrentUserName();
+        const userAccount = new Account(uid, userName, '', '');
+
+        this.dataStorageService.updateUserAccount(userAccount, true);
+      });
   }
 
   get email() {
@@ -73,8 +83,8 @@ export class SignupComponent implements OnInit {
       !this.signUpForm.get('passwordFormControl').invalid &&
       !this.signUpForm.get('confirmPasswordFormControl').invalid
     ) {
-      this.isFetching = true;
       this.error = null;
+      this.isFetching = true;
       this.authService.signUpUser(email, password);
     }
   }
