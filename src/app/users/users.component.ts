@@ -48,21 +48,22 @@ export class UsersComponent implements OnInit {
     // console.log(this.page);
 
     this.dataStorageService.getItems()
-    .subscribe(
-      (response) => {
-        console.log('getItems', response);
-        this.items = response;
-      }
-    );
-  }
-
-  onSaveData() {
-    this.dataStorageService.storeItems()
       .subscribe(
         (response) => {
-          console.log('storeItems ', response);
+          console.log('getItems', response);
+          this.items = Object.values(response);
+          console.log('this.items = ', this.items);
         }
       );
   }
+
+  // onSaveData() {
+  //   this.dataStorageService.storeItems()
+  //     .subscribe(
+  //       (response) => {
+  //         console.log('storeItems ', response);
+  //       }
+  //     );
+  // }
 
 }

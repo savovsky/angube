@@ -34,18 +34,34 @@ export class AccountComponent implements OnInit {
   firstNameFormControl = this.accountForm.get('firstNameFormControl');
   lastNameFormControl = this.accountForm.get('lastNameFormControl');
   error: any;
+  user: any;
   isRequesting = false;
 
   constructor(
     private authService: AuthService,
-    private dataStorageService: DataStorageService,
+    private dataStorageService: DataStorageService
   ) { }
 
   ngOnInit() {
-    const userName = this.authService.getCurrentUserName();
-    this.userNameFormControl.reset(userName);
-    this.firstNameFormControl.reset(userName);
-    this.lastNameFormControl.reset(userName);
+    this.dataStorageService.getCurrentUser()
+      .subscribe( // TODO when first time user (Sign Up) there is noe need to request database!
+        (res: { userName: string, firstName: string, lastName: string }) => {
+          console.log('getCurrentUser: ', res);
+          if (res) {
+            this.userNameFormControl.reset(res.userName);
+            this.firstNameFormControl.reset(res.firstName);
+            this.lastNameFormControl.reset(res.lastName);
+            this.user = res;
+          } else {
+            const userName = this.authService.getCurrentUserName();
+            this.userNameFormControl.reset(userName);
+          }
+        }
+      );
+  }
+
+  userUid() {
+    return this.authService.getCurrentUserUid();
   }
 
   userName() {
@@ -98,6 +114,7 @@ export class AccountComponent implements OnInit {
       this.isLastNameValid()
     ) {
       const userAccount = new Account(
+        this.userUid(),
         this.userName(),
         this.firstName(),
         this.lastName()
