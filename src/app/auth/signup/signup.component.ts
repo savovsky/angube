@@ -73,8 +73,8 @@ export class SignupComponent implements OnInit {
       !this.signUpForm.get('passwordFormControl').invalid &&
       !this.signUpForm.get('confirmPasswordFormControl').invalid
     ) {
-      this.isFetching = true;
       this.error = null;
+      this.isFetching = true;
       this.authService.signUpUser(email, password);
     }
   }

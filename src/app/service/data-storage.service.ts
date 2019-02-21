@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -10,7 +13,8 @@ export class DataStorageService {
 
     constructor(
         private http: HttpClient,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) { }
 
     storeItems() {
@@ -33,5 +37,32 @@ export class DataStorageService {
         const uid = this.authService.uid;
 
         return this.http.put(this.url + uid + '.json?auth=' + token, user);
+    }
+
+    addNewUser(user: { userName: string, firstName: string, lastName: string }) {
+        const token = this.authService.getToken();
+        const uid = this.authService.uid;
+
+        this.http.put(this.url + uid + '.json?auth=' + token, user)
+            .subscribe(
+                (response: {userName: string}) => {
+                console.log('addNewUser response: ', response);
+                if (response.userName) {
+                    firebase.auth().currentUser.updateProfile({
+                    displayName: user.userName,
+                    photoURL: null
+                    })
+                    .then(() => {
+                        console.log('updateProfile->currentUser.displayName: ', firebase.auth().currentUser.displayName);
+                        this.router.navigate(['home']);
+                    })
+                    .catch(
+                        (err) => {
+                            console.log('addNewUser error: ', err);
+                        }
+                    );
+                }
+                }
+            );
     }
 }

@@ -19,20 +19,21 @@ export class AuthService {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(
                 (response) => {
-                    console.log('signUpUser response', response);
+                    console.log('signUpUser response: ', response);
                     // this.httpResponseService.signUpUserSuccess.next(); // TODO Remove if you do not need it!
                     this.router.navigate(['question']);
                     this.getCurrentUser().getIdToken()
                             .then((token: string) => {
                                 this.token = token;
-                                console.log('signUpUser, getIdToken', this.token);
+                                console.log('signUpUser, getIdToken');
+                                // console.log('signUpUser, getIdToken', this.token);
                             });
                     this.uid = this.getCurrentUserUid();
                 }
             )
             .catch(
                 (err) => {
-                    console.log('signUpUser error', err);
+                    console.log('signUpUser error: ', err);
                     this.httpResponseService.signUpUserError.next(err);
                 }
             );
@@ -47,7 +48,8 @@ export class AuthService {
                     this.getCurrentUser().getIdToken()
                         .then((token: string) => {
                             this.token = token;
-                            console.log('signInUser, getIdToken', this.token);
+                            console.log('signInUser, getIdToken');
+                            // console.log('signInUser, getIdToken', this.token);
                         });
                 }
             )
@@ -75,7 +77,8 @@ export class AuthService {
         this.getCurrentUser().getIdToken()
             .then((token: string) => {
                 this.token = token;
-                console.log('getToken', this.token);
+                console.log('getToken');
+                // console.log('getToken', this.token);
             });
         return this.token;
     }

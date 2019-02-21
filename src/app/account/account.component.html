@@ -1,12 +1,11 @@
 <div class="container">
   <div class="card">
-    <div class="right">My Account</div>
+    <div class="right primary">My Account</div>
     <form
       class="example-form"
-      [formGroup]="signUpForm"
+      [formGroup]="accountForm"
       (ngSubmit)="onAccountSave()"
     >
-
         <!-- User Name -->
         <mat-form-field class="example-full-width">
           <input
@@ -14,25 +13,28 @@
             placeholder="User Name *"
             formControlName="userNameFormControl"
           >
-          <mat-error *ngIf="userName.pending">
-            Checking...
-          </mat-error>
-          <mat-error *ngIf="userName.hasError('required')">
+          <mat-error *ngIf="isUserNameEmpty()">
             User Name is <strong>required</strong>
           </mat-error>
-          <mat-error *ngIf="userName.hasError('minlength')">
-            Name should be minimum <strong>{{userName.errors.minlength.requiredLength}}</strong> characters.
-          </mat-error>
-          <mat-error *ngIf="userName.hasError('shouldBeUnique')">
-            User name is already taken.
-          </mat-error>
-          <mat-error *ngIf="userName.hasError('cannotContainSpace')">
+          <mat-error *ngIf="isUserNameContainSpace()">
             Name cannot contain <strong>space</strong>.
           </mat-error>
-          <mat-error
+
+          <!-- TODO Remove if you do not need them. -->
+          <!-- They are not Wired Up !!!! -->
+          <!-- <mat-error *ngIf="userName.hasError('minlength')">
+            Name should be minimum <strong>{{userName.errors.minlength.requiredLength}}</strong> characters.
+          </mat-error> -->
+          <!-- <mat-error *ngIf="userName.pending">
+            Checking...
+          </mat-error> -->
+          <!-- <mat-error *ngIf="userName.hasError('shouldBeUnique')">
+            User name is already taken.
+          </mat-error> -->
+          <!-- <mat-error
             *ngIf="userName.touched && !userName.hasError('required') && !userName.hasError('minlength') && !userName.hasError('cannotContainSpace') && !userName.hasError('shouldBeUnique')"
             >Please enter a user name
-          </mat-error>
+          </mat-error> -->
         </mat-form-field>
 
         <!-- First Name -->
@@ -42,10 +44,19 @@
             placeholder="First Name"
             formControlName="firstNameFormControl"
           >
-          <mat-error *ngIf="firstName.hasError('minlength')">
-            Name should be minimum <strong>{{firstName.errors.minlength.requiredLength}}</strong> characters.
+          <mat-error *ngIf="isFirstNameContainSpace()">
+            Name cannot contain <strong>space</strong>.
           </mat-error>
-          <mat-error *ngIf="firstName.hasError('cannotContainSpace')">
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="lastNameFormControl"
+          >
+          <mat-error *ngIf="isLastNameContainSpace()">
             Name cannot contain <strong>space</strong>.
           </mat-error>
         </mat-form-field>
