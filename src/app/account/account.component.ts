@@ -36,6 +36,18 @@ export class AccountComponent implements OnInit {
   error: any;
   isRequesting = false;
 
+  constructor(
+    private authService: AuthService,
+    private dataStorageService: DataStorageService,
+  ) { }
+
+  ngOnInit() {
+    const userName = this.authService.getCurrentUserName();
+    this.userNameFormControl.reset(userName);
+    this.firstNameFormControl.reset(userName);
+    this.lastNameFormControl.reset(userName);
+  }
+
   userName() {
     return this.userNameFormControl.value;
   }
@@ -77,17 +89,6 @@ export class AccountComponent implements OnInit {
 
   isLastNameContainSpace() {
     return this.lastNameFormControl.hasError('cannotContainSpace') ? true : false;
-  }
-
-
-  constructor(
-    private authService: AuthService,
-    private dataStorageService: DataStorageService,
-  ) { }
-
-  ngOnInit() {
-    const name = this.authService.getCurrentUserName();
-    this.accountForm.get('userNameFormControl').reset(name);
   }
 
   onAccountSave() {

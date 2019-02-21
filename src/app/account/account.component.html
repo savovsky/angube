@@ -61,8 +61,15 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- TODO put the Loader and Err Msg in reusable component -->
+        <div class="progress-err-container">
+          <mat-progress-bar mode="indeterminate" *ngIf="isRequesting"></mat-progress-bar>
+          <div class="err-msg">{{ error }}</div>
+        </div>
+        <!--  -->
+
         <div class="space-between">
-          <!-- Save btn -->
+          <!-- Save Btn -->
           <button
             mat-raised-button
             class="wide-45"
@@ -70,7 +77,8 @@
             type="submit"
           >Save
           </button>
-          <!-- Cancel btn -->
+
+          <!-- Cancel Btn -->
           <button
             mat-raised-button
             class="wide-45"

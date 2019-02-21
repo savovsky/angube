@@ -53,10 +53,12 @@
         </button>
         <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
 
+        <!-- TODO put the Loader and Err Msg in reusable component -->
         <div class="progress-err-container">
-            <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
-            <div class="err-msg">{{ error }}</div>
-          </div>
+          <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
+          <div class="err-msg">{{ error }}</div>
+        </div>
+        <!--  -->
   
     </form>
     <div class="top-5">
