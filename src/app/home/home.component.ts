@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataStorageService } from '../service/data-storage.service';
+import { UsersAccountService } from '../service/users-account.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  users: {}[];
+
+  constructor(
+    private dataStorageService: DataStorageService,
+    private usersAccountService: UsersAccountService
+    ) { }
 
   ngOnInit() {
+    this.dataStorageService.getItems()
+    .subscribe(
+      (res) => {
+        this.users = res;
+        this.usersAccountService.storeUsers(res);
+        console.log('this.items = ', this.users);
+      },
+      (err) => console.log('getItems Error: ', err),
+      () => console.log('getItems completed: ')
+    );
   }
 
 }

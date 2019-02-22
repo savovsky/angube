@@ -1,2 +1,27 @@
-<p>profile works! User id is {{userId}}</p>
-<button (click)="onSubmit()">Submit</button>
+<p>profile works!</p>
+<p>User id is <strong>{{ userId }}</strong></p>
+<p>User name is <strong>{{ user.userName }}</strong></p>
+<!-- <button (click)="onSubmit()">Submit</button> -->
+<div class="container">
+    <div class="card">
+        <mat-list role="list">
+            <h3 mat-subheader>eho</h3>
+            <mat-list-item role="listitem">
+                <h4 mat-line>user ID:</h4>
+                <p mat-line> {{user.uid}} </p>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <span>User Name:</span>
+                <span>{{ user.userName }}</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <span>First Name:</span>
+                <span>{{ user.firstName }}</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <span>last Name:</span>
+                <span>{{ user.lastName }}</span>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

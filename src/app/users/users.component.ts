@@ -47,14 +47,14 @@ export class UsersComponent implements OnInit {
     // this.page = this.route.snapshot.queryParamMap.get('page');
     // console.log(this.page);
 
-    this.dataStorageService.getItems()
-      .subscribe(
-        (response) => {
-          console.log('getItems', response);
-          this.items = Object.values(response);
-          console.log('this.items = ', this.items);
-        }
-      );
+    // this.dataStorageService.getItems()
+    //   .subscribe(
+    //     (response) => {
+    //       console.log('getItems', response);
+    //       this.items = Object.values(response);
+    //       console.log('this.items = ', this.items);
+    //     }
+    //   );
   }
 
   // onSaveData() {

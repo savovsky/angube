@@ -1,0 +1,8 @@
+
+.home-container {
+    display: flex;
+    margin: 0;
+    padding: 20px;
+    justify-content: center;
+    flex-flow: row wrap;
+}
