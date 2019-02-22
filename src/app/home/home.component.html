@@ -1,8 +1,9 @@
 
 <app-navbar>
     <div class="home-container">
-        <div *ngFor="let user of users">
-            <app-card></app-card>
-        </div>
+        <app-card
+            *ngFor="let userEl of users"
+            [user]="userEl"
+        ></app-card>
     </div>
 </app-navbar>

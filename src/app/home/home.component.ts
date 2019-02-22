@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataStorageService } from '../service/data-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  users = [ {}, {}, {}, {} ];
+  users: {}[];
 
-  constructor() { }
+  constructor( private dataStorageService: DataStorageService ) { }
 
   ngOnInit() {
+    this.dataStorageService.getItems()
+    .subscribe(
+      (res) => {
+        this.users = Object.values(res);
+        console.log('getItems: ', res);
+        console.log('this.items = ', this.users);
+      }
+    );
   }
 
 }
