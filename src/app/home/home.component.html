@@ -1,2 +1,8 @@
 
-<app-navbar></app-navbar>
+<app-navbar>
+    <div class="home-container">
+        <div *ngFor="let user of users">
+            <app-card></app-card>
+        </div>
+    </div>
+</app-navbar>
