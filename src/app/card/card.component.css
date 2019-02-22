@@ -7,6 +7,10 @@
   background-size: cover;
 }
 
+.mat-card-header {
+  cursor: pointer;
+}
+
 @media (max-width: 550px) {
   .card {
     max-width: 300px;

@@ -1,5 +1,8 @@
 <mat-card class="card">
-  <mat-card-header>
+  <mat-card-header
+    [routerLink]="['/users', user.userName]"
+    [queryParams]="{ id: user.uid }"
+    >
     <div mat-card-avatar class="card-header-image"></div>
     <mat-card-title>{{ user.userName }}</mat-card-title>
     <mat-card-subtitle>Subtitle ...</mat-card-subtitle>

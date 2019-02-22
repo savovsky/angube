@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +12,12 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    // private router: Router
     ) { }
 
   ngOnInit() {
-    this.userId = this.route.snapshot.paramMap.get('id');
+    // this.userId = this.route.snapshot.paramMap.get('id');
+    this.userId = this.route.snapshot.queryParamMap.get('id');
 
     // Another way for cases when component will not be destroyed.
     // (ex. Prev-Next btns inside the component)
@@ -27,10 +28,10 @@ export class ProfileComponent implements OnInit {
     // });
   }
 
-  onSubmit() {
-    this.router.navigate(['/users'], {
-      queryParams: { page: 1, order: 'newest' }
-    });
-  }
+  // onSubmit() {
+  //   this.router.navigate(['/users'], {
+  //     queryParams: { page: 1, order: 'newest' }
+  //   });
+  // }
 
 }
