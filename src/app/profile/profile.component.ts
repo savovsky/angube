@@ -12,7 +12,7 @@ import { Account } from '../account/account.model';
 export class ProfileComponent implements OnInit {
 
   userId: string;
-  user: {};
+  user: any = { uid: null, userName: null, firstName: null, lastName: null };
 
   constructor(
     private route: ActivatedRoute,
