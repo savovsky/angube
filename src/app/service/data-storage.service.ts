@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -29,7 +30,13 @@ export class DataStorageService {
 
     getItems() {
         const token = this.authService.getToken();
-        return this.http.get(this.url + '.json?auth=' + token);
+        return this.http.get(this.url + '.json?auth=' + token)
+        .pipe(
+            map((data: []) => {
+                return Object.values(data);
+                }
+            )
+        );
     }
 
     getCurrentUser() {

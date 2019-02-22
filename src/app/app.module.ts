@@ -25,6 +25,7 @@ import { QuestionComponent } from './question/question.component';
 import { MenuIconsComponent } from './menu-icons/menu-icons.component';
 import { HttpResponseService } from './service/http-response.service';
 import { CardComponent } from './card/card.component';
+import { UsersAccountService } from './service/users-account.service';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { CardComponent } from './card/card.component';
   providers: [
     AuthService,
     DataStorageService,
-    HttpResponseService
+    HttpResponseService,
+    UsersAccountService
   ],
   bootstrap: [AppComponent]
 })
