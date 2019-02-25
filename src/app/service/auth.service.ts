@@ -9,6 +9,7 @@ export class AuthService {
 
     token: string;
     uid: string;
+    currentUser: any;
 
     constructor(
         private router: Router,
@@ -46,33 +47,47 @@ export class AuthService {
     }
 
     signInUser(email: string, password: string) {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(
-                (res) => {
-                    console.log('signInUser response', res);
-                    this.router.navigate(['home']);
-                    this.uid = this.getCurrentUserUid();
-                    this.getCurrentUser().getIdToken()
-                        .then(
-                            (token: string) => {
-                                this.token = token;
-                                console.log('signInUser, getIdToken');
-                                // console.log('signInUser, getIdToken', this.token);
-                            }
-                        )
-                        .catch(
-                            (err) => {
-                                console.log('signInUser, getIdToken Error: ', err);
-                            }
-                        );
-                }
-            )
-            .catch(
-                (err) => {
-                    console.log('signInUser Error', err);
-                    this.httpResponseService.signInUserError.next(err);
-                }
-            );
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+            .then(() => {
+                // Existing and future Auth states are now persisted in the current
+                // session only. Closing the window would clear any existing state even
+                // if a user forgets to sign out.
+                // ...
+                // New sign-in will be persisted with session persistence.
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(
+                    (res) => {
+                        console.log('signInUser response', res);
+                        this.router.navigate(['home']);
+                        this.uid = this.getCurrentUserUid();
+                        this.getCurrentUser().getIdToken()
+                            .then(
+                                (token: string) => {
+                                    this.token = token;
+                                    console.log('signInUser, getIdToken');
+                                    // console.log('signInUser, getIdToken', this.token);
+                                }
+                            )
+                            .catch(
+                                (err) => {
+                                    console.log('signInUser, getIdToken Error: ', err);
+                                }
+                            );
+                    }
+                )
+                .catch(
+                    (err) => {
+                        console.log('signInUser Error', err);
+                        this.httpResponseService.signInUserError.next(err);
+                    }
+                );
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                // var errorCode = error.code;
+                // var errorMessage = error.message;
+            });
+
     }
 
     logOutUser() {
@@ -88,13 +103,20 @@ export class AuthService {
     }
 
     getToken() {
-        this.getCurrentUser().getIdToken()
+        if (this.getCurrentUser()) {
+            this.getCurrentUser().getIdToken()
             .then((token: string) => {
                 this.token = token;
-                console.log('getToken');
-                // console.log('getToken', this.token);
+                sessionStorage.setItem('angube_token', token);
+                console.log('getToken', this.token);
             });
+
         return this.token;
+        } else {
+            const token = this.currentUser.ra;
+            return token;
+        }
+
     }
 
     getCurrentUserName() {
@@ -106,9 +128,14 @@ export class AuthService {
         }
     }
 
+    getSignedInUser(user: any) {
+        this.currentUser = user;
+    }
+
     getCurrentUser() {
         return firebase.auth().currentUser;
     }
+
 
     getCurrentUserUid() {
         return this.getCurrentUser().uid;

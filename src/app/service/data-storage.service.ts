@@ -30,6 +30,7 @@ export class DataStorageService {
 
     getItems() {
         const token = this.authService.getToken();
+        console.log('getItems, token ', token);
         return this.http.get(this.url + '.json?auth=' + token)
         .pipe(
             map((data: []) => {
