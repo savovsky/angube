@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { HttpResponseService } from './http-response.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { HttpResponseService } from './http-response.service';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
 
-    token: string;
     uid: string;
+    email: string;
+    password: string;
+    token: string;
     currentUser: any;
 
     constructor(
@@ -18,89 +20,91 @@ export class AuthService {
     ) { }
 
     signUpUser(email: string, password: string) {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(
-                (res) => {
-                    console.log('signUpUser Response: ', res);
-                    this.uid = this.getCurrentUserUid();
-                    this.getCurrentUser().getIdToken()
-                            .then(
-                                (token: string) => {
-                                    // console.log('signUpUser, getIdToken', this.token);
-                                    console.log('signUpUser, getIdToken');
-                                    this.token = token;
-                                    this.httpResponseService.signUpUserSuccess.next();
-                                }
-                            )
-                            .catch(
-                                (err) => {
-                                    console.log('signUpUser, getIdToken Error: ', err);
-                                }
-                            );
-                }
-            )
-            .catch(
-                (err) => {
-                    console.log('signUpUser Error: ', err);
-                    this.httpResponseService.signUpUserError.next(err);
-                }
-            );
+        this.email = email;
+        this.password = password;
+        this.signUpFirebaseUser()
+          .then(
+            (response) => {
+                console.log('signUpUser-signUpFirebaseUser Response: ', response);
+                this.uid = this.getCurrentUserUid();
+                return this.getCurrentUserToken();
+            }
+          )
+          .then(
+            (token: string) => {
+                console.log('signUpUser-getIdToken: Seccess');
+                this.token = token;
+                this.httpResponseService.signUpUserSuccess.next();
+                return this.firebaseSetPersistence();
+            }
+          )
+          .catch(
+            (error) => {
+                console.log('signUpUser Error: ', error);
+                this.httpResponseService.signUpUserError.next(error);
+            }
+          );
     }
 
     signInUser(email: string, password: string) {
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-            .then(() => {
-                // Existing and future Auth states are now persisted in the current
-                // session only. Closing the window would clear any existing state even
-                // if a user forgets to sign out.
-                // ...
-                // New sign-in will be persisted with session persistence.
-                firebase.auth().signInWithEmailAndPassword(email, password)
-                .then(
-                    (res) => {
-                        console.log('signInUser response', res);
-                        this.router.navigate(['home']);
-                        this.uid = this.getCurrentUserUid();
-                        this.getCurrentUser().getIdToken()
-                            .then(
-                                (token: string) => {
-                                    this.token = token;
-                                    console.log('signInUser, getIdToken');
-                                    // console.log('signInUser, getIdToken', this.token);
-                                }
-                            )
-                            .catch(
-                                (err) => {
-                                    console.log('signInUser, getIdToken Error: ', err);
-                                }
-                            );
-                    }
-                )
-                .catch(
-                    (err) => {
-                        console.log('signInUser Error', err);
-                        this.httpResponseService.signInUserError.next(err);
-                    }
-                );
-            })
-            .catch((error) => {
-                // Handle Errors here.
-                // var errorCode = error.code;
-                // var errorMessage = error.message;
-            });
-
+        this.email = email;
+        this.password = password;
+        this.signInFirebaseUser()
+          .then(
+            (response) => {
+                console.log('signInUser-signInFirebaseUser Response: ', response);
+                this.uid = this.getCurrentUserUid();
+                return this.getCurrentUserToken();
+            }
+          )
+          .then(
+            (token: string) => {
+                console.log('signInUser-getIdToken: Seccess');
+                this.token = token;
+                this.router.navigate(['home']);
+                return this.firebaseSetPersistence();
+            }
+          )
+          .catch(
+            (error) => {
+                console.log('signInUser Error: ', error);
+                this.httpResponseService.signInUserError.next(error);
+            }
+          );
     }
+
+    /**
+     * https://firebase.google.com/docs/auth/web/auth-state-persistence
+     */
+    firebaseSetPersistence() {
+       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    }
+
+    /**
+     * https://firebase.google.com/docs/auth/web/password-auth
+     */
+    signUpFirebaseUser() {
+        return firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
+    }
+
+    /**
+     * https://firebase.google.com/docs/auth/web/password-auth
+     */
+    signInFirebaseUser() {
+        return firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+    }
+
 
     logOutUser() {
         firebase.auth().signOut()
-        .then(
-            (response) => {
-                console.log('logOutUser Response', response);
-                this.token = null;
-                this.uid = null;
-            }
-        )
-        .catch((err) => console.log('logOutUser Error', err));
+            .then(
+                (response) => {
+                    console.log('logOutUser Response', response);
+                    this.token = null;
+                    this.uid = null;
+                }
+            )
+            .catch((err) => console.log('logOutUser Error', err));
     }
 
     getToken() {
@@ -117,7 +121,7 @@ export class AuthService {
             const token = this.currentUser.ra;
             return token;
         }
-        return; 
+        return;
 
     }
 
@@ -179,6 +183,9 @@ export class AuthService {
         return firebase.auth().currentUser;
     }
 
+    getCurrentUserToken() {
+        return this.getCurrentUser().getIdToken();
+    }
 
     getCurrentUserUid() {
         return this.getCurrentUser().uid;
@@ -197,10 +204,22 @@ export class AuthService {
         return email.substring(0, email.lastIndexOf('@'));
     }
 
-
     isAuthenticated() {
         // console.log('isAuthenticated', this.token !== null); // TODO Memory leak ?
         return this.token !== null;
+    }
+
+    /**
+     * https://firebase.google.com/docs/auth/web/manage-users
+     */
+    userAuthState() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log(`%cuser ${user.displayName} is Signed In.`, 'color: blue');
+            } else {
+                console.log(`%cNo user is Signed In.`, 'color: blue');
+            }
+          });
     }
 
 }

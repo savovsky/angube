@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as firebase from 'firebase/app';
-import { credentials } from '../../credentialsFirebase';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './service/auth.service';
+import { credentials } from '../../credentialsFirebase';
+import * as firebase from 'firebase/app';
 
 
 
@@ -10,7 +10,7 @@ import { AuthService } from './service/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService
@@ -18,29 +18,16 @@ export class AppComponent implements OnInit, OnDestroy {
 ) { }
 
   ngOnInit() {
-    console.log('initializeApp');
     firebase.initializeApp(credentials);
-    this.authService.eho()
-    .subscribe(
-      (res) => {
-        console.log('eho res = ', res);
-      },
-      (err) => console.log('eho err = ', err),
-      () => console.log('eho completed ')
-    );
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //       console.log('user is ON', user);
-    //       this.authService.getSignedInUser(user);
-    //   } else {
-    //     console.log('user is OFF');
-    //   }
-    // });
+    this.authService.userAuthState();
+    // this.authService.eho()
+    // .subscribe(
+    //   (res) => {
+    //     console.log('eho res = ', res);
+    //   },
+    //   (err) => console.log('eho err = ', err),
+    //   () => console.log('eho completed ')
+    // );
   }
 
-  ngOnDestroy() {
-    alert('OnDestroy');
-    firebase.auth().signOut();
-    console.log('OnDestroy');
-  }
 }
