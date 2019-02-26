@@ -20,14 +20,22 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('initializeApp');
     firebase.initializeApp(credentials);
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-          console.log('user is ON', user);
-          this.authService.getSignedInUser(user);
-      } else {
-        console.log('user is OFF');
-      }
-    });
+    this.authService.eho()
+    .subscribe(
+      (res) => {
+        console.log('eho res = ', res);
+      },
+      (err) => console.log('eho err = ', err),
+      () => console.log('eho completed ')
+    );
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //       console.log('user is ON', user);
+    //       this.authService.getSignedInUser(user);
+    //   } else {
+    //     console.log('user is OFF');
+    //   }
+    // });
   }
 
   ngOnDestroy() {

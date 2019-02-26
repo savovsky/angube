@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { HttpResponseService } from './http-response.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -107,15 +108,16 @@ export class AuthService {
             this.getCurrentUser().getIdToken()
             .then((token: string) => {
                 this.token = token;
-                sessionStorage.setItem('angube_token', token);
+                // sessionStorage.setItem('angube_token', token);
                 console.log('getToken', this.token);
             });
 
         return this.token;
-        } else {
+        } else if (this.currentUser) {
             const token = this.currentUser.ra;
             return token;
         }
+        return; 
 
     }
 
@@ -128,8 +130,49 @@ export class AuthService {
         }
     }
 
-    getSignedInUser(user: any) {
-        this.currentUser = user;
+    // getSignedInUser(user: any) {
+    //     this.currentUser = user;
+    // }
+
+    eho() {
+        // return firebase.auth().onAuthStateChanged((user) => {
+        //       if (user) {
+        //           console.log('user is ON', user);
+        //         //   this.getSignedInUser(user);
+        //         return user;
+        //       } else {
+        //         console.log('user is OFF');
+        //       }
+        //     });
+        console.log('eho');
+        const qq = Observable.create(obs => {
+            firebase.auth().onAuthStateChanged(
+              (user) => {
+                  console.log('next');
+                  obs.next(user);
+                },
+              (err) => {
+                  console.log('error');
+                  obs.error(err);
+                },
+              () => {
+                  console.log('complete');
+                  obs.complete();
+                }
+              );
+          });
+          console.log(qq);
+          qq
+          .subscribe(
+            (res) => {
+              console.log('eho res = ', res);
+              this.currentUser = res;
+              this.getToken();
+            },
+            (err) => console.log('eho err = ', err),
+            () => console.log('eho completed ')
+          );
+          return qq;
     }
 
     getCurrentUser() {
