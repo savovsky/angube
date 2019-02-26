@@ -24,61 +24,61 @@ export class AuthService {
         this.email = email;
         this.password = password;
         this.signUpFirebaseUser()
-          .then(
-            (response) => {
-                Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
-                this.uid = this.getCurrentUserUid();
-                return this.getCurrentUserToken();
-            }
-          )
-          .then(
-            (token: string) => {
-                Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
-                this.token = token;
-                this.httpResponseService.signUpUserSuccess.next();
-                return this.firebaseSetPersistence();
-            }
-          )
-          .catch(
-            (error) => {
-                Utils.consoleLog(`signUpUser Error: `, 'red', error);
-                this.httpResponseService.signUpUserError.next(error);
-            }
-          );
+            .then(
+                (response) => {
+                    Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
+                    this.uid = this.getCurrentUserUid();
+                    return this.getCurrentUserToken();
+                }
+            )
+            .then(
+                (token: string) => {
+                    Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
+                    this.token = token;
+                    this.httpResponseService.signUpUserSuccess.next();
+                    return this.firebaseSetPersistence();
+                }
+            )
+            .catch(
+                (error) => {
+                    Utils.consoleLog(`signUpUser Error: `, 'red', error);
+                    this.httpResponseService.signUpUserError.next(error);
+                }
+            );
     }
 
     signInUser(email: string, password: string) {
         this.email = email;
         this.password = password;
         this.signInFirebaseUser()
-          .then(
-            (response) => {
-                Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
-                this.uid = this.getCurrentUserUid();
-                return this.getCurrentUserToken();
-            }
-          )
-          .then(
-            (token: string) => {
-                Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'limegreen');
-                this.token = token;
-                this.router.navigate(['home']);
-                return this.firebaseSetPersistence();
-            }
-          )
-          .catch(
-            (error) => {
-                Utils.consoleLog(`signInUser Error: `, 'red', error);
-                this.httpResponseService.signInUserError.next(error);
-            }
-          );
+            .then(
+                (response) => {
+                    Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
+                    this.uid = this.getCurrentUserUid();
+                    return this.getCurrentUserToken();
+                }
+            )
+            .then(
+                (token: string) => {
+                    Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'limegreen');
+                    this.token = token;
+                    this.router.navigate(['home']);
+                    return this.firebaseSetPersistence();
+                }
+            )
+            .catch(
+                (error) => {
+                    Utils.consoleLog(`signInUser Error: `, 'red', error);
+                    this.httpResponseService.signInUserError.next(error);
+                }
+            );
     }
 
     /**
      * https://firebase.google.com/docs/auth/web/auth-state-persistence
      */
     firebaseSetPersistence() {
-       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     }
 
     /**
@@ -111,20 +111,7 @@ export class AuthService {
     }
 
     getToken() {
-        if (this.getCurrentUser()) {
-            this.getCurrentUser().getIdToken()
-            .then((token: string) => {
-                this.token = token;
-                console.log('getToken', this.token);
-            });
-
         return this.token;
-        } else if (this.currentUser) {
-            const token = this.currentUser.ra;
-            return token;
-        }
-        return;
-
     }
 
     getCurrentUserName() {
@@ -153,32 +140,32 @@ export class AuthService {
         console.log('eho');
         const qq = Observable.create(obs => {
             firebase.auth().onAuthStateChanged(
-              (user) => {
-                  console.log('next');
-                  obs.next(user);
+                (user) => {
+                    console.log('next');
+                    obs.next(user);
                 },
-              (err) => {
-                  console.log('error');
-                  obs.error(err);
+                (err) => {
+                    console.log('error');
+                    obs.error(err);
                 },
-              () => {
-                  console.log('complete');
-                  obs.complete();
+                () => {
+                    console.log('complete');
+                    obs.complete();
                 }
-              );
-          });
-          console.log(qq);
-          qq
-          .subscribe(
-            (res) => {
-              console.log('eho res = ', res);
-              this.currentUser = res;
-              this.getToken();
-            },
-            (err) => console.log('eho err = ', err),
-            () => console.log('eho completed ')
-          );
-          return qq;
+            );
+        });
+        console.log(qq);
+        qq
+            .subscribe(
+                (res) => {
+                    console.log('eho res = ', res);
+                    this.currentUser = res;
+                    this.getToken();
+                },
+                (err) => console.log('eho err = ', err),
+                () => console.log('eho completed ')
+            );
+        return qq;
     }
 
     getCurrentUser() {
@@ -214,14 +201,20 @@ export class AuthService {
     /**
      * https://firebase.google.com/docs/auth/web/manage-users
      */
-    userAuthState() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-            } else {
-                Utils.consoleLog(`No user is Signed In.`, 'blue');
+    userAuthState(callback) {
+        firebase.auth().onAuthStateChanged(
+            (user) => {
+                this.token = user.ra;
+                callback(user);
             }
-          });
+            // (user) => {
+            // if (user) {
+            //     Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+            // } else {
+            //     Utils.consoleLog(`No user is Signed In.`, 'blue');
+            // }
+            //   }
+        );
     }
 
 }

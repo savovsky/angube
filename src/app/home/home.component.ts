@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../service/data-storage.service';
 import { UsersAccountService } from '../service/users-account.service';
-
+import * as Utils from '../common/utils';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.dataStorageService.someRandomMethod(this.usercahnged.bind(this));
+  }
+
+  usercahnged(user) {
+    if (user) {
     this.dataStorageService.getItems()
     .subscribe(
       (res) => {
@@ -27,6 +32,9 @@ export class HomeComponent implements OnInit {
       (err) => console.log('getItems Error: ', err),
       () => console.log('getItems completed: ')
     );
+    } else {
+      Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+    }
   }
 
 }
