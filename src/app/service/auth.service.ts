@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpResponseService } from './http-response.service';
+import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -25,14 +26,14 @@ export class AuthService {
         this.signUpFirebaseUser()
           .then(
             (response) => {
-                console.log('signUpUser-signUpFirebaseUser Response: ', response);
+                Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
                 this.uid = this.getCurrentUserUid();
                 return this.getCurrentUserToken();
             }
           )
           .then(
             (token: string) => {
-                console.log('signUpUser-getIdToken: Seccess');
+                Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
                 this.token = token;
                 this.httpResponseService.signUpUserSuccess.next();
                 return this.firebaseSetPersistence();
@@ -40,7 +41,7 @@ export class AuthService {
           )
           .catch(
             (error) => {
-                console.log('signUpUser Error: ', error);
+                Utils.consoleLog(`signUpUser Error: `, 'red', error);
                 this.httpResponseService.signUpUserError.next(error);
             }
           );
@@ -52,14 +53,14 @@ export class AuthService {
         this.signInFirebaseUser()
           .then(
             (response) => {
-                console.log('signInUser-signInFirebaseUser Response: ', response);
+                Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
                 this.uid = this.getCurrentUserUid();
                 return this.getCurrentUserToken();
             }
           )
           .then(
             (token: string) => {
-                console.log('signInUser-getIdToken: Seccess');
+                Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'limegreen');
                 this.token = token;
                 this.router.navigate(['home']);
                 return this.firebaseSetPersistence();
@@ -67,7 +68,7 @@ export class AuthService {
           )
           .catch(
             (error) => {
-                console.log('signInUser Error: ', error);
+                Utils.consoleLog(`signInUser Error: `, 'red', error);
                 this.httpResponseService.signInUserError.next(error);
             }
           );
@@ -98,13 +99,15 @@ export class AuthService {
     logOutUser() {
         firebase.auth().signOut()
             .then(
-                (response) => {
-                    console.log('logOutUser Response', response);
+                () => {
+                    Utils.consoleLog(`logOutUser: Seccess`, 'purple');
                     this.token = null;
                     this.uid = null;
                 }
             )
-            .catch((err) => console.log('logOutUser Error', err));
+            .catch(
+                (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
+            );
     }
 
     getToken() {
@@ -112,7 +115,6 @@ export class AuthService {
             this.getCurrentUser().getIdToken()
             .then((token: string) => {
                 this.token = token;
-                // sessionStorage.setItem('angube_token', token);
                 console.log('getToken', this.token);
             });
 
@@ -215,9 +217,9 @@ export class AuthService {
     userAuthState() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log(`%cuser ${user.displayName} is Signed In.`, 'color: blue');
+                Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
             } else {
-                console.log(`%cNo user is Signed In.`, 'color: blue');
+                Utils.consoleLog(`No user is Signed In.`, 'blue');
             }
           });
     }
