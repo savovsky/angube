@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Utils.consoleLog(`1.`, 'orange');
     firebase.initializeApp(credentials);
-    this.authService.userAuthState();
+    // this.authService.userAuthState();
     // this.authService.eho()
     // .subscribe(
     //   (res) => {

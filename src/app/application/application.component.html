@@ -1,3 +1,4 @@
-<app-navbar>
+<app-navbar *ngIf="isUserAuthorized">
     <router-outlet></router-outlet>
 </app-navbar>
+<mat-progress-bar mode="indeterminate" *ngIf="!isUserAuthorized"></mat-progress-bar>

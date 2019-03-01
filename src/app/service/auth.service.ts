@@ -14,6 +14,7 @@ export class AuthService {
     password: string;
     token: string;
     currentUser: any;
+    isUserAuthorized = false;
 
     constructor(
         private router: Router,
@@ -202,19 +203,30 @@ export class AuthService {
      * https://firebase.google.com/docs/auth/web/manage-users
      */
     userAuthState() {
-        firebase.auth().onAuthStateChanged(
+        // firebase.auth().onAuthStateChanged(
         //     (user) => {
-        //         this.token = user.ra;
-        //         callback(user);
+        //     if (user) {
+        //         Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+        //     } else {
+        //         Utils.consoleLog(`No user is Signed In.`, 'blue');
         //     }
-            (user) => {
-            if (user) {
-                Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-            } else {
-                Utils.consoleLog(`No user is Signed In.`, 'blue');
-            }
-              }
-        );
+        //       }
+        // );
+        const qq = Observable.create(obs => {
+            firebase.auth().onAuthStateChanged(
+                (user) => obs.next(user),
+                (err) => obs.error(err),
+                () => obs.complete()
+            );
+        });
+        return qq;
+            // .subscribe(
+            //     (res) => {
+            //         this.isUserAuthorized = true;
+            //     },
+            //     (err) => console.log('eho err = ', err),
+            //     () => console.log('eho completed ')
+            // );
     }
 
 }

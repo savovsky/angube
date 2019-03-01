@@ -74,7 +74,4 @@ export class DataStorageService {
             );
     }
 
-    // someRandomMethod(callback) {
-    //     this.authService.userAuthState(callback);
-    // }
 }
