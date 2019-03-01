@@ -201,19 +201,19 @@ export class AuthService {
     /**
      * https://firebase.google.com/docs/auth/web/manage-users
      */
-    userAuthState(callback) {
+    userAuthState() {
         firebase.auth().onAuthStateChanged(
+        //     (user) => {
+        //         this.token = user.ra;
+        //         callback(user);
+        //     }
             (user) => {
-                this.token = user.ra;
-                callback(user);
+            if (user) {
+                Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+            } else {
+                Utils.consoleLog(`No user is Signed In.`, 'blue');
             }
-            // (user) => {
-            // if (user) {
-            //     Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-            // } else {
-            //     Utils.consoleLog(`No user is Signed In.`, 'blue');
-            // }
-            //   }
+              }
         );
     }
 

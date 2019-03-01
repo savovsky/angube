@@ -17,11 +17,6 @@ export class HomeComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.dataStorageService.someRandomMethod(this.usercahnged.bind(this));
-  }
-
-  usercahnged(user) {
-    if (user) {
     this.dataStorageService.getItems()
     .subscribe(
       (res) => {
@@ -32,9 +27,15 @@ export class HomeComponent implements OnInit {
       (err) => console.log('getItems Error: ', err),
       () => console.log('getItems completed: ')
     );
-    } else {
-      Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-    }
+    // this.dataStorageService.someRandomMethod(this.usercahnged.bind(this));
   }
+
+  // usercahnged(user) {
+  //   if (user) {
+
+    // } else {
+    //   Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+    // }
+  // }
 
 }

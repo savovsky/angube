@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './service/auth.service';
 import { credentials } from '../../credentialsFirebase';
 import * as firebase from 'firebase/app';
-import { basename } from 'path';
+import * as Utils from './common/utils';
 
 
 
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 ) { }
 
   ngOnInit() {
+    // Utils.consoleLog(`1.`, 'orange');
     firebase.initializeApp(credentials);
     this.authService.userAuthState();
     // this.authService.eho()
