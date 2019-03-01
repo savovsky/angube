@@ -30,6 +30,7 @@ export class DataStorageService {
 
     getItems() {
         const token = this.authService.getToken();
+        console.log('getItems, token ', token);
         return this.http.get(this.url + '.json?auth=' + token)
         .pipe(
             map((data: []) => {
@@ -61,7 +62,7 @@ export class DataStorageService {
                     })
                     .then(() => {
                         console.log('updateProfile->currentUser.displayName: ', firebase.auth().currentUser.displayName);
-                        isNewUser ? this.router.navigate(['question']) : this.router.navigate(['home']);
+                        isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
                     })
                     .catch(
                         (err) => {
@@ -72,4 +73,5 @@ export class DataStorageService {
                 }
             );
     }
+
 }

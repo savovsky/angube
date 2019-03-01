@@ -10,7 +10,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
       <a mat-list-item routerLink="/users" routerLinkActive="current" [queryParams]="{ page:1, order: 'newest' }">Users</a>
-      <a mat-list-item routerLink="/posts" routerLinkActive="current">Posts</a>
+      <a mat-list-item routerLink="/app/posts" routerLinkActive="current">Posts</a>
       <!-- <a mat-list-item routerLink="/signin" routerLinkActive="current">Sign In</a> -->
       <!-- <a mat-list-item routerLink="/signup" routerLinkActive="current">Sign Up</a> -->
     </mat-nav-list>
@@ -42,3 +42,4 @@
     
   </mat-sidenav-content>
 </mat-sidenav-container>
+
