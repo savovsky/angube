@@ -62,7 +62,7 @@ export class DataStorageService {
                     })
                     .then(() => {
                         console.log('updateProfile->currentUser.displayName: ', firebase.auth().currentUser.displayName);
-                        isNewUser ? this.router.navigate(['question']) : this.router.navigate(['home']);
+                        isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
                     })
                     .catch(
                         (err) => {

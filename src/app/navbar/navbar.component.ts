@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit {
 
   userName: string;
 
+
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService

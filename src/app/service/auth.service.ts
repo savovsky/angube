@@ -62,7 +62,7 @@ export class AuthService {
                 (token: string) => {
                     Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'limegreen');
                     this.token = token;
-                    this.router.navigate(['home']);
+                    this.router.navigate(['app/home']);
                     return this.firebaseSetPersistence();
                 }
             )

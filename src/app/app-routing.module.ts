@@ -10,6 +10,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionComponent } from './question/question.component';
+import { ApplicationComponent } from './application/application.component';
 
 const routes: Routes = [
   {
@@ -17,16 +18,27 @@ const routes: Routes = [
     component: WelcomeComponent
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'app',
+    component: ApplicationComponent,
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
+      {
+        path: 'account',
+        component: AccountComponent
+      },
+      {
+        path: 'posts',
+        component: PostsComponent
+      }
+
+    ]
   },
   {
     path: 'question',
     component: QuestionComponent
-  },
-  {
-    path: 'account',
-    component: AccountComponent
   },
   {
     path: 'users/:id/:username',
@@ -39,10 +51,6 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent
-  },
-  {
-    path: 'posts',
-    component: PostsComponent
   },
   {
     path: 'signin',
