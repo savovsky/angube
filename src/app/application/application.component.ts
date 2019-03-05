@@ -33,15 +33,15 @@ export class ApplicationComponent implements OnInit {
           Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
 
           this.dataStorageService.getItems() // TODO Is this a Bad pattern?
-          .subscribe(
-            (res) => {
-              Utils.consoleLog(`getItems Seccess: `, 'purple', res);
-              this.isUsersFetched = true;
-              this.usersAccountService.storeUsers(res);
-            },
-            (error) => Utils.consoleLog(`getItems Error: `, 'red', error),
-            () => Utils.consoleLog(`getItems Completed`, 'purple')
-          );
+            .subscribe(
+              (res) => {
+                Utils.consoleLog(`getItems Seccess: `, 'purple', res);
+                this.isUsersFetched = true;
+                this.usersAccountService.storeUsers(res);
+              },
+              (error) => Utils.consoleLog(`getItems Error: `, 'red', error),
+              () => Utils.consoleLog(`getItems Completed`, 'purple')
+            );
         } else {
           this.router.navigate(['']);
         }
