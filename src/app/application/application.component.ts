@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import * as Utils from '../common/utils';
+import { DataStorageService } from '../service/data-storage.service';
+import { UsersAccountService } from '../service/users-account.service';
 
 
 @Component({
@@ -11,18 +13,37 @@ import * as Utils from '../common/utils';
 export class ApplicationComponent implements OnInit {
 
   isUserAuthorized = false;
+  isUsersFetched = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private dataStorageService: DataStorageService,
+    private usersAccountService: UsersAccountService
+    ) { }
 
   ngOnInit() {
     this.authService.userAuthState()
     .subscribe(
       (user) => {
-        Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'purple');
         this.isUserAuthorized = true;
+        this.authService.currentUserToken(user.ra);
+        Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+
+        this.dataStorageService.getItems() // TODO Is this a Bad pattern?
+        .subscribe(
+          (res) => {
+            Utils.consoleLog(`getItems Seccess: `, 'purple', res);
+            this.isUsersFetched = true;
+            this.usersAccountService.storeUsers(res);
+          },
+          (error) => Utils.consoleLog(`getItems Error: `, 'red', error),
+          () => Utils.consoleLog(`getItems Completed`, 'purple')
+
+        );
       },
       (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
-  );
+    );
+
   }
 
 }

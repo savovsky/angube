@@ -1,8 +1,8 @@
 
 <div class="home-container">
     <app-card
-        *ngFor="let userEl of users"
-        [user]="userEl"
+        *ngFor="let userObj of users"
+        [user]="userObj"
     ></app-card>
 </div>
 <router-outlet></router-outlet>

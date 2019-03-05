@@ -44,7 +44,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.dataStorageService.getCurrentUser()
-      .subscribe( // TODO when first time user (Sign Up) there is noe need to request database!
+      .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
         (res: { userName: string, firstName: string, lastName: string }) => {
           console.log('getCurrentUser: ', res);
           if (res) {
