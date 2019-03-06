@@ -3,7 +3,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
-import { DataStorageService } from '../service/data-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,24 +16,18 @@ export class NavbarComponent implements OnInit {
       map(result => result.matches)
     );
 
-  // userName: string;
+  userName: any;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService,
-    // private dataStorageService: DataStorageService
+    private authService: AuthService
   ) { }
 
-  userName: string = this.authService.getCurrentUserName();
-
   ngOnInit() {
-    // this.userName = this.authService.getCurrentUserName();
-    // this.dataStorageService.getCurrentUser()
-    //   .subscribe(
-    //     (res: { userName: string}) => {
-    //         this.userName = res.userName;
-    //     }
-    //   );
+    this.authService.name
+      .subscribe((name) => {
+        console.log('name', name);
+        this.userName = name;
+      });
   }
-
 }

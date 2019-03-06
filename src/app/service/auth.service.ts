@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject, ReplaySubject } from 'rxjs';
 import { HttpResponseService } from './http-response.service';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
@@ -13,8 +13,9 @@ export class AuthService {
     email: string;
     password: string;
     token: string;
-    currentUser: any;
+    userName: string;
     isUserAuthorized = false;
+    name = new ReplaySubject(1);
 
     constructor(
         private router: Router,
@@ -56,6 +57,7 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
                     this.uid = this.getCurrentUserUid();
+                    this.name.next(firebase.auth().currentUser.displayName);
                     return this.getSignedUserToken();
                 }
             )
@@ -121,6 +123,8 @@ export class AuthService {
     getCurrentUserName() {
         if (this.getCurrentUser()) {
             const currentUserName = this.getCurrentUserDisplayName();
+            // this.name.next(currentUserName ? currentUserName : this.getCurrentUserEmailLocalPart());
+            // this.name.next('ehoo');
             return currentUserName ? currentUserName : this.getCurrentUserEmailLocalPart();
         } else {
             return 'none';
@@ -143,12 +147,24 @@ export class AuthService {
     }
 
 
+    currentUserUid(uid: string) {
+        this.uid = uid;
+    }
+
+    currentUserDisplayName(displayName: string) {
+        this.userName = displayName;
+        // console.log('displayName', displayName);
+        // this.name.next(displayName);
+    }
+
+
     getCurrentUserUid() {
         return this.getCurrentUser().uid;
     }
 
 
     getCurrentUserDisplayName() {
+        this.userName = this.getCurrentUser().displayName;
         return this.getCurrentUser().displayName;
     }
 
@@ -172,6 +188,17 @@ export class AuthService {
 
     getToken() {
         return this.token;
+    }
+
+
+    getUserName() {
+        // const userName = Observable.create((observer: Observer<any>) => {
+        //       observer.next(this.userName);
+        //     //   observer.error(err);
+        //     //   observer.complete();
+        // });
+
+        return this.userName;
     }
 
 

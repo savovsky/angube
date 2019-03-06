@@ -6,18 +6,20 @@ import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { map } from 'rxjs/operators';
+// import { Subject } from 'rxjs';
 
 
 @Injectable()
 export class DataStorageService {
 
     private url = 'https://angube-92c87.firebaseio.com/users/';
-
     constructor(
         private http: HttpClient,
         private authService: AuthService,
         private router: Router
     ) { }
+
+    // name = new Subject();
 
 
     getItems() {
@@ -55,6 +57,8 @@ export class DataStorageService {
                     })
                     .then(() => {
                         Utils.consoleLog(`updateProfile->currentUser.displayName: `, 'purple', firebase.auth().currentUser.displayName);
+                        // this.authService.currentUserDisplayName(firebase.auth().currentUser.displayName);
+                        this.authService.name.next(firebase.auth().currentUser.displayName);
                         isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
                     })
                     .catch(
