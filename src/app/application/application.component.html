@@ -1,4 +1,5 @@
-<app-navbar *ngIf="isUserAuthorized">
+<app-navbar *ngIf="isUserAuthorized && isUsersFetched">
     <router-outlet></router-outlet>
 </app-navbar>
-<mat-progress-bar mode="indeterminate" *ngIf="!isUserAuthorized"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="!isUserAuthorized || !isUsersFetched"></mat-progress-bar>
+<!-- TODO use ngIf - else -->

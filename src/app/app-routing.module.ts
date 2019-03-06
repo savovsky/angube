@@ -32,25 +32,24 @@ const routes: Routes = [
       {
         path: 'posts',
         component: PostsComponent
+      },
+      {
+        path: 'users/:id/:username',
+        component: ProfileComponent
+      },
+      {
+        path: 'users/:username',
+        component: ProfileComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent
       }
-
     ]
   },
   {
     path: 'question',
     component: QuestionComponent
-  },
-  {
-    path: 'users/:id/:username',
-    component: ProfileComponent
-  },
-  {
-    path: 'users/:username',
-    component: ProfileComponent
-  },
-  {
-    path: 'users',
-    component: UsersComponent
   },
   {
     path: 'signin',

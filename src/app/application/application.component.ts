@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import * as Utils from '../common/utils';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,18 +12,30 @@ import * as Utils from '../common/utils';
 export class ApplicationComponent implements OnInit {
 
   isUserAuthorized = false;
+  isUsersFetched = true;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
     this.authService.userAuthState()
     .subscribe(
       (user) => {
-        Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'purple');
-        this.isUserAuthorized = true;
+        if (user) {
+          this.isUserAuthorized = true;
+          this.authService.currentUserToken(user.ra);
+          this.authService.currentUserUid(user.uid);
+          this.authService.currentUserDisplayName(user.displayName);
+          this.authService.name.next(user.displayName);
+          // Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+        } else {
+          this.router.navigate(['']);
+        }
       },
       (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
-  );
+    );
   }
 
 }

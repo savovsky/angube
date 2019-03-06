@@ -16,9 +16,7 @@ export class NavbarComponent implements OnInit {
       map(result => result.matches)
     );
 
-  userName: string;
-
-
+  userName: any;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -26,7 +24,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userName = this.authService.getCurrentUserName();
+    this.authService.name
+      .subscribe(name => this.userName = name);
   }
-
 }

@@ -35,7 +35,8 @@ export class AccountComponent implements OnInit {
   lastNameFormControl = this.accountForm.get('lastNameFormControl');
   error: any;
   user: any;
-  isRequesting = false;
+  isRequesting = true;
+
 
   constructor(
     private authService: AuthService,
@@ -44,9 +45,9 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.dataStorageService.getCurrentUser()
-      .subscribe( // TODO when first time user (Sign Up) there is noe need to request database!
+      .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
         (res: { userName: string, firstName: string, lastName: string }) => {
-          console.log('getCurrentUser: ', res);
+          this.isRequesting = false;
           if (res) {
             this.userNameFormControl.reset(res.userName);
             this.firstNameFormControl.reset(res.firstName);

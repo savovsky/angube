@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Observer, ReplaySubject } from 'rxjs';
 import { HttpResponseService } from './http-response.service';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
@@ -13,8 +13,9 @@ export class AuthService {
     email: string;
     password: string;
     token: string;
-    currentUser: any;
+    userName: string;
     isUserAuthorized = false;
+    name = new ReplaySubject(1);
 
     constructor(
         private router: Router,
@@ -29,7 +30,7 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
                     this.uid = this.getCurrentUserUid();
-                    return this.getCurrentUserToken();
+                    return this.getSignedUserToken();
                 }
             )
             .then(
@@ -56,7 +57,8 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
                     this.uid = this.getCurrentUserUid();
-                    return this.getCurrentUserToken();
+                    this.name.next(firebase.auth().currentUser.displayName);
+                    return this.getSignedUserToken();
                 }
             )
             .then(
@@ -75,6 +77,7 @@ export class AuthService {
             );
     }
 
+
     /**
      * https://firebase.google.com/docs/auth/web/auth-state-persistence
      */
@@ -82,12 +85,14 @@ export class AuthService {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     }
 
+
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
      */
     signUpFirebaseUser() {
         return firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
     }
+
 
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
@@ -97,6 +102,9 @@ export class AuthService {
     }
 
 
+    /**
+     * https://firebase.google.com/docs/auth/web/password-auth
+     */
     logOutUser() {
         firebase.auth().signOut()
             .then(
@@ -111,9 +119,6 @@ export class AuthService {
             );
     }
 
-    getToken() {
-        return this.token;
-    }
 
     getCurrentUserName() {
         if (this.getCurrentUser()) {
@@ -124,109 +129,80 @@ export class AuthService {
         }
     }
 
-    // getSignedInUser(user: any) {
-    //     this.currentUser = user;
-    // }
-
-    eho() {
-        // return firebase.auth().onAuthStateChanged((user) => {
-        //       if (user) {
-        //           console.log('user is ON', user);
-        //         //   this.getSignedInUser(user);
-        //         return user;
-        //       } else {
-        //         console.log('user is OFF');
-        //       }
-        //     });
-        console.log('eho');
-        const qq = Observable.create(obs => {
-            firebase.auth().onAuthStateChanged(
-                (user) => {
-                    console.log('next');
-                    obs.next(user);
-                },
-                (err) => {
-                    console.log('error');
-                    obs.error(err);
-                },
-                () => {
-                    console.log('complete');
-                    obs.complete();
-                }
-            );
-        });
-        console.log(qq);
-        qq
-            .subscribe(
-                (res) => {
-                    console.log('eho res = ', res);
-                    this.currentUser = res;
-                    this.getToken();
-                },
-                (err) => console.log('eho err = ', err),
-                () => console.log('eho completed ')
-            );
-        return qq;
-    }
 
     getCurrentUser() {
         return firebase.auth().currentUser;
     }
 
-    getCurrentUserToken() {
+
+    getSignedUserToken() {
         return this.getCurrentUser().getIdToken();
     }
+
+
+    currentUserToken(token: string) {
+        this.token = token;
+    }
+
+
+    currentUserUid(uid: string) {
+        this.uid = uid;
+    }
+
+    currentUserDisplayName(displayName: string) {
+        this.userName = displayName;
+    }
+
 
     getCurrentUserUid() {
         return this.getCurrentUser().uid;
     }
 
+
     getCurrentUserDisplayName() {
+        this.userName = this.getCurrentUser().displayName;
         return this.getCurrentUser().displayName;
     }
+
 
     getCurrentUserEmail() {
         return this.getCurrentUser().email;
     }
+
 
     getCurrentUserEmailLocalPart() {
         const email = this.getCurrentUserEmail();
         return email.substring(0, email.lastIndexOf('@'));
     }
 
-    isAuthenticated() {
-        // console.log('isAuthenticated', this.token !== null); // TODO Memory leak ?
+
+    isUserAuthenticated() {
+        // console.log('isUserAuthenticated', this.token !== null); // TODO Memory leak ?
         return this.token !== null;
     }
+
+
+    getToken() {
+        return this.token;
+    }
+
+
+    getUserName() {
+        return this.userName;
+    }
+
 
     /**
      * https://firebase.google.com/docs/auth/web/manage-users
      */
     userAuthState() {
-        // firebase.auth().onAuthStateChanged(
-        //     (user) => {
-        //     if (user) {
-        //         Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-        //     } else {
-        //         Utils.consoleLog(`No user is Signed In.`, 'blue');
-        //     }
-        //       }
-        // );
-        const qq = Observable.create(obs => {
+        const authState = Observable.create((observer: Observer<any>) => {
             firebase.auth().onAuthStateChanged(
-                (user) => obs.next(user),
-                (err) => obs.error(err),
-                () => obs.complete()
+                (user) => observer.next(user),
+                (err) => observer.error(err),
+                () => observer.complete()
             );
         });
-        return qq;
-            // .subscribe(
-            //     (res) => {
-            //         this.isUserAuthorized = true;
-            //     },
-            //     (err) => console.log('eho err = ', err),
-            //     () => console.log('eho completed ')
-            // );
+        return authState;
     }
-
 }
