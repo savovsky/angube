@@ -21,7 +21,7 @@ export class PostsComponent implements OnInit {
   ngOnInit() {
   }
 
-  // createPost(input: HTMLInputElement) {
+  createPost(input: HTMLInputElement) {
   //   let post: any = { title: input.value };
   //   input.value = '';
 
@@ -31,6 +31,6 @@ export class PostsComponent implements OnInit {
     //   this.posts.splice(0, 0 ,post);
     //   console.log(response);
     // })
-  // }
+  }
 
 }
