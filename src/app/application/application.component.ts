@@ -29,7 +29,7 @@ export class ApplicationComponent implements OnInit {
           this.authService.currentUserUid(user.uid);
           this.authService.currentUserDisplayName(user.displayName);
           this.authService.name.next(user.displayName);
-          Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+          // Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
         } else {
           this.router.navigate(['']);
         }

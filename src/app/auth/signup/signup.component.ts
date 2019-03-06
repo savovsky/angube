@@ -49,7 +49,6 @@ export class SignupComponent implements OnInit {
 
     this.httpResponseService.signUpUserSuccess
       .subscribe(() => {
-        // this.isFetching = false;
         const uid = this.authService.getCurrentUserUid();
         const userName = this.authService.getCurrentUserName();
         const userAccount = new Account(uid, userName, '', '');

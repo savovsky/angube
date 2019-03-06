@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer, Subject, ReplaySubject } from 'rxjs';
+import { Observable, Observer, ReplaySubject } from 'rxjs';
 import { HttpResponseService } from './http-response.service';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
@@ -123,8 +123,6 @@ export class AuthService {
     getCurrentUserName() {
         if (this.getCurrentUser()) {
             const currentUserName = this.getCurrentUserDisplayName();
-            // this.name.next(currentUserName ? currentUserName : this.getCurrentUserEmailLocalPart());
-            // this.name.next('ehoo');
             return currentUserName ? currentUserName : this.getCurrentUserEmailLocalPart();
         } else {
             return 'none';
@@ -153,8 +151,6 @@ export class AuthService {
 
     currentUserDisplayName(displayName: string) {
         this.userName = displayName;
-        // console.log('displayName', displayName);
-        // this.name.next(displayName);
     }
 
 
@@ -192,12 +188,6 @@ export class AuthService {
 
 
     getUserName() {
-        // const userName = Observable.create((observer: Observer<any>) => {
-        //       observer.next(this.userName);
-        //     //   observer.error(err);
-        //     //   observer.complete();
-        // });
-
         return this.userName;
     }
 

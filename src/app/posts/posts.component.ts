@@ -15,15 +15,15 @@ export class PostsComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
       this.posts = response;
-    })
+    });
   }
 
   ngOnInit() {
   }
 
-  createPost(input: HTMLInputElement) {
-    let post: any = { title: input.value };
-    input.value = '';
+  // createPost(input: HTMLInputElement) {
+  //   let post: any = { title: input.value };
+  //   input.value = '';
 
     // this.http.post(this.url, JSON.stringify(post))
     // .subscribe(response => {
@@ -31,6 +31,6 @@ export class PostsComponent implements OnInit {
     //   this.posts.splice(0, 0 ,post);
     //   console.log(response);
     // })
-  }
+  // }
 
 }
