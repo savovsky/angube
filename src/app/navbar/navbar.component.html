@@ -27,34 +27,11 @@
       <span>angube</span>
       <span class="spacer"></span>
       <span>{{ userName }}</span>
+      <span>{{ authService.age }}</span>
       <app-menu-icons></app-menu-icons>
+    </mat-toolbar>
+    <app-nav-tab *ngIf="!(isHandset$ | async)"></app-nav-tab>
 
-     </mat-toolbar>
-      <mat-toolbar *ngIf="!(isHandset$ | async)">
-          <!-- <span class="spacer"></span> -->
-          <button
-            mat-button
-            type="button"
-            routerLink="/app/home"
-            routerLinkActive="current"
-          >Home
-         </button>
-          <button
-            mat-button
-            type="button"
-            routerLink="/app/users"
-            routerLinkActive="current"
-          >Users
-         </button>
-          <button
-            mat-button
-            type="button"
-            routerLink="/app/posts"
-            routerLinkActive="current"
-          >Posts
-         </button>
-
-      </mat-toolbar>
 
     <!-- Add Content Here -->
     <ng-content></ng-content>

@@ -21,10 +21,14 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService
-  ) { }
+    ) {
+      this.authService.changeAge();
+     }
+
 
   ngOnInit() {
     this.authService.name
       .subscribe(name => this.userName = name);
   }
+
 }

@@ -16,11 +16,19 @@ export class AuthService {
     userName: string;
     isUserAuthorized = false;
     name = new ReplaySubject(1);
+    age = 5;
 
     constructor(
         private router: Router,
         private httpResponseService: HttpResponseService
     ) { }
+
+    changeAge() {
+        setTimeout(() => {
+            this.age = 10;
+            console.log('AuthService - age = ', this.age);
+        }, 2000);
+    }
 
     signUpUser(email: string, password: string) {
         this.email = email;
