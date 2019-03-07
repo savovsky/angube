@@ -27,6 +27,7 @@ import { HttpResponseService } from './service/http-response.service';
 import { CardComponent } from './card/card.component';
 import { UsersAccountService } from './service/users-account.service';
 import { ApplicationComponent } from './application/application.component';
+import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ApplicationComponent } from './application/application.component';
     QuestionComponent,
     MenuIconsComponent,
     CardComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    NavTabComponent
   ],
   imports: [
     BrowserModule,

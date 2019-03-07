@@ -10,7 +10,7 @@ import {
   MatMenuModule,
   MatInputModule,
   MatCardModule,
-  // MatTabsModule
+  MatTabsModule
 } from '@angular/material';
 
 
@@ -25,7 +25,7 @@ import {
     MatMenuModule,
     MatProgressBarModule,
     MatCardModule,
-    // MatTabsModule
+    MatTabsModule
   ]
 })
 export class MatComponentsModule { }
