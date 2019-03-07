@@ -9,3 +9,10 @@ export interface CurrentUser {
     email: string;
     // ra: string;
 }
+
+export interface User {
+    uid: string;
+    userName: string;
+    firstName: string;
+    lastName: string;
+}

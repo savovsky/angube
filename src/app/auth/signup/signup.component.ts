@@ -54,6 +54,8 @@ export class SignupComponent implements OnInit {
         const userName = this.authService.userName;
         const userAccount = new Account(uid, userName, '', '');
 
+        console.log('1 - ', this.authService.uid);
+
         this.dataStorageService.updateUserAccount(userAccount, true);
       });
   }

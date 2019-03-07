@@ -12,18 +12,17 @@ import { CurrentUser } from '../interfaces/interfaces';
 @Injectable()
 export class AuthService {
 
+    constructor(
+        private router: Router,
+        private httpResponseService: HttpResponseService
+    ) { }
+
     currentUser: CurrentUser;
     uid: string;
     email: string;
     password: string;
     token: string;
     userName: string;
-
-
-    constructor(
-        private router: Router,
-        private httpResponseService: HttpResponseService
-    ) { }
 
     signUpUser(email: string, password: string) {
         this.email = email;
@@ -153,7 +152,7 @@ export class AuthService {
      * Returns a JWT token used to identify the user to a Firebase service.
      */
     getSignedUserToken() {
-        return this.getCurrentUser().getIdToken();
+        return firebase.auth().currentUser.getIdToken();
     }
 
 
