@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpResponseService } from 'src/app/service/http-response.service';
+import { SignError } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-signin',
@@ -38,7 +39,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     this.httpResponseService.signInUserError
-    .subscribe((err: {code: string, message: string}) => {
+    .subscribe((err: SignError) => {
       this.error = err.message;
       this.isFetching = false;
     });

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { HttpResponseService } from 'src/app/service/http-response.service';
 import { DataStorageService } from 'src/app/service/data-storage.service';
 import { Account } from 'src/app/account/account.model';
+import { SignError } from 'src/app/interfaces/interfaces';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.httpResponseService.signUpUserError
-      .subscribe((err: {code: string, message: string}) => {
+      .subscribe((err: SignError) => {
         this.isFetching = false;
         this.error = err.message;
       });
