@@ -50,8 +50,8 @@ export class SignupComponent implements OnInit {
 
     this.httpResponseService.signUpUserSuccess
       .subscribe(() => {
-        const uid = this.authService.getCurrentUserUid();
-        const userName = this.authService.getCurrentUserName();
+        const uid = this.authService.uid;
+        const userName = this.authService.userName;
         const userAccount = new Account(uid, userName, '', '');
 
         this.dataStorageService.updateUserAccount(userAccount, true);

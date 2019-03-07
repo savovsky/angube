@@ -5,30 +5,25 @@ import { HttpResponseService } from './http-response.service';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { CurrentUser } from '../interfaces/interfaces';
+
+// https://firebase.google.com/docs/reference/js/firebase.User#providerId
 
 @Injectable()
 export class AuthService {
 
+    currentUser: CurrentUser;
     uid: string;
     email: string;
     password: string;
     token: string;
     userName: string;
-    isUserAuthorized = false;
-    name = new ReplaySubject(1);
-    age = 5;
+
 
     constructor(
         private router: Router,
         private httpResponseService: HttpResponseService
     ) { }
-
-    changeAge() {
-        setTimeout(() => {
-            this.age = 10;
-            console.log('AuthService - age = ', this.age);
-        }, 2000);
-    }
 
     signUpUser(email: string, password: string) {
         this.email = email;
@@ -37,7 +32,7 @@ export class AuthService {
             .then(
                 (response) => {
                     Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
-                    this.uid = this.getCurrentUserUid();
+                    this.getCurrentUser();
                     return this.getSignedUserToken();
                 }
             )
@@ -64,8 +59,7 @@ export class AuthService {
             .then(
                 (response) => {
                     Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
-                    this.uid = this.getCurrentUserUid();
-                    this.name.next(firebase.auth().currentUser.displayName);
+                    this.getCurrentUser();
                     return this.getSignedUserToken();
                 }
             )
@@ -118,8 +112,12 @@ export class AuthService {
             .then(
                 () => {
                     Utils.consoleLog(`logOutUser: Seccess`, 'purple');
-                    this.token = null;
+                    this.currentUser = null;
                     this.uid = null;
+                    this.email = null;
+                    this.password = null;
+                    this.token = null;
+                    this.userName = null;
                 }
             )
             .catch(
@@ -127,22 +125,33 @@ export class AuthService {
             );
     }
 
+    getCurrentUser() {
+        this.currentUser = firebase.auth().currentUser;
+        this.uid = this.currentUser.uid;
+        this.email = this.currentUser.email;
+        this.userName = this.getCurrentUserName();
+        return firebase.auth().currentUser;
+    }
+
 
     getCurrentUserName() {
-        if (this.getCurrentUser()) {
-            const currentUserName = this.getCurrentUserDisplayName();
-            return currentUserName ? currentUserName : this.getCurrentUserEmailLocalPart();
+        if (this.currentUser) {
+            return this.currentUser.displayName ?
+                this.currentUser.displayName : this.getCurrentUserEmailLocalPart();
         } else {
             return 'none';
         }
     }
 
 
-    getCurrentUser() {
-        return firebase.auth().currentUser;
+    getCurrentUserEmailLocalPart() {
+        return this.email.substring(0, this.email.lastIndexOf('@'));
     }
 
 
+    /**
+     * Returns a JWT token used to identify the user to a Firebase service.
+     */
     getSignedUserToken() {
         return this.getCurrentUser().getIdToken();
     }
@@ -161,43 +170,6 @@ export class AuthService {
         this.userName = displayName;
     }
 
-
-    getCurrentUserUid() {
-        return this.getCurrentUser().uid;
-    }
-
-
-    getCurrentUserDisplayName() {
-        this.userName = this.getCurrentUser().displayName;
-        return this.getCurrentUser().displayName;
-    }
-
-
-    getCurrentUserEmail() {
-        return this.getCurrentUser().email;
-    }
-
-
-    getCurrentUserEmailLocalPart() {
-        const email = this.getCurrentUserEmail();
-        return email.substring(0, email.lastIndexOf('@'));
-    }
-
-
-    isUserAuthenticated() {
-        // console.log('isUserAuthenticated', this.token !== null); // TODO Memory leak ?
-        return this.token !== null;
-    }
-
-
-    getToken() {
-        return this.token;
-    }
-
-
-    getUserName() {
-        return this.userName;
-    }
 
 
     /**

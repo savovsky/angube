@@ -62,7 +62,7 @@ export class AccountComponent implements OnInit {
   }
 
   userUid() {
-    return this.authService.getCurrentUserUid();
+    return this.authService.uid;
   }
 
   userName() {

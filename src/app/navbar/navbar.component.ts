@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,26 +9,16 @@ import { AuthService } from '../service/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
-  userName: any;
-
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
-    ) {
-      this.authService.changeAge();
-     }
-
-
-  ngOnInit() {
-    this.authService.name
-      .subscribe(name => this.userName = name);
-  }
+    public authService: AuthService
+    ) { }
 
 }

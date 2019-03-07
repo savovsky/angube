@@ -20,7 +20,7 @@ export class DataStorageService {
 
 
     getItems() {
-        const token = this.authService.getToken();
+        const token = this.authService.token;
         return this.http.get(this.url + '.json?auth=' + token)
         .pipe(
             map((data: []) => {
@@ -32,7 +32,7 @@ export class DataStorageService {
 
 
     getCurrentUser() {
-        const token = this.authService.getToken();
+        const token = this.authService.token;
         const uid = this.authService.uid;
 
         return this.http.get(this.url + uid + '.json?auth=' + token);
@@ -40,7 +40,7 @@ export class DataStorageService {
 
 
     updateUserAccount(user: { uid: string, userName: string, firstName: string, lastName: string }, isNewUser: boolean) {
-        const token = this.authService.getToken();
+        const token = this.authService.token;
         const uid = this.authService.uid;
 
         this.http.put(this.url + uid + '.json?auth=' + token, user)
@@ -54,7 +54,7 @@ export class DataStorageService {
                     })
                     .then(() => {
                         Utils.consoleLog(`updateProfile->currentUser.displayName: `, 'purple', firebase.auth().currentUser.displayName);
-                        this.authService.name.next(firebase.auth().currentUser.displayName);
+                        this.authService.currentUserDisplayName(firebase.auth().currentUser.displayName);
                         isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
                     })
                     .catch(
