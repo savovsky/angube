@@ -15,11 +15,7 @@ export class AuthService {
     currentUser: CurrentUser;
     uid: string;
     userName: string;
-    firstName = 'unknown';
-    lastName = 'unknown';
     email: string;
-    birthdate = '2000-01-01';
-    isAdmin = false;
     password: string;
     token: string;
 
@@ -171,6 +167,10 @@ export class AuthService {
 
     currentUserDisplayName(displayName: string) {
         this.userName = displayName;
+    }
+
+    currentUserEmail(email: string) {
+        this.email = email;
     }
 
 

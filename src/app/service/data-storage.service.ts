@@ -29,9 +29,10 @@ export class DataStorageService {
                 map((data: []) => {
                     // creating an array from response object values
                     const usersArr = Object.values(data);
+                    console.log('usersArr', usersArr);
                     // reordering the array - current user as first item
                     const currentUserIndex = usersArr.findIndex((user: User) => user.uid === uid);
-                    usersArr.splice(0, 1, usersArr.splice(currentUserIndex, 1)[0]);
+                    usersArr.splice(0, 0, usersArr.splice(currentUserIndex, 1)[0]);
                     return usersArr;
                     }
                 )

@@ -70,7 +70,7 @@ export class AccountComponent implements OnInit {
   }
 
   userBirthdate() {
-    return this.authService.birthdate;
+    return '';
   }
 
   userName() {
