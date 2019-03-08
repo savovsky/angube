@@ -16,4 +16,5 @@ export interface User {
     lastName: string;
     email: string;
     birthdate: string;
+    isAdmin: boolean;
 }

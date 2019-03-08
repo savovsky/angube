@@ -1,31 +1,47 @@
 
 <div class="container">
     <div class="card">
-        <div class="right primary">User Details</div>
-        <mat-list role="list">
-            <!-- <h3 mat-subheader>User Details</h3> -->
+        <div class="space-between">
+            <mat-icon
+                style="cursor: pointer; color: #673ab7"
+                (click)="onBack()"
+                >arrow_back
+            </mat-icon>
+            <div class="right primary">User Details</div>
+        </div>
+        <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
+        <div style="height: 4px;" *ngIf="!isFetching"></div>
 
-            <mat-list-item role="listitem">
-                <h4 mat-line class="primary">User ID:</h4>
-                <p mat-line>{{user.uid}}</p>
-            </mat-list-item>
-
-            <mat-list-item role="listitem">
-                <h4 mat-line>User Name:</h4>
-                <p mat-line>{{user.userName}}</p>
-            </mat-list-item>
-
-            <mat-list-item role="listitem">
-                <h4 mat-line>First Name:</h4>
-                <p mat-line>{{user.firstName}}</p>
-            </mat-list-item>
-
-            <mat-list-item role="listitem">
-                <h4 mat-line>Last Name:</h4>
-                <p mat-line>{{user.lastName}}</p>
-            </mat-list-item>
-
-        </mat-list>
-        <!-- <button (click)="onSubmit()">Submit</button> -->
+        <mat-list-item role="listitem">
+            <h4 mat-line class="profile-label">User Name</h4>
+            <p mat-line *ngIf="user">{{ user.userName }}</p>
+            <p mat-line *ngIf="!user">...</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <h4 mat-line class="profile-label">First Name</h4>
+            <p mat-line *ngIf="user">{{ user.firstName }}</p>
+            <p mat-line *ngIf="!user">...</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <h4 mat-line class="profile-label">Last Name</h4>
+            <p mat-line *ngIf="user">{{ user.lastName }}</p>
+            <p mat-line *ngIf="!user">...</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <h4 mat-line class="profile-label">E-mail</h4>
+            <p mat-line *ngIf="user">{{ user.email }}</p>
+            <p mat-line *ngIf="!user">...</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <h4 mat-line class="profile-label">Birth Date</h4>
+            <p mat-line *ngIf="user">{{ user.birthdate }}</p>
+            <p mat-line *ngIf="!user">...</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <h4 mat-line class="profile-label">User ID</h4>
+            <p mat-line *ngIf="user">{{ user.uid }}</p>
+            <p mat-line *ngIf="!user">...</p>
+        </mat-list-item>
+        
     </div>
 </div>

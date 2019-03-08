@@ -12,18 +12,21 @@ import { CurrentUser } from '../interfaces/interfaces';
 @Injectable()
 export class AuthService {
 
+    currentUser: CurrentUser;
+    uid: string;
+    userName: string;
+    firstName = 'unknown';
+    lastName = 'unknown';
+    email: string;
+    birthdate = '2000-01-01';
+    isAdmin = false;
+    password: string;
+    token: string;
+
     constructor(
         private router: Router,
         private httpResponseService: HttpResponseService
     ) { }
-
-    currentUser: CurrentUser;
-    uid: string;
-    email: string;
-    password: string;
-    token: string;
-    userName: string;
-    birthdate = '2000-01-01';
 
     signUpUser(email: string, password: string) {
         this.email = email;

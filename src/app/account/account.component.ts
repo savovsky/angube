@@ -128,7 +128,8 @@ export class AccountComponent implements OnInit {
         this.firstName(),
         this.lastName(),
         this.userEmail(),
-        this.userBirthdate()
+        this.userBirthdate(),
+        false
       );
 
       this.error = null;

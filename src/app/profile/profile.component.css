@@ -3,6 +3,19 @@
     padding: 20px 0 0 0;
 }
 
-.primary {
+.profile-label {
     color: #673ab7;
+    font-size: 80%;
+    padding: 20px 0 0 0;
+    margin: 0;
+    font-weight: initial;
+}
+
+p.mat-line {
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    min-width: 300px;
 }

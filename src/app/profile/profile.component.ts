@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UsersAccountService } from '../service/users-account.service';
-import { Account } from '../account/account.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../interfaces/interfaces';
+import * as Utils from '../common/utils';
+import { DataStorageService } from '../service/data-storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +12,12 @@ import { User } from '../interfaces/interfaces';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  isFetching = true;
 
   constructor(
     private route: ActivatedRoute,
-    // private router: Router
-    private usersAccountService: UsersAccountService
+    private dataStorageService: DataStorageService,
+    private router: Router
     ) { }
 
 
@@ -24,8 +25,20 @@ export class ProfileComponent implements OnInit {
     // this.userId = this.route.snapshot.paramMap.get('id');
     const uid = this.route.snapshot.queryParamMap.get('id');
 
-    console.log('usersAccountService', this.usersAccountService.users);
-    this.user = this.usersAccountService.users.find((obj: Account) => obj.uid === uid);
+    this.dataStorageService.getUserData(uid)
+    .subscribe(
+      (response: User) => {
+        Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
+        this.user = response;
+        this.isFetching = false;
+      },
+      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
+      () => Utils.consoleLog(`getUserData Completed`, 'purple')
+    );
+
+    // const userObj = this.usersAccountService.users.find((obj: Account) => obj.uid === uid);
+    // this.user = Object.entries(userObj);
+
 
     // Another way for cases when component will not be destroyed.
     // (ex. Prev-Next btns inside the component)
@@ -37,10 +50,8 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  // onSubmit() {
-  //   this.router.navigate(['/users'], {
-  //     queryParams: { page: 1, order: 'newest' }
-  //   });
-  // }
+  onBack() {
+    this.router.navigate(['/app/home']);
+  }
 
 }

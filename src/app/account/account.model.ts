@@ -7,7 +7,8 @@ export class Account {
     public firstName: string,
     public lastName: string,
     public email: string,
-    public birthdate: string
+    public birthdate: string,
+    public isAdmin: boolean
   ) { }
 
 }

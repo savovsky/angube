@@ -46,6 +46,12 @@ export class DataStorageService {
         return this.http.get(this.url + uid + '.json?auth=' + token);
     }
 
+    getUserData(uid: string) {
+        const token = this.authService.token;
+
+        return this.http.get(this.url + uid + '.json?auth=' + token);
+    }
+
 
     updateUserAccount(user: User, isNewUser: boolean) {
         const uid = this.authService.uid;
