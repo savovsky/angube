@@ -61,8 +61,6 @@ export class SignupComponent implements OnInit {
           uid, userName, firstName, lastName, email, birthdate, isAdmin
           );
 
-        console.log('1 - ', this.authService.uid);
-
         this.dataStorageService.updateUserAccount(userAccount, true);
       });
   }

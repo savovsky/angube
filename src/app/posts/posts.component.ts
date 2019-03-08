@@ -13,7 +13,6 @@ export class PostsComponent implements OnInit {
   constructor(private http: HttpClient) {
     http.get(this.url)
     .subscribe(response => {
-      console.log(response);
       this.posts = response;
     });
   }
@@ -29,7 +28,6 @@ export class PostsComponent implements OnInit {
     // .subscribe(response => {
     //   post['id'] = response.id;
     //   this.posts.splice(0, 0 ,post);
-    //   console.log(response);
     // })
   }
 

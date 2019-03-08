@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
     // this.route.paramMap
     //   .subscribe((params) => {
     //     this.userId = params.get('id');
-    //     console.log(this.userId);
     // });
 
   }
