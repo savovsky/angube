@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+// import {MatExpansionModule} from '@angular/material/expansion';
 
 import {
   MatListModule,
@@ -10,7 +11,8 @@ import {
   MatMenuModule,
   MatInputModule,
   MatCardModule,
-  MatTabsModule
+  MatTabsModule,
+  MatExpansionModule
 } from '@angular/material';
 
 
@@ -25,7 +27,8 @@ import {
     MatMenuModule,
     MatProgressBarModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatExpansionModule
   ]
 })
 export class MatComponentsModule { }

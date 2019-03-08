@@ -1,14 +1,19 @@
-<div>
-  <p>Users component</p>
-  <ul>
-    <li *ngFor="let user of users">
-      <a [routerLink]="['/users', user.id, user.name]">{{user.name}}</a>
-    </li>
-  </ul>
-  <!-- <button (click)="onSaveData()">save data</button> -->
-  <!-- <ul>
-    <li *ngFor="let item of items">
-      <p>{{item.title}}</p>
-    </li>
-  </ul> -->
+<div class="container">
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel *ngFor="let user of users">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ user.userName }}</mat-panel-title>
+        <mat-panel-description>
+          {{ user.uid }}
+          <!-- <mat-icon>date_range</mat-icon> -->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <mat-action-row>
+        <button mat-flat-button color="accent">Edit</button>
+        <button mat-flat-button color="warn">Delete</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
+  
