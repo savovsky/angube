@@ -19,15 +19,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.dataStorageService.getItems()
-    .subscribe(
-      (res) => {
-        Utils.consoleLog(`getItems Seccess: `, 'purple', res);
-        this.users = res;
-        this.usersAccountService.storeUsers(res);
-      },
-      (error) => Utils.consoleLog(`getItems Error: `, 'red', error),
-      () => Utils.consoleLog(`getItems Completed`, 'purple')
-    );
+      .subscribe(
+        (res) => {
+          Utils.consoleLog(`getItems Seccess: `, 'purple', res);
+          this.users = res;
+          this.usersAccountService.storeUsers(res);
+        },
+        (error) => Utils.consoleLog(`getItems Error: `, 'red', error),
+        () => Utils.consoleLog(`getItems Completed`, 'purple')
+      );
   }
 
 }
