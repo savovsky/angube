@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponseService } from '../service/http-response.service';
 import { UsersAccountService } from '../service/users-account.service';
 import { Account } from '../account/account.model';
+import { User } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-profile',
@@ -11,13 +11,11 @@ import { Account } from '../account/account.model';
 })
 export class ProfileComponent implements OnInit {
 
-  userId: string;
-  user: any = { uid: null, userName: null, firstName: null, lastName: null };
+  user: User;
 
   constructor(
     private route: ActivatedRoute,
     // private router: Router
-    private httpResponseService: HttpResponseService,
     private usersAccountService: UsersAccountService
     ) { }
 
@@ -25,8 +23,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     // this.userId = this.route.snapshot.paramMap.get('id');
     const uid = this.route.snapshot.queryParamMap.get('id');
-    this.userId = uid;
-    console.log('userId', this.userId);
+
     console.log('usersAccountService', this.usersAccountService.users);
     this.user = this.usersAccountService.users.find((obj: Account) => obj.uid === uid);
 

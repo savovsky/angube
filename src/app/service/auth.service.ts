@@ -23,6 +23,7 @@ export class AuthService {
     password: string;
     token: string;
     userName: string;
+    birthdate = '2000-01-01';
 
     signUpUser(email: string, password: string) {
         this.email = email;
