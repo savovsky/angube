@@ -13,7 +13,6 @@ export class NameValidators {
     //         setTimeout(() => {
     //             if (control.value === 'miro') {
     //                 resolve({ shouldBeUnique: true });
-    //                 console.log('eho');
     //             } else {
     //                 resolve(null);
     //             }

@@ -12,17 +12,17 @@ import { CurrentUser } from '../interfaces/interfaces';
 @Injectable()
 export class AuthService {
 
+    currentUser: CurrentUser;
+    uid: string;
+    userName: string;
+    email: string;
+    password: string;
+    token: string;
+
     constructor(
         private router: Router,
         private httpResponseService: HttpResponseService
     ) { }
-
-    currentUser: CurrentUser;
-    uid: string;
-    email: string;
-    password: string;
-    token: string;
-    userName: string;
 
     signUpUser(email: string, password: string) {
         this.email = email;
@@ -167,6 +167,10 @@ export class AuthService {
 
     currentUserDisplayName(displayName: string) {
         this.userName = displayName;
+    }
+
+    currentUserEmail(email: string) {
+        this.email = email;
     }
 
 

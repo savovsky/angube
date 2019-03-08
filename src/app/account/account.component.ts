@@ -65,6 +65,14 @@ export class AccountComponent implements OnInit {
     return this.authService.uid;
   }
 
+  userEmail() {
+    return this.authService.email;
+  }
+
+  userBirthdate() {
+    return '';
+  }
+
   userName() {
     return this.userNameFormControl.value;
   }
@@ -118,7 +126,10 @@ export class AccountComponent implements OnInit {
         this.userUid(),
         this.userName(),
         this.firstName(),
-        this.lastName()
+        this.lastName(),
+        this.userEmail(),
+        this.userBirthdate(),
+        false
       );
 
       this.error = null;

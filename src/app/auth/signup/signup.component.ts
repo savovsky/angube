@@ -52,9 +52,14 @@ export class SignupComponent implements OnInit {
       .subscribe(() => {
         const uid = this.authService.uid;
         const userName = this.authService.userName;
-        const userAccount = new Account(uid, userName, '', '');
-
-        console.log('1 - ', this.authService.uid);
+        const firstName = '';
+        const lastName = '';
+        const email = this.authService.email;
+        const birthdate = '';
+        const isAdmin = false;
+        const userAccount = new Account(
+          uid, userName, firstName, lastName, email, birthdate, isAdmin
+          );
 
         this.dataStorageService.updateUserAccount(userAccount, true);
       });

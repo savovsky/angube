@@ -31,7 +31,7 @@ export class DataStorageService {
                     const usersArr = Object.values(data);
                     // reordering the array - current user as first item
                     const currentUserIndex = usersArr.findIndex((user: User) => user.uid === uid);
-                    usersArr.splice(0, 1, usersArr.splice(currentUserIndex, 1)[0]);
+                    usersArr.splice(0, 0, usersArr.splice(currentUserIndex, 1)[0]);
                     return usersArr;
                     }
                 )
@@ -41,6 +41,12 @@ export class DataStorageService {
 
     getCurrentUserData() {
         const uid = this.authService.uid;
+        const token = this.authService.token;
+
+        return this.http.get(this.url + uid + '.json?auth=' + token);
+    }
+
+    getUserData(uid: string) {
         const token = this.authService.token;
 
         return this.http.get(this.url + uid + '.json?auth=' + token);

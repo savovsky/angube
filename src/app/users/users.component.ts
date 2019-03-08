@@ -39,20 +39,15 @@ export class UsersComponent implements OnInit {
       .subscribe((combined) => {
         this.userId = combined[0].get('id');
         this.page = combined[1].get('page');
-        // console.log(this.userId);
-        // console.log(this.page);
       });
 
     // Another way for cases when component will be destroyed.
     // this.page = this.route.snapshot.queryParamMap.get('page');
-    // console.log(this.page);
 
     // this.dataStorageService.getItems()
     //   .subscribe(
     //     (response) => {
-    //       console.log('getItems', response);
     //       this.items = Object.values(response);
-    //       console.log('this.items = ', this.items);
     //     }
     //   );
   }
@@ -61,7 +56,6 @@ export class UsersComponent implements OnInit {
   //   this.dataStorageService.storeItems()
   //     .subscribe(
   //       (response) => {
-  //         console.log('storeItems ', response);
   //       }
   //     );
   // }
