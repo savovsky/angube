@@ -4,6 +4,9 @@ import { NameValidators } from '../common/validators/username.validators';
 import { DataStorageService } from '../service/data-storage.service';
 import { AuthService } from '../service/auth.service';
 import { Account } from './account.model';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../interfaces/interfaces';
+import * as Utils from '../common/utils';
 
 
 @Component({
@@ -39,26 +42,33 @@ export class AccountComponent implements OnInit {
 
 
   constructor(
+    private route: ActivatedRoute,
     private authService: AuthService,
     private dataStorageService: DataStorageService
   ) { }
 
   ngOnInit() {
-    this.dataStorageService.getCurrentUserData()
-      .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
-        (res: { userName: string, firstName: string, lastName: string }) => {
-          this.isRequesting = false;
-          if (res) {
-            this.userNameFormControl.reset(res.userName);
-            this.firstNameFormControl.reset(res.firstName);
-            this.lastNameFormControl.reset(res.lastName);
-            this.user = res;
-          } else {
-            const userName = this.authService.getCurrentUserName();
-            this.userNameFormControl.reset(userName);
-          }
+    const uid = this.route.snapshot.queryParamMap.get('id');
+
+    this.dataStorageService.getUserData(uid)
+    .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
+      (response: User) => {
+        Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
+        this.isRequesting = false;
+        if (response) {
+          this.user = response;
+          this.userNameFormControl.reset(response.userName);
+          this.firstNameFormControl.reset(response.firstName);
+          this.lastNameFormControl.reset(response.lastName);
+        } else {
+          const userName = this.authService.getCurrentUserName();
+          this.userNameFormControl.reset(userName);
         }
-      );
+      },
+      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
+      () => Utils.consoleLog(`getUserData Completed`, 'purple')
+    );
+
   }
 
   userUid() {
