@@ -11,13 +11,14 @@
   
       <mat-action-row>
         <button
-          mat-flat-button
-          color="accent"
+          mat-stroked-button
+          color="primary"
           [routerLink]="['/app/account', user.userName]"
           [queryParams]="{ id: user.uid }"
         >Edit
         </button>
-        <button mat-flat-button color="warn">Delete</button>
+        <button mat-stroked-button>Message</button>
+        <button mat-stroked-button color="warn">Delete</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

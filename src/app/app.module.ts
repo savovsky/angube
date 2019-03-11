@@ -28,6 +28,7 @@ import { CardComponent } from './card/card.component';
 import { UsersAccountService } from './service/users-account.service';
 import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
+import { ProgressService } from './service/progress.service';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
     AuthService,
     DataStorageService,
     HttpResponseService,
-    UsersAccountService
+    UsersAccountService,
+    ProgressService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-nav-tab',
   templateUrl: './nav-tab.component.html',
   styleUrls: ['./nav-tab.component.css']
 })
-export class NavTabComponent {
+export class NavTabComponent implements OnInit {
 
   tabs = [
     {
@@ -22,6 +24,12 @@ export class NavTabComponent {
     },
   ];
 
-  activeLink = this.tabs[0].link;
+  activeLink: string;
+
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+    this.activeLink = this.router.url;
+  }
 
 }

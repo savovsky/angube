@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../service/data-storage.service';
 import * as Utils from '../common/utils';
-// import { ActivatedRoute } from '@angular/router';
+import { ProgressService } from '../service/progress.service';
 // import { combineLatest } from 'rxjs';
 
 
@@ -16,17 +16,23 @@ export class UsersComponent implements OnInit {
 
 
   constructor(
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private progressService: ProgressService
   ) {}
 
   ngOnInit() {
+    this.progressService.setProgressing(true);
     this.dataStorageService.getItems()
     .subscribe(
       (respose) => {
         Utils.consoleLog(`getItems Seccess: `, 'purple', respose);
         this.users = respose;
+        this.progressService.setProgressing(false);
       },
-      (error) => Utils.consoleLog(`getItems Error: `, 'red', error),
+      (error) => {
+        Utils.consoleLog(`getItems Error: `, 'red', error);
+        this.progressService.setProgressing(false);
+      },
       () => Utils.consoleLog(`getItems Completed`, 'purple')
     );
     // combineLatest([

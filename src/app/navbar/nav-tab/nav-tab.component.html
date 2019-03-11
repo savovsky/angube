@@ -1,9 +1,9 @@
 <div class="fixed">
     <nav mat-tab-nav-bar>
         <a mat-tab-link *ngFor="let tab of tabs"
-           (click)="activeLink = tab.link"
+           (click)="activeLink = tab.routerLink"
            [routerLink]="tab.routerLink"
-           [active]="activeLink == tab.link"
+           [active]="activeLink == tab.routerLink"
         >
         {{ tab.link }}
         </a>

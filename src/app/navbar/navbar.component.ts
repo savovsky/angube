@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
+import { ProgressService } from '../service/progress.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,8 @@ export class NavbarComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public authService: AuthService
+    public authService: AuthService,
+    public progressService: ProgressService
     ) { }
 
 }

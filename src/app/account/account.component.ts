@@ -7,6 +7,7 @@ import { Account } from './account.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class AccountComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -146,5 +148,9 @@ export class AccountComponent implements OnInit {
       this.isRequesting = true;
       this.dataStorageService.updateUserAccount(userAccount, false);
     }
+  }
+
+  onCancel() {
+    this.location.back();
   }
 }
