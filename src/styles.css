@@ -117,3 +117,10 @@ body {
     font-size: 80%;
     text-align: center;
 }
+
+.ellipsis-110 {
+    max-width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
