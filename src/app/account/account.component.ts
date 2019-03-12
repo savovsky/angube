@@ -55,16 +55,16 @@ export class AccountComponent implements OnInit {
     this.dataStorageService.getUserData(uid)
     .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
       (response: User) => {
-        Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
         this.isRequesting = false;
         if (response) {
+          Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
           this.user = response;
           this.userNameFormControl.reset(response.userName);
           this.firstNameFormControl.reset(response.firstName);
           this.lastNameFormControl.reset(response.lastName);
         } else {
-          const userName = this.authService.getCurrentUserName();
-          this.userNameFormControl.reset(userName);
+          Utils.consoleLog(`getUserData Respose`, 'red', response);
+          this.userNameFormControl.reset(this.authService.userName);
         }
       },
       (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),

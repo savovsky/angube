@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import * as Utils from '../common/utils';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import { map } from 'rxjs/operators';
 import { User } from '../interfaces/interfaces';
 
@@ -47,27 +45,17 @@ export class DataStorageService {
 
 
     updateUserAccount(user: User, isNewUser: boolean) {
-        // const uid = this.authService.uid;
         const token = this.authService.token;
 
         this.http.put(this.url + user.uid + '.json?auth=' + token, user)
             .subscribe(
                 (response: User) => {
                     Utils.consoleLog(`updateUserAccount Response: `, 'purple', response);
-                    if (response.userName) {
-                        firebase.auth().currentUser.updateProfile({
-                            displayName: user.userName,
-                            photoURL: null
-                        })
-                        .then(() => {
-                            Utils.consoleLog(`updateProfile->currentUser.displayName: `, 'purple', firebase.auth().currentUser.displayName);
-                            this.authService.currentUserDisplayName(firebase.auth().currentUser.displayName);
-                            isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
-                        })
-                        .catch(
-                            (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
-                        );
+                    if (user.uid === this.authService.uid) {
+                        this.authService.currentUserName(response.userName);
                     }
+                    isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
+
                 },
                 (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
             );

@@ -1,5 +1,5 @@
 
-import * as Utils from '../common/utils';
+// import * as Utils from '../common/utils';
 
 
 export class ProgressService {
@@ -7,7 +7,7 @@ export class ProgressService {
 
     setProgressing(isRequesting: boolean) {
         this.isRequesting = isRequesting;
-        Utils.consoleLog(`isRequesting: `, 'orange', this.isRequesting);
+        // Utils.consoleLog(`isRequesting: `, 'orange', this.isRequesting);
     }
 
 }

@@ -32,6 +32,7 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
                     this.getCurrentUser();
+                    this.userName = this.getCurrentUserEmailLocalPart();
                     return this.getSignedUserToken();
                 }
             )
@@ -128,18 +129,7 @@ export class AuthService {
         this.currentUser = firebase.auth().currentUser;
         this.uid = this.currentUser.uid;
         this.email = this.currentUser.email;
-        this.userName = this.getCurrentUserName();
         return firebase.auth().currentUser;
-    }
-
-
-    getCurrentUserName() {
-        if (this.currentUser) {
-            return this.currentUser.displayName ?
-                this.currentUser.displayName : this.getCurrentUserEmailLocalPart();
-        } else {
-            return 'none';
-        }
     }
 
 
@@ -165,8 +155,8 @@ export class AuthService {
         this.uid = uid;
     }
 
-    currentUserDisplayName(displayName: string) {
-        this.userName = displayName;
+    currentUserName(name: string) {
+        this.userName = name;
     }
 
     currentUserEmail(email: string) {
@@ -189,3 +179,19 @@ export class AuthService {
         return authState;
     }
 }
+
+
+// UPDATE USER PROFILE
+
+// if (response.userName) {
+//     firebase.auth().currentUser.updateProfile({
+//         displayName: user.userName,
+//         photoURL: null
+//     })
+//     .then(() => {
+//         Utils.consoleLog(`updateProfile->currentUser.displayName: `, 'purple', firebase.auth().currentUser.displayName);
+//     })
+//     .catch(
+//         (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
+//     );
+// }

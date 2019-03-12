@@ -35,6 +35,7 @@ export class UsersComponent implements OnInit {
       },
       () => Utils.consoleLog(`getItems Completed`, 'purple')
     );
+
     // combineLatest([
     //   this.route.paramMap,
     //   this.route.queryParamMap
