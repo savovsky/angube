@@ -56,6 +56,14 @@ export class DataStorageService {
                     if (user.uid === this.authService.uid) {
                         this.authService.currentUserName(response.userName);
                     }
+                    // if (isNewUser) {
+                    //     this.router.navigate(['question']);
+                    // } else {
+                    //     if (this.router.url === '/app/users') {
+                    //         return;
+                    //     }
+                    //     this.location.back();
+                    // }
                     isNewUser ? this.router.navigate(['question']) : this.location.back();
 
                 },

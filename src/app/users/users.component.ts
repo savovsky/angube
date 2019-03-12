@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../service/data-storage.service';
 import * as Utils from '../common/utils';
 import { ProgressService } from '../service/progress.service';
+import { User } from '../interfaces/interfaces';
 // import { combineLatest } from 'rxjs';
 
 
@@ -47,6 +48,11 @@ export class UsersComponent implements OnInit {
 
     // Another way for cases when component will be destroyed.
     // this.page = this.route.snapshot.queryParamMap.get('page');
+  }
+
+  onBlockUnblock(user: User) {
+    const userAccount = {...user, isBlocked: !user.isBlocked};
+    this.dataStorageService.updateUserAccount(userAccount, false);
   }
 
 }

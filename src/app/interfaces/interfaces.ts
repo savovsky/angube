@@ -11,4 +11,5 @@ export interface User {
     email: string;
     birthdate: string;
     isAdmin: boolean;
+    isBlocked: boolean;
 }

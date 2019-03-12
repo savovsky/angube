@@ -143,7 +143,8 @@ export class AccountComponent implements OnInit {
         this.lastName(),
         this.userEmail(),
         this.userBirthdate(),
-        false
+        false, // isAdmin
+        false // isBlocked
       );
 
       this.error = null;

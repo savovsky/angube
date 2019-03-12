@@ -5,7 +5,6 @@
         <mat-panel-title>{{ user.userName }}</mat-panel-title>
         <mat-panel-description>
           {{ user.uid }}
-          <!-- <mat-icon>date_range</mat-icon> -->
         </mat-panel-description>
       </mat-expansion-panel-header>
   
@@ -18,7 +17,12 @@
         >Edit
         </button>
         <button mat-stroked-button>Message</button>
-        <button mat-stroked-button color="warn">Delete</button>
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="onBlockUnblock(user)"
+        >{{ user.isBlocked ? 'Unblock' : 'Block' }}
+        </button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

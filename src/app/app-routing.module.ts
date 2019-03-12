@@ -37,10 +37,10 @@ const routes: Routes = [
         path: 'account',
         component: AccountComponent
       },
-      {
-        path: 'posts',
-        component: PostsComponent
-      },
+      // {
+      //   path: 'posts',
+      //   component: PostsComponent
+      // },
       {
         path: 'users/:id/:username',
         component: ProfileComponent
