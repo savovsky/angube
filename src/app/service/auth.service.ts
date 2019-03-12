@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer, ReplaySubject } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { HttpResponseService } from './http-response.service';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { CurrentUser } from '../interfaces/interfaces';
+
 
 // https://firebase.google.com/docs/reference/js/firebase.User#providerId
 
 @Injectable()
 export class AuthService {
 
-    currentUser: CurrentUser;
     uid: string;
     userName: string;
     email: string;
@@ -31,7 +30,7 @@ export class AuthService {
             .then(
                 (response) => {
                     Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
-                    this.getCurrentUser();
+                    this.currentUserUid(firebase.auth().currentUser.uid);
                     this.userName = this.getCurrentUserEmailLocalPart();
                     return this.getSignedUserToken();
                 }
@@ -39,7 +38,7 @@ export class AuthService {
             .then(
                 (token: string) => {
                     Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
-                    this.token = token;
+                    this.currentUserToken(token);
                     this.httpResponseService.signUpUserSuccess.next();
                     return this.firebaseSetPersistence();
                 }
@@ -59,14 +58,14 @@ export class AuthService {
             .then(
                 (response) => {
                     Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
-                    this.getCurrentUser();
+                    this.currentUserUid(firebase.auth().currentUser.uid);
                     return this.getSignedUserToken();
                 }
             )
             .then(
                 (token: string) => {
                     Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'limegreen');
-                    this.token = token;
+                    this.currentUserToken(token);
                     this.router.navigate(['app/home']);
                     return this.firebaseSetPersistence();
                 }
@@ -112,7 +111,6 @@ export class AuthService {
             .then(
                 () => {
                     Utils.consoleLog(`logOutUser: Seccess`, 'purple');
-                    this.currentUser = null;
                     this.uid = null;
                     this.email = null;
                     this.password = null;
@@ -123,13 +121,6 @@ export class AuthService {
             .catch(
                 (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
             );
-    }
-
-    getCurrentUser() {
-        this.currentUser = firebase.auth().currentUser;
-        this.uid = this.currentUser.uid;
-        this.email = this.currentUser.email;
-        return firebase.auth().currentUser;
     }
 
 

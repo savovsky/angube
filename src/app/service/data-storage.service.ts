@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import * as Utils from '../common/utils';
 import { map } from 'rxjs/operators';
 import { User } from '../interfaces/interfaces';
+import { Location } from '@angular/common';
 
 
 @Injectable()
@@ -15,7 +16,8 @@ export class DataStorageService {
     constructor(
         private http: HttpClient,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private location: Location
         ) { }
 
     getItems() {
@@ -54,7 +56,7 @@ export class DataStorageService {
                     if (user.uid === this.authService.uid) {
                         this.authService.currentUserName(response.userName);
                     }
-                    isNewUser ? this.router.navigate(['question']) : this.router.navigate(['app/home']);
+                    isNewUser ? this.router.navigate(['question']) : this.location.back();
 
                 },
                 (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
