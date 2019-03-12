@@ -10,7 +10,8 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
       <a mat-list-item routerLink="/app/home" routerLinkActive="current">Home</a>
-      <a mat-list-item routerLink="/app/users" routerLinkActive="current" [queryParams]="{ page:1, order: 'newest' }">Users</a>
+      <a mat-list-item routerLink="/app/users" routerLinkActive="current">Users</a>
+      <!-- <a mat-list-item routerLink="/app/users" routerLinkActive="current" [queryParams]="{ page:1, order: 'newest' }">Users</a> -->
       <a mat-list-item routerLink="/app/posts" routerLinkActive="current">Posts</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -26,9 +27,11 @@
       </button>
       <span>angube</span>
       <span class="spacer"></span>
-      <span>{{ authService.userName }}</span>
+      <span class="ellipsis-110">{{ authService.userName }}</span>
       <app-menu-icons></app-menu-icons>
     </mat-toolbar>
+    <div class="progress-placeholder" *ngIf="!progressService.isRequesting"></div>
+    <mat-progress-bar mode="indeterminate" *ngIf="progressService.isRequesting"></mat-progress-bar>
     <app-nav-tab *ngIf="!(isHandset$ | async)"></app-nav-tab>
 
 

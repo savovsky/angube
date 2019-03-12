@@ -26,6 +26,14 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
+        path: 'account/:id/:username',
+        component: AccountComponent
+      },
+      {
+        path: 'account/:username',
+        component: AccountComponent
+      },
+      {
         path: 'account',
         component: AccountComponent
       },

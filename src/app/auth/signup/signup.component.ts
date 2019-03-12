@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
         const isAdmin = false;
         const userAccount = new Account(
           uid, userName, firstName, lastName, email, birthdate, isAdmin
-          );
+        );
 
         this.dataStorageService.updateUserAccount(userAccount, true);
       });

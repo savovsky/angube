@@ -8,7 +8,36 @@
   align-items: center;
 }
 
+.mat-expansion-panel-header-title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-expansion-panel-header-description {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-action-row {
+  padding: 15px;
+  justify-content: space-between;
+}
+
 .container {
-    padding: 20px 0 0 0;
-    align-items: initial;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  min-width: 260px;
+  max-width: 600px;
+  height: auto;
+}
+
+@media (max-width: 350px) {
+  .container {
+    padding: 5px;
+  }
 }

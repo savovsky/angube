@@ -3,12 +3,6 @@ export interface SignError {
     message: string;
 }
 
-export interface CurrentUser {
-    uid: string;
-    displayName: string;
-    email: string;
-}
-
 export interface User {
     uid: string;
     userName: string;

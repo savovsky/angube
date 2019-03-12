@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="card">
-    <div class="right primary">My Account</div>
+    <div class="right primary">User Account</div>
     <form
       class="example-form"
       [formGroup]="accountForm"
@@ -84,7 +84,7 @@
             mat-raised-button
             class="wide-45"
             type="button"
-            routerLink="/app/home"
+            (click)="onCancel()"
           >Cancel
           </button>
         </div>

@@ -4,6 +4,10 @@ import { NameValidators } from '../common/validators/username.validators';
 import { DataStorageService } from '../service/data-storage.service';
 import { AuthService } from '../service/auth.service';
 import { Account } from './account.model';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../interfaces/interfaces';
+import * as Utils from '../common/utils';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -39,34 +43,44 @@ export class AccountComponent implements OnInit {
 
 
   constructor(
+    private route: ActivatedRoute,
     private authService: AuthService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private location: Location
   ) { }
 
   ngOnInit() {
-    this.dataStorageService.getCurrentUserData()
-      .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
-        (res: { userName: string, firstName: string, lastName: string }) => {
-          this.isRequesting = false;
-          if (res) {
-            this.userNameFormControl.reset(res.userName);
-            this.firstNameFormControl.reset(res.firstName);
-            this.lastNameFormControl.reset(res.lastName);
-            this.user = res;
-          } else {
-            const userName = this.authService.getCurrentUserName();
-            this.userNameFormControl.reset(userName);
-          }
+    const uid = this.route.snapshot.queryParamMap.get('id');
+
+    this.dataStorageService.getUserData(uid)
+    .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
+      (response: User) => {
+        this.isRequesting = false;
+        if (response) {
+          Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
+          this.user = response;
+          this.userNameFormControl.reset(response.userName);
+          this.firstNameFormControl.reset(response.firstName);
+          this.lastNameFormControl.reset(response.lastName);
+        } else {
+          Utils.consoleLog(`getUserData Respose`, 'red', response);
+          this.userNameFormControl.reset(this.authService.userName);
         }
-      );
+      },
+      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
+      () => Utils.consoleLog(`getUserData Completed`, 'purple')
+    );
+
   }
 
   userUid() {
-    return this.authService.uid;
+    // return this.authService.uid;
+    return this.user.uid;
   }
 
   userEmail() {
-    return this.authService.email;
+    // return this.authService.email;
+    return this.user.email;
   }
 
   userBirthdate() {
@@ -136,5 +150,9 @@ export class AccountComponent implements OnInit {
       this.isRequesting = true;
       this.dataStorageService.updateUserAccount(userAccount, false);
     }
+  }
+
+  onCancel() {
+    this.location.back();
   }
 }

@@ -19,12 +19,12 @@
         </mat-list-item>
         <mat-list-item role="listitem">
             <h4 mat-line class="profile-label">First Name</h4>
-            <p mat-line *ngIf="user">{{ user.firstName ? user.firstName : 'unknown' }}</p>
+            <p mat-line *ngIf="user">{{ user.firstName ? user.firstName : '--' }}</p>
             <p mat-line *ngIf="!user">...</p>
         </mat-list-item>
         <mat-list-item role="listitem">
             <h4 mat-line class="profile-label">Last Name</h4>
-            <p mat-line *ngIf="user">{{ user.lastName ? user.lastName : 'unknown' }}</p>
+            <p mat-line *ngIf="user">{{ user.lastName ? user.lastName : '--' }}</p>
             <p mat-line *ngIf="!user">...</p>
         </mat-list-item>
         <mat-list-item role="listitem">
@@ -34,7 +34,7 @@
         </mat-list-item>
         <mat-list-item role="listitem">
             <h4 mat-line class="profile-label">Birth Date</h4>
-            <p mat-line *ngIf="user">{{ user.birthdate ? user.birthdate : 'unknown' }}</p>
+            <p mat-line *ngIf="user">{{ user.birthdate ? user.birthdate : '--' }}</p>
             <p mat-line *ngIf="!user">...</p>
         </mat-list-item>
         <mat-list-item role="listitem">

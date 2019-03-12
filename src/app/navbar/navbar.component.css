@@ -28,6 +28,10 @@
   flex: 1 1 auto;
 }
 
+.progress-placeholder {
+  height: 4px;
+}
+
 mat-toolbar a {
   display: inline-block;
   color: black;
