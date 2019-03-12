@@ -74,11 +74,13 @@ export class AccountComponent implements OnInit {
   }
 
   userUid() {
-    return this.authService.uid;
+    // return this.authService.uid;
+    return this.user.uid;
   }
 
   userEmail() {
-    return this.authService.email;
+    // return this.authService.email;
+    return this.user.email;
   }
 
   userBirthdate() {

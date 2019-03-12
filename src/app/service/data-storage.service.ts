@@ -47,13 +47,13 @@ export class DataStorageService {
 
 
     updateUserAccount(user: User, isNewUser: boolean) {
-        const uid = this.authService.uid;
+        // const uid = this.authService.uid;
         const token = this.authService.token;
 
-        this.http.put(this.url + uid + '.json?auth=' + token, user)
+        this.http.put(this.url + user.uid + '.json?auth=' + token, user)
             .subscribe(
                 (response: User) => {
-                Utils.consoleLog(`updateUserAccount Response: `, 'purple', response);
+                    Utils.consoleLog(`updateUserAccount Response: `, 'purple', response);
                     if (response.userName) {
                         firebase.auth().currentUser.updateProfile({
                             displayName: user.userName,
