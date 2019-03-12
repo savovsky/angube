@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
-import { PostsComponent } from './posts/posts.component';
+// import { PostsComponent } from './posts/posts.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -68,8 +68,12 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: '**',
+    path: 'not-found',
     component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
   }
 ];
 
