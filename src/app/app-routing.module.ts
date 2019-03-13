@@ -12,6 +12,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionComponent } from './question/question.component';
 import { ApplicationComponent } from './application/application.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 
 const routes: Routes = [
   {
@@ -26,6 +28,11 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'admin',
+        canActivate: [AdminAuthGuardService],
+        component: AdminComponent,
       },
       {
         path: 'account/:id/:username',

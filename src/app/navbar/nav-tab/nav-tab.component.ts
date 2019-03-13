@@ -22,6 +22,10 @@ export class NavTabComponent implements OnInit {
     //   link: 'Posts',
     //   routerLink: '/app/posts'
     // },
+    {
+      link: 'Admin',
+      routerLink: '/app/admin'
+    }
   ];
 
   activeLink: string;

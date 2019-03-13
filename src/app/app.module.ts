@@ -30,6 +30,8 @@ import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
 import { ProgressService } from './service/progress.service';
 import { AuthGuardService } from './service/auth-guard.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { AuthGuardService } from './service/auth-guard.service';
     MenuIconsComponent,
     CardComponent,
     ApplicationComponent,
-    NavTabComponent
+    NavTabComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { AuthGuardService } from './service/auth-guard.service';
     HttpResponseService,
     UsersAccountService,
     ProgressService,
-    AuthGuardService
+    AuthGuardService,
+    AdminAuthGuardService
   ],
   bootstrap: [AppComponent]
 })
