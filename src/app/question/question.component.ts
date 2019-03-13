@@ -10,6 +10,6 @@ export class QuestionComponent {
 
   question = 'Would you like to update your account?';
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
 }
