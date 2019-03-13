@@ -5,12 +5,16 @@ import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
-import { PostsComponent } from './posts/posts.component';
+// import { PostsComponent } from './posts/posts.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionComponent } from './question/question.component';
 import { ApplicationComponent } from './application/application.component';
+import { AuthGuardService } from './service/auth-guard.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuardService } from './service/admin-auth-guard.service';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 const routes: Routes = [
   {
@@ -19,11 +23,17 @@ const routes: Routes = [
   },
   {
     path: 'app',
+    canActivate: [AuthGuardService],
     component: ApplicationComponent,
     children: [
       {
         path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'admin',
+        canActivate: [AuthGuardService, AdminAuthGuardService],
+        component: AdminComponent,
       },
       {
         path: 'account/:id/:username',
@@ -37,10 +47,10 @@ const routes: Routes = [
         path: 'account',
         component: AccountComponent
       },
-      {
-        path: 'posts',
-        component: PostsComponent
-      },
+      // {
+      //   path: 'posts',
+      //   component: PostsComponent
+      // },
       {
         path: 'users/:id/:username',
         component: ProfileComponent
@@ -52,6 +62,10 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent
+      },
+      {
+        path: 'access-denied',
+        component: AccessDeniedComponent
       }
     ]
   },
@@ -68,8 +82,12 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: '**',
+    path: 'not-found',
     component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
   }
 ];
 

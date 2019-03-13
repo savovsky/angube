@@ -29,6 +29,10 @@ import { UsersAccountService } from './service/users-account.service';
 import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
 import { ProgressService } from './service/progress.service';
+import { AuthGuardService } from './service/auth-guard.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuardService } from './service/admin-auth-guard.service';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 
 @NgModule({
@@ -48,7 +52,9 @@ import { ProgressService } from './service/progress.service';
     MenuIconsComponent,
     CardComponent,
     ApplicationComponent,
-    NavTabComponent
+    NavTabComponent,
+    AdminComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +71,9 @@ import { ProgressService } from './service/progress.service';
     DataStorageService,
     HttpResponseService,
     UsersAccountService,
-    ProgressService
+    ProgressService,
+    AuthGuardService,
+    AdminAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,7 +8,8 @@ export class Account {
     public lastName: string,
     public email: string,
     public birthdate: string,
-    public isAdmin: boolean
+    public isAdmin: boolean,
+    public isBlocked: boolean
   ) { }
 
 }

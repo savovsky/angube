@@ -45,6 +45,11 @@ export class SigninComponent implements OnInit {
     });
   }
 
+  onVisibilityClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.hide = !this.hide;
+  }
+
 
   onSignIn() {
     const email: string = this.signInForm.value.emailFormControl;

@@ -17,6 +17,7 @@ export class AuthService {
     email: string;
     password: string;
     token: string;
+    isAdmin: boolean;
 
     constructor(
         private router: Router,
@@ -152,6 +153,10 @@ export class AuthService {
 
     currentUserEmail(email: string) {
         this.email = email;
+    }
+
+    currentUserIsAdmin(isAdmin: boolean) {
+        this.isAdmin = isAdmin;
     }
 
 

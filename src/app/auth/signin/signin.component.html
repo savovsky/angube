@@ -33,7 +33,7 @@
           <mat-icon
             matSuffix
             style="cursor: pointer;"
-            (click)="hide = !hide"
+            (click)="onVisibilityClick($event)"
           >{{ hide ? 'visibility_off' : 'visibility' }}
           </mat-icon>
           <mat-error *ngIf="password.hasError('required')">

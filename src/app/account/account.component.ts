@@ -58,6 +58,7 @@ export class AccountComponent implements OnInit {
         this.isRequesting = false;
         if (response) {
           Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
+          this.authService.currentUserIsAdmin(response.isAdmin);
           this.user = response;
           this.userNameFormControl.reset(response.userName);
           this.firstNameFormControl.reset(response.firstName);
@@ -143,7 +144,8 @@ export class AccountComponent implements OnInit {
         this.lastName(),
         this.userEmail(),
         this.userBirthdate(),
-        false
+        false, // isAdmin
+        false // isBlocked
       );
 
       this.error = null;

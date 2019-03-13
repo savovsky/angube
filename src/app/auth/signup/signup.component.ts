@@ -57,8 +57,9 @@ export class SignupComponent implements OnInit {
         const email = this.authService.email;
         const birthdate = '';
         const isAdmin = false;
+        const isBlocked = false;
         const userAccount = new Account(
-          uid, userName, firstName, lastName, email, birthdate, isAdmin
+          uid, userName, firstName, lastName, email, birthdate, isAdmin, isBlocked
         );
 
         this.dataStorageService.updateUserAccount(userAccount, true);
@@ -79,6 +80,11 @@ export class SignupComponent implements OnInit {
 
   isPasswordConfirmMatch() {
     return this.passwordConfirm.hasError('mustBeEqualToPassword');
+  }
+
+  onVisibilityClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.hide = !this.hide;
   }
 
   onSignUp() {
