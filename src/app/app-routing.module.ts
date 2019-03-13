@@ -14,6 +14,7 @@ import { ApplicationComponent } from './application/application.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuardService } from './service/admin-auth-guard.service';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'admin',
-        canActivate: [AdminAuthGuardService],
+        canActivate: [AuthGuardService, AdminAuthGuardService],
         component: AdminComponent,
       },
       {
@@ -61,6 +62,10 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent
+      },
+      {
+        path: 'access-denied',
+        component: AccessDeniedComponent
       }
     ]
   },

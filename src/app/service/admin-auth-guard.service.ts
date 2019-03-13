@@ -17,7 +17,7 @@ export class AdminAuthGuardService implements CanActivate {
     if (this.authService.isAdmin) {
       return true;
     } else {
-      this.router.navigate(['']);
+      this.router.navigate(['/app/access-denied']);
       return false;
     }
   }

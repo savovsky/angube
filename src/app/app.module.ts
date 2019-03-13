@@ -32,6 +32,7 @@ import { ProgressService } from './service/progress.service';
 import { AuthGuardService } from './service/auth-guard.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuardService } from './service/admin-auth-guard.service';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { AdminAuthGuardService } from './service/admin-auth-guard.service';
     CardComponent,
     ApplicationComponent,
     NavTabComponent,
-    AdminComponent
+    AdminComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,10 @@ h3 {
     text-align: center;
 }
 
+p {
+    color: #673ab7;
+}
+
 .container {
     height: auto;
     padding-top: 20px;
