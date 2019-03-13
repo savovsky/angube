@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Router, CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 
 @Injectable()
 export class AdminAuthGuardService implements CanActivate {
@@ -10,10 +10,7 @@ export class AdminAuthGuardService implements CanActivate {
     private router: Router
   ) { }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(): boolean {
     if (this.authService.isAdmin) {
       return true;
     } else {
