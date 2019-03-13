@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
           if (response) {
             Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
             this.authService.currentUserName(response.userName);
+            this.authService.currentUserIsAdmin(response.isAdmin);
           } else {
             Utils.consoleLog(`getUserData Respose`, 'red', response);
           }

@@ -14,7 +14,7 @@ export class AdminAuthGuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.authService.token) {
+    if (this.authService.isAdmin) {
       return true;
     } else {
       this.router.navigate(['']);

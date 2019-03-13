@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import { DataStorageService } from '../service/data-storage.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dataStorageService: DataStorageService,
+    private authService: AuthService,
     private router: Router
     ) { }
 
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit {
     .subscribe(
       (response: User) => {
         Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
+        this.authService.currentUserIsAdmin(response.isAdmin);
         this.user = response;
         this.isFetching = false;
       },
