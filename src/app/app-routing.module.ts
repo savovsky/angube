@@ -11,6 +11,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionComponent } from './question/question.component';
 import { ApplicationComponent } from './application/application.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
+    canActivate: [AuthGuardService],
     component: ApplicationComponent,
     children: [
       {

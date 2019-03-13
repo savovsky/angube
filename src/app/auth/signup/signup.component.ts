@@ -82,6 +82,11 @@ export class SignupComponent implements OnInit {
     return this.passwordConfirm.hasError('mustBeEqualToPassword');
   }
 
+  onVisibilityClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.hide = !this.hide;
+  }
+
   onSignUp() {
     const email: string = this.signUpForm.value.emailFormControl;
     const password: string = this.signUpForm.value.passwordFormControl;

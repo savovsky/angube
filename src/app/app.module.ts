@@ -29,6 +29,7 @@ import { UsersAccountService } from './service/users-account.service';
 import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
 import { ProgressService } from './service/progress.service';
+import { AuthGuardService } from './service/auth-guard.service';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ProgressService } from './service/progress.service';
     DataStorageService,
     HttpResponseService,
     UsersAccountService,
-    ProgressService
+    ProgressService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
