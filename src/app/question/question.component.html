@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
 
-      <div class="top-note">{{ question }}</div>
+      <div class="top-note">{{ str.wouldYouLikeToUpdateYourAccount | capitalize }}?</div>
 
       <div class="padd-5">
         <button
@@ -10,7 +10,7 @@
           class="wide-100"
           [routerLink]="['/app/account', authService.userName]"
           [queryParams]="{ id: authService.uid }"
-          >Yes
+          >{{ str.yes | titlecase }}
         </button>
       </div>
 
@@ -20,7 +20,7 @@
           color="accent"
           class="wide-100"
           routerLink="/app/home"
-        >Not now
+        >{{ str.notNow | titlecase }}
         </button>
       </div>
 

@@ -74,7 +74,7 @@ export class AccountComponent implements OnInit {
 
   }
 
-  userUid() {;
+  userUid() {
     return this.user.uid;
   }
 
@@ -161,6 +161,6 @@ export class AccountComponent implements OnInit {
   }
 
   onCancel() {
-    this.location.back();
+    this.location.back(); // TODO Back to question component after the question..Repair it!
   }
 }

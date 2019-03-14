@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { StringService } from '../service/strings.service';
 
 @Component({
   selector: 'app-question',
@@ -8,8 +9,9 @@ import { AuthService } from '../service/auth.service';
 })
 export class QuestionComponent {
 
-  question = 'Would you like to update your account?';
-
-  constructor(public authService: AuthService) { }
+  constructor(
+    public authService: AuthService,
+    public str: StringService
+  ) { }
 
 }
