@@ -6,7 +6,7 @@ import { HttpResponseService } from 'src/app/service/http-response.service';
 import { DataStorageService } from 'src/app/service/data-storage.service';
 import { Account } from 'src/app/account/account.model';
 import { SignError } from 'src/app/interfaces/interfaces';
-import { str } from '../../fixtures/strings';
+import { StringService } from 'src/app/service/strings.service';
 
 
 @Component({
@@ -19,16 +19,6 @@ export class SignupComponent implements OnInit {
   hide = true;
   error: any;
   isFetching = false;
-  signIn: string = str.signIn;
-  signUp: string = str.signUp;
-  submit: string = str.submit;
-  passWord: string = str.password;
-  eMail: string = str.email;
-  emailIs: string = str.emailIs;
-  passwordIs: string = str.passwordIs;
-  required: string = str.required;
-  alreadyHaveAnAccount: string = str.alreadyHaveAnAccount;
-  pleaseEnterValidEmailAddress: string = str.pleaseEnterValidEmailAddress;
 
   signUpForm = new FormGroup({
     emailFormControl: new FormControl('', [
@@ -53,7 +43,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private httpResponseService: HttpResponseService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    public str: StringService
   ) { }
 
   ngOnInit() {

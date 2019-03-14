@@ -5,10 +5,10 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../service/auth.service';
 import { ProgressService } from '../../service/progress.service';
 import { DataStorageService } from '../../service/data-storage.service';
-import { User, Link } from '../../interfaces/interfaces';
+import { User } from '../../interfaces/interfaces';
 import * as Utils from '../../common/utils';
-import { str } from '../../fixtures/strings';
-import { appLinks } from '../nav-links';
+import { StringService } from 'src/app/service/strings.service';
+import { NavLinksService } from '../nav-links.service';
 
 
 @Component({
@@ -18,9 +18,6 @@ import { appLinks } from '../nav-links';
 })
 export class NavbarComponent implements OnInit {
 
-  angube: string = str.angube;
-  menu: string = str.menu;
-  appLinks: Link[] = appLinks;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
@@ -30,7 +27,9 @@ export class NavbarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
     private dataStorageService: DataStorageService,
-    public progressService: ProgressService
+    public progressService: ProgressService,
+    public navLinksService: NavLinksService,
+    public str: StringService
     ) { }
 
     ngOnInit() {

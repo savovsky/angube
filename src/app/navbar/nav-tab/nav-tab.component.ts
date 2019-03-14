@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-import { appLinks } from '../nav-links';
-import { Link } from 'src/app/interfaces/interfaces';
+import { NavLinksService } from '../nav-links.service';
 
 
 @Component({
@@ -12,13 +11,12 @@ import { Link } from 'src/app/interfaces/interfaces';
 })
 export class NavTabComponent implements OnInit {
 
-  appLinks: Link[] = appLinks;
-
   activeLink: string;
 
   constructor(
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    public navLinksService: NavLinksService
   ) { }
 
   ngOnInit() {

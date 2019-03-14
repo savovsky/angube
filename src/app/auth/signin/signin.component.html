@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-      <div class="right primary">{{ signIn | titlecase }}</div>
+      <div class="right primary">{{ str.signIn | titlecase }}</div>
     <form
       class="example-form"
       [formGroup]="signInForm" 
@@ -11,14 +11,14 @@
           <input
             matInput
             type="email"
-            placeholder="{{eMail | titlecase }}"
+            placeholder="{{ str.email | titlecase }}"
             formControlName="emailFormControl"
           >
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            {{ pleaseEnterValidEmailAddress | capitalize }}
+            {{ str.pleaseEnterValidEmailAddress | capitalize }}
           </mat-error>
           <mat-error *ngIf="email.hasError('required')">
-            {{ emailIs  | capitalize }} <strong>{{ required }}</strong>
+            {{ str.emailIs  | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
         </mat-form-field>
 
@@ -27,7 +27,7 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
-            placeholder="{{passWord | titlecase }}"
+            placeholder="{{ str.password | titlecase }}"
             formControlName="passwordFormControl"
           >
           <mat-icon
@@ -37,11 +37,8 @@
           >{{ hide ? 'visibility_off' : 'visibility' }}
           </mat-icon>
           <mat-error *ngIf="password.hasError('required')">
-            {{ passwordIs | capitalize }} <strong>{{ required }}</strong>
+            {{ str.passwordIs | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
-          <!-- <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
-            Please enter a password
-          </mat-error> -->
         </mat-form-field>
   
         <button
@@ -49,7 +46,7 @@
           class="wide-100"
           color="primary"
           type="submit"
-        >{{ submit | uppercase }}
+        >{{ str.submit | uppercase }}
         </button>
         <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
 
@@ -62,12 +59,12 @@
   
     </form>
     <div class="top-5">
-        <span class="right-10">{{ notRegisteredYet | capitalize }}?</span>
+        <span class="right-10">{{ str.notRegisteredYet | capitalize }}?</span>
         <button
           mat-stroked-button
           type="button"
           routerLink="/signup"
-        >{{ signUp | titlecase }}
+        >{{ str.signUp | titlecase }}
         </button>
       </div>
   </div>
