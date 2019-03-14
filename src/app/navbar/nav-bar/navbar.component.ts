@@ -5,8 +5,10 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../service/auth.service';
 import { ProgressService } from '../../service/progress.service';
 import { DataStorageService } from '../../service/data-storage.service';
-import { User } from '../../interfaces/interfaces';
+import { User, Link } from '../../interfaces/interfaces';
 import * as Utils from '../../common/utils';
+import { str } from '../../fixtures/strings';
+import { appLinks } from '../nav-links';
 
 
 @Component({
@@ -16,6 +18,9 @@ import * as Utils from '../../common/utils';
 })
 export class NavbarComponent implements OnInit {
 
+  angube: string = str.angube;
+  menu: string = str.menu;
+  appLinks: Link[] = appLinks;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Tab } from '../interfaces/interfaces';
+import { Link } from '../interfaces/interfaces';
 
 
 @Pipe({
@@ -8,11 +8,11 @@ import { Tab } from '../interfaces/interfaces';
 export class AdminGuardPipe implements PipeTransform {
 
     // transform(value: any, args?: any) { // original
-    transform(tabs: Tab[], isAdmin: boolean) {
-        if (!tabs) {
+    transform(appLinks: Link[], isAdmin: boolean) {
+        if (!appLinks) {
            return null;
         }
         // Passing all items(nav-links) only if user is an Admin.
-        return tabs.filter((tab) => isAdmin ? tab.link : tab.link !== 'Admin');
+        return appLinks.filter((tab) => isAdmin ? tab.link : tab.link !== 'Admin');
     }
 }

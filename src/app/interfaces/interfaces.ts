@@ -14,7 +14,7 @@ export interface User {
     isBlocked: boolean;
 }
 
-export interface Tab {
+export interface Link {
     link: string;
     routerLink: string;
 }

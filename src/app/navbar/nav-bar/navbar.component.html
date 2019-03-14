@@ -7,13 +7,15 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>{{ menu | titlecase }}</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
-      <a mat-list-item routerLink="/app/home" routerLinkActive="current">Home</a>
-      <a mat-list-item routerLink="/app/users" routerLinkActive="current">Users</a>
-      <!-- <a mat-list-item routerLink="/app/users" routerLinkActive="current" [queryParams]="{ page:1, order: 'newest' }">Users</a> -->
-      <!-- <a mat-list-item routerLink="/app/posts" routerLinkActive="current">Posts</a> -->
-      <a mat-list-item routerLink="/app/admin" routerLinkActive="current">Admin</a>
+      <a
+        mat-list-item
+        *ngFor="let appLink of appLinks | adminGuard:authService.isAdmin"
+        [routerLink]="appLink.routerLink"
+        routerLinkActive="current"
+      >{{ appLink.link | titlecase }}
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -26,7 +28,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>angube</span>
+      <span>{{ angube }}</span>
       <span class="spacer"></span>
       <span class="ellipsis-110">{{ authService.userName }}</span>
       <app-menu-icons></app-menu-icons>
