@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './navbar/nav-bar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -33,6 +33,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AdminGuardPipe } from './pipes/admin-guard.pipe';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     ApplicationComponent,
     NavTabComponent,
     AdminComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    AdminGuardPipe
   ],
   imports: [
     BrowserModule,
