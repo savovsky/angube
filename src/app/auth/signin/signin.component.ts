@@ -18,6 +18,8 @@ export class SigninComponent implements OnInit {
   signIn: string = str.signIn;
   signUp: string = str.signUp;
   submit: string = str.submit;
+  passWord: string = str.password;
+  eMail: string = str.email;
   emailIs: string = str.emailIs;
   passwordIs: string = str.passwordIs;
   required: string = str.required;

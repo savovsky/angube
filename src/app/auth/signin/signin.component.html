@@ -11,7 +11,7 @@
           <input
             matInput
             type="email"
-            placeholder="Email"
+            placeholder="{{eMail | titlecase }}"
             formControlName="emailFormControl"
           >
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
@@ -27,7 +27,7 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
-            placeholder="Password"
+            placeholder="{{passWord | titlecase }}"
             formControlName="passwordFormControl"
           >
           <mat-icon
@@ -67,7 +67,7 @@
           mat-stroked-button
           type="button"
           routerLink="/signup"
-        >{{ signIn | titlecase }}
+        >{{ signUp | titlecase }}
         </button>
       </div>
   </div>

@@ -1,9 +1,9 @@
 <div class="container">
   <div>
-    <h1>{{ welcomeTo | titlecase }} {{ angube | titlecase }}</h1>
+    <h1>{{ welcomeTo | capitalize }} {{ angube | titlecase }}</h1>
     
     <div class="card">
-      <div class="top-note">{{ alreadyHaveAnAccount | titlecase }}?</div>
+      <div class="top-note">{{ alreadyHaveAnAccount | capitalize }}?</div>
       <button
         mat-raised-button
         color="primary"
@@ -14,7 +14,7 @@
     </div>
     
     <div class="card">
-      <div class="top-note">{{ firstTimeUser | titlecase }}?</div>
+      <div class="top-note">{{ firstTimeUser | capitalize }}?</div>
       <button
         mat-raised-button
         color="accent"
