@@ -23,11 +23,11 @@ export class AuthGuardService implements CanActivate {
   //   state: RouterStateSnapshot
   // ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
   ): boolean {
-    if (this.authService.token) {
-      return true;
-    } else {
-      this.router.navigate(['']);
-      return false;
-    }
+    // if (this.authService.token) { // TODO on refresh getting token is asynchron and it redirect...
+    //   return true;
+    // } else {
+    //   this.router.navigate(['']);
+    // }
+    return true;
   }
 }
