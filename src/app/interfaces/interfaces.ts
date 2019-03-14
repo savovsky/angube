@@ -13,3 +13,8 @@ export interface User {
     isAdmin: boolean;
     isBlocked: boolean;
 }
+
+export interface Tab {
+    link: string;
+    routerLink: string;
+}

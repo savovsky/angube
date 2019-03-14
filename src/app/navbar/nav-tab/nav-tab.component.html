@@ -2,7 +2,7 @@
     <nav mat-tab-nav-bar>
         <a
           mat-tab-link
-          *ngFor="let tab of tabs"
+          *ngFor="let tab of tabs | adminGuard:authService.isAdmin"
           (click)="activeLink = tab.routerLink"
           [routerLink]="tab.routerLink"
           [active]="activeLink == tab.routerLink"

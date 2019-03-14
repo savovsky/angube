@@ -33,6 +33,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AdminGuardPipe } from './pipes/admin-guard.pipe';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     ApplicationComponent,
     NavTabComponent,
     AdminComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    AdminGuardPipe
   ],
   imports: [
     BrowserModule,
