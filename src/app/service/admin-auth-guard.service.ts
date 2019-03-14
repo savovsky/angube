@@ -11,11 +11,13 @@ export class AdminAuthGuardService implements CanActivate {
   ) { }
 
   canActivate(): boolean {
-    if (this.authService.isAdmin) {
-      return true;
-    } else {
-      this.router.navigate(['/app/access-denied']);
-      return false;
-    }
+    // TODO on refresh getting isAdmin is asynchron and with AdminAuthGuardService it redirect.
+    // if (this.authService.isAdmin) {
+    //   return true;
+    // } else {
+    //   this.router.navigate(['/app/access-denied']);
+    //   return false;
+    // }
+    return true;
   }
 }
