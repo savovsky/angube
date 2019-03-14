@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-      <div class="right primary">Sign In</div>
+      <div class="right primary">{{ signIn | titlecase }}</div>
     <form
       class="example-form"
       [formGroup]="signInForm" 
@@ -15,10 +15,10 @@
             formControlName="emailFormControl"
           >
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            Please enter a valid email address
+            {{ pleaseEnterValidEmailAddress | capitalize }}
           </mat-error>
           <mat-error *ngIf="email.hasError('required')">
-            Email is <strong>required</strong>
+            {{ emailIs  | capitalize }} <strong>{{ required }}</strong>
           </mat-error>
         </mat-form-field>
 
@@ -37,7 +37,7 @@
           >{{ hide ? 'visibility_off' : 'visibility' }}
           </mat-icon>
           <mat-error *ngIf="password.hasError('required')">
-            Password is <strong>required</strong>
+            {{ passwordIs | capitalize }} <strong>{{ required }}</strong>
           </mat-error>
           <!-- <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
             Please enter a password
@@ -49,7 +49,7 @@
           class="wide-100"
           color="primary"
           type="submit"
-        >SUBMIT
+        >{{ submit | uppercase }}
         </button>
         <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
 
@@ -62,12 +62,12 @@
   
     </form>
     <div class="top-5">
-        <span class="right-10">Not registered yet?</span>
+        <span class="right-10">{{ notRegisteredYet | capitalize }}?</span>
         <button
           mat-stroked-button
           type="button"
           routerLink="/signup"
-        >Sign Up
+        >{{ signIn | titlecase }}
         </button>
       </div>
   </div>

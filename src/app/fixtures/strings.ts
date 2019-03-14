@@ -40,4 +40,8 @@ export const str = {
     firstTimeUser: 'first time user',
     notRegisteredYet: 'not registered yet',
     wouldYouLikeToUpdateYourAccount: 'would you like to update your account',
+    pleaseEnterValidEmailAddress: 'please enter a valid email address',
+    emailIs: 'email is',
+    passwordIs: 'password is',
+    required: 'required',
 };
