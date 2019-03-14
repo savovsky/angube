@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { str } from '../../fixtures/strings';
 
 
 @Component({
@@ -12,19 +13,19 @@ export class NavTabComponent implements OnInit {
 
   tabs = [
     {
-      link: 'Home',
+      link: str.home,
       routerLink: '/app/home'
     },
     {
-      link: 'Users',
+      link: str.users,
       routerLink: '/app/users'
     },
     // {
-    //   link: 'Posts',
+    //   link: str.posts,
     //   routerLink: '/app/posts'
     // },
     {
-      link: 'Admin',
+      link: str.admin,
       routerLink: '/app/admin'
     }
   ];

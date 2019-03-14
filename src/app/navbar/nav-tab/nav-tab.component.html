@@ -7,7 +7,7 @@
           [routerLink]="tab.routerLink"
           [active]="activeLink == tab.routerLink"
         >
-        {{ tab.link }}
+        {{ tab.link | titlecase }}
         </a>
       </nav>
 </div>
