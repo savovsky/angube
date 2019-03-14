@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../service/auth.service';
-import { ProgressService } from '../service/progress.service';
-import { DataStorageService } from '../service/data-storage.service';
-import { User } from '../interfaces/interfaces';
-import * as Utils from '../common/utils';
+import { AuthService } from '../../service/auth.service';
+import { ProgressService } from '../../service/progress.service';
+import { DataStorageService } from '../../service/data-storage.service';
+import { User } from '../../interfaces/interfaces';
+import * as Utils from '../../common/utils';
 
 
 @Component({
