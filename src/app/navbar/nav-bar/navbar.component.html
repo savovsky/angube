@@ -7,11 +7,11 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar>{{ menu | titlecase }}</mat-toolbar>
+    <mat-toolbar>{{ str.menu | titlecase }}</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
       <a
         mat-list-item
-        *ngFor="let appLink of appLinks | adminGuard:authService.isAdmin"
+        *ngFor="let appLink of navLinksService.appLinks | adminGuard:authService.isAdmin"
         [routerLink]="appLink.routerLink"
         routerLinkActive="current"
       >{{ appLink.link | titlecase }}
@@ -28,7 +28,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ angube }}</span>
+      <span>{{ str.angube }}</span>
       <span class="spacer"></span>
       <span class="ellipsis-110">{{ authService.userName }}</span>
       <app-menu-icons></app-menu-icons>

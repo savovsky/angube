@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-    <div class="right primary">Sign Up</div>
+    <div class="right primary">{{ str.signUp | titlecase }}</div>
     <form
       class="example-form"
       [formGroup]="signUpForm"
@@ -11,14 +11,14 @@
           <input
             matInput
             type="email"
-            placeholder="Email"
+            placeholder="{{ str.email | titlecase }}"
             formControlName="emailFormControl"
           >
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            Please enter a valid email address
+            {{ str.pleaseEnterValidEmailAddress | capitalize }}
           </mat-error>
           <mat-error *ngIf="email.hasError('required')">
-            Email is <strong>required</strong>
+              {{ str.emailIs  | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
         </mat-form-field>
 
@@ -27,7 +27,7 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
-            placeholder="Password"
+            placeholder="{{ str.password | titlecase }}"
             formControlName="passwordFormControl"
           >
           <mat-icon
@@ -38,16 +38,16 @@
           </mat-icon>
 
           <mat-error *ngIf="password.hasError('required')">
-            Password is <strong>required</strong>
+            {{ str.passwordIs | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
           <mat-error *ngIf="password.hasError('minlength')">
-              Password should be at least <strong>{{password.errors.minlength.requiredLength}}</strong> characters.
+              {{ str.passwordShouldBeAtLeast | capitalize }} <strong>{{password.errors.minlength.requiredLength}}</strong> {{ str.characters }}
           </mat-error>
           <mat-error *ngIf="password.hasError('cannotContainSpace')">
-            Password cannot contain <strong>space</strong>.
+            {{ str.passwordCannotContainSpace | capitalize }}
           </mat-error>
           <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength') && !password.hasError('cannotContainSpace')">
-            Please enter a password
+            {{ str.pleaseEnterPassword | capitalize }}
           </mat-error>
         </mat-form-field>
         <!-- Confirm Password -->
@@ -55,14 +55,14 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
-            placeholder="Confirm Password"
+            placeholder="{{ str.confirmPassword | titlecase }}"
             formControlName="confirmPasswordFormControl"
           >
           <mat-error *ngIf="isPasswordConfirmEmpty()">
-            Password confirmation is <strong>required</strong>
+            {{ str.passwordConfirmationIs | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
           <mat-error *ngIf="isPasswordConfirmMatch()">
-            Password <strong>does not match</strong>
+            {{ str.passwordDoesNotMatch | capitalize }}
           </mat-error>
         </mat-form-field>
 
@@ -71,7 +71,7 @@
           class="wide-100"
           color="primary"
           type="submit"
-        >SUBMIT
+        >{{ str.submit | uppercase }}
         </button>
         <!-- [disabled]="!signUpForm.valid && !signUpForm.touched" -->
 
@@ -81,15 +81,15 @@
           <div class="err-msg">{{ error }}</div>
         </div>
         <!--  -->
-
     </form>
+
     <div class="top-5">
-      <span class="right-10">Already have an account?</span>
+      <span class="right-10">{{ str.alreadyHaveAnAccount | capitalize }}?</span>
       <button
         mat-stroked-button
         type="button"
         routerLink="/signin"
-      >Sign In
+      >{{ str.signIn | titlecase }}
       </button>
     </div>
 

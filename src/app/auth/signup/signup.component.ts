@@ -6,6 +6,7 @@ import { HttpResponseService } from 'src/app/service/http-response.service';
 import { DataStorageService } from 'src/app/service/data-storage.service';
 import { Account } from 'src/app/account/account.model';
 import { SignError } from 'src/app/interfaces/interfaces';
+import { StringService } from 'src/app/service/strings.service';
 
 
 @Component({
@@ -14,6 +15,11 @@ import { SignError } from 'src/app/interfaces/interfaces';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
+  hide = true;
+  error: any;
+  isFetching = false;
+
   signUpForm = new FormGroup({
     emailFormControl: new FormControl('', [
       Validators.required,
@@ -30,15 +36,15 @@ export class SignupComponent implements OnInit {
     ])
   });
 
-  hide = true;
+
   passwordConfirm = this.signUpForm.get('confirmPasswordFormControl');
-  error: any;
-  isFetching = false;
+
 
   constructor(
     private authService: AuthService,
     private httpResponseService: HttpResponseService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    public str: StringService
   ) { }
 
   ngOnInit() {

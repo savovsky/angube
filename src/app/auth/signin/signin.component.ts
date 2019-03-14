@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpResponseService } from 'src/app/service/http-response.service';
 import { SignError } from 'src/app/interfaces/interfaces';
+import { StringService } from 'src/app/service/strings.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,6 +11,11 @@ import { SignError } from 'src/app/interfaces/interfaces';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+
+  hide = true;
+  error: any;
+  isFetching = false;
+
   signInForm = new FormGroup({
     emailFormControl: new FormControl('', [
       Validators.required,
@@ -20,9 +26,6 @@ export class SigninComponent implements OnInit {
     ]),
   });
 
-  hide = true;
-  error: any;
-  isFetching = false;
 
   get email() {
     return this.signInForm.get('emailFormControl');
@@ -34,7 +37,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private httpResponseService: HttpResponseService
+    private httpResponseService: HttpResponseService,
+    public str: StringService
   ) { }
 
   ngOnInit() {

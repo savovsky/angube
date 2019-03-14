@@ -1,26 +1,26 @@
 <div class="container">
   <div>
-    <h1>Welcome to {{ title }}</h1>
+    <h1>{{ str.welcomeTo | capitalize }} {{ str.angube | titlecase }}</h1>
     
     <div class="card">
-      <div class="top-note">Already have an account?</div>
+      <div class="top-note">{{ str.alreadyHaveAnAccount | capitalize }}?</div>
       <button
         mat-raised-button
         color="primary"
         class="wide-100"
         routerLink="/signin"
-        >Sign In
+        >{{ str.signIn | titlecase }}
       </button>
     </div>
     
     <div class="card">
-      <div class="top-note">First Time User?</div>
+      <div class="top-note">{{ str.firstTimeUser | capitalize }}?</div>
       <button
         mat-raised-button
         color="accent"
         class="wide-100"
         routerLink="/signup"
-        >Sign Up
+        >{{ str.signUp | titlecase }}
       </button>
     </div>
   </div>

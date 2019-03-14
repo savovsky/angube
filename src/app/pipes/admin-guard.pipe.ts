@@ -4,10 +4,12 @@ import { Link } from '../interfaces/interfaces';
 
 @Pipe({
     name: 'adminGuard'
+    // pure: true / false  // REMIND - learn
+    // https://angular.io/guide/pipes
 })
 export class AdminGuardPipe implements PipeTransform {
 
-    // transform(value: any, args?: any) { // original
+    // transform(value: any, args?: any) { // REMIND - original
     transform(appLinks: Link[], isAdmin: boolean) {
         if (!appLinks) {
            return null;

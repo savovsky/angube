@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-      <div class="right primary">Sign In</div>
+      <div class="right primary">{{ str.signIn | titlecase }}</div>
     <form
       class="example-form"
       [formGroup]="signInForm" 
@@ -11,14 +11,14 @@
           <input
             matInput
             type="email"
-            placeholder="Email"
+            placeholder="{{ str.email | titlecase }}"
             formControlName="emailFormControl"
           >
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            Please enter a valid email address
+            {{ str.pleaseEnterValidEmailAddress | capitalize }}
           </mat-error>
           <mat-error *ngIf="email.hasError('required')">
-            Email is <strong>required</strong>
+            {{ str.emailIs  | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
         </mat-form-field>
 
@@ -27,7 +27,7 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
-            placeholder="Password"
+            placeholder="{{ str.password | titlecase }}"
             formControlName="passwordFormControl"
           >
           <mat-icon
@@ -37,11 +37,8 @@
           >{{ hide ? 'visibility_off' : 'visibility' }}
           </mat-icon>
           <mat-error *ngIf="password.hasError('required')">
-            Password is <strong>required</strong>
+            {{ str.passwordIs | capitalize }} <strong>{{ str.required }}</strong>
           </mat-error>
-          <!-- <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength')">
-            Please enter a password
-          </mat-error> -->
         </mat-form-field>
   
         <button
@@ -49,7 +46,7 @@
           class="wide-100"
           color="primary"
           type="submit"
-        >SUBMIT
+        >{{ str.submit | uppercase }}
         </button>
         <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
 
@@ -62,12 +59,12 @@
   
     </form>
     <div class="top-5">
-        <span class="right-10">Not registered yet?</span>
+        <span class="right-10">{{ str.notRegisteredYet | capitalize }}?</span>
         <button
           mat-stroked-button
           type="button"
           routerLink="/signup"
-        >Sign Up
+        >{{ str.signUp | titlecase }}
         </button>
       </div>
   </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StringService } from '../service/strings.service';
 
 @Component({
   selector: 'app-welcome',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {
-  title = 'Angube';
+
+  constructor(public str: StringService) { }
 }
