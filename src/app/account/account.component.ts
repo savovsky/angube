@@ -38,7 +38,7 @@ export class AccountComponent implements OnInit {
   firstNameFormControl = this.accountForm.get('firstNameFormControl');
   lastNameFormControl = this.accountForm.get('lastNameFormControl');
   error: any;
-  user: any;
+  user: User;
   isRequesting = true;
 
 
@@ -74,18 +74,24 @@ export class AccountComponent implements OnInit {
 
   }
 
-  userUid() {
-    // return this.authService.uid;
+  userUid() {;
     return this.user.uid;
   }
 
   userEmail() {
-    // return this.authService.email;
     return this.user.email;
   }
 
+  userIsAdmin() {
+    return this.user.isAdmin;
+  }
+
+  userIsBlocked() {
+    return this.user.isBlocked;
+  }
+
   userBirthdate() {
-    return '';
+    return this.user.birthdate;
   }
 
   userName() {
@@ -144,8 +150,8 @@ export class AccountComponent implements OnInit {
         this.lastName(),
         this.userEmail(),
         this.userBirthdate(),
-        false, // isAdmin
-        false // isBlocked
+        this.userIsAdmin(),
+        this.userIsBlocked()
       );
 
       this.error = null;
