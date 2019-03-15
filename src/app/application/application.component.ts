@@ -19,20 +19,21 @@ export class ApplicationComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    // Checking user authentication
     this.authService.userAuthState()
-    .subscribe(
-      (user) => {
-        if (user) {
-          this.isUserAuthorized = true;
-          this.authService.currentUserToken(user.ra);
-          this.authService.currentUserUid(user.uid);
-          Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-        } else {
-          this.router.navigate(['']);
-        }
-      },
-      (error) => Utils.consoleLog(`userAuthState Error: `, 'red', error)
-    );
+      .subscribe(
+        (user) => {
+          if (user) {
+            this.isUserAuthorized = true;
+            this.authService.currentUserToken(user.ra);
+            this.authService.currentUserUid(user.uid);
+            Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+          } else {
+            this.router.navigate(['']);
+          }
+        },
+        (error) => Utils.consoleLog(`userAuthState Error: `, 'red', error)
+      );
   }
 
 }

@@ -9,6 +9,7 @@ import { User } from '../../interfaces/interfaces';
 import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
 import { NavLinksService } from '../nav-links.service';
+import { UsersService } from 'src/app/service/users.service';
 
 
 @Component({
@@ -29,10 +30,13 @@ export class NavbarComponent implements OnInit {
     private dataStorageService: DataStorageService,
     public progressService: ProgressService,
     public navLinksService: NavLinksService,
+    private usersService: UsersService,
     public str: StringService
     ) { }
 
     ngOnInit() {
+      this.progressService.setProgressing(true);
+
       this.dataStorageService.getUserData(this.authService.uid)
       .subscribe(
         (response: User) => {
@@ -45,8 +49,23 @@ export class NavbarComponent implements OnInit {
           }
         },
         (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
-        () => Utils.consoleLog(`getUserData Completed`, 'purple')
+        () => Utils.consoleLog(`getUserData Completed - navbar`, 'purple')
       );
+
+      // Fetching all users
+      this.dataStorageService.getItems()
+        .subscribe(
+          (usersArr) => {
+            Utils.consoleLog(`getItems Seccess: `, 'purple', usersArr);
+            this.usersService.storeUsers(usersArr);
+            this.progressService.setProgressing(false);
+          },
+          (error) => {
+            Utils.consoleLog(`getItems Error: `, 'red', error);
+            this.progressService.setProgressing(false);
+          },
+          () => Utils.consoleLog(`getItems Completed - application`, 'purple')
+        );
     }
 
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <mat-accordion class="example-headers-align">
-    <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel *ngFor="let user of usersService.users">
       <mat-expansion-panel-header>
         <mat-panel-title>{{ user.userName }}</mat-panel-title>
         <mat-panel-description>
@@ -14,14 +14,14 @@
           color="primary"
           [routerLink]="['/app/account', user.userName]"
           [queryParams]="{ id: user.uid }"
-        >Edit
+        >{{ str.edit | titlecase }}
         </button>
-        <button mat-stroked-button>Message</button>
+        <button mat-stroked-button>{{ str.message | titlecase }}</button>
         <button
           mat-stroked-button
           color="warn"
           (click)="onBlockUnblock(user)"
-        >{{ user.isBlocked ? 'Unblock' : 'Block' }}
+        >{{ user.isBlocked ? (str.unblock | titlecase) : (str.block | titlecase) }}
         </button>
       </mat-action-row>
     </mat-expansion-panel>

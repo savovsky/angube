@@ -6,6 +6,7 @@ import * as Utils from '../common/utils';
 import { map } from 'rxjs/operators';
 import { User } from '../interfaces/interfaces';
 import { Location } from '@angular/common';
+import { UsersService } from './users.service';
 
 
 @Injectable()
@@ -17,7 +18,8 @@ export class DataStorageService {
         private http: HttpClient,
         private authService: AuthService,
         private router: Router,
-        private location: Location
+        private location: Location,
+        private usersService: UsersService,
         ) { }
 
     getItems() {
@@ -53,18 +55,18 @@ export class DataStorageService {
             .subscribe(
                 (response: User) => {
                     Utils.consoleLog(`updateUserAccount Response: `, 'purple', response);
-                    if (user.uid === this.authService.uid) {
+                    if (response.uid === this.authService.uid) {
                         this.authService.currentUserName(response.userName);
                     }
-                    // if (isNewUser) {
-                    //     this.router.navigate(['question']);
-                    // } else {
-                    //     if (this.router.url === '/app/users') {
-                    //         return;
-                    //     }
-                    //     this.location.back();
-                    // }
-                    isNewUser ? this.router.navigate(['question']) : this.location.back();
+                    if (isNewUser) {
+                        this.router.navigate(['question']);
+                    } else {
+                        this.usersService.updateUser(response);
+                        if (this.router.url === '/app/users') {
+                            return;
+                        }
+                        this.location.back();
+                    }
 
                 },
                 (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
