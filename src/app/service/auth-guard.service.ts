@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
+import * as Utils from '../common/utils';
 
 
 // @Injectable({
@@ -19,16 +21,15 @@ export class AuthGuardService implements CanActivate {
   ) { }
 
   canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
-  ): boolean {
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
     // TODO on refresh getting token is asynchron and with AuthGuardService it redirect.
-    // if (this.authService.token) {
-    //   return true;
-    // } else {
-    //   this.router.navigate(['']);
-    // }
-    return true;
+    if (this.authService.token) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+    }
   }
+
 }

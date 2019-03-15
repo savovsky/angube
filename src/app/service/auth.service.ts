@@ -159,8 +159,6 @@ export class AuthService {
         this.isAdmin = isAdmin;
     }
 
-
-
     /**
      * https://firebase.google.com/docs/auth/web/manage-users
      */

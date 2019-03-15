@@ -31,7 +31,7 @@ export class ApplicationComponent implements OnInit {
           this.router.navigate(['']);
         }
       },
-      (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
+      (error) => Utils.consoleLog(`userAuthState Error: `, 'red', error)
     );
   }
 
