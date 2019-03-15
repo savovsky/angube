@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
       () => Utils.consoleLog(`getUserData Completed`, 'purple')
     );
 
-    // const userObj = this.usersAccountService.users.find((obj: Account) => obj.uid === uid);
+    // const userObj = this.usersService.users.find((obj: Account) => obj.uid === uid);
     // this.user = Object.entries(userObj);
 
 

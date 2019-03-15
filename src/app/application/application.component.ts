@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import * as Utils from '../common/utils';
 import { Router } from '@angular/router';
+import { HttpResponseService } from '../service/http-response.service';
+
 
 
 @Component({
@@ -15,24 +17,28 @@ export class ApplicationComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private httpResponseService: HttpResponseService
     ) { }
 
   ngOnInit() {
+    console.log('************');
+    // Checking user authentication
     this.authService.userAuthState()
-    .subscribe(
-      (user) => {
-        if (user) {
-          this.isUserAuthorized = true;
-          this.authService.currentUserToken(user.ra);
-          this.authService.currentUserUid(user.uid);
-          Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-        } else {
-          this.router.navigate(['']);
-        }
-      },
-      (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
-    );
+      .subscribe(
+        (user) => {
+          if (user) {
+            this.isUserAuthorized = true;
+            this.authService.currentUserToken(user.ra);
+            this.authService.currentUserUid(user.uid);
+            Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
+            this.httpResponseService.auth.next('e');
+          } else {
+            this.router.navigate(['']);
+          }
+        },
+        (error) => Utils.consoleLog(`userAuthState Error: `, 'red', error)
+      );
   }
 
 }

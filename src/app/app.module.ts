@@ -25,7 +25,6 @@ import { QuestionComponent } from './question/question.component';
 import { MenuIconsComponent } from './menu-icons/menu-icons.component';
 import { HttpResponseService } from './service/http-response.service';
 import { CardComponent } from './card/card.component';
-import { UsersAccountService } from './service/users-account.service';
 import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
 import { ProgressService } from './service/progress.service';
@@ -74,7 +73,6 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     AuthService,
     DataStorageService,
     HttpResponseService,
-    UsersAccountService,
     ProgressService,
     AuthGuardService,
     AdminAuthGuardService
