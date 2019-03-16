@@ -22,7 +22,6 @@ export class ApplicationComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('************');
     // Checking user authentication
     this.authService.userAuthState()
       .subscribe(
@@ -32,8 +31,9 @@ export class ApplicationComponent implements OnInit {
             this.authService.currentUserToken(user.ra);
             this.authService.currentUserUid(user.uid);
             Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-            this.httpResponseService.auth.next('e');
+            // this.httpResponseService.auth.next(user);
           } else {
+            Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'orange', user);
             this.router.navigate(['']);
           }
         },
