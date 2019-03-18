@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from './auth.service';
 import * as Utils from '../common/utils';
-import { map } from 'rxjs/operators';
+import { mapTo, map, catchError } from 'rxjs/operators';
 import { HttpResponseService } from './http-response.service';
+import { Observable, of } from 'rxjs';
 
 
 // @Injectable({
@@ -35,22 +36,49 @@ export class AuthGuardService implements CanActivate {
   //   return true;
   // }
 
-  canActivate() {
-    // this.httpResponseService.auth.pipe(
-    //   map((e) => {
-    //     if (e) {
-    //       console.log('eeeeeeeeeee');
-    //     }
+  canActivate(): Observable<boolean> {
+    return this.authService.userAuthState()
+    .subscribe(
+      (user) => {
+        if (user) {
+          Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'cyan', user);
+          return true;
+        } else {
+          Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'yellow', user);
+          return false;
+        }
+      },
+      (error) => {
+        Utils.consoleLog(`userAuthState Error: `, 'pink', error);
+        return false;
+      }
+    );
+
+    // return this.httpResponseService.auth.pipe(
+    //   map((user) => {
+    //     console.log('yyyyyyyyyyyy', user);
+    //     return true;
+    //   }),
+    //   catchError((err) => {
+    //     console.log('errrrrrrrrrrrr', err);
+    //     return of(false);
     //   })
     // );
-    this.httpResponseService.auth
-      .subscribe(
-        () => {
-          console.log('eeeeeeeeeee');
-          return true;
-        }
-      );
-    return true;
+
+
+    // return this.httpResponseService.auth.pipe(
+    //   mapTo(true)
+    // );
+
+    // this.httpResponseService.auth
+    //   .subscribe(
+    //     () => {
+    //       console.log('eeeeeeeeeee');
+    //       return true;
+    //     }
+    //   );
+    // return true;
+
   }
 
 }
