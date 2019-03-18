@@ -19,26 +19,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   error: any;
   isFetching = false;
-
-  signUpForm = new FormGroup({
-    emailFormControl: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    passwordFormControl: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-      PasswordValidators.cannotContainSpace
-    ]),
-    confirmPasswordFormControl: new FormControl('', [
-      Validators.required,
-      PasswordValidators.mustBeEqualToPassword('passwordFormControl')
-    ])
-  });
-
-
-  passwordConfirm = this.signUpForm.get('confirmPasswordFormControl');
-
+  signUpForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -48,6 +29,30 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.signUpForm = new FormGroup({
+      emailFormControl: new FormControl('', [
+        // The first argument is for default input value
+        // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
+        Validators.required,
+        Validators.email
+      ]),
+      passwordFormControl: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        PasswordValidators.cannotContainSpace
+      ]),
+      confirmPasswordFormControl: new FormControl('', [
+        Validators.required,
+        PasswordValidators.mustBeEqualToPassword('passwordFormControl')
+      ])
+    });
+
+    // REMIND Max, Section 15, Lecture 202
+    // this.signUpForm.valueChanges
+    //   .subscribe((value) => console.log('signUpForm value', value));
+    // this.signUpForm.statusChanges
+    //   .subscribe((status) => console.log('signUpForm status', status));
+
     this.httpResponseService.signUpUserError
       .subscribe((err: SignError) => {
         this.isFetching = false;
@@ -78,6 +83,10 @@ export class SignupComponent implements OnInit {
 
   get password() {
     return this.signUpForm.get('passwordFormControl');
+  }
+
+  get passwordConfirm() {
+    return this.signUpForm.get('confirmPasswordFormControl');
   }
 
   isPasswordConfirmEmpty() {

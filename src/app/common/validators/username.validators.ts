@@ -19,6 +19,7 @@ export class NameValidators {
     //         }, 2000);
     //     });
     // }
+    // REMIND Max, Section 15, Lecture 202
 
     static shouldBeUnique(control: AbstractControl): ValidationErrors | null {
         if (control.value === 'miro') {
