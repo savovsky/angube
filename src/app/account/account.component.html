@@ -7,35 +7,18 @@
       [formGroup]="accountForm"
       (ngSubmit)="onAccountSave()"
     >
-        <!-- User Name -->
-        <mat-form-field class="example-full-width">
+        <mat-form-field
+          *ngFor="let field of fields"
+          class="example-full-width"
+        >
           <input
             matInput
-            placeholder="User Name *"
-            formControlName="userNameFormControl"
+            placeholder = "{{ field.placeholder | titlecase }}"
+            formControlName="{{ field.formControlName }}"
           >
-          <mat-error *ngIf="!isUserNameValid()">{{ getErrorMessage(str.userName) }}</mat-error>
+          <mat-error>{{ getErrorMessage(field.placeholder) }}</mat-error>
         </mat-form-field>
 
-        <!-- First Name -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            placeholder="First Name"
-            formControlName="firstNameFormControl"
-          >
-          <mat-error *ngIf="!isFirstNameValid()">{{ getErrorMessage(str.firstName) }}</mat-error>
-        </mat-form-field>
-
-        <!-- Last Name -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            placeholder="Last Name"
-            formControlName="lastNameFormControl"
-          >
-          <mat-error *ngIf="!isLastNameValid()">{{ getErrorMessage(str.lastName) }}</mat-error>
-        </mat-form-field>
 
         <!-- TODO put the Loader and Err Msg in reusable component -->
         <div class="progress-err-container">
@@ -62,8 +45,8 @@
             (click)="onCancel()"
           >{{ str.cancel | titlecase }}
           </button>
-        </div>
 
+        </div>
     </form>
   </div>
 </div>

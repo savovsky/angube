@@ -5,10 +5,11 @@ import { DataStorageService } from '../service/data-storage.service';
 import { AuthService } from '../service/auth.service';
 import { Account } from './account.model';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../interfaces/interfaces';
+import { User, MatFormField } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import { Location } from '@angular/common';
 import { StringService } from '../service/strings.service';
+import { FormField } from '../common/form-field.model';
 
 
 @Component({
@@ -20,9 +21,12 @@ export class AccountComponent implements OnInit {
 
   error: any;
   user: User;
+  fields: MatFormField[];
   isRequesting = true;
   accountForm: FormGroup;
-  value = 'eho';
+  userNameForm = 'userNameForm';
+  firstNameForm = 'firstNameForm';
+  lastNameForm = 'lastNameForm';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,21 +37,19 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.accountForm = new FormGroup({
-
-      userNameFormControl: new FormControl('', [
-        Validators.required,
-        NameValidators.cannotContainSpace
-      ]),
-      firstNameFormControl: new FormControl('', [
-        NameValidators.cannotContainSpace
-      ]),
-      lastNameFormControl: new FormControl('', [
-        NameValidators.cannotContainSpace
-      ])
-    });
-
     const uid = this.route.snapshot.queryParamMap.get('id');
+    const formGroupObj = {};
+
+    formGroupObj[this.userNameForm] = new FormControl('', [Validators.required, NameValidators.cannotContainSpace]);
+    formGroupObj[this.firstNameForm] = new FormControl('', [NameValidators.cannotContainSpace]);
+    formGroupObj[this.lastNameForm] = new FormControl('', [NameValidators.cannotContainSpace]);
+    this.accountForm = new FormGroup(formGroupObj);
+
+    this.fields = [
+      new FormField(this.str.userName, this.userNameForm),
+      new FormField(this.str.firstName, this.firstNameForm),
+      new FormField(this.str.lastName, this.lastNameForm)
+    ];
 
     this.dataStorageService.getUserData(uid)
     .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
@@ -59,9 +61,9 @@ export class AccountComponent implements OnInit {
           this.authService.currentUserIsAdmin(response.isAdmin);
           this.user = response;
           this.accountForm.setValue({
-            userNameFormControl: response.userName,
-            firstNameFormControl: response.firstName,
-            lastNameFormControl: response.lastName
+            userNameForm: response.userName,
+            firstNameForm: response.firstName,
+            lastNameForm: response.lastName
           });
           // REMIND
           // .patchValue({....}) - for updating only a part of the form
@@ -80,17 +82,17 @@ export class AccountComponent implements OnInit {
   }
 
   get userNameFormControl() {
-    return this.accountForm.get('userNameFormControl');
+    return this.accountForm.get(this.userNameForm);
   }
   // REMIND - act on exact FormControl
   // this.userNameFormControl.reset(response.userName);
 
   get firstNameFormControl() {
-    return this.accountForm.get('firstNameFormControl');
+    return this.accountForm.get(this.firstNameForm);
   }
 
   get lastNameFormControl() {
-    return this.accountForm.get('lastNameFormControl');
+    return this.accountForm.get(this.lastNameForm);
   }
 
   userUid() {
@@ -125,54 +127,36 @@ export class AccountComponent implements OnInit {
     return this.lastNameFormControl.value;
   }
 
-  // User Name
-  isUserNameValid() {
-    return this.userNameFormControl.invalid ? false : true;
+
+  isFormValid() {
+    if (
+      !this.userNameFormControl.invalid &&
+      !this.firstNameFormControl.invalid &&
+      !this.lastNameFormControl.invalid
+    ) {
+      return true;
+    }
+    return false;
   }
 
-  isUserNameEmpty() {
-    return this.userNameFormControl.hasError('required') ? true : false;
-  }
-
-  isUserNameContainSpace() {
-    return this.userNameFormControl.hasError('cannotContainSpace') ? true : false;
-  }
-
-  // First Name
-  isFirstNameValid() {
-    return this.firstNameFormControl.invalid ? false : true;
-  }
-
-  isFirstNameContainSpace() {
-    return this.firstNameFormControl.hasError('cannotContainSpace') ? true : false;
-  }
-
-  // Last Name
-  isLastNameValid() {
-    return this.lastNameFormControl.invalid ? false : true;
-  }
-
-  isLastNameContainSpace() {
-    return this.lastNameFormControl.hasError('cannotContainSpace') ? true : false;
-  }
 
   getErrorMessage(fieldLabel: string) {
     switch (fieldLabel) {
       case this.str.userName:
-        if (this.isUserNameEmpty()) {
+        if (this.userNameFormControl.hasError('required')) {
           return this.str.requiredField;
         }
-        if (this.isUserNameContainSpace()) {
+        if (this.userNameFormControl.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;
       case this.str.firstName:
-        if (this.isFirstNameContainSpace()) {
+        if (this.firstNameFormControl.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;
       case this.str.lastName:
-        if (this.isLastNameContainSpace()) {
+        if (this.lastNameFormControl.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;
@@ -180,11 +164,7 @@ export class AccountComponent implements OnInit {
   }
 
   onAccountSave() {
-    if (
-      this.isUserNameValid() &&
-      this.isFirstNameValid() &&
-      this.isLastNameValid()
-    ) {
+    if (this.isFormValid()) {
       const userAccount = new Account(
         this.userUid(),
         this.userName(),
