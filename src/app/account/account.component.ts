@@ -156,24 +156,27 @@ export class AccountComponent implements OnInit {
     return this.lastNameFormControl.hasError('cannotContainSpace') ? true : false;
   }
 
-  getErrorMessage(expression: string) {
-    switch (expression) {
+  getErrorMessage(fieldLabel: string) {
+    switch (fieldLabel) {
       case this.str.userName:
         if (this.isUserNameEmpty()) {
-          return this.str.userNameIsRequired;
+          return this.str.requiredField;
         }
         if (this.isUserNameContainSpace()) {
-          return this.str.userNameCannotContainSpace;
+          return this.str.cannotContainSpace;
         }
         return;
       case this.str.firstName:
         if (this.isFirstNameContainSpace()) {
-          return this.str.firstNameCannotContainSpace;
+          return this.str.cannotContainSpace;
         }
-
+        return;
+      case this.str.lastName:
+        if (this.isLastNameContainSpace()) {
+          return this.str.cannotContainSpace;
+        }
+        return;
     }
-
-
   }
 
   onAccountSave() {

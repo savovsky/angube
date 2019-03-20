@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="card">
-    <div class="right primary">User Account</div>
+    <div class="right primary">{{ str.userAccount | titlecase }}</div>
     <form
       class="example-form"
       [formGroup]="accountForm"
@@ -15,31 +15,6 @@
             formControlName="userNameFormControl"
           >
           <mat-error *ngIf="!isUserNameValid()">{{ getErrorMessage(str.userName) }}</mat-error>
-          <!-- <mat-error *ngIf="isUserNameEmpty()">{{ getErrorMessage() }}</mat-error> -->
-          <!-- <mat-error *ngIf="isUserNameContainSpace()">{{ getErrorMessage() }}</mat-error> -->
-
-          <!-- <mat-error *ngIf="isUserNameEmpty()">
-            User Name is <strong>required</strong>
-          </mat-error> -->
-          <!-- <mat-error *ngIf="isUserNameContainSpace()">
-            Name cannot contain <strong>space</strong>.
-          </mat-error> -->
-
-          <!-- TODO Remove if you do not need them. -->
-          <!-- They are not Wired Up !!!! -->
-          <!-- <mat-error *ngIf="userName.hasError('minlength')">
-            Name should be minimum <strong>{{userName.errors.minlength.requiredLength}}</strong> characters.
-          </mat-error> -->
-          <!-- <mat-error *ngIf="userName.pending">
-            Checking...
-          </mat-error> -->
-          <!-- <mat-error *ngIf="userName.hasError('shouldBeUnique')">
-            User name is already taken.
-          </mat-error> -->
-          <!-- <mat-error
-            *ngIf="userName.touched && !userName.hasError('required') && !userName.hasError('minlength') && !userName.hasError('cannotContainSpace') && !userName.hasError('shouldBeUnique')"
-            >Please enter a user name
-          </mat-error> -->
         </mat-form-field>
 
         <!-- First Name -->
@@ -50,9 +25,6 @@
             formControlName="firstNameFormControl"
           >
           <mat-error *ngIf="!isFirstNameValid()">{{ getErrorMessage(str.firstName) }}</mat-error>
-          <!-- <mat-error *ngIf="isFirstNameContainSpace()">
-            Name cannot contain <strong>space</strong>.
-          </mat-error> -->
         </mat-form-field>
 
         <!-- Last Name -->
@@ -62,9 +34,7 @@
             placeholder="Last Name"
             formControlName="lastNameFormControl"
           >
-          <mat-error *ngIf="isLastNameContainSpace()">
-            Name cannot contain <strong>space</strong>.
-          </mat-error>
+          <mat-error *ngIf="!isLastNameValid()">{{ getErrorMessage(str.lastName) }}</mat-error>
         </mat-form-field>
 
         <!-- TODO put the Loader and Err Msg in reusable component -->
@@ -81,7 +51,7 @@
             class="wide-45"
             color="primary"
             type="submit"
-          >Save
+          >{{ str.save | titlecase }}
           </button>
 
           <!-- Cancel Btn -->
@@ -90,7 +60,7 @@
             class="wide-45"
             type="button"
             (click)="onCancel()"
-          >Cancel
+          >{{ str.cancel | titlecase }}
           </button>
         </div>
 
