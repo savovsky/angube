@@ -14,12 +14,16 @@
             placeholder="User Name *"
             formControlName="userNameFormControl"
           >
-          <mat-error *ngIf="isUserNameEmpty()">
+          <mat-error *ngIf="!isUserNameValid()">{{ getErrorMessage(str.userName) }}</mat-error>
+          <!-- <mat-error *ngIf="isUserNameEmpty()">{{ getErrorMessage() }}</mat-error> -->
+          <!-- <mat-error *ngIf="isUserNameContainSpace()">{{ getErrorMessage() }}</mat-error> -->
+
+          <!-- <mat-error *ngIf="isUserNameEmpty()">
             User Name is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="isUserNameContainSpace()">
+          </mat-error> -->
+          <!-- <mat-error *ngIf="isUserNameContainSpace()">
             Name cannot contain <strong>space</strong>.
-          </mat-error>
+          </mat-error> -->
 
           <!-- TODO Remove if you do not need them. -->
           <!-- They are not Wired Up !!!! -->
@@ -45,9 +49,10 @@
             placeholder="First Name"
             formControlName="firstNameFormControl"
           >
-          <mat-error *ngIf="isFirstNameContainSpace()">
+          <mat-error *ngIf="!isFirstNameValid()">{{ getErrorMessage(str.firstName) }}</mat-error>
+          <!-- <mat-error *ngIf="isFirstNameContainSpace()">
             Name cannot contain <strong>space</strong>.
-          </mat-error>
+          </mat-error> -->
         </mat-form-field>
 
         <!-- Last Name -->

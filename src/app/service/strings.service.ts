@@ -54,4 +54,8 @@ export class StringService {
     pleaseEnterPassword = 'please enter a password';
     passwordConfirmationIs = 'password confirmation is';
     passwordDoesNotMatch = 'password does not match';
+
+    userNameIsRequired = 'User Name is required';
+    userNameCannotContainSpace = 'User Name cannot contain space';
+    firstNameCannotContainSpace = 'First Name cannot contain space';
 }

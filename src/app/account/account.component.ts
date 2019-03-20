@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import { Location } from '@angular/common';
+import { StringService } from '../service/strings.service';
 
 
 @Component({
@@ -17,39 +18,35 @@ import { Location } from '@angular/common';
 })
 export class AccountComponent implements OnInit {
 
-  accountForm = new FormGroup({
-
-    userNameFormControl: new FormControl('', [
-      Validators.required,
-      NameValidators.cannotContainSpace
-    ]),
-
-    firstNameFormControl: new FormControl('', [
-      NameValidators.cannotContainSpace
-    ]),
-
-    lastNameFormControl: new FormControl('', [
-      NameValidators.cannotContainSpace
-    ])
-
-  });
-
-  userNameFormControl = this.accountForm.get('userNameFormControl');
-  firstNameFormControl = this.accountForm.get('firstNameFormControl');
-  lastNameFormControl = this.accountForm.get('lastNameFormControl');
   error: any;
   user: User;
   isRequesting = true;
-
+  accountForm: FormGroup;
+  value = 'eho';
 
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
     private dataStorageService: DataStorageService,
-    private location: Location
+    private location: Location,
+    public str: StringService
   ) { }
 
   ngOnInit() {
+    this.accountForm = new FormGroup({
+
+      userNameFormControl: new FormControl('', [
+        Validators.required,
+        NameValidators.cannotContainSpace
+      ]),
+      firstNameFormControl: new FormControl('', [
+        NameValidators.cannotContainSpace
+      ]),
+      lastNameFormControl: new FormControl('', [
+        NameValidators.cannotContainSpace
+      ])
+    });
+
     const uid = this.route.snapshot.queryParamMap.get('id');
 
     this.dataStorageService.getUserData(uid)
@@ -58,20 +55,42 @@ export class AccountComponent implements OnInit {
         this.isRequesting = false;
         if (response) {
           Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
+          Utils.consoleLog(`accountForm: `, 'yellow', this.accountForm);
           this.authService.currentUserIsAdmin(response.isAdmin);
           this.user = response;
-          this.userNameFormControl.reset(response.userName);
-          this.firstNameFormControl.reset(response.firstName);
-          this.lastNameFormControl.reset(response.lastName);
+          this.accountForm.setValue({
+            userNameFormControl: response.userName,
+            firstNameFormControl: response.firstName,
+            lastNameFormControl: response.lastName
+          });
+          // REMIND
+          // .patchValue({....}) - for updating only a part of the form
+          // .reset() - reset the entire form
         } else {
-          Utils.consoleLog(`getUserData Respose`, 'red', response);
-          this.userNameFormControl.reset(this.authService.userName);
+          Utils.consoleLog(`getUserData Respose: `, 'red', response);
+          // TODO Error Screen
+          // This is the case when user is authenticated, but
+          // there is no user's data in Data Storage for this user.(deleted)
         }
       },
-      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
+      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error), // TODO Error Screen
       () => Utils.consoleLog(`getUserData Completed`, 'purple')
     );
 
+  }
+
+  get userNameFormControl() {
+    return this.accountForm.get('userNameFormControl');
+  }
+  // REMIND - act on exact FormControl
+  // this.userNameFormControl.reset(response.userName);
+
+  get firstNameFormControl() {
+    return this.accountForm.get('firstNameFormControl');
+  }
+
+  get lastNameFormControl() {
+    return this.accountForm.get('lastNameFormControl');
   }
 
   userUid() {
@@ -135,6 +154,26 @@ export class AccountComponent implements OnInit {
 
   isLastNameContainSpace() {
     return this.lastNameFormControl.hasError('cannotContainSpace') ? true : false;
+  }
+
+  getErrorMessage(expression: string) {
+    switch (expression) {
+      case this.str.userName:
+        if (this.isUserNameEmpty()) {
+          return this.str.userNameIsRequired;
+        }
+        if (this.isUserNameContainSpace()) {
+          return this.str.userNameCannotContainSpace;
+        }
+        return;
+      case this.str.firstName:
+        if (this.isFirstNameContainSpace()) {
+          return this.str.firstNameCannotContainSpace;
+        }
+
+    }
+
+
   }
 
   onAccountSave() {
