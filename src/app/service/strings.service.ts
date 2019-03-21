@@ -44,9 +44,8 @@ export class StringService {
     firstTimeUser = 'first time user';
     notRegisteredYet = 'not registered yet';
     wouldYouLikeToUpdateYourAccount = 'would you like to update your account';
-    pleaseEnterValidEmailAddress = 'please enter a valid email address';
-    emailIs = 'email is';
-    passwordIs = 'password is';
+    emailIs = 'email is'; // TODO Remove
+    passwordIs = 'password is'; // TODO Remove
     required = 'required';
     passwordShouldBeAtLeast = 'password should be at least';
     characters = 'characters';
@@ -58,4 +57,5 @@ export class StringService {
     // Input Errors
     requiredField = 'Required field';
     cannotContainSpace = 'Field cannot contain space';
+    invalidEmailAddress = 'Invalid email address';
 }

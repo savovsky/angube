@@ -17,7 +17,7 @@
             <!-- [formControlName]="'emailFormControl'" with prop binding-->
             <!-- REMIND - (directive) - It is the same -->
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            {{ str.pleaseEnterValidEmailAddress | capitalize }}
+            {{ str.invalidEmailAddress | capitalize }}
           </mat-error>
           <mat-error *ngIf="email.hasError('required')">
               {{ str.emailIs  | capitalize }} <strong>{{ str.required }}</strong>

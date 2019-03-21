@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { NameValidators } from '../common/validators/username.validators';
+import { CustomValidators } from '../common/custom.validators';
 import { DataStorageService } from '../service/data-storage.service';
 import { AuthService } from '../service/auth.service';
 import { Account } from './account.model';
@@ -20,9 +20,9 @@ import { FormField } from '../common/form-field.model';
 export class AccountComponent implements OnInit {
 
   error: any;
+  isRequesting = true;
   user: User;
   fields: MatFormField[];
-  isRequesting = true;
   accountForm: FormGroup;
   userNameForm = 'userNameForm';
   firstNameForm = 'firstNameForm';
@@ -42,20 +42,20 @@ export class AccountComponent implements OnInit {
 
     formGroupObj[this.userNameForm] = new FormControl('', [
       Validators.required,
-      NameValidators.cannotContainSpace
+      CustomValidators.cannotContainSpace
     ]);
     formGroupObj[this.firstNameForm] = new FormControl('', [
-      NameValidators.cannotContainSpace
+      CustomValidators.cannotContainSpace
     ]);
     formGroupObj[this.lastNameForm] = new FormControl('', [
-      NameValidators.cannotContainSpace
+      CustomValidators.cannotContainSpace
     ]);
     this.accountForm = new FormGroup(formGroupObj);
 
     this.fields = [
-      new FormField(this.str.userName, this.userNameForm),
-      new FormField(this.str.firstName, this.firstNameForm),
-      new FormField(this.str.lastName, this.lastNameForm)
+      new FormField('text', this.str.userName, this.userNameForm),
+      new FormField('text', this.str.firstName, this.firstNameForm),
+      new FormField('text', this.str.lastName, this.lastNameForm)
     ];
 
     this.dataStorageService.getUserData(uid)
@@ -64,7 +64,6 @@ export class AccountComponent implements OnInit {
         this.isRequesting = false;
         if (response) {
           Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
-          Utils.consoleLog(`accountForm: `, 'yellow', this.accountForm);
           this.authService.currentUserIsAdmin(response.isAdmin);
           this.user = response;
           this.accountForm.setValue({
@@ -135,25 +134,12 @@ export class AccountComponent implements OnInit {
   }
 
 
-  isFormValid() {
-    if (
-      !this.userNameFormControl.invalid &&
-      !this.firstNameFormControl.invalid &&
-      !this.lastNameFormControl.invalid
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-
   getErrorMessage(fieldLabel: string) {
     switch (fieldLabel) {
       case this.str.userName:
         if (this.userNameFormControl.hasError('required')) {
           return this.str.requiredField;
-        }
-        if (this.userNameFormControl.hasError('cannotContainSpace')) {
+        } else if (this.userNameFormControl.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;
@@ -167,11 +153,12 @@ export class AccountComponent implements OnInit {
           return this.str.cannotContainSpace;
         }
         return;
+      default: return;
     }
   }
 
   onAccountSave() {
-    if (this.isFormValid()) {
+    if (this.accountForm.valid) {
       const userAccount = new Account(
         this.userUid(),
         this.userName(),
@@ -190,6 +177,7 @@ export class AccountComponent implements OnInit {
   }
 
   onCancel() {
-    this.location.back(); // TODO Back to question component after the question..Repair it!
+    // TODO Back to question component after the question..Repair it!
+    this.location.back();
   }
 }

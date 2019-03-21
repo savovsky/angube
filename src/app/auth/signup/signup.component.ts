@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import { PasswordValidators } from 'src/app/common/validators/password.validators';
+import { CustomValidators } from 'src/app/common/custom.validators';
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpResponseService } from 'src/app/service/http-response.service';
 import { DataStorageService } from 'src/app/service/data-storage.service';
@@ -39,11 +39,11 @@ export class SignupComponent implements OnInit {
       passwordFormControl: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        PasswordValidators.cannotContainSpace
+        CustomValidators.cannotContainSpace
       ]),
       confirmPasswordFormControl: new FormControl('', [
         Validators.required,
-        PasswordValidators.mustBeEqualToPassword('passwordFormControl')
+        CustomValidators.mustBeEqualToPassword('passwordFormControl')
       ])
     });
 
