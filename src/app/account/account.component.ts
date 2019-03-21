@@ -40,9 +40,16 @@ export class AccountComponent implements OnInit {
     const uid = this.route.snapshot.queryParamMap.get('id');
     const formGroupObj = {};
 
-    formGroupObj[this.userNameForm] = new FormControl('', [Validators.required, NameValidators.cannotContainSpace]);
-    formGroupObj[this.firstNameForm] = new FormControl('', [NameValidators.cannotContainSpace]);
-    formGroupObj[this.lastNameForm] = new FormControl('', [NameValidators.cannotContainSpace]);
+    formGroupObj[this.userNameForm] = new FormControl('', [
+      Validators.required,
+      NameValidators.cannotContainSpace
+    ]);
+    formGroupObj[this.firstNameForm] = new FormControl('', [
+      NameValidators.cannotContainSpace
+    ]);
+    formGroupObj[this.lastNameForm] = new FormControl('', [
+      NameValidators.cannotContainSpace
+    ]);
     this.accountForm = new FormGroup(formGroupObj);
 
     this.fields = [
