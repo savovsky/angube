@@ -33,7 +33,7 @@ export class ApplicationComponent implements OnInit {
             Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
             // this.httpResponseService.auth.next(user);
           } else {
-            Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'orange', user);
+            Utils.consoleLog(`No user is Signed In.`, 'orange', user);
             this.router.navigate(['']);
           }
         },

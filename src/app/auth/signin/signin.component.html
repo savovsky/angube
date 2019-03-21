@@ -6,56 +6,40 @@
       [formGroup]="signInForm" 
       (ngSubmit)="onSignIn()"
     >
-        <!-- Email -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            type="email"
-            placeholder="{{ str.email | titlecase }}"
-            formControlName="emailFormControl"
-          >
-          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            {{ str.pleaseEnterValidEmailAddress | capitalize }}
-          </mat-error>
-          <mat-error *ngIf="email.hasError('required')">
-            {{ str.emailIs  | capitalize }} <strong>{{ str.required }}</strong>
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field
+        *ngFor="let field of fields"
+        class="example-full-width"
+      >
+        <input
+          matInput
+          [type]="frormsService.getType(field.type)"
+          placeholder = "{{ field.placeholder | titlecase }}"
+          formControlName="{{ field.formControlName }}"
+        >
+        <mat-icon
+          *ngIf = "field.placeholder === str.password"
+          matSuffix
+          style="cursor: pointer;"
+          (click)="frormsService.onVisibilityClick($event)"
+        >{{ frormsService.hide ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+        <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
+      </mat-form-field>
 
-        <!-- Password -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            placeholder="{{ str.password | titlecase }}"
-            formControlName="passwordFormControl"
-          >
-          <mat-icon
-            matSuffix
-            style="cursor: pointer;"
-            (click)="onVisibilityClick($event)"
-          >{{ hide ? 'visibility_off' : 'visibility' }}
-          </mat-icon>
-          <mat-error *ngIf="password.hasError('required')">
-            {{ str.passwordIs | capitalize }} <strong>{{ str.required }}</strong>
-          </mat-error>
-        </mat-form-field>
-  
-        <button
-          mat-raised-button
-          class="wide-100"
-          color="primary"
-          type="submit"
-        >{{ str.submit | uppercase }}
-        </button>
-        <!-- [disabled]="!signInForm.valid && !signInForm.touched" -->
-
-        <!-- TODO put the Loader and Err Msg in reusable component -->
-        <div class="progress-err-container">
-          <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
-          <div class="err-msg">{{ error }}</div>
-        </div>
-        <!--  -->
+      <button
+        mat-raised-button
+        class="wide-100"
+        color="primary"
+        type="submit"
+      >{{ str.submit | uppercase }}
+      </button>
+      <!-- REMIND [disabled]="!signInForm.valid && !signInForm.touched" -->
+      <!-- TODO put the Loader and Err Msg in reusable component -->
+      <div class="progress-err-container">
+        <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
+        <div class="err-msg">{{ error }}</div>
+      </div>
+      <!--  -->
   
     </form>
     <div class="top-5">
@@ -69,4 +53,3 @@
       </div>
   </div>
 </div>
-

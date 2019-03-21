@@ -6,64 +6,26 @@
       [formGroup]="signUpForm"
       (ngSubmit)="onSignUp()"
     >
-        <!-- Email -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            type="email"
-            placeholder="{{ str.email | titlecase }}"
-            formControlName="emailFormControl"
-          >
-          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            {{ str.pleaseEnterValidEmailAddress | capitalize }}
-          </mat-error>
-          <mat-error *ngIf="email.hasError('required')">
-              {{ str.emailIs  | capitalize }} <strong>{{ str.required }}</strong>
-          </mat-error>
-        </mat-form-field>
-
-        <!-- Password -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            placeholder="{{ str.password | titlecase }}"
-            formControlName="passwordFormControl"
-          >
-          <mat-icon
-            matSuffix
-            style="cursor: pointer;"
-            (click)="onVisibilityClick($event)"
-          >{{ hide ? 'visibility_off' : 'visibility' }}
-          </mat-icon>
-
-          <mat-error *ngIf="password.hasError('required')">
-            {{ str.passwordIs | capitalize }} <strong>{{ str.required }}</strong>
-          </mat-error>
-          <mat-error *ngIf="password.hasError('minlength')">
-              {{ str.passwordShouldBeAtLeast | capitalize }} <strong>{{password.errors.minlength.requiredLength}}</strong> {{ str.characters }}
-          </mat-error>
-          <mat-error *ngIf="password.hasError('cannotContainSpace')">
-            {{ str.passwordCannotContainSpace | capitalize }}
-          </mat-error>
-          <mat-error *ngIf="password.touched && !password.hasError('required') && !password.hasError('minlength') && !password.hasError('cannotContainSpace')">
-            {{ str.pleaseEnterPassword | capitalize }}
-          </mat-error>
-        </mat-form-field>
-        <!-- Confirm Password -->
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            placeholder="{{ str.confirmPassword | titlecase }}"
-            formControlName="confirmPasswordFormControl"
-          >
-          <mat-error *ngIf="isPasswordConfirmEmpty()">
-            {{ str.passwordConfirmationIs | capitalize }} <strong>{{ str.required }}</strong>
-          </mat-error>
-          <mat-error *ngIf="isPasswordConfirmMatch()">
-            {{ str.passwordDoesNotMatch | capitalize }}
-          </mat-error>
+      <mat-form-field
+        *ngFor="let field of fields"
+        class="example-full-width"
+      >
+        <input
+          matInput
+          [type]="frormsService.getType(field.type)"
+          placeholder = "{{ field.placeholder | titlecase }}"
+          formControlName="{{ field.formControlName }}"
+        >
+          <!-- [formControlName]="'emailFormControl'" with prop binding-->
+          <!-- REMIND - (directive) - It is the same -->
+        <mat-icon
+          *ngIf = "field.placeholder === str.password"
+          matSuffix
+          style="cursor: pointer;"
+          (click)="frormsService.onVisibilityClick($event)"
+        >{{ frormsService.hide ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+        <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
         </mat-form-field>
 
         <button
@@ -73,7 +35,6 @@
           type="submit"
         >{{ str.submit | uppercase }}
         </button>
-        <!-- [disabled]="!signUpForm.valid && !signUpForm.touched" -->
 
         <!-- TODO put the Loader and Err Msg in reusable component -->
         <div class="progress-err-container">

@@ -44,14 +44,19 @@ export class StringService {
     firstTimeUser = 'first time user';
     notRegisteredYet = 'not registered yet';
     wouldYouLikeToUpdateYourAccount = 'would you like to update your account';
-    pleaseEnterValidEmailAddress = 'please enter a valid email address';
-    emailIs = 'email is';
-    passwordIs = 'password is';
+    emailIs = 'email is'; // TODO Remove
+    passwordIs = 'password is'; // TODO Remove
     required = 'required';
-    passwordShouldBeAtLeast = 'password should be at least';
-    characters = 'characters';
+
     passwordCannotContainSpace = 'password cannot contain space';
     pleaseEnterPassword = 'please enter a password';
     passwordConfirmationIs = 'password confirmation is';
     passwordDoesNotMatch = 'password does not match';
+
+    // Input Errors
+    requiredField = 'required field';
+    cannotContainSpace = 'field cannot contain space';
+    invalidEmailAddress = 'invalid email address';
+    passwordShouldBeAtLeast = 'password should be at least';
+    characters = 'characters';
 }

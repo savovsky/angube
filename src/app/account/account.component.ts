@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { NameValidators } from '../common/validators/username.validators';
+import { CustomValidators } from '../common/custom.validators';
 import { DataStorageService } from '../service/data-storage.service';
 import { AuthService } from '../service/auth.service';
 import { Account } from './account.model';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../interfaces/interfaces';
+import { User, MatFormField } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import { Location } from '@angular/common';
+import { StringService } from '../service/strings.service';
+import { FormField } from '../common/form-field.model';
 
 
 @Component({
@@ -17,40 +19,44 @@ import { Location } from '@angular/common';
 })
 export class AccountComponent implements OnInit {
 
-  accountForm = new FormGroup({
-
-    userNameFormControl: new FormControl('', [
-      Validators.required,
-      NameValidators.cannotContainSpace
-    ]),
-
-    firstNameFormControl: new FormControl('', [
-      NameValidators.cannotContainSpace
-    ]),
-
-    lastNameFormControl: new FormControl('', [
-      NameValidators.cannotContainSpace
-    ])
-
-  });
-
-  userNameFormControl = this.accountForm.get('userNameFormControl');
-  firstNameFormControl = this.accountForm.get('firstNameFormControl');
-  lastNameFormControl = this.accountForm.get('lastNameFormControl');
   error: any;
-  user: User;
   isRequesting = true;
-
+  user: User;
+  fields: MatFormField[];
+  accountForm: FormGroup;
+  userNameForm = 'userNameForm';
+  firstNameForm = 'firstNameForm';
+  lastNameForm = 'lastNameForm';
 
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
     private dataStorageService: DataStorageService,
-    private location: Location
+    private location: Location,
+    public str: StringService
   ) { }
 
   ngOnInit() {
     const uid = this.route.snapshot.queryParamMap.get('id');
+    const formGroupObj = {};
+
+    formGroupObj[this.userNameForm] = new FormControl('', [
+      Validators.required,
+      CustomValidators.cannotContainSpace
+    ]);
+    formGroupObj[this.firstNameForm] = new FormControl('', [
+      CustomValidators.cannotContainSpace
+    ]);
+    formGroupObj[this.lastNameForm] = new FormControl('', [
+      CustomValidators.cannotContainSpace
+    ]);
+    this.accountForm = new FormGroup(formGroupObj);
+
+    this.fields = [
+      new FormField('text', this.str.userName, this.userNameForm),
+      new FormField('text', this.str.firstName, this.firstNameForm),
+      new FormField('text', this.str.lastName, this.lastNameForm)
+    ];
 
     this.dataStorageService.getUserData(uid)
     .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
@@ -60,98 +66,75 @@ export class AccountComponent implements OnInit {
           Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
           this.authService.currentUserIsAdmin(response.isAdmin);
           this.user = response;
-          this.userNameFormControl.reset(response.userName);
-          this.firstNameFormControl.reset(response.firstName);
-          this.lastNameFormControl.reset(response.lastName);
+          this.accountForm.setValue({
+            userNameForm: response.userName,
+            firstNameForm: response.firstName,
+            lastNameForm: response.lastName
+          });
+          // REMIND
+          // .patchValue({....}) - for updating only a part of the form
+          // .reset() - reset the entire form
         } else {
-          Utils.consoleLog(`getUserData Respose`, 'red', response);
-          this.userNameFormControl.reset(this.authService.userName);
+          Utils.consoleLog(`getUserData Respose: `, 'red', response);
+          // TODO Error Screen
+          // This is the case when user is authenticated, but
+          // there is no user's data in Data Storage for this user.(deleted)
         }
       },
-      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
+      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error), // TODO Error Screen
       () => Utils.consoleLog(`getUserData Completed`, 'purple')
     );
 
   }
 
-  userUid() {
-    return this.user.uid;
+  get userNameFormControl() {
+    return this.accountForm.get(this.userNameForm);
+  }
+  // REMIND - act on exact FormControl
+  // this.userNameFormControl.reset(response.userName);
+
+  get firstNameFormControl() {
+    return this.accountForm.get(this.firstNameForm);
   }
 
-  userEmail() {
-    return this.user.email;
+  get lastNameFormControl() {
+    return this.accountForm.get(this.lastNameForm);
   }
 
-  userIsAdmin() {
-    return this.user.isAdmin;
-  }
-
-  userIsBlocked() {
-    return this.user.isBlocked;
-  }
-
-  userBirthdate() {
-    return this.user.birthdate;
-  }
-
-  userName() {
-    return this.userNameFormControl.value;
-  }
-
-  firstName() {
-    return this.firstNameFormControl.value;
-  }
-
-  lastName() {
-    return this.lastNameFormControl.value;
-  }
-
-  // User Name
-  isUserNameValid() {
-    return this.userNameFormControl.invalid ? false : true;
-  }
-
-  isUserNameEmpty() {
-    return this.userNameFormControl.hasError('required') ? true : false;
-  }
-
-  isUserNameContainSpace() {
-    return this.userNameFormControl.hasError('cannotContainSpace') ? true : false;
-  }
-
-  // First Name
-  isFirstNameValid() {
-    return this.firstNameFormControl.invalid ? false : true;
-  }
-
-  isFirstNameContainSpace() {
-    return this.firstNameFormControl.hasError('cannotContainSpace') ? true : false;
-  }
-
-  // Last Name
-  isLastNameValid() {
-    return this.lastNameFormControl.invalid ? false : true;
-  }
-
-  isLastNameContainSpace() {
-    return this.lastNameFormControl.hasError('cannotContainSpace') ? true : false;
+  getErrorMessage(fieldLabel: string) {
+    switch (fieldLabel) {
+      case this.str.userName:
+        if (this.userNameFormControl.hasError('required')) {
+          return this.str.requiredField;
+        } else if (this.userNameFormControl.hasError('cannotContainSpace')) {
+          return this.str.cannotContainSpace;
+        }
+        return;
+      case this.str.firstName:
+        if (this.firstNameFormControl.hasError('cannotContainSpace')) {
+          return this.str.cannotContainSpace;
+        }
+        return;
+      case this.str.lastName:
+        if (this.lastNameFormControl.hasError('cannotContainSpace')) {
+          return this.str.cannotContainSpace;
+        }
+        return;
+      default: return;
+    }
   }
 
   onAccountSave() {
-    if (
-      this.isUserNameValid() &&
-      this.isFirstNameValid() &&
-      this.isLastNameValid()
-    ) {
+    if (this.accountForm.valid) {
       const userAccount = new Account(
-        this.userUid(),
-        this.userName(),
-        this.firstName(),
-        this.lastName(),
-        this.userEmail(),
-        this.userBirthdate(),
-        this.userIsAdmin(),
-        this.userIsBlocked()
+        this.user.uid,
+        this.userNameFormControl.value,
+        this.firstNameFormControl.value,
+        this.lastNameFormControl.value,
+        this.user.email,
+        this.user.birthdate,
+        this.user.isAdmin,
+        this.user.isBlocked
       );
 
       this.error = null;
@@ -161,6 +144,7 @@ export class AccountComponent implements OnInit {
   }
 
   onCancel() {
-    this.location.back(); // TODO Back to question component after the question..Repair it!
+    // TODO Back to question component after the question..Repair it!
+    this.location.back();
   }
 }
