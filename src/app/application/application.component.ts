@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import * as Utils from '../common/utils';
 import { Router } from '@angular/router';
-import { HttpResponseService } from '../service/http-response.service';
-
-
 
 @Component({
   selector: 'app-application',
@@ -17,8 +14,7 @@ export class ApplicationComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private httpResponseService: HttpResponseService
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
@@ -31,7 +27,7 @@ export class ApplicationComponent implements OnInit {
             this.authService.currentUserToken(user.ra);
             this.authService.currentUserUid(user.uid);
             Utils.consoleLog(`User ${user.displayName} is Signed In.`, 'blue', user);
-            // this.httpResponseService.auth.next(user);
+            // this.authService.userAuth.next(user);
           } else {
             Utils.consoleLog(`No user is Signed In.`, 'orange', user);
             this.router.navigate(['']);

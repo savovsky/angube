@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject } from 'rxjs';
 import { HttpResponseService } from './http-response.service';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
@@ -18,6 +18,7 @@ export class AuthService {
     password: string;
     token: string;
     isAdmin: boolean;
+    userAuth = new Subject();
 
     constructor(
         private router: Router,

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from './auth.service';
 import * as Utils from '../common/utils';
-import { mapTo, map, catchError } from 'rxjs/operators';
-import { HttpResponseService } from './http-response.service';
+// import { mapTo, map, catchError } from 'rxjs/operators';
+// import { HttpResponseService } from './http-response.service';
 import { Observable, of } from 'rxjs';
 
 
@@ -19,8 +19,8 @@ export class AuthGuardService implements CanActivate {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    private httpResponseService: HttpResponseService
+    // private router: Router,
+    // private httpResponseService: HttpResponseService
   ) { }
 
   // canActivate(
