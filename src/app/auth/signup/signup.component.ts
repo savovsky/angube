@@ -5,8 +5,9 @@ import { AuthService } from 'src/app/service/auth.service';
 import { HttpResponseService } from 'src/app/service/http-response.service';
 import { DataStorageService } from 'src/app/service/data-storage.service';
 import { Account } from 'src/app/account/account.model';
-import { SignError } from 'src/app/interfaces/interfaces';
+import { SignError, MatFormField } from 'src/app/interfaces/interfaces';
 import { StringService } from 'src/app/service/strings.service';
+import { FormField } from 'src/app/common/form-field.model';
 
 
 @Component({
@@ -16,10 +17,14 @@ import { StringService } from 'src/app/service/strings.service';
 })
 export class SignupComponent implements OnInit {
 
-  hide = true;
   error: any;
+  hide = true;
   isFetching = false;
+  fields: MatFormField[];
   signUpForm: FormGroup;
+  emailForm = 'emailForm';
+  passwordForm = 'passwordForm';
+  confirmPasswordForm = 'confirmPasswordForm';
 
   constructor(
     private authService: AuthService,
@@ -29,23 +34,48 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.signUpForm = new FormGroup({
-      emailFormControl: new FormControl('', [
-        // The first argument is for default input value
-        // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
-        Validators.required,
-        Validators.email
-      ]),
-      passwordFormControl: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        CustomValidators.cannotContainSpace
-      ]),
-      confirmPasswordFormControl: new FormControl('', [
-        Validators.required,
-        CustomValidators.mustBeEqualToPassword('passwordFormControl')
-      ])
-    });
+    const formGroupObj = {};
+
+    // this.signUpForm = new FormGroup({
+    //   emailFormControl: new FormControl('', [
+    //     // The first argument is for default input value
+    //     // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
+    //     Validators.required,
+    //     Validators.email
+    //   ]),
+    //   passwordFormControl: new FormControl('', [
+    //     Validators.required,
+    //     Validators.minLength(6),
+    //     CustomValidators.cannotContainSpace
+    //   ]),
+    //   confirmPasswordFormControl: new FormControl('', [
+    //     Validators.required,
+    //     CustomValidators.mustBeEqualTo('passwordFormControl')
+    //   ])
+    // });
+
+    formGroupObj[this.emailForm] = new FormControl('', [
+      // REMIND The first argument is for default input value
+      // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
+      Validators.required,
+      Validators.email
+    ]);
+    formGroupObj[this.passwordForm] = new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      CustomValidators.cannotContainSpace
+    ]);
+    formGroupObj[this.confirmPasswordForm] = new FormControl('', [
+      Validators.required,
+      CustomValidators.mustBeEqualTo('passwordForm')
+    ]);
+
+    this.signUpForm = new FormGroup(formGroupObj);
+
+    this.fields = [
+      new FormField('email', this.str.email, this.emailForm),
+      new FormField('password', this.str.password, this.passwordForm)
+    ];
 
     // REMIND Max, Section 15, Lecture 202
     // this.signUpForm.valueChanges
@@ -77,24 +107,55 @@ export class SignupComponent implements OnInit {
       });
   }
 
-  get email() {
-    return this.signUpForm.get('emailFormControl');
+  get emailFormControl() {
+    return this.signUpForm.get('emailForm');
   }
 
-  get password() {
-    return this.signUpForm.get('passwordFormControl');
+  get passwordFormControl() {
+    return this.signUpForm.get('passwordForm');
   }
 
-  get passwordConfirm() {
-    return this.signUpForm.get('confirmPasswordFormControl');
+  get passwordConfirmFormControl() {
+    return this.signUpForm.get('confirmPasswordForm');
   }
 
-  isPasswordConfirmEmpty() {
-    return this.passwordConfirm.hasError('required');
+  isPasswordConfirmEmpty() { // Remove
+    return this.passwordConfirmFormControl.hasError('required');
   }
 
-  isPasswordConfirmMatch() {
-    return this.passwordConfirm.hasError('mustBeEqualToPassword');
+  isPasswordConfirmMatch() { // Remove
+    return this.passwordConfirmFormControl.hasError('mustBeEqualTo');
+  }
+
+  getErrorMessage(fieldLabel: string) {
+    switch (fieldLabel) {
+      case this.str.email:
+        if (this.emailFormControl.hasError('required')) {
+          return this.str.requiredField;
+        } else if (
+          this.emailFormControl.hasError('email')
+          ) {
+          return this.str.invalidEmailAddress;
+        }
+        return;
+      case this.str.password:
+        if (this.passwordFormControl.hasError('required')) {
+          return this.str.requiredField;
+        } else if (true) {
+          return;
+        } else if (true) {
+          return;
+        }
+        return;
+      case this.str.confirmPassword:
+        if (this.passwordConfirmFormControl.hasError('required')) {
+          return this.str.requiredField;
+        } else if (this.passwordConfirmFormControl.hasError('mustBeEqualTo')) {
+          return this.str.passwordDoesNotMatch;
+        }
+        return;
+      default: return;
+    }
   }
 
   onVisibilityClick(event: MouseEvent) {
@@ -103,14 +164,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSignUp() {
-    const email: string = this.signUpForm.value.emailFormControl;
-    const password: string = this.signUpForm.value.passwordFormControl;
+    const email: string = this.emailFormControl.value;
+    const password: string = this.passwordFormControl.value;
+    // REMIND - another way
+    // const email: string = this.signUpForm.value.emailForm;
+    // const password: string = this.signUpForm.value.passwordForm;
 
-    if (
-      !this.signUpForm.get('emailFormControl').invalid &&
-      !this.signUpForm.get('passwordFormControl').invalid &&
-      !this.signUpForm.get('confirmPasswordFormControl').invalid
-    ) {
+    if (this.signUpForm.valid) {
       this.error = null;
       this.isFetching = true;
       this.authService.signUpUser(email, password);

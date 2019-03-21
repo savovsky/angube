@@ -8,10 +8,10 @@ export class CustomValidators {
         return null;
     }
 
-    static mustBeEqualToPassword(passwordFormControl: string): ValidatorFn {
+    static mustBeEqualTo(formControl: string): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            if (control.value !== control.root.value[passwordFormControl]) {
-                return { mustBeEqualToPassword: true };
+            if (control.value !== control.root.value[formControl]) {
+                return { mustBeEqualTo: true };
             }
             return null;
         };

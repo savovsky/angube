@@ -96,14 +96,8 @@ export class SigninComponent implements OnInit {
   }
 
   onSignIn() {
-    console.log('this.signInForm', this.signInForm);
-    console.log('this.emailFormControl', this.emailFormControl);
-    console.log('this.passwordFormControl', this.passwordFormControl);
     const email: string = this.emailFormControl.value;
     const password: string = this.passwordFormControl.value;
-    // REMIND - another way
-    // const email: string = this.signInForm.value.emailForm;
-    // const password: string = this.signInForm.value.passwordForm;
 
     if (this.signInForm.valid) {
     this.isFetching = true;
