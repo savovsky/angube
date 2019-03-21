@@ -101,39 +101,6 @@ export class AccountComponent implements OnInit {
     return this.accountForm.get(this.lastNameForm);
   }
 
-  userUid() {
-    return this.user.uid;
-  }
-
-  userEmail() {
-    return this.user.email;
-  }
-
-  userIsAdmin() {
-    return this.user.isAdmin;
-  }
-
-  userIsBlocked() {
-    return this.user.isBlocked;
-  }
-
-  userBirthdate() {
-    return this.user.birthdate;
-  }
-
-  userName() {
-    return this.userNameFormControl.value;
-  }
-
-  firstName() {
-    return this.firstNameFormControl.value;
-  }
-
-  lastName() {
-    return this.lastNameFormControl.value;
-  }
-
-
   getErrorMessage(fieldLabel: string) {
     switch (fieldLabel) {
       case this.str.userName:
@@ -160,14 +127,14 @@ export class AccountComponent implements OnInit {
   onAccountSave() {
     if (this.accountForm.valid) {
       const userAccount = new Account(
-        this.userUid(),
-        this.userName(),
-        this.firstName(),
-        this.lastName(),
-        this.userEmail(),
-        this.userBirthdate(),
-        this.userIsAdmin(),
-        this.userIsBlocked()
+        this.user.uid,
+        this.userNameFormControl.value,
+        this.firstNameFormControl.value,
+        this.lastNameFormControl.value,
+        this.user.email,
+        this.user.birthdate,
+        this.user.isAdmin,
+        this.user.isBlocked
       );
 
       this.error = null;

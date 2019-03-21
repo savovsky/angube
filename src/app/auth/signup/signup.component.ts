@@ -36,24 +36,6 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     const formGroupObj = {};
 
-    // this.signUpForm = new FormGroup({
-    //   emailFormControl: new FormControl('', [
-    //     // The first argument is for default input value
-    //     // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
-    //     Validators.required,
-    //     Validators.email
-    //   ]),
-    //   passwordFormControl: new FormControl('', [
-    //     Validators.required,
-    //     Validators.minLength(6),
-    //     CustomValidators.cannotContainSpace
-    //   ]),
-    //   confirmPasswordFormControl: new FormControl('', [
-    //     Validators.required,
-    //     CustomValidators.mustBeEqualTo('passwordFormControl')
-    //   ])
-    // });
-
     formGroupObj[this.emailForm] = new FormControl('', [
       // REMIND The first argument is for default input value
       // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
@@ -74,7 +56,8 @@ export class SignupComponent implements OnInit {
 
     this.fields = [
       new FormField('email', this.str.email, this.emailForm),
-      new FormField('password', this.str.password, this.passwordForm)
+      new FormField('password', this.str.password, this.passwordForm),
+      new FormField('password', this.str.confirmPassword, this.confirmPasswordForm)
     ];
 
     // REMIND Max, Section 15, Lecture 202
@@ -119,14 +102,6 @@ export class SignupComponent implements OnInit {
     return this.signUpForm.get('confirmPasswordForm');
   }
 
-  isPasswordConfirmEmpty() { // Remove
-    return this.passwordConfirmFormControl.hasError('required');
-  }
-
-  isPasswordConfirmMatch() { // Remove
-    return this.passwordConfirmFormControl.hasError('mustBeEqualTo');
-  }
-
   getErrorMessage(fieldLabel: string) {
     switch (fieldLabel) {
       case this.str.email:
@@ -141,10 +116,12 @@ export class SignupComponent implements OnInit {
       case this.str.password:
         if (this.passwordFormControl.hasError('required')) {
           return this.str.requiredField;
-        } else if (true) {
-          return;
-        } else if (true) {
-          return;
+        } else if (this.passwordFormControl.hasError('minlength')) {
+          return `${this.str.passwordShouldBeAtLeast}
+            ${this.passwordFormControl.errors.minlength.requiredLength}
+            ${this.str.characters}`;
+        } else if (this.passwordFormControl.hasError('cannotContainSpace')) {
+          return this.str.passwordCannotContainSpace;
         }
         return;
       case this.str.confirmPassword:
@@ -161,6 +138,16 @@ export class SignupComponent implements OnInit {
   onVisibilityClick(event: MouseEvent) {
     event.stopPropagation();
     this.hide = !this.hide;
+  }
+
+  getType(fieldType: string) {
+    if (fieldType === this.str.email) {
+      return 'email';
+    } else if (fieldType === this.str.password) {
+      return this.hide ? 'password' : 'text';
+    } else {
+      return 'text';
+    }
   }
 
   onSignUp() {

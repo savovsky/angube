@@ -17,7 +17,7 @@
             placeholder = "{{ field.placeholder | titlecase }}"
             formControlName="{{ field.formControlName }}"
           >
-          <mat-error>{{ getErrorMessage(field.placeholder) }}</mat-error>
+          <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
         </mat-form-field>
 
 

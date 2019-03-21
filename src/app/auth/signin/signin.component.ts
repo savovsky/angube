@@ -100,9 +100,9 @@ export class SigninComponent implements OnInit {
     const password: string = this.passwordFormControl.value;
 
     if (this.signInForm.valid) {
-    this.isFetching = true;
-    this.error = null;
-    this.authService.signInUser(email, password);
+      this.error = null;
+      this.isFetching = true;
+      this.authService.signInUser(email, password);
     }
   }
 }

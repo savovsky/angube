@@ -23,7 +23,7 @@
           (click)="onVisibilityClick($event)"
         >{{ hide ? 'visibility_off' : 'visibility' }}
         </mat-icon>
-        <mat-error>{{ getErrorMessage(field.placeholder) }}</mat-error>
+        <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
       </mat-form-field>
 
       <button
