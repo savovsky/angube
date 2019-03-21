@@ -44,8 +44,7 @@ export class StringService {
     firstTimeUser = 'first time user';
     notRegisteredYet = 'not registered yet';
     wouldYouLikeToUpdateYourAccount = 'would you like to update your account';
-    emailIs = 'email is'; // TODO Remove
-    passwordIs = 'password is'; // TODO Remove
+
     required = 'required';
 
     passwordCannotContainSpace = 'password cannot contain space';
