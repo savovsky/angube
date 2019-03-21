@@ -8,17 +8,17 @@ import { Account } from 'src/app/account/account.model';
 import { SignError, MatFormField } from 'src/app/interfaces/interfaces';
 import { StringService } from 'src/app/service/strings.service';
 import { FormField } from 'src/app/common/form-field.model';
+import { FormsService } from 'src/app/service/forms.service';
 
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  providers: [FormsService]
 })
 export class SignupComponent implements OnInit {
-
   error: any;
-  hide = true;
   isFetching = false;
   fields: MatFormField[];
   signUpForm: FormGroup;
@@ -30,7 +30,8 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private httpResponseService: HttpResponseService,
     private dataStorageService: DataStorageService,
-    public str: StringService
+    public str: StringService,
+    public frormsService: FormsService
   ) { }
 
   ngOnInit() {
@@ -132,21 +133,6 @@ export class SignupComponent implements OnInit {
         }
         return;
       default: return;
-    }
-  }
-
-  onVisibilityClick(event: MouseEvent) {
-    event.stopPropagation();
-    this.hide = !this.hide;
-  }
-
-  getType(fieldType: string) {
-    if (fieldType === this.str.email) {
-      return 'email';
-    } else if (fieldType === this.str.password) {
-      return this.hide ? 'password' : 'text';
-    } else {
-      return 'text';
     }
   }
 

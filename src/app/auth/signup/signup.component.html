@@ -12,7 +12,7 @@
       >
         <input
           matInput
-          [type]="getType(field.type)"
+          [type]="frormsService.getType(field.type)"
           placeholder = "{{ field.placeholder | titlecase }}"
           formControlName="{{ field.formControlName }}"
         >
@@ -22,8 +22,8 @@
           *ngIf = "field.placeholder === str.password"
           matSuffix
           style="cursor: pointer;"
-          (click)="onVisibilityClick($event)"
-        >{{ hide ? 'visibility_off' : 'visibility' }}
+          (click)="frormsService.onVisibilityClick($event)"
+        >{{ frormsService.hide ? 'visibility_off' : 'visibility' }}
         </mat-icon>
         <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
         </mat-form-field>

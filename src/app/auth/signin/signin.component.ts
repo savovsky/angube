@@ -5,17 +5,18 @@ import { HttpResponseService } from 'src/app/service/http-response.service';
 import { SignError, MatFormField } from 'src/app/interfaces/interfaces';
 import { StringService } from 'src/app/service/strings.service';
 import { FormField } from 'src/app/common/form-field.model';
+import { FormsService } from 'src/app/service/forms.service';
 
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.css'],
+  providers: [FormsService]
 })
 export class SigninComponent implements OnInit {
 
   error: any;
-  hide = true;
   isFetching = false;
   fields: MatFormField[];
   signInForm: FormGroup;
@@ -25,7 +26,8 @@ export class SigninComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private httpResponseService: HttpResponseService,
-    public str: StringService
+    public str: StringService,
+    public frormsService: FormsService
   ) { }
 
   ngOnInit() {
@@ -77,21 +79,6 @@ export class SigninComponent implements OnInit {
         }
         return;
       default: return;
-    }
-  }
-
-  onVisibilityClick(event: MouseEvent) {
-    event.stopPropagation();
-    this.hide = !this.hide;
-  }
-
-  getType(fieldType: string) {
-    if (fieldType === this.str.email) {
-      return 'email';
-    } else if (fieldType === this.str.password) {
-      return this.hide ? 'password' : 'text';
-    } else {
-      return 'text';
     }
   }
 
