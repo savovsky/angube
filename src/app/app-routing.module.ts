@@ -22,17 +22,16 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    // canActivate: [AuthGuardService],
+    canActivateChild: [AuthGuardService],
     component: ApplicationComponent,
     children: [
       {
         path: 'home',
-        // canActivate: [AuthGuardService],
         component: HomeComponent,
       },
       {
         path: 'admin',
-        // canActivate: [AuthGuardService, AdminAuthGuardService],
+        canActivate: [AdminAuthGuardService],
         component: AdminComponent,
       },
       {

@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 
+
 // https://firebase.google.com/docs/reference/js/firebase.User#providerId
 
 @Injectable()
@@ -58,14 +59,14 @@ export class AuthService {
         this.signInFirebaseUser()
             .then(
                 (response) => {
-                    Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'limegreen', response);
+                    Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'lime', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
                     return this.getSignedUserToken();
                 }
             )
             .then(
                 (token: string) => {
-                    Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'limegreen');
+                    Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'lime');
                     this.currentUserToken(token);
                     this.router.navigate(['app/home']);
                     return this.firebaseSetPersistence();
@@ -137,11 +138,9 @@ export class AuthService {
         return firebase.auth().currentUser.getIdToken();
     }
 
-
     currentUserToken(token: string) {
         this.token = token;
     }
-
 
     currentUserUid(uid: string) {
         this.uid = uid;
@@ -159,18 +158,18 @@ export class AuthService {
         this.isAdmin = isAdmin;
     }
 
+
     /**
      * https://firebase.google.com/docs/auth/web/manage-users
      */
     userAuthState() {
-        const authState = Observable.create((observer: Observer<any>) => {
+        return Observable.create((observer: Observer<any>) => {
             firebase.auth().onAuthStateChanged(
                 (user) => observer.next(user),
                 (err) => observer.error(err),
                 () => observer.complete()
             );
         });
-        return authState;
     }
 }
 

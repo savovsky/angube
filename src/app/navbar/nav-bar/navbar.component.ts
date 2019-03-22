@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
       this.progressService.setProgressing(true);
 
+      // TODO getUserData only if user data missing
       this.dataStorageService.getUserData(this.authService.uid)
       .subscribe(
         (response: User) => {
