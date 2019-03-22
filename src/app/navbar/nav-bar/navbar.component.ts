@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
       this.progressService.setProgressing(true);
 
+      // TODO getUserData only if user data missing
       this.dataStorageService.getUserData(this.authService.uid)
       .subscribe(
         (response: User) => {
@@ -44,7 +45,6 @@ export class NavbarComponent implements OnInit {
             Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
             this.authService.currentUserName(response.userName);
             this.authService.currentUserIsAdmin(response.isAdmin);
-            this.authService.userAuth.next(response.isAdmin);
           } else {
             Utils.consoleLog(`getUserData Respose`, 'red', response);
           }

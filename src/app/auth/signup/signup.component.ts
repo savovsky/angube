@@ -30,8 +30,8 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private httpResponseService: HttpResponseService,
     private dataStorageService: DataStorageService,
-    public str: StringService,
-    public frormsService: FormsService
+    public frormsService: FormsService,
+    public str: StringService
   ) { }
 
   ngOnInit() {
