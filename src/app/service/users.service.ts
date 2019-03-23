@@ -4,7 +4,7 @@ import * as Utils from '../common/utils';
 import { Account } from '../account/account.model';
 
 /**
- * Storing the all users accounts
+ * Storing  user/s account/s
  */
 @Injectable({
     providedIn: 'root'
@@ -12,10 +12,11 @@ import { Account } from '../account/account.model';
 export class UsersService {
 
     users: User[];
+    currentUser: User;
 
     /**
-     * Storing all users
-     * @param users array of all user's objects
+     * Storing all users.
+     * @param users array of all users account objects
      */
     storeUsers(users: User[]) {
         this.users = users;
@@ -23,17 +24,18 @@ export class UsersService {
     }
 
     /**
-     * Update user account object
+     * Update current user account and users collection too.
      * @param user user's account object
      */
-    updateUser(user: User) {
+    updateCurrentUser(user: User) {
+        this.currentUser = user;
         this.users = this.users.map((obj) => {
             if (obj.uid === user.uid) {
                 return user;
             }
             return obj;
         });
-        Utils.consoleLog(`updateUser: `, 'orange', user);
+        Utils.consoleLog(`updateCurrentUser: `, 'orange', user);
         Utils.consoleLog(`Users updated: `, 'orange', this.users);
     }
 

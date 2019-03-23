@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as Utils from '../common/utils';
+import { Auth } from '../interfaces/interfaces';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class AuthGuardService implements CanActivateChild {
   canActivateChild(): Observable<boolean> {
     return this.authService.userAuthState()
       .pipe(
-        map((response: {uid: string, displayName: string, ra: string}) => {
+        map((response: Auth) => {
           if (response) {
             Utils.consoleLog(`User is Auth : ${response.displayName}`, 'blue');
             this.authService.currentUserToken(response.ra);

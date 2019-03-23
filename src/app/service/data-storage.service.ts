@@ -61,7 +61,7 @@ export class DataStorageService {
                     if (isNewUser) {
                         this.router.navigate(['question']);
                     } else {
-                        this.usersService.updateUser(response);
+                        this.usersService.updateCurrentUser(response);
                         if (this.router.url === '/app/users') {
                             return;
                         }
