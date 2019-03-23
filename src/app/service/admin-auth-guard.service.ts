@@ -18,6 +18,7 @@ export class AdminAuthGuardService implements CanActivate {
 
   canActivate(): Observable<boolean> | boolean {
     if (this.authService.isAdmin) {
+      Utils.consoleLog(`Current user is Admin.`, 'darkTurquoise');
       return true;
     } else {
       return this.dataStorageService.getUserData(this.authService.uid)
