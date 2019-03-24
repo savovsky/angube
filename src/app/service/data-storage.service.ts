@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import * as Utils from '../common/utils';
+import { UsersService } from './users.service';
 import { map } from 'rxjs/operators';
 import { User } from '../interfaces/interfaces';
-import { Location } from '@angular/common';
-import { UsersService } from './users.service';
+import * as Utils from '../common/utils';
 
 
 @Injectable()
@@ -29,9 +29,9 @@ export class DataStorageService {
         return this.http.get(this.url + '.json?auth=' + token)
             .pipe(
                 map((data: []) => {
-                    // creating an array from response object values
+                    // Creating an array from response object values.
                     const usersArr = Object.values(data);
-                    // reordering the array - current user as first item
+                    // Reordering the array - current user as first item.
                     const currentUserIndex = usersArr.findIndex((user: User) => user.uid === uid);
                     usersArr.splice(0, 0, usersArr.splice(currentUserIndex, 1)[0]);
                     return usersArr;
@@ -54,14 +54,13 @@ export class DataStorageService {
         this.http.put(this.url + user.uid + '.json?auth=' + token, user)
             .subscribe(
                 (response: User) => {
-                    Utils.consoleLog(`updateUserAccount Response: `, 'purple', response);
-                    if (response.uid === this.authService.uid) {
-                        this.authService.currentUserName(response.userName);
-                    }
+                    Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
+                    this.usersService.updateCurrentUser(response);
+
+                    // Refactor - not working properly.
                     if (isNewUser) {
                         this.router.navigate(['question']);
                     } else {
-                        this.usersService.updateUser(response);
                         if (this.router.url === '/app/users') {
                             return;
                         }
@@ -69,7 +68,7 @@ export class DataStorageService {
                     }
 
                 },
-                (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
+                (error) => Utils.consoleLog(`(DataStorageService) Update user account - Error: `, 'red', error)
             );
     }
 

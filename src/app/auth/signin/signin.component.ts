@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-import { HttpResponseService } from 'src/app/service/http-response.service';
 import { SignError, MatFormField } from 'src/app/interfaces/interfaces';
 import { StringService } from 'src/app/service/strings.service';
 import { FormField } from 'src/app/common/form-field.model';
@@ -25,9 +24,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private httpResponseService: HttpResponseService,
-    public str: StringService,
-    public frormsService: FormsService
+    public frormsService: FormsService,
+    public str: StringService
   ) { }
 
   ngOnInit() {
@@ -47,11 +45,11 @@ export class SigninComponent implements OnInit {
       new FormField('password', this.str.password, this.passwordForm)
     ];
 
-    this.httpResponseService.signInUserError
-    .subscribe((err: SignError) => {
-      this.error = err.message;
-      this.isFetching = false;
-    });
+    this.authService.signInError
+      .subscribe((err: SignError) => {
+        this.isFetching = false;
+        this.error = err.message;
+      });
   }
 
   get emailFormControl() {

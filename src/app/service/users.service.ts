@@ -1,40 +1,85 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
-import { Account } from '../account/account.model';
 
 /**
- * Storing the all users accounts
+ * @description
+ * Menage user/s account/s.
  */
 @Injectable({
     providedIn: 'root'
 })
 export class UsersService {
 
-    users: User[];
+    private defaultUser = {
+        uid: '',
+        userName: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        birthdate: '',
+        isAdmin: false,
+        isBlocked: false,
+    };
+    private defaultUsers = [];
+
+    currentUser: User = this.defaultUser;
+    users: User[] = this.defaultUsers;
 
     /**
-     * Storing all users
-     * @param users array of all user's objects
+     * Storing all users.
+     * @param users array of all users account objects
      */
     storeUsers(users: User[]) {
         this.users = users;
-        Utils.consoleLog(`storeUsers: `, 'orange', users);
+        Utils.consoleLog(`(UsersService) Users stored: `, 'orange', this.users);
     }
 
     /**
-     * Update user account object
+     * @description
+     * Update current user account and users collection too.
+     *
      * @param user user's account object
      */
-    updateUser(user: User) {
-        this.users = this.users.map((obj) => {
-            if (obj.uid === user.uid) {
-                return user;
-            }
-            return obj;
-        });
-        Utils.consoleLog(`updateUser: `, 'orange', user);
-        Utils.consoleLog(`Users updated: `, 'orange', this.users);
+    updateCurrentUser(user: User) {
+        this.currentUser = user;
+        if (this.users.length === 0) {
+            this.users = [user];
+        } else {
+            this.users = this.users.map((obj) => {
+                if (obj.uid === user.uid) {
+                    return user;
+                }
+                return obj;
+            });
+        }
+
+        Utils.consoleLog(`(UsersService) Current user updated: `, 'orange', this.currentUser);
+        Utils.consoleLog(`(UsersService) Users updated: `, 'orange', this.users);
+    }
+
+    /**
+     * @description
+     * Clear current user and users collection and set them to default values.
+     */
+    setToDefaultUser() {
+        this.currentUser = this.defaultUser;
+        this.users = this.defaultUsers;
+
+        Utils.consoleLog(`(UsersService) Current user set to default: `, 'orange', this.currentUser);
+        Utils.consoleLog(`(UsersService) Users set to default: `, 'orange', this.users);
+    }
+
+    get userName() {
+        return this.currentUser.userName;
+    }
+
+    get userUid() {
+        return this.currentUser.uid;
+    }
+
+    get isAdmin() {
+        return this.currentUser.isAdmin;
     }
 
 }

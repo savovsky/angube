@@ -23,3 +23,9 @@ export interface MatFormField {
     placeholder: string;
     formControlName: string;
 }
+
+export interface Auth {
+    uid: string;
+    displayName: string;
+    ra: string;
+}

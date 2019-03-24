@@ -27,12 +27,12 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent,
+        component: HomeComponent
       },
       {
         path: 'admin',
         canActivate: [AdminAuthGuardService],
-        component: AdminComponent,
+        component: AdminComponent
       },
       {
         path: 'account/:id/:username',
