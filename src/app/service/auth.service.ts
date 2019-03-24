@@ -18,8 +18,8 @@ export class AuthService {
     signUpSuccess = new Subject<User>();
     signUpError = new Subject<SignError>();
     signInError = new Subject<SignError>();
-    email: string;
-    password: string;
+    private email: string;
+    private password: string;
 
     constructor(
         private router: Router,
@@ -34,6 +34,7 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
+                    this.currentUserEmail(firebase.auth().currentUser.email);
                     return this.getSignedUserToken();
                 }
             )
@@ -66,6 +67,7 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'lime', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
+                    this.currentUserEmail(firebase.auth().currentUser.email);
                     return this.getSignedUserToken();
                 }
             )
@@ -123,7 +125,6 @@ export class AuthService {
                     this.email = null;
                     this.password = null;
                     this.token = null;
-                    // this.userName = null;
                 }
             )
             .catch(

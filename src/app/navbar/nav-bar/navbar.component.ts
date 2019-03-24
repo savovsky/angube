@@ -56,15 +56,15 @@ export class NavbarComponent implements OnInit {
       this.dataStorageService.getItems()
         .subscribe(
           (usersArr) => {
-            Utils.consoleLog(`getItems Seccess: `, 'purple', usersArr);
+            Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', usersArr);
             this.usersService.storeUsers(usersArr);
             this.progressService.setProgressing(false);
           },
           (error) => {
-            Utils.consoleLog(`getItems Error: `, 'red', error);
+            Utils.consoleLog(`(NavbarComponent) Get users data - Error: `, 'red', error);
             this.progressService.setProgressing(false);
           },
-          () => Utils.consoleLog(`getItems Completed - application`, 'purple')
+          () => Utils.consoleLog(`(NavbarComponent) Get users data  - Completed`, 'magenta')
         );
     }
 
