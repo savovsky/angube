@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer } from 'rxjs';
-import { HttpResponseService } from './http-response.service';
+import { Observable, Observer, Subject } from 'rxjs';
+import { UsersService } from './users.service';
+import { User, SignError } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-
 
 
 // https://firebase.google.com/docs/reference/js/firebase.User#providerId
@@ -14,15 +14,16 @@ import 'firebase/auth';
 export class AuthService {
 
     uid: string;
-    userName: string;
+    token: string;
+    signUpSuccess = new Subject<User>();
+    signUpError = new Subject<SignError>();
+    signInError = new Subject<SignError>();
     email: string;
     password: string;
-    token: string;
-    isAdmin: boolean;
 
     constructor(
         private router: Router,
-        private httpResponseService: HttpResponseService
+        private usersService: UsersService
     ) { }
 
     signUpUser(email: string, password: string) {
@@ -33,7 +34,6 @@ export class AuthService {
                 (response) => {
                     Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
-                    this.userName = this.getCurrentUserEmailLocalPart();
                     return this.getSignedUserToken();
                 }
             )
@@ -41,14 +41,19 @@ export class AuthService {
                 (token: string) => {
                     Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
                     this.currentUserToken(token);
-                    this.httpResponseService.signUpUserSuccess.next();
+                    this.signUpSuccess.next({
+                        ...this.usersService.currentUser,
+                        uid: this.uid,
+                        userName: this.getCurrentUserEmailLocalPart(),
+                        email: this.email
+                    });
                     return this.firebaseSetPersistence();
                 }
             )
             .catch(
                 (error) => {
                     Utils.consoleLog(`signUpUser Error: `, 'red', error);
-                    this.httpResponseService.signUpUserError.next(error);
+                    this.signUpError.next(error);
                 }
             );
     }
@@ -75,7 +80,7 @@ export class AuthService {
             .catch(
                 (error) => {
                     Utils.consoleLog(`signInUser Error: `, 'red', error);
-                    this.httpResponseService.signInUserError.next(error);
+                    this.signInError.next(error);
                 }
             );
     }
@@ -108,20 +113,21 @@ export class AuthService {
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
      */
-    logOutUser() {
+    logOut() {
         firebase.auth().signOut()
             .then(
                 () => {
-                    Utils.consoleLog(`logOutUser: Seccess`, 'purple');
+                    Utils.consoleLog(`logOut: Seccess`, 'purple');
+                    this.usersService.setToDefaultUser();
                     this.uid = null;
                     this.email = null;
                     this.password = null;
                     this.token = null;
-                    this.userName = null;
+                    // this.userName = null;
                 }
             )
             .catch(
-                (error) => Utils.consoleLog(`logOutUser Error: `, 'red', error)
+                (error) => Utils.consoleLog(`logOut Error: `, 'red', error)
             );
     }
 
@@ -146,16 +152,8 @@ export class AuthService {
         this.uid = uid;
     }
 
-    currentUserName(name: string) {
-        this.userName = name;
-    }
-
     currentUserEmail(email: string) {
         this.email = email;
-    }
-
-    currentUserIsAdmin(isAdmin: boolean) {
-        this.isAdmin = isAdmin;
     }
 
 

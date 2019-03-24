@@ -6,8 +6,8 @@
     <!-- My Account -->
     <button
       mat-menu-item
-      [routerLink]="['/app/account', authService.userName]"
-      [queryParams]="{ id: authService.uid }"
+      [routerLink]="['/app/account', usersService.userName]"
+      [queryParams]="{ id: usersService.userUid }"
     >
       <mat-icon>person</mat-icon>
       <span>My Account</span>

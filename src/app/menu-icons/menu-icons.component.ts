@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-menu-icons',
@@ -8,10 +9,13 @@ import { AuthService } from '../service/auth.service';
 })
 export class MenuIconsComponent {
 
-  constructor(public authService: AuthService) { }
+  constructor(
+    public usersService: UsersService,
+    public authService: AuthService
+  ) { }
 
   onLogout() {
-    this.authService.logOutUser();
+    this.authService.logOut();
   }
 
 }

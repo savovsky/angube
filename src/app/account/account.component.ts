@@ -64,7 +64,8 @@ export class AccountComponent implements OnInit {
         this.isRequesting = false;
         if (response) {
           Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
-          this.authService.currentUserIsAdmin(response.isAdmin);
+          // Remove
+          // this.authService.currentUserIsAdmin(response.isAdmin);
           this.user = response;
           this.accountForm.setValue({
             userNameForm: response.userName,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth.service';
 import { NavLinksService } from '../nav-links.service';
+import { UsersService } from 'src/app/service/users.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class NavTabComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public authService: AuthService,
+    public usersService: UsersService,
     public navLinksService: NavLinksService
   ) { }
 

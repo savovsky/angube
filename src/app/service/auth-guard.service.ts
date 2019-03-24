@@ -3,8 +3,8 @@ import { Router, CanActivateChild } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as Utils from '../common/utils';
 import { Auth } from '../interfaces/interfaces';
+import * as Utils from '../common/utils';
 
 
 @Injectable()
@@ -20,12 +20,12 @@ export class AuthGuardService implements CanActivateChild {
       .pipe(
         map((response: Auth) => {
           if (response) {
-            Utils.consoleLog(`User is Auth : ${response.displayName}`, 'blue');
+            Utils.consoleLog(`(AuthGuardService) User "${response.displayName}" is Authenticated.`, 'blue');
             this.authService.currentUserToken(response.ra);
             this.authService.currentUserUid(response.uid);
             return true;
           } else {
-            Utils.consoleLog(`User is NOT Auth`, 'cyan');
+            Utils.consoleLog(`(AuthGuardService) User is NOT Authenticated.`, 'blue');
             this.router.navigate(['']);
             return false;
           }

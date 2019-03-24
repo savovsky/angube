@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     private dataStorageService: DataStorageService,
     public progressService: ProgressService,
     public navLinksService: NavLinksService,
-    private usersService: UsersService,
+    public usersService: UsersService,
     public str: StringService
     ) { }
 
@@ -42,15 +42,14 @@ export class NavbarComponent implements OnInit {
       .subscribe(
         (response: User) => {
           if (response) {
-            Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
-            this.authService.currentUserName(response.userName);
-            this.authService.currentUserIsAdmin(response.isAdmin);
+            Utils.consoleLog(`(NavbarComponent) Get user data - Seccess: `, 'purple', response);
+            this.usersService.updateCurrentUser(response);
           } else {
-            Utils.consoleLog(`getUserData Respose`, 'red', response);
+            Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'pink', response);
           }
         },
-        (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
-        () => Utils.consoleLog(`getUserData Completed - navbar`, 'purple')
+        (error) => Utils.consoleLog(`(NavbarComponent) Get user data - Error: `, 'red', error),
+        () => Utils.consoleLog(`(NavbarComponent) Get user data - Completed`, 'purple')
       );
 
       // Fetching all users
