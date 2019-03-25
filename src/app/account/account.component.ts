@@ -6,10 +6,10 @@ import { AuthService } from '../service/auth.service';
 import { Account } from './account.model';
 import { ActivatedRoute } from '@angular/router';
 import { User, MatFormField } from '../interfaces/interfaces';
-import * as Utils from '../common/utils';
 import { Location } from '@angular/common';
 import { StringService } from '../service/strings.service';
 import { FormField } from '../common/form-field.model';
+import * as Utils from '../common/utils';
 
 
 @Component({

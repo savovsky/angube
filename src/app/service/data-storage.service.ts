@@ -22,25 +22,6 @@ export class DataStorageService {
         private usersService: UsersService,
         ) { }
 
-    getItems() {
-        const uid = this.authService.uid;
-        const token = this.authService.token;
-
-        return this.http.get(this.url + '.json?auth=' + token)
-            .pipe(
-                map((data: []) => {
-                    // Creating an array from response object values.
-                    const usersArr = Object.values(data);
-                    // Reordering the array - current user as first item.
-                    const currentUserIndex = usersArr.findIndex((user: User) => user.uid === uid);
-                    usersArr.splice(0, 0, usersArr.splice(currentUserIndex, 1)[0]);
-                    return usersArr;
-                    }
-                )
-            );
-    }
-
-
     getUserData(uid: string) {
         const token = this.authService.token;
 
@@ -69,6 +50,24 @@ export class DataStorageService {
 
                 },
                 (error) => Utils.consoleLog(`(DataStorageService) Update user account - Error: `, 'red', error)
+            );
+    }
+
+    getAllUsersData() {
+        const uid = this.authService.uid;
+        const token = this.authService.token;
+
+        return this.http.get(this.url + '.json?auth=' + token)
+            .pipe(
+                map((data: []) => {
+                    // Creating an array from response object values.
+                    const usersArr = Object.values(data);
+                    // Reordering the array - current user as first item.
+                    const currentUserIndex = usersArr.findIndex((user: User) => user.uid === uid);
+                    usersArr.splice(0, 0, usersArr.splice(currentUserIndex, 1)[0]);
+                    return usersArr;
+                    }
+                )
             );
     }
 
