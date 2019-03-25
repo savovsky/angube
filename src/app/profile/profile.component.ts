@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   user: User;
   subscription: Subscription;
+  items: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         () => this.user = this.usersService.getUser(userUid)
       );
+
+    const obj = {
+      userName: {
+        value: 'Miro',
+        isShared: true
+      },
+      firstName: {
+        value: 'Miroslav',
+        isShared: false
+      },
+      lastName: {
+        value: 'Savovksi',
+        isShared: true
+      }
+    };
+    console.log(Object.entries(this.user));
+    console.log(Object.entries(obj));
+    this.items = Object.entries(obj);
 
     // REMIND
     // this.userId = this.route.snapshot.paramMap.get('id');

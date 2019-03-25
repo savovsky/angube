@@ -40,6 +40,15 @@
             <p mat-line *ngIf="user">{{ user.uid }}</p>
             <p mat-line *ngIf="!user">...</p>
         </mat-list-item>
+
+        <hr>
+
+        <mat-list-item role="listitem" *ngFor="let item of items">
+            <h4 mat-line class="profile-label">{{ item[0] | share | titlecase }}</h4>
+            <p mat-line>{{ item[1].value }}</p>
+            <p mat-line>{{ item[1].isShared }}</p>
+        </mat-list-item>
+
         
     </div>
 </div>

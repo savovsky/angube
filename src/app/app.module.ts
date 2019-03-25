@@ -33,6 +33,7 @@ import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AdminGuardPipe } from './pipes/admin-guard.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { SharePipe } from './pipes/share.pipe';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     AdminComponent,
     AccessDeniedComponent,
     AdminGuardPipe,
-    CapitalizePipe
+    CapitalizePipe,
+    SharePipe
   ],
   imports: [
     BrowserModule,
