@@ -33,7 +33,7 @@
       <span class="ellipsis-110">{{ usersService.userName }}</span>
       <app-menu-icons></app-menu-icons>
     </mat-toolbar>
-    <div class="progress-placeholder" *ngIf="!progressService.isRequesting, else progressBar"></div>
+    <div class="progress-placeholder" *ngIf="!progressService.isRequesting(), else progressBar"></div>
     <ng-template #progressBar>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </ng-template>

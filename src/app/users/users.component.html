@@ -3,9 +3,7 @@
     <mat-expansion-panel *ngFor="let user of usersService.users">
       <mat-expansion-panel-header>
         <mat-panel-title>{{ user.userName }}</mat-panel-title>
-        <mat-panel-description>
-          {{ user.uid }}
-        </mat-panel-description>
+        <mat-panel-description>{{ user.uid }}</mat-panel-description>
       </mat-expansion-panel-header>
   
       <mat-action-row>
