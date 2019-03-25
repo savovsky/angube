@@ -27,8 +27,8 @@ export class UsersService {
     users: User[] = this.defaultUsers;
 
     /**
-     * Storing all users.
-     * @param users array of all users account objects
+     * Storing all users accounts.
+     * @param users Array of all users account objects.
      */
     storeUsers(users: User[]) {
         this.users = users;
@@ -39,22 +39,36 @@ export class UsersService {
      * @description
      * Update current user account and users collection too.
      *
-     * @param user user's account object
+     * @param user Current user's account object.
      */
     updateCurrentUser(user: User) {
         this.currentUser = user;
-        if (this.users.length === 0) {
-            this.users = [user];
-        } else {
-            this.users = this.users.map((obj) => {
-                if (obj.uid === user.uid) {
-                    return user;
-                }
-                return obj;
-            });
-        }
+        this.users = this.users.map((obj) => {
+            if (obj.uid === user.uid) {
+                return user;
+            }
+            return obj;
+        });
 
         Utils.consoleLog(`(UsersService) Current user updated: `, 'orange', this.currentUser);
+        Utils.consoleLog(`(UsersService) Users updated: `, 'orange', this.users);
+    }
+
+    /**
+     * @description
+     * Update user account and users collection too.
+     *
+     * @param user User's account object.
+     */
+    updateUser(user: User) {
+        this.users = this.users.map((obj) => {
+            if (obj.uid === user.uid) {
+                return user;
+            }
+            return obj;
+        });
+
+        Utils.consoleLog(`(UsersService) User updated: `, 'orange', this.currentUser);
         Utils.consoleLog(`(UsersService) Users updated: `, 'orange', this.users);
     }
 

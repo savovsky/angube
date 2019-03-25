@@ -45,11 +45,14 @@ export class NavbarComponent implements OnInit {
               this.usersService.updateCurrentUser(response);
               Utils.consoleLog(`(NavbarComponent) Get user data - Seccess: `, 'purple', response);
             } else {
-              Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'pink', response);
+              Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'purple', response);
+              // TODO Error Screen
+              // This is the case when user is authenticated, but
+              // there is no user's data in Data Storage for this user.(deleted)
             }
           },
           (error) => {
-            Utils.consoleLog(`(NavbarComponent) Get user data - Error: `, 'red', error);
+            Utils.consoleLog(`(NavbarComponent) Get user data - Error: `, 'red', error); // TODO Error Screen
           },
           () => {
             this.progressService.stopProgress();

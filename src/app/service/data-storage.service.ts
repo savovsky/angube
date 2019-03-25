@@ -31,12 +31,18 @@ export class DataStorageService {
 
     updateUserAccount(user: User, isNewUser: boolean) {
         const token = this.authService.token;
+        const currentUserUid = this.authService.uid;
 
         this.http.put(this.url + user.uid + '.json?auth=' + token, user)
             .subscribe(
                 (response: User) => {
-                    Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
-                    this.usersService.updateCurrentUser(response);
+                    if (response.uid === currentUserUid) {
+                        this.usersService.updateCurrentUser(response);
+                        Utils.consoleLog(`(DataStorageService) Update current user account  - Response: `, 'darkGoldenRod', response);
+                    } else {
+                        this.usersService.updateUser(response);
+                        Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
+                    }
 
                     // Refactor - not working properly.
                     if (isNewUser) {
