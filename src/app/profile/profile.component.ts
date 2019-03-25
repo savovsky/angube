@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DataStorageService } from '../service/data-storage.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { UsersService } from '../service/users.service';
 import { User } from '../interfaces/interfaces';
-import * as Utils from '../common/utils';
 
 
 @Component({
@@ -13,45 +13,31 @@ import * as Utils from '../common/utils';
 export class ProfileComponent implements OnInit {
 
   user: User;
-  isFetching = true;
 
   constructor(
     private route: ActivatedRoute,
-    private dataStorageService: DataStorageService,
-    private router: Router
+    private usersService: UsersService,
+    private location: Location
     ) { }
 
 
   ngOnInit() {
+    const userUid = this.route.snapshot.queryParamMap.get('id');
+    this.user = this.usersService.getUser(userUid);
+
+    // REMIND
     // this.userId = this.route.snapshot.paramMap.get('id');
-    const uid = this.route.snapshot.queryParamMap.get('id');
-
-    this.dataStorageService.getUserData(uid)
-    .subscribe(
-      (response: User) => {
-        Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
-        this.user = response;
-        this.isFetching = false;
-      },
-      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
-      () => Utils.consoleLog(`getUserData Completed`, 'purple')
-    );
-
-    // const userObj = this.usersService.users.find((obj: Account) => obj.uid === uid);
-    // this.user = Object.entries(userObj);
-
-
+    // REMIND
     // Another way for cases when component will not be destroyed.
     // (ex. Prev-Next btns inside the component)
     // this.route.paramMap
     //   .subscribe((params) => {
     //     this.userId = params.get('id');
     // });
-
   }
 
   onBack() {
-    this.router.navigate(['/app/home']);
+    this.location.back();
   }
 
 }

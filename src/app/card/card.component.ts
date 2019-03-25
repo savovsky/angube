@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Account } from '../account/account.model';
 
 
@@ -7,11 +7,8 @@ import { Account } from '../account/account.model';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
+
   @Input() user: Account;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
 }

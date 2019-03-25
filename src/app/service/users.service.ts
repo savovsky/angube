@@ -73,6 +73,15 @@ export class UsersService {
     }
 
     /**
+     * Get stored user by uid.
+     * @param uid User uid.
+     */
+    getUser(uid: string) {
+        const userAccount = this.users.find((account: User) => account.uid === uid);
+        return userAccount ? userAccount : this.defaultUser;
+    }
+
+    /**
      * @description
      * Clear current user and users collection and set them to default values.
      */

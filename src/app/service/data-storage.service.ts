@@ -19,7 +19,7 @@ export class DataStorageService {
         private authService: AuthService,
         private router: Router,
         private location: Location,
-        private usersService: UsersService,
+        private usersService: UsersService
         ) { }
 
     getUserData(uid: string) {
