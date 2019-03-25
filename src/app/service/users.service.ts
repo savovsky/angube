@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
+import { Subject } from 'rxjs';
 
 /**
  * @description
@@ -25,6 +26,8 @@ export class UsersService {
 
     currentUser: User = this.defaultUser;
     users: User[] = this.defaultUsers;
+    usersStored = new Subject();
+    currentUserUpdated = new Subject();
 
     /**
      * Storing all users accounts.
@@ -32,6 +35,7 @@ export class UsersService {
      */
     storeUsers(users: User[]) {
         this.users = users;
+        this.usersStored.next();
         Utils.consoleLog(`(UsersService) Users stored: `, 'orange', this.users);
     }
 
@@ -49,6 +53,7 @@ export class UsersService {
             }
             return obj;
         });
+        this.currentUserUpdated.next();
 
         Utils.consoleLog(`(UsersService) Current user updated: `, 'orange', this.currentUser);
         Utils.consoleLog(`(UsersService) Users updated: `, 'orange', this.users);

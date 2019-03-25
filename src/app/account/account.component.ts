@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
@@ -11,6 +11,7 @@ import { FormField } from '../common/form-field.model';
 import { CustomValidators } from '../common/custom.validators';
 import { User, MatFormField } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -18,13 +19,15 @@ import * as Utils from '../common/utils';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
 
   error: any;
   isRequesting = true;
   user: User;
   fields: MatFormField[];
   accountForm: FormGroup;
+  subscription1: Subscription;
+  subscription2: Subscription;
   userNameForm = 'userNameForm';
   firstNameForm = 'firstNameForm';
   lastNameForm = 'lastNameForm';
@@ -61,26 +64,26 @@ export class AccountComponent implements OnInit {
       new FormField('text', this.str.lastName, this.lastNameForm)
     ];
 
+    this.subscription1 = this.usersService.currentUserUpdated
+      .subscribe(
+        () => {
+          this.user = this.usersService.currentUserAccount;
+          this.setFormValues();
+        }
+      );
+
     if (currentUserUid === userUid) {
       this.isRequesting = false;
       this.user = this.usersService.currentUserAccount;
-      this.accountForm.setValue({
-        userNameForm: this.user.userName,
-        firstNameForm: this.user.firstName,
-        lastNameForm: this.user.lastName
-      });
+      this.setFormValues();
     } else {
-      this.dataStorageService.getUserData(userUid)
+      this.subscription2 = this.dataStorageService.getUserData(userUid)
         .subscribe(
           (response: User) => {
             if (response) {
               Utils.consoleLog(`(AccountComponent) Get user data - Seccess: `, 'pink', response);
               this.user = response;
-              this.accountForm.setValue({
-                userNameForm: this.user.userName,
-                firstNameForm: this.user.firstName,
-                lastNameForm: this.user.lastName
-              });
+              this.setFormValues();
               // REMIND
               // .patchValue({....}) - for updating only a part of the form
               // .reset() - reset the entire form
@@ -100,6 +103,24 @@ export class AccountComponent implements OnInit {
           }
         );
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription1.unsubscribe();
+
+    if (this.subscription2) {
+      this.subscription2.unsubscribe();
+    } else {
+      return;
+    }
+  }
+
+  setFormValues() {
+    this.accountForm.setValue({
+      userNameForm: this.user.userName,
+      firstNameForm: this.user.firstName,
+      lastNameForm: this.user.lastName
+    });
   }
 
   get userNameFormControl() {
