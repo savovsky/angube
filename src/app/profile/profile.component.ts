@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DataStorageService } from '../service/data-storage.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { UsersService } from '../service/users.service';
 import { User } from '../interfaces/interfaces';
-import * as Utils from '../common/utils';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,48 +11,62 @@ import * as Utils from '../common/utils';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   user: User;
-  isFetching = true;
+  subscription: Subscription;
+  items: any;
 
   constructor(
     private route: ActivatedRoute,
-    private dataStorageService: DataStorageService,
-    private router: Router
+    private usersService: UsersService,
+    private location: Location
     ) { }
 
 
   ngOnInit() {
-    // this.userId = this.route.snapshot.paramMap.get('id');
-    const uid = this.route.snapshot.queryParamMap.get('id');
+    const userUid = this.route.snapshot.queryParamMap.get('id');
+    this.user = this.usersService.getUser(userUid);
+    this.subscription = this.usersService.usersStored
+      .subscribe(
+        () => this.user = this.usersService.getUser(userUid)
+      );
 
-    this.dataStorageService.getUserData(uid)
-    .subscribe(
-      (response: User) => {
-        Utils.consoleLog(`getUserData Seccess: `, 'purple', response);
-        this.user = response;
-        this.isFetching = false;
+    const obj = {
+      userName: {
+        value: 'Miro',
+        isShared: true
       },
-      (error) => Utils.consoleLog(`getUserData Error: `, 'red', error),
-      () => Utils.consoleLog(`getUserData Completed`, 'purple')
-    );
+      firstName: {
+        value: 'Miroslav',
+        isShared: false
+      },
+      lastName: {
+        value: 'Savovksi',
+        isShared: true
+      }
+    };
+    console.log(Object.entries(this.user));
+    console.log(Object.entries(obj));
+    this.items = Object.entries(obj);
 
-    // const userObj = this.usersService.users.find((obj: Account) => obj.uid === uid);
-    // this.user = Object.entries(userObj);
-
-
+    // REMIND
+    // this.userId = this.route.snapshot.paramMap.get('id');
+    // REMIND
     // Another way for cases when component will not be destroyed.
     // (ex. Prev-Next btns inside the component)
     // this.route.paramMap
     //   .subscribe((params) => {
     //     this.userId = params.get('id');
     // });
+  }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onBack() {
-    this.router.navigate(['/app/home']);
+    this.location.back();
   }
 
 }

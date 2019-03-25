@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { DataStorageService } from '../service/data-storage.service';
 import { UsersService } from '../service/users.service';
-import { User } from '../interfaces/interfaces';
 import { StringService } from '../service/strings.service';
+import { User } from '../interfaces/interfaces';
 
 
 @Component({

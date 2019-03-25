@@ -35,36 +35,44 @@ export class NavbarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      this.progressService.setProgressing(true);
+      this.progressService.startProgresses(2);
+      // TODO Find better way for handling the progress bar and react on Errors.
 
-      // TODO getUserData only if user data missing
       this.dataStorageService.getUserData(this.authService.uid)
-      .subscribe(
-        (response: User) => {
-          if (response) {
-            Utils.consoleLog(`(NavbarComponent) Get user data - Seccess: `, 'purple', response);
-            this.usersService.updateCurrentUser(response);
-          } else {
-            Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'pink', response);
-          }
-        },
-        (error) => Utils.consoleLog(`(NavbarComponent) Get user data - Error: `, 'red', error),
-        () => Utils.consoleLog(`(NavbarComponent) Get user data - Completed`, 'purple')
-      );
-
-      // Fetching all users
-      this.dataStorageService.getItems()
         .subscribe(
-          (usersArr) => {
-            Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', usersArr);
-            this.usersService.storeUsers(usersArr);
-            this.progressService.setProgressing(false);
+          (response: User) => {
+            if (response) {
+              this.usersService.updateCurrentUser(response);
+              Utils.consoleLog(`(NavbarComponent) Get user data - Seccess: `, 'purple', response);
+            } else {
+              Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'purple', response);
+              // TODO Error Screen
+              // This is the case when user is authenticated, but
+              // there is no user's data in Data Storage for this user.(deleted)
+            }
+          },
+          (error) => {
+            Utils.consoleLog(`(NavbarComponent) Get user data - Error: `, 'red', error); // TODO Error Screen
+          },
+          () => {
+            this.progressService.stopProgress();
+            Utils.consoleLog(`(NavbarComponent) Get user data - Completed`, 'purple');
+          }
+        );
+
+      this.dataStorageService.getAllUsersData()
+        .subscribe(
+          (response: User[]) => {
+            this.usersService.storeUsers(response);
+            Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', response);
           },
           (error) => {
             Utils.consoleLog(`(NavbarComponent) Get users data - Error: `, 'red', error);
-            this.progressService.setProgressing(false);
           },
-          () => Utils.consoleLog(`(NavbarComponent) Get users data  - Completed`, 'magenta')
+          () => {
+            this.progressService.stopProgress();
+            Utils.consoleLog(`(NavbarComponent) Get users data  - Completed`, 'magenta');
+          }
         );
     }
 

@@ -19,7 +19,7 @@ export class AdminAuthGuardService implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean> | boolean {
-    if (this.usersService.isAdmin) {
+    if (this.usersService.isCurrentUserAdmin) {
       Utils.consoleLog(`(AdminAuthGuardService) Current user is Admin.`, 'darkTurquoise');
       return true;
     } else {

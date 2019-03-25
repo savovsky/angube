@@ -19,10 +19,47 @@ export class DataStorageService {
         private authService: AuthService,
         private router: Router,
         private location: Location,
-        private usersService: UsersService,
+        private usersService: UsersService
         ) { }
 
-    getItems() {
+    getUserData(uid: string) {
+        const token = this.authService.token;
+
+        return this.http.get(this.url + uid + '.json?auth=' + token);
+    }
+
+
+    updateUserAccount(user: User, isNewUser: boolean) {
+        const token = this.authService.token;
+        const currentUserUid = this.authService.uid;
+
+        this.http.put(this.url + user.uid + '.json?auth=' + token, user)
+            .subscribe(
+                (response: User) => {
+                    if (response.uid === currentUserUid) {
+                        this.usersService.updateCurrentUser(response);
+                        Utils.consoleLog(`(DataStorageService) Update current user account  - Response: `, 'darkGoldenRod', response);
+                    } else {
+                        this.usersService.updateUser(response);
+                        Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
+                    }
+
+                    // Refactor - not working properly.
+                    if (isNewUser) {
+                        this.router.navigate(['question']);
+                    } else {
+                        if (this.router.url === '/app/users') {
+                            return;
+                        }
+                        this.location.back();
+                    }
+
+                },
+                (error) => Utils.consoleLog(`(DataStorageService) Update user account - Error: `, 'red', error)
+            );
+    }
+
+    getAllUsersData() {
         const uid = this.authService.uid;
         const token = this.authService.token;
 
@@ -37,38 +74,6 @@ export class DataStorageService {
                     return usersArr;
                     }
                 )
-            );
-    }
-
-
-    getUserData(uid: string) {
-        const token = this.authService.token;
-
-        return this.http.get(this.url + uid + '.json?auth=' + token);
-    }
-
-
-    updateUserAccount(user: User, isNewUser: boolean) {
-        const token = this.authService.token;
-
-        this.http.put(this.url + user.uid + '.json?auth=' + token, user)
-            .subscribe(
-                (response: User) => {
-                    Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
-                    this.usersService.updateCurrentUser(response);
-
-                    // Refactor - not working properly.
-                    if (isNewUser) {
-                        this.router.navigate(['question']);
-                    } else {
-                        if (this.router.url === '/app/users') {
-                            return;
-                        }
-                        this.location.back();
-                    }
-
-                },
-                (error) => Utils.consoleLog(`(DataStorageService) Update user account - Error: `, 'red', error)
             );
     }
 

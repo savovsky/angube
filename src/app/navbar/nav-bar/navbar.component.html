@@ -11,7 +11,7 @@
     <mat-nav-list (click)="drawer.toggle()">
       <a
         mat-list-item
-        *ngFor="let appLink of navLinksService.appLinks | adminGuard:usersService.isAdmin"
+        *ngFor="let appLink of navLinksService.appLinks | adminGuard:usersService.isCurrentUserAdmin"
         [routerLink]="appLink.routerLink"
         routerLinkActive="current"
       >{{ appLink.link | titlecase }}
@@ -30,11 +30,13 @@
       </button>
       <span>{{ str.angube }}</span>
       <span class="spacer"></span>
-      <span class="ellipsis-110">{{ usersService.userName }}</span>
+      <span class="ellipsis-110">{{ usersService.currentUserName }}</span>
       <app-menu-icons></app-menu-icons>
     </mat-toolbar>
-    <div class="progress-placeholder" *ngIf="!progressService.isRequesting"></div>
-    <mat-progress-bar mode="indeterminate" *ngIf="progressService.isRequesting"></mat-progress-bar>
+    <div class="progress-placeholder" *ngIf="!progressService.isRequesting(), else progressBar"></div>
+    <ng-template #progressBar>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
     <app-nav-tab *ngIf="!(isHandset$ | async)"></app-nav-tab>
 
 
