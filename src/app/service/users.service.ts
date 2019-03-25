@@ -84,16 +84,20 @@ export class UsersService {
         Utils.consoleLog(`(UsersService) Users set to default: `, 'orange', this.users);
     }
 
-    get userName() {
+    get currentUserName() {
         return this.currentUser.userName;
     }
 
-    get userUid() {
+    get currentUserUid() {
         return this.currentUser.uid;
     }
 
-    get isAdmin() {
+    get isCurrentUserAdmin() {
         return this.currentUser.isAdmin;
+    }
+
+    get currentUserAccount() {
+        return this.currentUser;
     }
 
 }

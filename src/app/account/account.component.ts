@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { CustomValidators } from '../common/custom.validators';
 import { DataStorageService } from '../service/data-storage.service';
 import { StringService } from '../service/strings.service';
+import { AuthService } from '../service/auth.service';
+import { UsersService } from '../service/users.service';
 import { Account } from './account.model';
-import { User, MatFormField } from '../interfaces/interfaces';
 import { FormField } from '../common/form-field.model';
+import { CustomValidators } from '../common/custom.validators';
+import { User, MatFormField } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 
 
@@ -29,13 +31,16 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
     private dataStorageService: DataStorageService,
+    private usersService: UsersService,
     private location: Location,
     public str: StringService
   ) { }
 
   ngOnInit() {
-    const uid = this.route.snapshot.queryParamMap.get('id');
+    const userUid = this.route.snapshot.queryParamMap.get('id');
+    const currentUserUid = this.authService.uid;
     const formGroupObj = {};
 
     formGroupObj[this.userNameForm] = new FormControl('', [
@@ -56,36 +61,45 @@ export class AccountComponent implements OnInit {
       new FormField('text', this.str.lastName, this.lastNameForm)
     ];
 
-    this.dataStorageService.getUserData(uid)
-    .subscribe( // TODO when first time user (Sign Up) there is no need to request database!
-      (response: User) => {
-        if (response) {
-          Utils.consoleLog(`(AccountComponent) Get user data - Seccess: `, 'pink', response);
-          this.user = response;
-          this.accountForm.setValue({
-            userNameForm: response.userName,
-            firstNameForm: response.firstName,
-            lastNameForm: response.lastName
-          });
-          // REMIND
-          // .patchValue({....}) - for updating only a part of the form
-          // .reset() - reset the entire form
-        } else {
-          Utils.consoleLog(`(AccountComponent) Get user data - Seccess but null: `, 'pink', response);
-          // TODO Error Screen
-          // This is the case when user is authenticated, but
-          // there is no user's data in Data Storage for this user.(deleted)
-        }
-      },
-      (error) => {
-        Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error); // TODO Error Screen
-      },
-      () => {
-        this.isRequesting = false;
-        Utils.consoleLog(`(AccountComponent) Get user data - Completed`, 'pink');
-      }
-    );
-
+    if (currentUserUid === userUid) {
+      this.isRequesting = false;
+      this.user = this.usersService.currentUserAccount;
+      this.accountForm.setValue({
+        userNameForm: this.user.userName,
+        firstNameForm: this.user.firstName,
+        lastNameForm: this.user.lastName
+      });
+    } else {
+      this.dataStorageService.getUserData(userUid)
+        .subscribe(
+          (response: User) => {
+            if (response) {
+              Utils.consoleLog(`(AccountComponent) Get user data - Seccess: `, 'pink', response);
+              this.user = response;
+              this.accountForm.setValue({
+                userNameForm: this.user.userName,
+                firstNameForm: this.user.firstName,
+                lastNameForm: this.user.lastName
+              });
+              // REMIND
+              // .patchValue({....}) - for updating only a part of the form
+              // .reset() - reset the entire form
+            } else {
+              Utils.consoleLog(`(AccountComponent) Get user data - Seccess but null: `, 'pink', response);
+              // TODO Error Screen
+              // This is the case when user is authenticated, but
+              // there is no user's data in Data Storage for this user.(deleted)
+            }
+          },
+          (error) => {
+            Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error); // TODO Error Screen
+          },
+          () => {
+            this.isRequesting = false;
+            Utils.consoleLog(`(AccountComponent) Get user data - Completed`, 'pink');
+          }
+        );
+    }
   }
 
   get userNameFormControl() {
