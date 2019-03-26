@@ -37,11 +37,11 @@ export class DataStorageService {
             .subscribe(
                 (response: User) => {
                     if (response.uid === currentUserUid) {
-                        this.usersService.updateCurrentUser(response);
                         Utils.consoleLog(`(DataStorageService) Update current user account  - Response: `, 'darkGoldenRod', response);
+                        this.usersService.updateCurrentUser(response);
                     } else {
-                        this.usersService.updateUser(response);
                         Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
+                        this.usersService.updateUser(response);
                     }
 
                     // Refactor - not working properly.

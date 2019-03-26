@@ -42,8 +42,8 @@ export class NavbarComponent implements OnInit {
         .subscribe(
           (response: User) => {
             if (response) {
-              this.usersService.updateCurrentUser(response);
               Utils.consoleLog(`(NavbarComponent) Get user data - Seccess: `, 'purple', response);
+              this.usersService.updateCurrentUser(response);
             } else {
               Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'purple', response);
               // TODO Error Screen
@@ -63,8 +63,8 @@ export class NavbarComponent implements OnInit {
       this.dataStorageService.getAllUsersData()
         .subscribe(
           (response: User[]) => {
-            this.usersService.storeUsers(response);
             Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', response);
+            this.usersService.storeUsers(response);
           },
           (error) => {
             Utils.consoleLog(`(NavbarComponent) Get users data - Error: `, 'red', error);
