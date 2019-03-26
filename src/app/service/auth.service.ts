@@ -32,7 +32,7 @@ export class AuthService {
         this.signUpFirebaseUser()
             .then(
                 (response) => {
-                    Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
+                    Utils.consoleLog(`(AuthService) Sign Up FirebaseUser Seccess: `, 'lime', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
                     this.currentUserEmail(firebase.auth().currentUser.email);
                     return this.getSignedUserToken();
@@ -40,7 +40,7 @@ export class AuthService {
             )
             .then(
                 (token: string) => {
-                    Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
+                    Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime');
                     this.currentUserToken(token);
                     this.signUpSuccess.next({
                         ...this.usersService.currentUser,
@@ -53,7 +53,7 @@ export class AuthService {
             )
             .catch(
                 (error) => {
-                    Utils.consoleLog(`signUpUser Error: `, 'red', error);
+                    Utils.consoleLog(`(AuthService) Sign Up User Error: `, 'red', error);
                     this.signUpError.next(error);
                 }
             );
@@ -65,7 +65,7 @@ export class AuthService {
         this.signInFirebaseUser()
             .then(
                 (response) => {
-                    Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'lime', response);
+                    Utils.consoleLog(`(AuthService) Sign In FirebaseUser Seccess: `, 'lime', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
                     this.currentUserEmail(firebase.auth().currentUser.email);
                     return this.getSignedUserToken();
@@ -73,7 +73,7 @@ export class AuthService {
             )
             .then(
                 (token: string) => {
-                    Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'lime');
+                    Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime');
                     this.currentUserToken(token);
                     this.router.navigate(['app/home']);
                     return this.firebaseSetPersistence();
@@ -81,7 +81,7 @@ export class AuthService {
             )
             .catch(
                 (error) => {
-                    Utils.consoleLog(`signInUser Error: `, 'red', error);
+                    Utils.consoleLog(`(AuthService) Sign In User Error: `, 'red', error);
                     this.signInError.next(error);
                 }
             );
@@ -115,7 +115,7 @@ export class AuthService {
         firebase.auth().signOut()
             .then(
                 () => {
-                    Utils.consoleLog(`logOut: Seccess`, 'purple');
+                    Utils.consoleLog(`(AuthService) Log Out Seccess`, 'lime');
                     this.usersService.setToDefaultUser();
                     this.uid = null;
                     this.token = null;
@@ -124,7 +124,7 @@ export class AuthService {
                 }
             )
             .catch(
-                (error) => Utils.consoleLog(`logOut Error: `, 'red', error)
+                (error) => Utils.consoleLog(`(AuthService) Log Out Error: `, 'red', error)
             );
     }
 
