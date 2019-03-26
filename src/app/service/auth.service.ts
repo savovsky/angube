@@ -40,14 +40,20 @@ export class AuthService {
             )
             .then(
                 (token: string) => {
+                    const userName = this.getCurrentUserEmailLocalPart();
                     Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime');
                     this.currentUserToken(token);
                     this.signUpSuccess.next({
                         ...this.usersService.currentUser,
                         uid: this.uid,
-                        userName: this.getCurrentUserEmailLocalPart(),
+                        userName,
                         email: this.email
                     });
+                    return this.updateFirebaseUserProfile(userName);
+                }
+            ).then(
+                () => {
+                    Utils.consoleLog(`(AuthService) Update FirebaseUser Profile Seccess: `, 'lime');
                     return this.firebaseSetPersistence();
                 }
             )
@@ -107,6 +113,13 @@ export class AuthService {
     signInFirebaseUser() {
         return firebase.auth().signInWithEmailAndPassword(this.email, this.password);
     }
+
+    updateFirebaseUserProfile(userName: string) {
+        return firebase.auth().currentUser.updateProfile({
+            displayName: userName,
+            photoURL: null
+        });
+}
 
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
@@ -168,19 +181,3 @@ export class AuthService {
         });
     }
 }
-
-
-// UPDATE USER PROFILE
-
-// if (response.userName) {
-//     firebase.auth().currentUser.updateProfile({
-//         displayName: user.userName,
-//         photoURL: null
-//     })
-//     .then(() => {
-//         Utils.consoleLog(`updateProfile->currentUser.displayName: `, 'purple', firebase.auth().currentUser.displayName);
-//     })
-//     .catch(
-//         (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
-//     );
-// }
