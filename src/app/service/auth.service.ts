@@ -87,14 +87,12 @@ export class AuthService {
             );
     }
 
-
     /**
      * https://firebase.google.com/docs/auth/web/auth-state-persistence
      */
     firebaseSetPersistence() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     }
-
 
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
@@ -103,14 +101,12 @@ export class AuthService {
         return firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
     }
 
-
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
      */
     signInFirebaseUser() {
         return firebase.auth().signInWithEmailAndPassword(this.email, this.password);
     }
-
 
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
@@ -122,9 +118,9 @@ export class AuthService {
                     Utils.consoleLog(`logOut: Seccess`, 'purple');
                     this.usersService.setToDefaultUser();
                     this.uid = null;
+                    this.token = null;
                     this.email = null;
                     this.password = null;
-                    this.token = null;
                 }
             )
             .catch(
@@ -132,11 +128,13 @@ export class AuthService {
             );
     }
 
-
+    /**
+     * Extract and return email lolcal part,
+     * e.g. name@abc.com -> return 'name'.
+     */
     getCurrentUserEmailLocalPart() {
         return this.email.substring(0, this.email.lastIndexOf('@'));
     }
-
 
     /**
      * Returns a JWT token used to identify the user to a Firebase service.
@@ -156,7 +154,6 @@ export class AuthService {
     currentUserEmail(email: string) {
         this.email = email;
     }
-
 
     /**
      * https://firebase.google.com/docs/auth/web/manage-users

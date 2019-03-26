@@ -11,7 +11,7 @@
     <mat-nav-list (click)="drawer.toggle()">
       <a
         mat-list-item
-        *ngFor="let appLink of navLinksService.appLinks | adminGuard:usersService.isCurrentUserAdmin"
+        *ngFor="let appLink of navLinksService.appLinks | adminLinkGuard:usersService.isCurrentUserAdmin"
         [routerLink]="appLink.routerLink"
         routerLinkActive="current"
       >{{ appLink.link | titlecase }}

@@ -31,7 +31,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { AdminGuardPipe } from './pipes/admin-guard.pipe';
+import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin-guard.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { StringPipe, EmptyPipe } from './pipes/string.pipe';
 
@@ -56,10 +56,11 @@ import { StringPipe, EmptyPipe } from './pipes/string.pipe';
     NavTabComponent,
     AdminComponent,
     AccessDeniedComponent,
-    AdminGuardPipe,
+    AdminLinkGuardPipe,
     CapitalizePipe,
     StringPipe,
-    EmptyPipe
+    EmptyPipe,
+    AdminItemGuardPipe
   ],
   imports: [
     BrowserModule,

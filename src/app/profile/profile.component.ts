@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { UsersService } from '../service/users.service';
 import { User } from '../interfaces/interfaces';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../service/auth.service';
 
 
 @Component({
@@ -15,12 +16,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   user: [string, any][];
   subscription: Subscription;
-  items: any;
 
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private location: Location
+    private location: Location,
+    public authService: AuthService
     ) { }
 
 
