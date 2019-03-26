@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-  user: User;
+  user: [string, any][];
   subscription: Subscription;
   items: any;
 
@@ -26,38 +26,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const userUid = this.route.snapshot.queryParamMap.get('id');
-    this.user = this.usersService.getUser(userUid);
+    let userObj: User;
+    userObj = this.usersService.getUser(userUid);
+    this.user = Object.entries(userObj);
     this.subscription = this.usersService.usersStored
       .subscribe(
-        () => this.user = this.usersService.getUser(userUid)
+        () => {
+          userObj = this.usersService.getUser(userUid);
+          this.user = Object.entries(userObj);
+        }
       );
 
-    const obj = {
-      userName: {
-        value: 'Miro',
-        isShared: true
-      },
-      firstName: {
-        value: 'Miroslav',
-        isShared: false
-      },
-      lastName: {
-        value: 'Savovksi',
-        isShared: true
-      }
-    };
     console.log(Object.entries(this.user));
-    console.log(Object.entries(obj));
-    this.items = Object.entries(obj);
+
 
     // REMIND
-    // this.userId = this.route.snapshot.paramMap.get('id');
+    // this.uid = this.route.snapshot.paramMap.get('id');
     // REMIND
     // Another way for cases when component will not be destroyed.
     // (ex. Prev-Next btns inside the component)
     // this.route.paramMap
     //   .subscribe((params) => {
-    //     this.userId = params.get('id');
+    //     this.uid = params.get('id');
     // });
   }
 

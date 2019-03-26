@@ -13,11 +13,13 @@ export class StringService {
     myAccount = 'my account';
     userAccount = 'user account';
     userDetails = 'user details';
-    userid = 'user id';
+    uid = 'user id';
     userName = 'user name';
     firstName = 'first name';
     lastName = 'last name';
     birthdate = 'birth date';
+    isAdmin = 'user is admin';
+    isBlocked = 'user is blocked';
 
     logOut = 'log out';
     signIn = 'sign in';
