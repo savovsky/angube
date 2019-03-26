@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { map } from 'rxjs/operators';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
+import { Subject } from 'rxjs';
 
 
 @Injectable()
 export class DataStorageService {
 
     private url = 'https://angube-92c87.firebaseio.com/users/';
+    updateUserSuccess = new Subject();
 
     constructor(
         private http: HttpClient,
         private authService: AuthService,
-        private router: Router,
-        private location: Location,
         private usersService: UsersService
         ) { }
 
@@ -29,7 +27,7 @@ export class DataStorageService {
     }
 
 
-    updateUserAccount(user: User, isNewUser: boolean) {
+    updateUserAccount(user: User) {
         const token = this.authService.token;
         const currentUserUid = this.authService.uid;
 
@@ -43,17 +41,7 @@ export class DataStorageService {
                         Utils.consoleLog(`(DataStorageService) Update user account  - Response: `, 'darkGoldenRod', response);
                         this.usersService.updateUser(response);
                     }
-
-                    // Refactor - not working properly.
-                    if (isNewUser) {
-                        this.router.navigate(['question']);
-                    } else {
-                        if (this.router.url === '/app/users') {
-                            return;
-                        }
-                        this.location.back();
-                    }
-
+                    this.updateUserSuccess.next();
                 },
                 (error) => Utils.consoleLog(`(DataStorageService) Update user account - Error: `, 'red', error)
             );

@@ -38,9 +38,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       );
 
-    console.log(Object.entries(this.user));
-
-
     // REMIND
     // this.uid = this.route.snapshot.paramMap.get('id');
     // REMIND

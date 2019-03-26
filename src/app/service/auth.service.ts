@@ -53,7 +53,7 @@ export class AuthService {
                 }
             ).then(
                 () => {
-                    Utils.consoleLog(`(AuthService) Update FirebaseUser Profile Seccess: `, 'lime');
+                    Utils.consoleLog(`(AuthService) Update FirebaseUser Profile Seccess`, 'lime');
                     return this.firebaseSetPersistence();
                 }
             )
