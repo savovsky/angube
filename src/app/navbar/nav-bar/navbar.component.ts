@@ -10,6 +10,7 @@ import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
 import { NavLinksService } from '../nav-links.service';
 import { UsersService } from 'src/app/service/users.service';
+import { RouterExtService } from 'src/app/router-ext.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
     public progressService: ProgressService,
     public navLinksService: NavLinksService,
     public usersService: UsersService,
+    public routerExtService: RouterExtService,
     public str: StringService
     ) { }
 

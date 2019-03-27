@@ -92,7 +92,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       this.isRequesting = false;
       this.user = this.usersService.currentUserAccount;
       this.setFormValues();
-    } else {
+    } else { // When Admin editing a user.
       this.subscription3 = this.dataStorageService.getUserData(userUid)
         .subscribe(
           (response: User) => {
