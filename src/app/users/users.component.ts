@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataStorageService } from '../service/data-storage.service';
+import { DatabaseService } from '../service/database.service';
 import { UsersService } from '../service/users.service';
 import { StringService } from '../service/strings.service';
 import { User } from '../interfaces/interfaces';
@@ -13,14 +13,14 @@ import { User } from '../interfaces/interfaces';
 export class UsersComponent {
 
   constructor(
-    private dataStorageService: DataStorageService,
+    private databaseService: DatabaseService,
     public usersService: UsersService,
     public str: StringService
   ) { }
 
   onBlockUnblock(user: User) {
     const userAccount = {...user, isBlocked: !user.isBlocked};
-    this.dataStorageService.updateUserAccount(userAccount);
+    this.databaseService.updateUserAccount(userAccount);
   }
 
 }

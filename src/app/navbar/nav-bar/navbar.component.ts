@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../service/auth.service';
 import { ProgressService } from '../../service/progress.service';
-import { DataStorageService } from '../../service/data-storage.service';
+import { DatabaseService } from '../../service/database.service';
 import { User } from '../../interfaces/interfaces';
 import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
-    private dataStorageService: DataStorageService,
+    private databaseService: DatabaseService,
     public progressService: ProgressService,
     public navLinksService: NavLinksService,
     public usersService: UsersService,
@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
       this.progressService.startProgresses(2);
       // TODO Find better way for handling the progress bar and react on Errors.
 
-      this.dataStorageService.getUserData(this.authService.uid)
+      this.databaseService.getUserData(this.authService.uid)
         .subscribe(
           (response: User) => {
             if (response) {
@@ -62,7 +62,7 @@ export class NavbarComponent implements OnInit {
           }
         );
 
-      this.dataStorageService.getAllUsersData()
+      this.databaseService.getAllUsersData()
         .subscribe(
           (response: User[]) => {
             Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', response);

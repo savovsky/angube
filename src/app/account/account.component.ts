@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { DataStorageService } from '../service/data-storage.service';
+import { DatabaseService } from '../service/database.service';
 import { StringService } from '../service/strings.service';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
@@ -37,7 +37,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
-    private dataStorageService: DataStorageService,
+    private databaseService: DatabaseService,
     private usersService: UsersService,
     private location: Location,
     private router: Router,
@@ -76,7 +76,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.subscription2 = this.dataStorageService.updateUserSuccess
+    this.subscription2 = this.databaseService.updateUserSuccess
       .subscribe(
         () => {
           Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
@@ -93,7 +93,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       this.user = this.usersService.currentUserAccount;
       this.setFormValues();
     } else { // When Admin editing a user.
-      this.subscription3 = this.dataStorageService.getUserData(userUid)
+      this.subscription3 = this.databaseService.getUserData(userUid)
         .subscribe(
           (response: User) => {
             if (response) {
@@ -192,7 +192,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
       this.error = null;
       this.isRequesting = true;
-      this.dataStorageService.updateUserAccount(userAccount);
+      this.databaseService.updateUserAccount(userAccount);
     }
   }
 
