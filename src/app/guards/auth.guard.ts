@@ -3,7 +3,7 @@ import { CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
-import { Auth } from '../interfaces/interfaces';
+import { Auth } from '../common/interfaces';
 import * as Utils from '../common/utils';
 
 @Injectable({

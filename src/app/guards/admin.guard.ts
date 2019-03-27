@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
-import { DataStorageService } from '../service/data-storage.service';
-import { User } from '../interfaces/interfaces';
+import { DatabaseService } from '../service/database.service';
+import { User } from '../common/interfaces';
 import * as Utils from '../common/utils';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-    private dataStorageService: DataStorageService,
+    private databaseService: DatabaseService,
     private router: Router
   ) { }
 
@@ -24,7 +24,7 @@ export class AdminGuard implements CanActivate {
       Utils.consoleLog(`(AdminGuard) Current user is Admin.`, 'darkTurquoise');
       return true;
     } else {
-      return this.dataStorageService.getUserData(this.authService.uid)
+      return this.databaseService.getUserData(this.authService.uid)
         .pipe(
           map((response: User) => {
             if (response.isAdmin) {

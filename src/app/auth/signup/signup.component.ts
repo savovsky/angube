@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { CustomValidators } from 'src/app/common/custom.validators';
 import { AuthService } from 'src/app/service/auth.service';
-import { DataStorageService } from 'src/app/service/data-storage.service';
-import { SignError, MatFormField, User } from 'src/app/interfaces/interfaces';
+import { DatabaseService } from 'src/app/service/database.service';
+import { SignError, MatFormField, User } from 'src/app/common/interfaces';
 import { StringService } from 'src/app/service/strings.service';
 import { FormField } from 'src/app/common/form-field.model';
 import { FormsService } from 'src/app/service/forms.service';
@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private dataStorageService: DataStorageService,
+    private databaseService: DatabaseService,
     private router: Router,
     public frormsService: FormsService,
     public str: StringService
@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit {
 
     this.authService.signUpSuccess
       .subscribe((userAccount: User) => {
-        this.dataStorageService.updateUserAccount(userAccount);
+        this.databaseService.updateUserAccount(userAccount);
         this.router.navigate(['question']);
       });
 

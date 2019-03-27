@@ -19,6 +19,13 @@ export interface Link {
     routerLink: string;
 }
 
+export interface UserLink {
+    link: string;
+    routerLink: string;
+    queryParams: string;
+    matIcon: string;
+}
+
 export interface MatFormField {
     placeholder: string;
     formControlName: string;

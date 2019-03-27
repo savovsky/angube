@@ -4,19 +4,20 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../service/auth.service';
 import { ProgressService } from '../../service/progress.service';
-import { DataStorageService } from '../../service/data-storage.service';
-import { User } from '../../interfaces/interfaces';
+import { DatabaseService } from '../../service/database.service';
+import { User } from '../../common/interfaces';
 import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
-import { NavLinksService } from '../nav-links.service';
+import { NavLinksService } from '../../service/nav-links.service';
 import { UsersService } from 'src/app/service/users.service';
-import { RouterExtService } from 'src/app/router-ext.service';
+import { RouterExtService } from 'src/app/service/router-ext.service';
 
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [NavLinksService]
 })
 export class NavbarComponent implements OnInit {
 
@@ -28,7 +29,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
-    private dataStorageService: DataStorageService,
+    private databaseService: DatabaseService,
     public progressService: ProgressService,
     public navLinksService: NavLinksService,
     public usersService: UsersService,
@@ -40,7 +41,7 @@ export class NavbarComponent implements OnInit {
       this.progressService.startProgresses(2);
       // TODO Find better way for handling the progress bar and react on Errors.
 
-      this.dataStorageService.getUserData(this.authService.uid)
+      this.databaseService.getUserData(this.authService.uid)
         .subscribe(
           (response: User) => {
             if (response) {
@@ -62,7 +63,7 @@ export class NavbarComponent implements OnInit {
           }
         );
 
-      this.dataStorageService.getAllUsersData()
+      this.databaseService.getAllUsersData()
         .subscribe(
           (response: User[]) => {
             Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', response);

@@ -1,5 +1,5 @@
-import { User } from '../interfaces/interfaces';
-import { Account } from '../account/account.model';
+import { User } from '../common/interfaces';
+import { Account } from '../common/account.model';
 
 export class AccountService {
 
