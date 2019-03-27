@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import { Subject } from 'rxjs';
+import { Account } from '../account/account.model';
 
 /**
  * @description
@@ -12,22 +13,14 @@ import { Subject } from 'rxjs';
 })
 export class UsersService {
 
-    private defaultUser = {
-        uid: '',
-        userName: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        birthdate: '',
-        isAdmin: false,
-        isBlocked: false,
-    };
-    private defaultUsers = [];
+    defaultUser = new Account();
+    defaultUsers = [];
 
     currentUser: User = this.defaultUser;
     users: User[] = this.defaultUsers;
     usersStored = new Subject();
     currentUserUpdated = new Subject();
+
 
     /**
      * Storing all users accounts.

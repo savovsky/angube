@@ -1,18 +1,10 @@
 import { User } from '../interfaces/interfaces';
+import { Account } from '../account/account.model';
 
 export class AccountService {
 
   private user: [string, any][];
-  private orderList = [
-    'userName',
-    'firstName',
-    'lastName',
-    'birthdate',
-    'email',
-    'isBlocked',
-    'isAdmin',
-    'uid'
-  ];
+  private orderList = Object.keys(new Account());
 
   /**
    * Mutate the user account object to array of its entries and

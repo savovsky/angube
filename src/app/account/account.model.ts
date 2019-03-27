@@ -1,15 +1,16 @@
 
 export class Account {
 
+  // The sequence matters - check AccountService.
   constructor(
-    public uid: string,
-    public userName: string,
-    public firstName: string,
-    public lastName: string,
-    public email: string,
-    public birthdate: string,
-    public isAdmin: boolean,
-    public isBlocked: boolean
+    public userName = '',
+    public firstName = '',
+    public lastName = '',
+    public birthdate = '',
+    public email = '',
+    public isBlocked = false,
+    public isAdmin = false,
+    public uid = ''
   ) { }
 
 }

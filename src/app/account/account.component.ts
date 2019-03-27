@@ -180,14 +180,14 @@ export class AccountComponent implements OnInit, OnDestroy {
   onAccountSave() {
     if (this.accountForm.valid) {
       const userAccount = new Account(
-        this.user.uid,
         this.userNameFormControl.value,
         this.firstNameFormControl.value,
         this.lastNameFormControl.value,
-        this.user.email,
         this.user.birthdate,
+        this.user.email,
+        this.user.isBlocked,
         this.user.isAdmin,
-        this.user.isBlocked
+        this.user.uid
       );
 
       this.error = null;
