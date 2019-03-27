@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { NavbarComponent } from './navbar/nav-bar/navbar.component';
@@ -15,7 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersComponent } from './users/users.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { MatComponentsModule } from './mat-components.module';
+import { MatComponentsModule } from './modules/mat-components.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
 import { QuestionComponent } from './question/question.component';
