@@ -5,12 +5,14 @@ import { UsersService } from '../service/users.service';
 import { User } from '../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
+import { AccountService } from '../service/account.service';
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  providers: [AccountService]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
@@ -21,21 +23,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private usersService: UsersService,
     private location: Location,
+    private accountService: AccountService,
     public authService: AuthService
     ) { }
 
 
   ngOnInit() {
     const userUid = this.route.snapshot.queryParamMap.get('id');
-    let userObj: User;
-    userObj = this.usersService.getUser(userUid);
-    this.user = Object.entries(userObj);
+    let account: User;
+    account = this.usersService.getUser(userUid);
+    this.user = this.accountService.toOrderedArray(account);
     console.log(this.user);
     this.subscription = this.usersService.usersStored // If page refresh.
       .subscribe(
         () => {
-          userObj = this.usersService.getUser(userUid);
-          this.user = Object.entries(userObj);
+          account = this.usersService.getUser(userUid);
+          this.user = Object.entries(account);
         }
       );
 
