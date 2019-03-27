@@ -10,7 +10,7 @@ import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
 import { NavLinksService } from '../nav-links.service';
 import { UsersService } from 'src/app/service/users.service';
-import { RouterExtService } from 'src/app/router-ext.service';
+import { RouterExtService } from 'src/app/service/router-ext.service';
 
 
 @Component({

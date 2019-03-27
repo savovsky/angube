@@ -12,7 +12,7 @@ import { CustomValidators } from '../common/custom.validators';
 import { User, MatFormField } from '../common/interfaces';
 import * as Utils from '../common/utils';
 import { Subscription } from 'rxjs';
-import { RouterExtService } from '../router-ext.service';
+import { RouterExtService } from '../service/router-ext.service';
 
 
 @Component({
