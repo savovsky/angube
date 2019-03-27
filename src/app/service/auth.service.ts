@@ -13,6 +13,9 @@ import * as Utils from '../common/utils';
 @Injectable({
   providedIn: 'root'
 })
+// REMIND - The New Way of doing DI in Angular
+// this provides service in Appmodule
+// https://medium.com/@tomastrajan/total-guide-to-angular-6-dependency-injection-providedin-vs-providers-85b7a347b59f
 export class AuthService {
 
   uid: string;

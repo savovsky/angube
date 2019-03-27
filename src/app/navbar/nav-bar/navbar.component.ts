@@ -8,7 +8,7 @@ import { DatabaseService } from '../../service/database.service';
 import { User } from '../../common/interfaces';
 import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
-import { NavLinksService } from '../nav-links.service';
+import { NavLinksService } from '../../service/nav-links.service';
 import { UsersService } from 'src/app/service/users.service';
 import { RouterExtService } from 'src/app/service/router-ext.service';
 
@@ -16,7 +16,8 @@ import { RouterExtService } from 'src/app/service/router-ext.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [NavLinksService]
 })
 export class NavbarComponent implements OnInit {
 
