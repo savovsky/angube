@@ -21,10 +21,6 @@ export class NavLinksService {
       link: this.str.users,
       routerLink: '/app/users'
     }
-    // {
-    //   link: str.posts,
-    //   routerLink: '/app/posts'
-    // }
   ];
 
   userLinks: Link[] = [ // TODO use it!

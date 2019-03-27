@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
-import { PostsComponent } from './posts/posts.component';
 import { NavbarComponent } from './navbar/nav-bar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -33,7 +32,6 @@ import { StringPipe, EmptyPipe } from './pipes/string.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent,
     NavbarComponent,
     HomeComponent,
     ProfileComponent,
