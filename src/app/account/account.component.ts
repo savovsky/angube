@@ -6,7 +6,7 @@ import { DatabaseService } from '../service/database.service';
 import { StringService } from '../service/strings.service';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
-import { Account } from './account.model';
+import { Account } from '../common/account.model';
 import { FormField } from '../common/form-field.model';
 import { CustomValidators } from '../common/custom.validators';
 import { User, MatFormField } from '../common/interfaces';

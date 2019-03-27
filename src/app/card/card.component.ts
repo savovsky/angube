@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Account } from '../account/account.model';
+import { Account } from '../common/account.model';
 
 
 @Component({
