@@ -24,7 +24,7 @@ import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
 import { AdminComponent } from './admin/admin.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin-guard.pipe';
+import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { StringPipe, EmptyPipe } from './pipes/string.pipe';
 
