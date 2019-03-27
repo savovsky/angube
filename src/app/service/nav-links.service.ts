@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StringService } from './strings.service';
-import { Link } from '../common/interfaces';
+import { Link, UserLink } from '../common/interfaces';
 
 
 @Injectable()
@@ -23,14 +23,18 @@ export class NavLinksService {
     }
   ];
 
-  userLinks: Link[] = [ // TODO use it!
+  userLinks: UserLink[] = [ // TODO use it!
     {
       link: this.str.myAccount,
-      routerLink: ''
+      routerLink: '',
+      queryParams: '',
+      matIcon: 'person'
     },
     {
       link: this.str.logOut,
-      routerLink: ''
+      routerLink: '',
+      queryParams: '',
+      matIcon: 'power_off'
     },
   ];
 

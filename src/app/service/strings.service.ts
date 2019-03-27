@@ -60,4 +60,7 @@ export class StringService {
     invalidEmailAddress = 'invalid email address';
     passwordShouldBeAtLeast = 'password should be at least';
     characters = 'characters';
+
+    // Icons
+    powerOff = 'power_off';
 }
