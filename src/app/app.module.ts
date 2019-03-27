@@ -26,7 +26,6 @@ import { MenuIconsComponent } from './menu-icons/menu-icons.component';
 import { CardComponent } from './card/card.component';
 import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
-import { ProgressService } from './service/progress.service';
 import { AdminComponent } from './admin/admin.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin-guard.pipe';
@@ -72,8 +71,7 @@ import { StringPipe, EmptyPipe } from './pipes/string.pipe';
   ],
   providers: [
     AuthService,
-    DataStorageService,
-    ProgressService
+    DataStorageService
   ],
   bootstrap: [AppComponent]
 })
