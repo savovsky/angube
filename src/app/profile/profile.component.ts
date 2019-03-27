@@ -30,7 +30,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     let userObj: User;
     userObj = this.usersService.getUser(userUid);
     this.user = Object.entries(userObj);
-    this.subscription = this.usersService.usersStored
+    console.log(this.user);
+    this.subscription = this.usersService.usersStored // If page refresh.
       .subscribe(
         () => {
           userObj = this.usersService.getUser(userUid);

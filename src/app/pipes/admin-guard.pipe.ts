@@ -38,7 +38,6 @@ export class AdminItemGuardPipe implements PipeTransform {
         }
         // Passing all items only if user is an Admin.
         // If user is NOT Admin - passing only items which are NOT included in adminItems array.
-        console.log('items', items);
         return items.filter((item) => isAdmin ? item : this.adminItems.indexOf(item[0]) === -1);
     }
 }

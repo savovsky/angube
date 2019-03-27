@@ -14,7 +14,6 @@ export class RouterExtService {
 
     router.events
       .subscribe((event) => {
-        console.log('event = ', event);
         if (event instanceof NavigationEnd) {
           this.previousUrl = this.currentUrl;
           this.currentUrl = event.url;
