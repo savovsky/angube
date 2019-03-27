@@ -10,10 +10,10 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionComponent } from './question/question.component';
 import { ApplicationComponent } from './application/application.component';
-import { AuthGuardService } from './service/auth-guard.service';
 import { AdminComponent } from './admin/admin.component';
-import { AdminAuthGuardService } from './service/admin-auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    canActivateChild: [AuthGuardService],
+    canActivateChild: [AuthGuard],
     component: ApplicationComponent,
     children: [
       {
@@ -31,7 +31,6 @@ const routes: Routes = [
       },
       {
         path: 'admin',
-        canActivate: [AdminAuthGuardService],
         component: AdminComponent
       },
       {
@@ -60,6 +59,7 @@ const routes: Routes = [
       },
       {
         path: 'users',
+        canActivate: [AdminGuard],
         component: UsersComponent
       },
       {
