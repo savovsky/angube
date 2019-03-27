@@ -15,7 +15,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersComponent } from './users/users.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { AuthService } from './service/auth.service';
 import { MatComponentsModule } from './mat-components.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
@@ -67,9 +66,7 @@ import { StringPipe, EmptyPipe } from './pipes/string.pipe';
     MatComponentsModule,
     LayoutModule
   ],
-  providers: [
-    AuthService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
