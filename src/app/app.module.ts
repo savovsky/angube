@@ -22,7 +22,6 @@ import { MenuIconsComponent } from './menu-icons/menu-icons.component';
 import { CardComponent } from './card/card.component';
 import { ApplicationComponent } from './application/application.component';
 import { NavTabComponent } from './navbar/nav-tab/nav-tab.component';
-import { AdminComponent } from './admin/admin.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
@@ -47,7 +46,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CardComponent,
     ApplicationComponent,
     NavTabComponent,
-    AdminComponent,
     AccessDeniedComponent,
     AdminLinkGuardPipe,
     CapitalizePipe,
