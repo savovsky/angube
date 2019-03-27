@@ -14,8 +14,8 @@ export class NavLinksService {
       routerLink: '/app/home'
     },
     {
-      link: this.str.admin,
-      routerLink: '/app/admin'
+      link: this.str.myDashboard,
+      routerLink: '/app/dashboard'
     },
     {
       link: this.str.users,

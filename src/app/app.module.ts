@@ -27,6 +27,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { StringPipe, EmptyPipe } from './pipes/string.pipe';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { StringPipe, EmptyPipe } from './pipes/string.pipe';
     CapitalizePipe,
     StringPipe,
     EmptyPipe,
-    AdminItemGuardPipe
+    AdminItemGuardPipe,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

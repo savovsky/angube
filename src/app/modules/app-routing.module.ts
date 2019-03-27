@@ -10,10 +10,10 @@ import { SignupComponent } from '../auth/signup/signup.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { QuestionComponent } from '../question/question.component';
 import { ApplicationComponent } from '../application/application.component';
-import { AdminComponent } from '../admin/admin.component';
 import { AccessDeniedComponent } from '../access-denied/access-denied.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AdminGuard } from '../guards/admin.guard';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -30,8 +30,8 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'admin',
-        component: AdminComponent
+        path: 'dashboard',
+        component: DashboardComponent
       },
       {
         path: 'account/:id/:username',
