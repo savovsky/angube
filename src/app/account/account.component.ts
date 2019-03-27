@@ -9,7 +9,7 @@ import { UsersService } from '../service/users.service';
 import { Account } from './account.model';
 import { FormField } from '../common/form-field.model';
 import { CustomValidators } from '../common/custom.validators';
-import { User, MatFormField } from '../interfaces/interfaces';
+import { User, MatFormField } from '../common/interfaces';
 import * as Utils from '../common/utils';
 import { Subscription } from 'rxjs';
 import { RouterExtService } from '../router-ext.service';

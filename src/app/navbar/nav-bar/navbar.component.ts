@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../service/auth.service';
 import { ProgressService } from '../../service/progress.service';
 import { DatabaseService } from '../../service/database.service';
-import { User } from '../../interfaces/interfaces';
+import { User } from '../../common/interfaces';
 import * as Utils from '../../common/utils';
 import { StringService } from 'src/app/service/strings.service';
 import { NavLinksService } from '../nav-links.service';

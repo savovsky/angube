@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DatabaseService } from '../service/database.service';
 import { UsersService } from '../service/users.service';
 import { StringService } from '../service/strings.service';
-import { User } from '../interfaces/interfaces';
+import { User } from '../common/interfaces';
 
 
 @Component({

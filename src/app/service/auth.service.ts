@@ -4,7 +4,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { UsersService } from './users.service';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { User, SignError } from '../interfaces/interfaces';
+import { User, SignError } from '../common/interfaces';
 import * as Utils from '../common/utils';
 
 

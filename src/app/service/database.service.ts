@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
-import { User } from '../interfaces/interfaces';
+import { User } from '../common/interfaces';
 import * as Utils from '../common/utils';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { User } from '../interfaces/interfaces';
+import { User } from '../common/interfaces';
 import { Account } from '../account/account.model';
 import * as Utils from '../common/utils';
 

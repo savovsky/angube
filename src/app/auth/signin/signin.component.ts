@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-import { SignError, MatFormField } from 'src/app/interfaces/interfaces';
+import { SignError, MatFormField } from 'src/app/common/interfaces';
 import { StringService } from 'src/app/service/strings.service';
 import { FormField } from 'src/app/common/form-field.model';
 import { FormsService } from 'src/app/service/forms.service';
