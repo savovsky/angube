@@ -7,6 +7,7 @@ import { SignError, MatFormField, User } from 'src/app/interfaces/interfaces';
 import { StringService } from 'src/app/service/strings.service';
 import { FormField } from 'src/app/common/form-field.model';
 import { FormsService } from 'src/app/service/forms.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private dataStorageService: DataStorageService,
+    private router: Router,
     public frormsService: FormsService,
     public str: StringService
   ) { }
@@ -65,9 +67,10 @@ export class SignupComponent implements OnInit {
     //   .subscribe((status) => console.log('signUpForm status', status));
 
     this.authService.signUpSuccess
-    .subscribe((userAccount: User) => {
-      this.dataStorageService.updateUserAccount(userAccount, true);
-    });
+      .subscribe((userAccount: User) => {
+        this.dataStorageService.updateUserAccount(userAccount);
+        this.router.navigate(['question']);
+      });
 
     this.authService.signUpError
       .subscribe((err: SignError) => {

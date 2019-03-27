@@ -32,7 +32,7 @@ export class AuthService {
         this.signUpFirebaseUser()
             .then(
                 (response) => {
-                    Utils.consoleLog(`signUpUser-signUpFirebaseUser Response: `, 'green', response);
+                    Utils.consoleLog(`(AuthService) Sign Up FirebaseUser Seccess: `, 'lime', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
                     this.currentUserEmail(firebase.auth().currentUser.email);
                     return this.getSignedUserToken();
@@ -40,20 +40,26 @@ export class AuthService {
             )
             .then(
                 (token: string) => {
-                    Utils.consoleLog(`signUpUser-getIdToken: Seccess`, 'green');
+                    const userName = this.getCurrentUserEmailLocalPart();
+                    Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime');
                     this.currentUserToken(token);
                     this.signUpSuccess.next({
                         ...this.usersService.currentUser,
                         uid: this.uid,
-                        userName: this.getCurrentUserEmailLocalPart(),
+                        userName,
                         email: this.email
                     });
+                    return this.updateFirebaseUserProfile(userName);
+                }
+            ).then(
+                () => {
+                    Utils.consoleLog(`(AuthService) Update FirebaseUser Profile Seccess`, 'lime');
                     return this.firebaseSetPersistence();
                 }
             )
             .catch(
                 (error) => {
-                    Utils.consoleLog(`signUpUser Error: `, 'red', error);
+                    Utils.consoleLog(`(AuthService) Sign Up User Error: `, 'red', error);
                     this.signUpError.next(error);
                 }
             );
@@ -65,7 +71,7 @@ export class AuthService {
         this.signInFirebaseUser()
             .then(
                 (response) => {
-                    Utils.consoleLog(`signInUser-signInFirebaseUser Response: `, 'lime', response);
+                    Utils.consoleLog(`(AuthService) Sign In FirebaseUser Seccess: `, 'lime', response);
                     this.currentUserUid(firebase.auth().currentUser.uid);
                     this.currentUserEmail(firebase.auth().currentUser.email);
                     return this.getSignedUserToken();
@@ -73,7 +79,7 @@ export class AuthService {
             )
             .then(
                 (token: string) => {
-                    Utils.consoleLog(`signInUser-getIdToken: Seccess`, 'lime');
+                    Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime');
                     this.currentUserToken(token);
                     this.router.navigate(['app/home']);
                     return this.firebaseSetPersistence();
@@ -81,12 +87,11 @@ export class AuthService {
             )
             .catch(
                 (error) => {
-                    Utils.consoleLog(`signInUser Error: `, 'red', error);
+                    Utils.consoleLog(`(AuthService) Sign In User Error: `, 'red', error);
                     this.signInError.next(error);
                 }
             );
     }
-
 
     /**
      * https://firebase.google.com/docs/auth/web/auth-state-persistence
@@ -95,14 +100,12 @@ export class AuthService {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     }
 
-
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
      */
     signUpFirebaseUser() {
         return firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
     }
-
 
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
@@ -111,6 +114,12 @@ export class AuthService {
         return firebase.auth().signInWithEmailAndPassword(this.email, this.password);
     }
 
+    updateFirebaseUserProfile(userName: string) {
+        return firebase.auth().currentUser.updateProfile({
+            displayName: userName,
+            photoURL: null
+        });
+}
 
     /**
      * https://firebase.google.com/docs/auth/web/password-auth
@@ -119,24 +128,26 @@ export class AuthService {
         firebase.auth().signOut()
             .then(
                 () => {
-                    Utils.consoleLog(`logOut: Seccess`, 'purple');
+                    Utils.consoleLog(`(AuthService) Log Out Seccess`, 'lime');
                     this.usersService.setToDefaultUser();
                     this.uid = null;
+                    this.token = null;
                     this.email = null;
                     this.password = null;
-                    this.token = null;
                 }
             )
             .catch(
-                (error) => Utils.consoleLog(`logOut Error: `, 'red', error)
+                (error) => Utils.consoleLog(`(AuthService) Log Out Error: `, 'red', error)
             );
     }
 
-
+    /**
+     * Extract and return email lolcal part,
+     * e.g. name@abc.com -> return 'name'.
+     */
     getCurrentUserEmailLocalPart() {
         return this.email.substring(0, this.email.lastIndexOf('@'));
     }
-
 
     /**
      * Returns a JWT token used to identify the user to a Firebase service.
@@ -157,7 +168,6 @@ export class AuthService {
         this.email = email;
     }
 
-
     /**
      * https://firebase.google.com/docs/auth/web/manage-users
      */
@@ -171,19 +181,3 @@ export class AuthService {
         });
     }
 }
-
-
-// UPDATE USER PROFILE
-
-// if (response.userName) {
-//     firebase.auth().currentUser.updateProfile({
-//         displayName: user.userName,
-//         photoURL: null
-//     })
-//     .then(() => {
-//         Utils.consoleLog(`updateProfile->currentUser.displayName: `, 'purple', firebase.auth().currentUser.displayName);
-//     })
-//     .catch(
-//         (error) => Utils.consoleLog(`updateUserAccount Error: `, 'red', error)
-//     );
-// }

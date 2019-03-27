@@ -4,60 +4,52 @@ import { Location } from '@angular/common';
 import { UsersService } from '../service/users.service';
 import { User } from '../interfaces/interfaces';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../service/auth.service';
+import { AccountService } from '../service/account.service';
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  providers: [AccountService]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-  user: User;
+  user: [string, any][];
   subscription: Subscription;
-  items: any;
 
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private location: Location
+    private location: Location,
+    private accountService: AccountService,
+    public authService: AuthService
     ) { }
 
 
   ngOnInit() {
     const userUid = this.route.snapshot.queryParamMap.get('id');
-    this.user = this.usersService.getUser(userUid);
-    this.subscription = this.usersService.usersStored
+    let account: User;
+    account = this.usersService.getUser(userUid);
+    this.user = this.accountService.toOrderedArray(account);
+    console.log(this.user);
+    this.subscription = this.usersService.usersStored // If page refresh.
       .subscribe(
-        () => this.user = this.usersService.getUser(userUid)
+        () => {
+          account = this.usersService.getUser(userUid);
+          this.user = Object.entries(account);
+        }
       );
 
-    const obj = {
-      userName: {
-        value: 'Miro',
-        isShared: true
-      },
-      firstName: {
-        value: 'Miroslav',
-        isShared: false
-      },
-      lastName: {
-        value: 'Savovksi',
-        isShared: true
-      }
-    };
-    console.log(Object.entries(this.user));
-    console.log(Object.entries(obj));
-    this.items = Object.entries(obj);
-
     // REMIND
-    // this.userId = this.route.snapshot.paramMap.get('id');
+    // this.uid = this.route.snapshot.paramMap.get('id');
     // REMIND
     // Another way for cases when component will not be destroyed.
     // (ex. Prev-Next btns inside the component)
     // this.route.paramMap
     //   .subscribe((params) => {
-    //     this.userId = params.get('id');
+    //     this.uid = params.get('id');
     // });
   }
 

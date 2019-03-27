@@ -20,7 +20,7 @@ export class UsersComponent {
 
   onBlockUnblock(user: User) {
     const userAccount = {...user, isBlocked: !user.isBlocked};
-    this.dataStorageService.updateUserAccount(userAccount, false);
+    this.dataStorageService.updateUserAccount(userAccount);
   }
 
 }

@@ -40,7 +40,6 @@ export class UsersService {
     }
 
     /**
-     * @description
      * Update current user account and users collection too.
      *
      * @param user Current user's account object.
@@ -60,7 +59,6 @@ export class UsersService {
     }
 
     /**
-     * @description
      * Update user account and users collection too.
      *
      * @param user User's account object.
@@ -87,7 +85,6 @@ export class UsersService {
     }
 
     /**
-     * @description
      * Clear current user and users collection and set them to default values.
      */
     setToDefaultUser() {

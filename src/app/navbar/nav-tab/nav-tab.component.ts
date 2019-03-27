@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { NavLinksService } from '../nav-links.service';
 import { UsersService } from 'src/app/service/users.service';
+import { RouterExtService } from '../../router-ext.service';
 
 
 @Component({
@@ -9,18 +9,12 @@ import { UsersService } from 'src/app/service/users.service';
   templateUrl: './nav-tab.component.html',
   styleUrls: ['./nav-tab.component.css']
 })
-export class NavTabComponent implements OnInit {
-
-  activeLink: string;
+export class NavTabComponent {
 
   constructor(
-    private router: Router,
     public usersService: UsersService,
-    public navLinksService: NavLinksService
+    public navLinksService: NavLinksService,
+    public routerExtService: RouterExtService
   ) { }
-
-  ngOnInit() {
-    this.activeLink = this.router.url;
-  }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { DataStorageService } from '../service/data-storage.service';
 import { StringService } from '../service/strings.service';
@@ -12,6 +12,7 @@ import { CustomValidators } from '../common/custom.validators';
 import { User, MatFormField } from '../interfaces/interfaces';
 import * as Utils from '../common/utils';
 import { Subscription } from 'rxjs';
+import { RouterExtService } from '../router-ext.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   accountForm: FormGroup;
   subscription1: Subscription;
   subscription2: Subscription;
+  subscription3: Subscription;
   userNameForm = 'userNameForm';
   firstNameForm = 'firstNameForm';
   lastNameForm = 'lastNameForm';
@@ -38,6 +40,8 @@ export class AccountComponent implements OnInit, OnDestroy {
     private dataStorageService: DataStorageService,
     private usersService: UsersService,
     private location: Location,
+    private router: Router,
+    private routerExtService: RouterExtService,
     public str: StringService
   ) { }
 
@@ -72,12 +76,24 @@ export class AccountComponent implements OnInit, OnDestroy {
         }
       );
 
+    this.subscription2 = this.dataStorageService.updateUserSuccess
+      .subscribe(
+        () => {
+          Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
+          if (this.routerExtService.currentPath === this.routerExtService.previousPath) { // After refresh!
+            this.router.navigate(['app/home']);
+          } else {
+            this.router.navigate([this.routerExtService.previousPath]);
+          }
+        }
+      );
+
     if (currentUserUid === userUid) {
       this.isRequesting = false;
       this.user = this.usersService.currentUserAccount;
       this.setFormValues();
-    } else {
-      this.subscription2 = this.dataStorageService.getUserData(userUid)
+    } else { // When Admin editing a user.
+      this.subscription3 = this.dataStorageService.getUserData(userUid)
         .subscribe(
           (response: User) => {
             if (response) {
@@ -107,9 +123,10 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
 
-    if (this.subscription2) {
-      this.subscription2.unsubscribe();
+    if (this.subscription3) {
+      this.subscription3.unsubscribe();
     } else {
       return;
     }
@@ -175,12 +192,18 @@ export class AccountComponent implements OnInit, OnDestroy {
 
       this.error = null;
       this.isRequesting = true;
-      this.dataStorageService.updateUserAccount(userAccount, false);
+      this.dataStorageService.updateUserAccount(userAccount);
     }
   }
 
   onCancel() {
-    // TODO Back to question component after the question..Repair it!
-    this.location.back();
+    if (
+      this.routerExtService.previousPath === '/question' ||
+      this.routerExtService.currentPath === this.routerExtService.previousPath // After refresh!
+    ) {
+      this.router.navigate(['app/home']);
+    } else {
+      this.location.back();
+    }
   }
 }

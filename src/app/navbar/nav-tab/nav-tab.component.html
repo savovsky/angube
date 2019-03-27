@@ -2,11 +2,10 @@
   <nav mat-tab-nav-bar>
     <a
       mat-tab-link
-      *ngFor="let appLink of navLinksService.appLinks | adminGuard:usersService.isCurrentUserAdmin"
-      (click)="activeLink = appLink.routerLink"
+      *ngFor="let appLink of navLinksService.appLinks | adminLinkGuard:usersService.isCurrentUserAdmin"
       [routerLink]="appLink.routerLink"
-      [active]="activeLink == appLink.routerLink"
-    >{{ appLink.link | titlecase }}
+      [active]="routerExtService.currentPath === appLink.routerLink"
+      >{{ appLink.link | titlecase }}
     </a>
   </nav>
 </div>
