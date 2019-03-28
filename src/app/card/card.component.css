@@ -11,6 +11,14 @@
   cursor: pointer;
 }
 
+.mat-card-content {
+  text-align: center;
+}
+
+.mat-card-actions .mat-button {
+  margin: 0;
+}
+
 @media (max-width: 550px) {
   .card {
     max-width: 300px;
