@@ -82,7 +82,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
-          if (this.routerExtService.currentPath === this.routerExtService.previousPath) { // After refresh!
+          if (this.canNavigateToHome()) {
             this.router.navigate(['app/home']);
           } else {
             this.router.navigate([this.routerExtService.previousPath]);
@@ -199,13 +199,21 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    if (
-      this.routerExtService.previousPath === '/question' ||
-      this.routerExtService.currentPath === this.routerExtService.previousPath // After refresh!
-    ) {
+    if (this.canNavigateToHome()) {
       this.router.navigate(['app/home']);
     } else {
       this.location.back();
     }
   }
+
+  canNavigateToHome() {
+    if (
+      this.routerExtService.previousPath === this.routerExtService.currentPath || // After refresh!
+      this.routerExtService.previousPath === '/question'
+    ) {
+      return true;
+    }
+    return false;
+  }
+
 }
