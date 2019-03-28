@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
-import { UsersService } from '../../../service/users.service';
+import { UsersService } from '../../../shared/services/users.service';
 import { StringsService } from '../../../shared/services/strings.service';
 
 @Component({

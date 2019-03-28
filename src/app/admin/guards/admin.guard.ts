@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../shared/services/auth.service';
-import { UsersService } from '../../service/users.service';
+import { UsersService } from '../../shared/services/users.service';
 import { DatabaseService } from '../../shared/services/database.service';
 import { User } from '../../shared/common/interfaces';
 import * as Utils from '../../shared/common/utils';

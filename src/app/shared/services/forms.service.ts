@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StringsService } from '../shared/services/strings.service';
+import { StringsService } from './strings.service';
 
 @Injectable()
 export class FormsService {

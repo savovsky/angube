@@ -2,17 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { DatabaseService } from '../shared/services/database.service';
-import { StringsService } from '../shared/services/strings.service';
-import { AuthService } from '../shared/services/auth.service';
-import { UsersService } from '../service/users.service';
-import { Account } from '../shared/models/account.model';
-import { FormField } from '../shared/models/form-field.model';
-import { CustomValidators } from '../shared/common/custom.validators';
-import { User, MatFormField } from '../shared/common/interfaces';
-import * as Utils from '../shared/common/utils';
+import { DatabaseService } from '../../../shared/services/database.service';
+import { StringsService } from '../../../shared/services/strings.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { UsersService } from '../../../shared/services/users.service';
+import { Account } from '../../../shared/models/account.model';
+import { FormField } from '../../../shared/models/form-field.model';
+import { CustomValidators } from '../../../shared/common/custom.validators';
+import { User, MatFormField } from '../../../shared/common/interfaces';
+import * as Utils from '../../../shared/common/utils';
 import { Subscription } from 'rxjs';
-import { RouterExtService } from '../service/router-ext.service';
+import { RouterExtService } from '../../../shared/services/router-ext.service';
 
 
 @Component({

@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { SignError, MatFormField } from 'src/app/shared/common/interfaces';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { FormField } from 'src/app/shared/models/form-field.model';
-import { FormsService } from 'src/app/service/forms.service';
+import { FormsService } from 'src/app/shared/services/forms.service';
 
 
 @Component({

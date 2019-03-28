@@ -3,14 +3,14 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../../shared/services/auth.service';
-import { ProgressService } from '../../../service/progress.service';
+import { ProgressService } from '../../services/progress.service';
 import { DatabaseService } from '../../../shared/services/database.service';
 import { User } from '../../../shared/common/interfaces';
 import * as Utils from '../../../shared/common/utils';
 import { StringsService } from 'src/app/shared/services/strings.service';
-import { NavLinksService } from '../../../service/nav-links.service';
-import { UsersService } from 'src/app/service/users.service';
-import { RouterExtService } from 'src/app/service/router-ext.service';
+import { NavLinksService } from '../../services/nav-links.service';
+import { UsersService } from 'src/app/shared/services/users.service';
+import { RouterExtService } from 'src/app/shared/services/router-ext.service';
 
 
 @Component({

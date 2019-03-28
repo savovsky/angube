@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { StringsService } from '../shared/services/strings.service';
-import { Link } from '../shared/common/interfaces';
+import { StringsService } from '../../shared/services/strings.service';
+import { Link } from '../../shared/common/interfaces';
 
 
 @Injectable()

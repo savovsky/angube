@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavLinksService } from '../../../service/nav-links.service';
-import { UsersService } from 'src/app/service/users.service';
-import { RouterExtService } from '../../../service/router-ext.service';
+import { NavLinksService } from '../../services/nav-links.service';
+import { UsersService } from 'src/app/shared/services/users.service';
+import { RouterExtService } from '../../../shared/services/router-ext.service';
 
 
 @Component({

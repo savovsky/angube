@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Account } from '../shared/models/account.model';
+import { Account } from '../../../shared/models/account.model';
 
 
 @Component({
