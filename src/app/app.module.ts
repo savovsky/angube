@@ -9,7 +9,7 @@ import { NavbarComponent } from './navbar/components/nav-bar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { UsersComponent } from './users/users.component';
+import { UsersComponent } from './admin/components/users/users.component';
 import { AccountComponent } from './account/account.component';
 import { MenuIconsComponent } from './navbar/components/menu-user/menu-icons.component';
 import { CardComponent } from './card/card.component';

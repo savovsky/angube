@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../shared/services/auth.service';
-import { Auth } from '../shared/common/interfaces';
-import * as Utils from '../shared/common/utils';
+import { AuthService } from '../../shared/services/auth.service';
+import { Auth } from '../../shared/common/interfaces';
+import * as Utils from '../../shared/common/utils';
 
 @Injectable({
   providedIn: 'root'

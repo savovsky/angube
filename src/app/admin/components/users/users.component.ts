@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DatabaseService } from '../shared/services/database.service';
-import { UsersService } from '../service/users.service';
-import { StringsService } from '../shared/services/strings.service';
-import { User } from '../shared/common/interfaces';
+import { DatabaseService } from '../../../shared/services/database.service';
+import { UsersService } from '../../../service/users.service';
+import { StringsService } from '../../../shared/services/strings.service';
+import { User } from '../../../shared/common/interfaces';
 
 
 @Component({
