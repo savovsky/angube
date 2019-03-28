@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Link } from '../../common/interfaces';
+import { Link } from '../common/interfaces';
 import { StringsService } from '../services/strings.service';
 
 

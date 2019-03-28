@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { UsersService } from '../service/users.service';
-import { User } from '../common/interfaces';
+import { User } from '../shared/common/interfaces';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 import { AccountService } from '../service/account.service';

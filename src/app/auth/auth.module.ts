@@ -4,8 +4,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 
 import { SharedModule } from '../shared/shared.module';
-import { QuestionComponent } from '../question/question.component';
-import { WelcomeComponent } from '../welcome/welcome.component';
+import { QuestionComponent } from './components/question/question.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 @NgModule({

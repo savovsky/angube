@@ -8,9 +8,9 @@ import { AuthService } from '../shared/services/auth.service';
 import { UsersService } from '../service/users.service';
 import { Account } from '../shared/models/account.model';
 import { FormField } from '../shared/models/form-field.model';
-import { CustomValidators } from '../common/custom.validators';
-import { User, MatFormField } from '../common/interfaces';
-import * as Utils from '../common/utils';
+import { CustomValidators } from '../shared/common/custom.validators';
+import { User, MatFormField } from '../shared/common/interfaces';
+import * as Utils from '../shared/common/utils';
 import { Subscription } from 'rxjs';
 import { RouterExtService } from '../service/router-ext.service';
 

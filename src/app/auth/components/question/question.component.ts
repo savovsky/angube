@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { StringsService } from '../shared/services/strings.service';
-import { UsersService } from '../service/users.service';
+import { StringsService } from '../../../shared/services/strings.service';
+import { UsersService } from '../../../service/users.service';
 
 @Component({
   selector: 'app-question',

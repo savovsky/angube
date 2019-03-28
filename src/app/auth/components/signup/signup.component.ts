@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import { CustomValidators } from 'src/app/common/custom.validators';
+import { CustomValidators } from 'src/app/shared/common/custom.validators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DatabaseService } from 'src/app/shared/services/database.service';
-import { SignError, MatFormField, User } from 'src/app/common/interfaces';
+import { SignError, MatFormField, User } from 'src/app/shared/common/interfaces';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/service/forms.service';

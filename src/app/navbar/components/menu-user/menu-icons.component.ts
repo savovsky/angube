@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../shared/services/auth.service';
-import { UsersService } from '../service/users.service';
-import { StringsService } from '../shared/services/strings.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { UsersService } from '../../../service/users.service';
+import { StringsService } from '../../../shared/services/strings.service';
 
 @Component({
   selector: 'app-menu-icons',

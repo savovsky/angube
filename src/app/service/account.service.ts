@@ -1,4 +1,4 @@
-import { User } from '../common/interfaces';
+import { User } from '../shared/common/interfaces';
 import { Account } from '../shared/models/account.model';
 
 export class AccountService {

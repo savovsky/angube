@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../shared/services/auth.service';
 import { UsersService } from '../service/users.service';
 import { DatabaseService } from '../shared/services/database.service';
-import { User } from '../common/interfaces';
-import * as Utils from '../common/utils';
+import { User } from '../shared/common/interfaces';
+import * as Utils from '../shared/common/utils';
 
 @Injectable({
   providedIn: 'root'

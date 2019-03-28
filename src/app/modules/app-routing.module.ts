@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { WelcomeComponent } from '../welcome/welcome.component';
+import { WelcomeComponent } from '../auth/components/welcome/welcome.component';
 import { HomeComponent } from '../home/home.component';
 import { AccountComponent } from '../account/account.component';
 import { ProfileComponent } from '../profile/profile.component';
@@ -8,7 +8,7 @@ import { UsersComponent } from '../users/users.component';
 import { SigninComponent } from '../auth/components/signin/signin.component';
 import { SignupComponent } from '../auth/components/signup/signup.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
-import { QuestionComponent } from '../question/question.component';
+import { QuestionComponent } from '../auth/components/question/question.component';
 import { ApplicationComponent } from '../application/application.component';
 import { AccessDeniedComponent } from '../auth/components/access-denied/access-denied.component';
 import { AuthGuard } from '../guards/auth.guard';
