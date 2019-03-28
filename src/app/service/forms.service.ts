@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { StringService } from './strings.service';
+import { StringsService } from '../shared/services/strings.service';
 
 @Injectable()
 export class FormsService {
   hide = true;
 
-  constructor(private str: StringService) { }
+  constructor(private str: StringsService) { }
 
   onVisibilityClick(event: MouseEvent) {
     event.stopPropagation();

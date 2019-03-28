@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { StringService } from '../service/strings.service';
+import { StringsService } from '../services/strings.service';
 
 
 @Pipe({
@@ -7,7 +7,7 @@ import { StringService } from '../service/strings.service';
 })
 export class StringPipe implements PipeTransform {
 
-    constructor(private str: StringService) { }
+    constructor(private str: StringsService) { }
 
     transform(key: string) {
         if (!key) {

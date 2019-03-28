@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StringService } from '../service/strings.service';
+import { StringsService } from '../shared/services/strings.service';
 
 @Component({
   selector: 'app-welcome',
@@ -8,5 +8,5 @@ import { StringService } from '../service/strings.service';
 })
 export class WelcomeComponent {
 
-  constructor(public str: StringService) { }
+  constructor(public str: StringsService) { }
 }

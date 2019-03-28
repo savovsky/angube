@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StringService } from '../service/strings.service';
+import { StringsService } from '../shared/services/strings.service';
 import { UsersService } from '../service/users.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class QuestionComponent {
 
   constructor(
     public usersService: UsersService,
-    public str: StringService
+    public str: StringsService
   ) { }
 
 }

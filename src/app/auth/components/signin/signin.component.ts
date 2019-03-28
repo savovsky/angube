@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { SignError, MatFormField } from 'src/app/common/interfaces';
-import { StringService } from 'src/app/service/strings.service';
-import { FormField } from 'src/app/common/form-field.model';
+import { StringsService } from 'src/app/shared/services/strings.service';
+import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/service/forms.service';
 
 
@@ -25,7 +25,7 @@ export class SigninComponent implements OnInit {
   constructor(
     private authService: AuthService,
     public frormsService: FormsService,
-    public str: StringService
+    public str: StringsService
   ) { }
 
   ngOnInit() {

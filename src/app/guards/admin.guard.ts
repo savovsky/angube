@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { UsersService } from '../service/users.service';
-import { DatabaseService } from '../service/database.service';
+import { DatabaseService } from '../shared/services/database.service';
 import { User } from '../common/interfaces';
 import * as Utils from '../common/utils';
 

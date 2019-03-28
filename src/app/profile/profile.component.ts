@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { UsersService } from '../service/users.service';
 import { User } from '../common/interfaces';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { AccountService } from '../service/account.service';
 
 

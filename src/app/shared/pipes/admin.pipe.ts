@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Link } from '../common/interfaces';
-import { StringService } from '../service/strings.service';
+import { Link } from '../../common/interfaces';
+import { StringsService } from '../services/strings.service';
 
 
 @Pipe({
@@ -12,7 +12,7 @@ export class AdminLinkGuardPipe implements PipeTransform {
 
     private adminLinks = [this.str.users];
 
-    constructor(private str: StringService) { }
+    constructor(private str: StringsService) { }
 
     // transform(value: any, args?: any) { // REMIND - original
     transform(appLinks: Link[], isAdmin: boolean) {

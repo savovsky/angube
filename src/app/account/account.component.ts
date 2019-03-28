@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { DatabaseService } from '../service/database.service';
-import { StringService } from '../service/strings.service';
-import { AuthService } from '../service/auth.service';
+import { DatabaseService } from '../shared/services/database.service';
+import { StringsService } from '../shared/services/strings.service';
+import { AuthService } from '../shared/services/auth.service';
 import { UsersService } from '../service/users.service';
-import { Account } from '../common/account.model';
-import { FormField } from '../common/form-field.model';
+import { Account } from '../shared/models/account.model';
+import { FormField } from '../shared/models/form-field.model';
 import { CustomValidators } from '../common/custom.validators';
 import { User, MatFormField } from '../common/interfaces';
 import * as Utils from '../common/utils';
@@ -43,7 +43,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     private location: Location,
     private router: Router,
     private routerExtService: RouterExtService,
-    public str: StringService
+    public str: StringsService
   ) { }
 
   ngOnInit() {

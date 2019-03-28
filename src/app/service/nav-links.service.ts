@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { StringService } from './strings.service';
+import { StringsService } from '../shared/services/strings.service';
 import { Link } from '../common/interfaces';
 
 
 @Injectable()
 export class NavLinksService {
 
-  constructor(private str: StringService) { }
+  constructor(private str: StringsService) { }
 
   appLinks: Link[] = [
     {
