@@ -1,0 +1,7 @@
+.mat-menu-item {
+    padding-right: 26px;
+}
+
+.mat-menu-item:hover {
+    color: #673ab7;
+}

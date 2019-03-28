@@ -1,7 +1,10 @@
 
 <div class="container">
   <div class="card">
-    <div class="right primary">{{ str.userAccount | titlecase }}</div>
+    <div class="right primary" *ngIf="isCurrentUser, else user">{{ str.myAccount | titlecase }}</div>
+    <ng-template #user>
+      <div class="right primary">{{ str.userAccount | titlecase }}</div>
+    </ng-template>
     <form
       class="example-form"
       [formGroup]="accountForm"

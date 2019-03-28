@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   error: any;
   isRequesting = true;
+  isCurrentUser = true;
   user: User;
   fields: MatFormField[];
   accountForm: FormGroup;
@@ -49,6 +50,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     const userUid = this.route.snapshot.queryParamMap.get('id');
     const currentUserUid = this.authService.uid;
     const formGroupObj = {};
+    this.isCurrentUser = currentUserUid === userUid;
 
     formGroupObj[this.userNameForm] = new FormControl('', [
       Validators.required,
@@ -80,7 +82,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
-          if (this.routerExtService.currentPath === this.routerExtService.previousPath) { // After refresh!
+          if (this.canNavigateToHome()) {
             this.router.navigate(['app/home']);
           } else {
             this.router.navigate([this.routerExtService.previousPath]);
@@ -88,7 +90,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         }
       );
 
-    if (currentUserUid === userUid) {
+    if (this.isCurrentUser) {
       this.isRequesting = false;
       this.user = this.usersService.currentUserAccount;
       this.setFormValues();
@@ -197,13 +199,21 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    if (
-      this.routerExtService.previousPath === '/question' ||
-      this.routerExtService.currentPath === this.routerExtService.previousPath // After refresh!
-    ) {
+    if (this.canNavigateToHome()) {
       this.router.navigate(['app/home']);
     } else {
       this.location.back();
     }
   }
+
+  canNavigateToHome() {
+    if (
+      this.routerExtService.previousPath === this.routerExtService.currentPath || // After refresh!
+      this.routerExtService.previousPath === '/question'
+    ) {
+      return true;
+    }
+    return false;
+  }
+
 }

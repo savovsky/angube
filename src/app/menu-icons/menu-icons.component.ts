@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
+import { StringService } from '../service/strings.service';
 
 @Component({
   selector: 'app-menu-icons',
@@ -11,7 +12,8 @@ export class MenuIconsComponent {
 
   constructor(
     public usersService: UsersService,
-    public authService: AuthService
+    public authService: AuthService,
+    public str: StringService
   ) { }
 
   onLogout() {

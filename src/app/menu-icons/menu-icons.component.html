@@ -1,8 +1,10 @@
-<button mat-icon-button [matMenuTriggerFor]="menu">
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+>
   <mat-icon>more_vert</mat-icon>
 </button>
   <mat-menu #menu="matMenu">
-
     <!-- My Account -->
     <button
       mat-menu-item
@@ -10,9 +12,8 @@
       [queryParams]="{ id: usersService.currentUserUid }"
     >
       <mat-icon>person</mat-icon>
-      <span>My Account</span>
+      <span>{{ str.myAccount | titlecase }}</span>
     </button>
-
     <!-- Log Out -->
     <button
     mat-menu-item
@@ -21,7 +22,6 @@
     (click)="onLogout()"
     >
       <mat-icon>power_off</mat-icon>
-      <span>Log Out</span>
+      <span>{{ str.logOut | titlecase }}</span>
     </button>
-  
   </mat-menu>
