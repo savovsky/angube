@@ -2,6 +2,7 @@
   <mat-sidenav
       #drawer
       class="sidenav"
+      autoFocus="false"
       [ngClass]="{hidden: !(isHandset$ | async)}"
       fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
