@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
               this.usersService.updateCurrentUser(response);
             } else {
               Utils.consoleLog(`(NavbarComponent) Get user data - Seccess but null: `, 'purple', response);
-              // TODO Error Screen
+              // TODO Error Screen - Max lecture 249.
               // This is the case when user is authenticated, but
               // there is no user's data in Data Storage for this user.(deleted)
             }

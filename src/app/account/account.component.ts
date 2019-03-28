@@ -107,13 +107,14 @@ export class AccountComponent implements OnInit, OnDestroy {
               // .reset() - reset the entire form
             } else {
               Utils.consoleLog(`(AccountComponent) Get user data - Seccess but null: `, 'pink', response);
-              // TODO Error Screen
+              // TODO Error Screen - Max lecture 249.
               // This is the case when user is authenticated, but
               // there is no user's data in Data Storage for this user.(deleted)
             }
           },
           (error) => {
-            Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error); // TODO Error Screen
+             // TODO Error Screen - Max lecture 249.
+            Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error);
           },
           () => {
             this.isRequesting = false;
