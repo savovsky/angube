@@ -1,0 +1,11 @@
+.mat-menu-item {
+    padding-right: 24px;
+}
+
+.mat-menu-item .mat-icon {
+    margin-right: 6px;
+}
+
+.mat-menu-item:hover {
+    color: #673ab7;
+}

@@ -1,0 +1,36 @@
+.card {
+  max-width: 180px;
+}
+
+.card-header-image {
+  background-image: url('../../../../assets/img/kamen1.jpg');
+  background-size: cover;
+}
+
+.mat-card-header {
+  cursor: pointer;
+}
+
+.mat-card-content {
+  text-align: center;
+}
+
+.mat-card-actions .mat-button {
+  margin: 0;
+}
+
+.mat-icon {
+  margin-right: 0px;
+  padding-bottom: 5px;
+}
+
+button {
+  color: rgba(0,0,0,.54);
+}
+
+@media (max-width: 550px) {
+  .card {
+    max-width: 300px;
+  }
+}
+  
