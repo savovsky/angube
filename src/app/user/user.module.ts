@@ -1,10 +1,22 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
+import { AccountComponent } from './components/account/account.component';
+import { CardComponent } from './components/card/card.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AccountComponent,
+    CardComponent,
+    DashboardComponent,
+    ProfileComponent
+  ],
   imports: [
-    CommonModule
+    SharedModule
+  ],
+  exports: [
+    CardComponent
   ]
 })
 export class UserModule { }

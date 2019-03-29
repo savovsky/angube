@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatComponentsModule } from '../modules/mat-components.module';
 import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin.pipe';
 import { EmptyPipe, StringPipe } from './pipes/string.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatComponentsModule } from '../modules/mat-components.module';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
+    AdminItemGuardPipe,
     AdminLinkGuardPipe,
-    CapitalizePipe,
-    StringPipe,
     EmptyPipe,
-    AdminItemGuardPipe
+    StringPipe,
+    CapitalizePipe
   ],
   exports: [
     CommonModule,
@@ -21,11 +21,11 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     MatComponentsModule,
+    AdminItemGuardPipe,
     AdminLinkGuardPipe,
-    CapitalizePipe,
-    StringPipe,
     EmptyPipe,
-    AdminItemGuardPipe
+    StringPipe,
+    CapitalizePipe
   ]
 })
 export class SharedModule { }
