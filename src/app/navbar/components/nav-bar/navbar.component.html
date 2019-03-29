@@ -16,7 +16,7 @@
         [routerLink]="appLink.routerLink"
         active="routerExtService.currentPath === appLink.routerLink"
         routerLinkActive="current"
-      >{{ appLink.link | titlecase }}
+      ><mat-icon>{{ appLink.icon }}</mat-icon>{{ appLink.link | titlecase }}
       </a>
     </mat-nav-list>
   </mat-sidenav>

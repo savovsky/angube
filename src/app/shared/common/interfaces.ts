@@ -17,6 +17,7 @@ export interface User {
 export interface Link {
     link: string;
     routerLink: string;
+    icon: string;
 }
 
 export interface MatFormField {

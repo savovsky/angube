@@ -24,8 +24,22 @@
   <mat-card-content>{{ user.email }}</mat-card-content>
   <mat-card-actions>
     <div class="space-between">
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      <button
+        mat-icon-button
+        [color]="likeColor"
+        aria-label="Like button"
+        (click)="onLike()"
+      >
+        <mat-icon>{{ likeIcon }}</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [color]="followColor"
+        aria-label="Follow button"
+        (click)="onFollow()"
+      >
+        <mat-icon>{{ followIcon }}</mat-icon>
+      </button>
     </div>
   </mat-card-actions>
 </mat-card>

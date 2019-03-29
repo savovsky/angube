@@ -5,7 +5,7 @@
       *ngFor="let appLink of navLinksService.appLinks | adminLinkGuard:usersService.isCurrentUserAdmin"
       [routerLink]="appLink.routerLink"
       [active]="routerExtService.currentPath === appLink.routerLink"
-      >{{ appLink.link | titlecase }}
+      ><mat-icon>{{ appLink.icon }}</mat-icon>{{ appLink.link | titlecase }}
     </a>
   </nav>
 </div>

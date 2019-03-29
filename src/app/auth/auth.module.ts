@@ -19,12 +19,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
   imports: [
     SharedModule
   ],
-  exports: [
-    WelcomeComponent,
-    SigninComponent,
-    SignupComponent,
-    QuestionComponent,
-    AccessDeniedComponent
-  ]
+  exports: []
 })
 export class AuthModule { }

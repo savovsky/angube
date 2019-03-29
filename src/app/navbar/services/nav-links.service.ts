@@ -11,15 +11,18 @@ export class NavLinksService {
   appLinks: Link[] = [
     {
       link: this.str.home,
-      routerLink: '/app/home'
+      routerLink: '/app/home',
+      icon: 'home'
     },
     {
       link: this.str.myDashboard,
-      routerLink: '/app/dashboard'
+      routerLink: '/app/dashboard',
+      icon: 'web'
     },
     {
       link: this.str.users,
-      routerLink: '/app/users'
+      routerLink: '/app/users',
+      icon: 'group'
     }
   ];
 
