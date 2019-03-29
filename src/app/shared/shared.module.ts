@@ -15,7 +15,6 @@ import { RouterModule } from '@angular/router';
     EmptyPipe,
     AdminItemGuardPipe
   ],
-  imports: [],
   exports: [
     CommonModule,
     RouterModule,

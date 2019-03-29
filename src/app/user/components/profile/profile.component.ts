@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     let account: User;
     account = this.usersService.getUser(userUid);
     this.user = this.accountService.toOrderedArray(account);
-    console.log(this.user);
     this.subscription = this.usersService.usersStored // If page refresh.
       .subscribe(
         () => {
