@@ -7,7 +7,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { UsersComponent } from './admin/components/users/users.component';
 import { ApplicationComponent } from './application/application.component';
 
 import { SharedModule } from './shared/shared.module';
@@ -15,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { NavbarModule } from './navbar/navbar.module';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
@@ -22,7 +22,6 @@ import { NavbarModule } from './navbar/navbar.module';
     AppComponent,
     HomeComponent,
     NotFoundComponent,
-    UsersComponent,
     ApplicationComponent
   ],
   imports: [
@@ -31,6 +30,7 @@ import { NavbarModule } from './navbar/navbar.module';
     AuthModule,
     UserModule,
     NavbarModule,
+    AdminModule,
 
     BrowserAnimationsModule,
     HttpClientModule,
@@ -38,7 +38,6 @@ import { NavbarModule } from './navbar/navbar.module';
 
     AppRoutingModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

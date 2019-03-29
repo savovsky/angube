@@ -5,6 +5,7 @@ import { CardComponent } from './components/card/card.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+
 @NgModule({
   declarations: [
     AccountComponent,

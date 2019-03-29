@@ -7,6 +7,7 @@ import { AdminItemGuardPipe, AdminLinkGuardPipe } from './pipes/admin.pipe';
 import { EmptyPipe, StringPipe } from './pipes/string.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 
+
 @NgModule({
   declarations: [
     AdminItemGuardPipe,
