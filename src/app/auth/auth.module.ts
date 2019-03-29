@@ -4,7 +4,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { QuestionComponent } from './components/question/question.component';
-import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 
 
 @NgModule({
@@ -12,8 +11,7 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
     WelcomeComponent,
     SigninComponent,
     SignupComponent,
-    QuestionComponent,
-    AccessDeniedComponent
+    QuestionComponent
   ],
   imports: [
     SharedModule
