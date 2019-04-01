@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { AccountComponent } from '../user/components/account/account.component';
 import { ProfileComponent } from '../user/components/profile/profile.component';
@@ -49,6 +49,11 @@ const routes: Routes = [
       {
         path: 'access-denied',
         component: AccessDeniedComponent
+      },
+      {
+        path: 'dashboard',
+        canLoad: [AuthGuard],
+        loadChildren: '../dashboard/dashboard.module#DashboardModule'
       }
     ]
   },
@@ -63,7 +68,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
