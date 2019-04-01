@@ -15,6 +15,7 @@ import { UserModule } from './user/user.module';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AdminModule } from './admin/admin.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AdminModule } from './admin/admin.module';
     UserModule,
     NavbarModule,
     AdminModule,
+    DashboardModule,
 
     BrowserAnimationsModule,
     HttpClientModule,

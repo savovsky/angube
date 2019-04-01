@@ -9,7 +9,6 @@ import { ApplicationComponent } from '../application/application.component';
 import { AccessDeniedComponent } from '../admin/components/access-denied/access-denied.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { AdminGuard } from '../admin/guards/admin.guard';
-import { DashboardComponent } from '../user/components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -21,10 +20,6 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent
       },
       {
         path: 'account/:id/:username',
