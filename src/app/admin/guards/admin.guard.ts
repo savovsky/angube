@@ -8,9 +8,7 @@ import { DatabaseService } from '../../shared/services/database.service';
 import { User } from '../../shared/common/interfaces';
 import * as Utils from '../../shared/common/utils';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AdminGuard implements CanActivate {
   constructor(
     private authService: AuthService,
