@@ -6,9 +6,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Auth } from '../../shared/common/interfaces';
 import * as Utils from '../../shared/common/utils';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private authService: AuthService,

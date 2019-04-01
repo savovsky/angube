@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { AccountComponent } from '../user/components/account/account.component';
 import { ProfileComponent } from '../user/components/profile/profile.component';
 import { UsersComponent } from '../admin/components/users/users.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { ApplicationComponent } from '../application/application.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ApplicationComponent } from './components/application/application.component';
 import { AccessDeniedComponent } from '../admin/components/access-denied/access-denied.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { AdminGuard } from '../admin/guards/admin.guard';
@@ -69,6 +69,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard, AdminGuard]
 })
 export class AppRoutingModule { }
