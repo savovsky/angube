@@ -7,7 +7,8 @@
 }
 
 .sidenav .mat-toolbar {
-  background: inherit;
+  background-color: #673ab7;
+  color: #ffffff;
 }
 
 .mat-toolbar.mat-primary {
@@ -32,16 +33,11 @@
   height: 4px;
 }
 
-mat-toolbar a {
-  display: inline-block;
-  color: black;
-  margin: 0 10px 0 0;
-  text-decoration: none;
-  /* font-size: 20px/32px; */
+
+mat-nav-list a:not(.current) {
+  opacity: 0.6;
 }
 
-/* @media (min-width: 300px) {
-  .sidenav {
-    display: none;
-  }
-} */
+mat-nav-list a:hover:not(.current) {
+  opacity: 0.8;
+}
