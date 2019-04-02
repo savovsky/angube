@@ -6,6 +6,17 @@
     margin-right: 6px;
 }
 
-.mat-menu-item:hover {
-    color: #673ab7;
+.mat-icon {
+    margin-right: 0;
+    color: inherit;
 }
+
+button:not(.mat-icon-button) {
+    opacity: 0.7;
+}
+
+button:hover:not(.mat-icon-button) {
+    color: #673ab7;
+    opacity: 1;
+}
+

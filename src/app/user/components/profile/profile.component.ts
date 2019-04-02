@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           account = this.usersService.getUser(userUid);
-          this.user = Object.entries(account);
+          this.user = this.accountService.toOrderedArray(account);
         }
       );
 

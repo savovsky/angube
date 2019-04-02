@@ -1,10 +1,12 @@
 <div class="fixed">
   <nav mat-tab-nav-bar>
     <a
+    color="primary"
       mat-tab-link
       *ngFor="let appLink of navLinksService.appLinks | adminLinkGuard:usersService.isCurrentUserAdmin"
       [routerLink]="appLink.routerLink"
       [active]="routerExtService.currentPath === appLink.routerLink"
+      [ngClass]="{primarycolor: routerExtService.currentPath === appLink.routerLink}"
       ><mat-icon>{{ appLink.icon }}</mat-icon>{{ appLink.link | titlecase }}
     </a>
   </nav>
