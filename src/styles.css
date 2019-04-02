@@ -9,6 +9,11 @@ body {
     font-family: Roboto,"Helvetica Neue", sans-serif;
 }
 
+.primarycolor {
+    color: #673ab7;
+    opacity: 1;
+}
+
 .container {
     height: 100%;
     padding: 0;

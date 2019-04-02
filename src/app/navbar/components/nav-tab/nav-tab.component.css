@@ -1,3 +1,4 @@
+
 .fixed {
     position: -webkit-sticky;
     position: sticky;
@@ -8,4 +9,9 @@
 
 .mat-tab-link {
     min-width: unset;
+    opacity: 1;
+}
+
+.mat-tab-link:not(.mat-tab-label-active) {
+    opacity: 0.6;
 }
