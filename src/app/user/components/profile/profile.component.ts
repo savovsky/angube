@@ -21,9 +21,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private usersService: UsersService,
     private location: Location,
     private accountService: AccountService,
+    public usersService: UsersService,
     public authService: AuthService
     ) { }
 
