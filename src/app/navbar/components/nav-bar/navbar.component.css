@@ -33,6 +33,10 @@
   height: 4px;
 }
 
+.mat-icon:first-child {
+  margin-right: 0;
+}
+
 
 mat-nav-list a:not(.current) {
   opacity: 0.6;
