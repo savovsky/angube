@@ -16,7 +16,7 @@
     <mat-icon *ngIf="isUserBlocked">block</mat-icon>
   </mat-card-header>
   <img
-    *ngIf="!isUserBlocked, else blockedUser"
+    *ngIf="!isUserBlocked; else blockedUser"
     mat-card-image src="../../assets/img/kamen2.jpg"
     alt="Photo of a Shiba Inu"
   >

@@ -10,8 +10,28 @@ import { UsersService } from '../../../shared/services/users.service';
 export class QuestionComponent {
 
   constructor(
-    public usersService: UsersService,
-    public str: StringsService
+    private usersService: UsersService,
+    private str: StringsService
   ) { }
+
+  get routerLink() {
+    return ['/app/account', this.usersService.currentUserName];
+  }
+
+  get queryParams() {
+    return { id: this.usersService.currentUserUid };
+  }
+
+  get wouldYouLikeToUpdateYourAccount() {
+    return this.str.wouldYouLikeToUpdateYourAccount;
+  }
+
+  get yes() {
+    return this.str.yes;
+  }
+
+  get notNow() {
+    return this.str.notNow;
+  }
 
 }
