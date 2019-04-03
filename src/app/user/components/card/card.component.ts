@@ -22,6 +22,26 @@ export class CardComponent {
     this.isFollow = !this.isFollow;
   }
 
+  get routerLink() {
+    return ['/app/users', this.user.userName];
+  }
+
+  get queryParams() {
+    return { id: this.user.uid };
+  }
+
+  get userName() {
+    return this.user.userName;
+  }
+
+  get userEmail() {
+    return this.user.email;
+  }
+
+  get isUserBlocked() {
+    return this.user.isBlocked;
+  }
+
   get likeColor() {
     return this.isLike ? 'primary' : '';
   }
