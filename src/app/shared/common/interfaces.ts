@@ -21,6 +21,7 @@ export interface Link {
 }
 
 export interface MatFormField {
+    type: string;
     placeholder: string;
     formControlName: string;
 }
