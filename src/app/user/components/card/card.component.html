@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" [class.my-card]="isFirst">
   <mat-card-header
     [routerLink]="['/app/users', user.userName]"
     [queryParams]="{ id: user.uid }"

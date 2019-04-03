@@ -12,6 +12,7 @@ export class CardComponent {
   isFollow: boolean;
 
   @Input() user: Account;
+  @Input() isFirst: boolean;
 
   onLike() {
     this.isLike = !this.isLike;

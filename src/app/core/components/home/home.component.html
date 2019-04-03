@@ -1,8 +1,9 @@
 
 <div class="home-container">
     <app-card
-        *ngFor="let userObj of usersService.users"
+        *ngFor="let userObj of usersService.users; first as isFirst"
         [user]="userObj"
+        [isFirst]="isFirst"
     ></app-card>
 </div>
 <router-outlet></router-outlet>
