@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private databaseService: DatabaseService,
     private progressService: ProgressService,
-    private routerExtService: RouterExtService,
     private authService: AuthService,
     private usersService: UsersService,
     private str: StringsService,
@@ -97,10 +96,6 @@ export class NavbarComponent implements OnInit {
 
     get isRequesting() {
       return this.progressService.isRequesting();
-    }
-
-    get currentPath() {
-      return this.routerExtService.currentPath;
     }
 
     get isCurrentUserAdmin() {

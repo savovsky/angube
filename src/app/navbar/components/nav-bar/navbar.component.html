@@ -14,7 +14,6 @@
         mat-list-item
         *ngFor="let appLink of appLinks | adminLinkGuard:isCurrentUserAdmin"
         [routerLink]="appLink.routerLink"
-        active="appLink.routerLink === currentPath"
         routerLinkActive="current"
       ><mat-icon>{{ appLink.icon }}</mat-icon>{{ appLink.link | titlecase }}
       </a>
@@ -41,8 +40,6 @@
     </ng-template>
     <app-nav-tab *ngIf="!(isHandset$ | async)"></app-nav-tab>
 
-
-    <!-- Add Content Here -->
     <ng-content></ng-content>
     
   </mat-sidenav-content>
