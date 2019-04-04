@@ -3,18 +3,18 @@
       #drawer
       class="sidenav"
       autoFocus="false"
-      [ngClass]="{hidden: !(isHandset$ | async)}"
       fixedInViewport="true"
+      [ngClass]="{hidden: !(isHandset$ | async)}"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar>{{ str.menu | titlecase }}</mat-toolbar>
+    <mat-toolbar>{{ menu | titlecase }}</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
       <a
         mat-list-item
-        *ngFor="let appLink of navLinksService.appLinks | adminLinkGuard:usersService.isCurrentUserAdmin"
+        *ngFor="let appLink of appLinks | adminLinkGuard:isCurrentUserAdmin"
         [routerLink]="appLink.routerLink"
-        active="routerExtService.currentPath === appLink.routerLink"
+        active="appLink.routerLink === currentPath"
         routerLinkActive="current"
       ><mat-icon>{{ appLink.icon }}</mat-icon>{{ appLink.link | titlecase }}
       </a>
@@ -30,12 +30,12 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ str.angube }}</span>
+      <span>{{ angube }}</span>
       <span class="spacer"></span>
-      <span class="ellipsis-110">{{ usersService.currentUserName }}</span>
+      <span class="ellipsis-110">{{ currentUserName }}</span>
       <app-menu-icons></app-menu-icons>
     </mat-toolbar>
-    <div class="progress-placeholder" *ngIf="!progressService.isRequesting(), else progressBar"></div>
+    <div class="progress-placeholder" *ngIf="!isRequesting; else progressBar"></div>
     <ng-template #progressBar>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </ng-template>
