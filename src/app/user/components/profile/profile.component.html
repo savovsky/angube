@@ -10,7 +10,7 @@
             <div class="right primary">User Details</div>
         </div>
         <hr>
-        <mat-list-item role="listitem" *ngFor="let item of user | adminItemGuard:usersService.isCurrentUserAdmin">
+        <mat-list-item role="listitem" *ngFor="let item of (user | adminItemGuard:usersService.isCurrentUserAdmin)">
             <h4 mat-line class="profile-label">{{ item[0] | string | titlecase }}</h4>
             <p mat-line>{{ item[1] | empty }}</p>
         </mat-list-item>

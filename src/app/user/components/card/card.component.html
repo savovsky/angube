@@ -17,12 +17,14 @@
   </mat-card-header>
   <img
     *ngIf="!isUserBlocked; else blockedUser"
-    mat-card-image src="../../assets/img/kamen2.jpg"
+    mat-card-image
+    src="../../assets/img/kamen2.jpg"
     alt="Photo of a Shiba Inu"
   >
   <ng-template #blockedUser>
     <img
-      mat-card-image src="https://via.placeholder.com/640x375?text=Blocked+User"
+      mat-card-image
+      src="https://via.placeholder.com/640x375?text=Blocked+User"
       alt="Blocked User"
     >
   </ng-template>
