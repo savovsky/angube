@@ -28,14 +28,13 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public authService: AuthService,
     private databaseService: DatabaseService,
-    public progressService: ProgressService,
-    public navLinksService: NavLinksService,
-    public usersService: UsersService,
-    public routerExtService: RouterExtService,
-    public str: StringsService
-    ) { }
+    private progressService: ProgressService,
+    private authService: AuthService,
+    private usersService: UsersService,
+    private str: StringsService,
+    private navLinksService: NavLinksService
+  ) { }
 
     ngOnInit() {
       this.progressService.startProgresses(2);
@@ -77,6 +76,30 @@ export class NavbarComponent implements OnInit {
             Utils.consoleLog(`(NavbarComponent) Get users data  - Completed`, 'magenta');
           }
         );
+    }
+
+    get menu() {
+      return this.str.menu;
+    }
+
+    get angube() {
+      return this.str.angube;
+    }
+
+    get appLinks() {
+      return this.navLinksService.appLinks;
+    }
+
+    get currentUserName() {
+      return this.usersService.currentUserName;
+    }
+
+    get isRequesting() {
+      return this.progressService.isRequesting();
+    }
+
+    get isCurrentUserAdmin() {
+      return this.usersService.isCurrentUserAdmin;
     }
 
 }

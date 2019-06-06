@@ -1,41 +1,49 @@
-<mat-card class="card">
+<mat-card
+  class="card"
+  [class.my-card]="isFirst"
+>
   <mat-card-header
-    [routerLink]="['/app/users', user.userName]"
-    [queryParams]="{ id: user.uid }"
+    [routerLink]="routerLink"
+    [queryParams]="queryParams"
     >
-    <div mat-card-avatar class="card-header-image"></div>
-    <mat-card-title class="ellipsis-110">{{ user.userName }}</mat-card-title>
-    <mat-card-subtitle *ngIf="!user.isBlocked">Subtitle ...</mat-card-subtitle>
-    <mat-card-subtitle *ngIf="user.isBlocked">Blocked User</mat-card-subtitle>
-    <mat-icon *ngIf="user.isBlocked">block</mat-icon>
+    <div
+      mat-card-avatar
+      class="card-header-image"
+    ></div>
+    <mat-card-title class="ellipsis-110">{{ userName }}</mat-card-title>
+    <mat-card-subtitle *ngIf="!isUserBlocked">Subtitle ...</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="isUserBlocked">Blocked User</mat-card-subtitle>
+    <mat-icon *ngIf="isUserBlocked">block</mat-icon>
   </mat-card-header>
   <img
-    *ngIf="!user.isBlocked, else blockedUser"
-    mat-card-image src="../../assets/img/kamen2.jpg"
+    *ngIf="!isUserBlocked; else blockedUser"
+    mat-card-image
+    src="../../assets/img/kamen2.jpg"
     alt="Photo of a Shiba Inu"
   >
   <ng-template #blockedUser>
     <img
-      mat-card-image src="https://via.placeholder.com/640x375?text=Blocked+User"
+      mat-card-image
+      src="https://via.placeholder.com/640x375?text=Blocked+User"
       alt="Blocked User"
     >
   </ng-template>
 
-  <mat-card-content>{{ user.email }}</mat-card-content>
+  <mat-card-content>{{ userEmail }}</mat-card-content>
   <mat-card-actions>
     <div class="space-between">
       <button
         mat-icon-button
-        [color]="likeColor"
         aria-label="Like button"
+        [color]="likeColor"
         (click)="onLike()"
       >
         <mat-icon>{{ likeIcon }}</mat-icon>
       </button>
       <button
         mat-icon-button
-        [color]="followColor"
         aria-label="Follow button"
+        [color]="followColor"
         (click)="onFollow()"
       >
         <mat-icon>{{ followIcon }}</mat-icon>

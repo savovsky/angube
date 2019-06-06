@@ -13,11 +13,11 @@
         <input
           matInput
           [type]="frormsService.getType(field.type)"
-          placeholder = "{{ field.placeholder | titlecase }}"
+          placeholder="{{ field.placeholder | titlecase }}"
           formControlName="{{ field.formControlName }}"
         >
         <mat-icon
-          *ngIf = "field.placeholder === str.password"
+          *ngIf="field.placeholder === str.password"
           matSuffix
           style="cursor: pointer;"
           (click)="frormsService.onVisibilityClick($event)"

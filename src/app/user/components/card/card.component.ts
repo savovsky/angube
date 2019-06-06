@@ -12,6 +12,7 @@ export class CardComponent {
   isFollow: boolean;
 
   @Input() user: Account;
+  @Input() isFirst: boolean;
 
   onLike() {
     this.isLike = !this.isLike;
@@ -19,6 +20,26 @@ export class CardComponent {
 
   onFollow() {
     this.isFollow = !this.isFollow;
+  }
+
+  get routerLink() {
+    return ['/app/users', this.user.userName];
+  }
+
+  get queryParams() {
+    return { id: this.user.uid };
+  }
+
+  get userName() {
+    return this.user.userName;
+  }
+
+  get userEmail() {
+    return this.user.email;
+  }
+
+  get isUserBlocked() {
+    return this.user.isBlocked;
   }
 
   get likeColor() {

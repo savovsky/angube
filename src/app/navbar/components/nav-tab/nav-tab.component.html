@@ -1,7 +1,7 @@
 <div class="fixed">
   <nav mat-tab-nav-bar>
     <a
-    color="primary"
+      color="primary"
       mat-tab-link
       *ngFor="let appLink of navLinksService.appLinks | adminLinkGuard:usersService.isCurrentUserAdmin"
       [routerLink]="appLink.routerLink"
