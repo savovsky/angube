@@ -1,5 +1,5 @@
 # angube
-Angular training project using YouTube API
+Angular and Firebase training project 
 
 ## Installation
 
