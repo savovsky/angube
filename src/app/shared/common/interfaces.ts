@@ -12,6 +12,7 @@ export interface User {
     birthdate: string;
     isAdmin: boolean;
     isBlocked: boolean;
+    communityCode: string;
 }
 
 export interface Link {

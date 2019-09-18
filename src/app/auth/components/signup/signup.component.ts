@@ -24,6 +24,7 @@ export class SignupComponent implements OnInit {
   emailForm = 'emailForm';
   passwordForm = 'passwordForm';
   confirmPasswordForm = 'confirmPasswordForm';
+  communityCodeForm = 'communityCodeForm';
 
   constructor(
     private authService: AuthService,
@@ -51,13 +52,17 @@ export class SignupComponent implements OnInit {
       Validators.required,
       CustomValidators.mustBeEqualTo('passwordForm')
     ]);
+    formGroupObj[this.communityCodeForm] = new FormControl('', [
+      Validators.required
+    ]);
 
     this.signUpForm = new FormGroup(formGroupObj);
 
     this.fields = [
       new FormField('email', this.str.email, this.emailForm),
       new FormField('password', this.str.password, this.passwordForm),
-      new FormField('password', this.str.confirmPassword, this.confirmPasswordForm)
+      new FormField('password', this.str.confirmPassword, this.confirmPasswordForm),
+      new FormField('text', this.str.communityCode, this.communityCodeForm)
     ];
 
     // REMIND Max, Section 15, Lecture 202
@@ -68,7 +73,10 @@ export class SignupComponent implements OnInit {
 
     this.authService.signUpSuccess
       .subscribe((userAccount: User) => {
-        this.databaseService.updateUserAccount(userAccount);
+        this.databaseService.updateUserAccount({
+          ...userAccount,
+          communityCode: this.communityCodeFormControl.value
+        });
         this.router.navigate(['question']);
       });
 
@@ -80,15 +88,19 @@ export class SignupComponent implements OnInit {
   }
 
   get emailFormControl() {
-    return this.signUpForm.get('emailForm');
+    return this.signUpForm.get('emailForm'); // TODO Why not using this.emailForm
   }
 
   get passwordFormControl() {
-    return this.signUpForm.get('passwordForm');
+    return this.signUpForm.get('passwordForm'); // TODO Why not using this.passwordForm
   }
 
   get passwordConfirmFormControl() {
-    return this.signUpForm.get('confirmPasswordForm');
+    return this.signUpForm.get('confirmPasswordForm'); // TODO Why not using this.confirmPasswordForm
+  }
+
+  get communityCodeFormControl() {
+    return this.signUpForm.get('communityCodeForm'); // TODO Why not using this.confirmPasswordForm
   }
 
   getErrorMessage(fieldLabel: string) {
@@ -102,6 +114,7 @@ export class SignupComponent implements OnInit {
           return this.str.invalidEmailAddress;
         }
         return;
+
       case this.str.password:
         if (this.passwordFormControl.hasError('required')) {
           return this.str.requiredField;
@@ -113,6 +126,7 @@ export class SignupComponent implements OnInit {
           return this.str.passwordCannotContainSpace;
         }
         return;
+
       case this.str.confirmPassword:
         if (this.passwordConfirmFormControl.hasError('required')) {
           return this.str.requiredField;
@@ -120,6 +134,13 @@ export class SignupComponent implements OnInit {
           return this.str.passwordDoesNotMatch;
         }
         return;
+
+      case this.str.communityCode:
+        if (this.passwordConfirmFormControl.hasError('required')) {
+          return this.str.requiredField;
+        }
+        return;
+
       default: return;
     }
   }
@@ -127,6 +148,7 @@ export class SignupComponent implements OnInit {
   onSignUp() {
     const email: string = this.emailFormControl.value;
     const password: string = this.passwordFormControl.value;
+
     // REMIND - another way
     // const email: string = this.signUpForm.value.emailForm;
     // const password: string = this.signUpForm.value.passwordForm;

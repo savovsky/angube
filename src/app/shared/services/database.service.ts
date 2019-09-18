@@ -12,7 +12,8 @@ import * as Utils from '../common/utils';
 })
 export class DatabaseService {
 
-  private url = 'https://angube-92c87.firebaseio.com/users/';
+  private url = 'https://angube-92c87.firebaseio.com/communities/';
+//   private url = 'https://angube-92c87.firebaseio.com/users/'; // TODO Remove
   updateUserSuccess = new Subject();
 
   constructor(
@@ -32,7 +33,8 @@ export class DatabaseService {
       const token = this.authService.token;
       const currentUserUid = this.authService.uid;
 
-      this.http.put(this.url + user.uid + '.json?auth=' + token, user)
+      this.http.put(this.url + user.communityCode + '/' + user.uid + '.json?auth=' + token, user)
+    //   this.http.put(this.url + user.uid + '.json?auth=' + token, user) // TODO Remove
           .subscribe(
               (response: User) => {
                   if (response.uid === currentUserUid) {

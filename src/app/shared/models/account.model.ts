@@ -10,7 +10,8 @@ export class Account {
     public email = '',
     public isBlocked = false,
     public isAdmin = false,
-    public uid = ''
+    public uid = '',
+    public communityCode = ''
   ) { }
 
 }
