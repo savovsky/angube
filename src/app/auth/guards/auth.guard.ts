@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       .pipe(
         map((response: Auth) => {
           if (response) {
-            Utils.consoleLog(`(AuthGuard) User "${response.displayName}" is Authenticated. (canActivateChild)`, 'blue');
+            Utils.consoleLog(`(AuthGuard) User "${response.displayName}" is Authenticated. (canActivateChild)`, 'blue', response);
             this.authService.currentUserToken(response.ra);
             this.authService.currentUserUid(response.uid);
             return true;

@@ -8,6 +8,8 @@ import { DatabaseService } from '../../shared/services/database.service';
 import { User } from '../../shared/common/interfaces';
 import * as Utils from '../../shared/common/utils';
 
+
+// TODO Use Cloud function - Custom Claims - to add Admin role
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor(

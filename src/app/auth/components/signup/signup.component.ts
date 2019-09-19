@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
       new FormField('email', this.str.email, this.emailForm),
       new FormField('password', this.str.password, this.passwordForm),
       new FormField('password', this.str.confirmPassword, this.confirmPasswordForm),
-      new FormField('text', this.str.communityCode, this.communityCodeForm)
+      new FormField('text', this.str.communityCode, this.communityCodeForm, 'ng68b')
     ];
 
     // REMIND Max, Section 15, Lecture 202
@@ -72,11 +72,14 @@ export class SignupComponent implements OnInit {
     //   .subscribe((status) => console.log('signUpForm status', status));
 
     this.authService.signUpSuccess
-      .subscribe((userAccount: User) => {
-        this.databaseService.updateUserAccount({
-          ...userAccount,
+      .subscribe((user: User) => {
+        // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
+        const userAccount: User = {
+          ...user,
           communityCode: this.communityCodeFormControl.value
-        });
+        };
+
+        this.databaseService.updateUserAccount(userAccount);
         this.router.navigate(['question']);
       });
 

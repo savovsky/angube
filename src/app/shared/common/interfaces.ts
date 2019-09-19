@@ -25,6 +25,7 @@ export interface MatFormField {
     type: string;
     placeholder: string;
     formControlName: string;
+    value?: string;
 }
 
 export interface Auth {
