@@ -8,7 +8,8 @@ export class StringsService {
     menu = 'menu';
     home = 'home';
     users = 'users';
-    myDashboard = 'my dashboard';
+    dashboard = 'dashboard';
+    forms = 'forms';
 
     myAccount = 'my account';
     userAccount = 'user account';

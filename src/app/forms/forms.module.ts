@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { FormsRoutingModule } from './forms-routing.module';
 
 import { FormComponent } from './components/form/form.component';
 import { FormHeaderComponent } from './components/form-header/form-header.component';
@@ -17,7 +18,8 @@ import { FormFooterComponent } from './components/form-footer/form-footer.compon
     FormFooterComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    FormsRoutingModule
   ]
 })
 export class FormsModule { }

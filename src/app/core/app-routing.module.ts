@@ -54,6 +54,11 @@ const routes: Routes = [
         path: 'dashboard',
         canLoad: [AuthGuard],
         loadChildren: '../dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'forms',
+        canLoad: [AuthGuard],
+        loadChildren: '../forms/forms.module#FormsModule'
       }
     ]
   },
