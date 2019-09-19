@@ -19,7 +19,10 @@ export class UsersComponent {
   ) { }
 
   onBlockUnblock(user: User) {
-    const userAccount = {...user, isBlocked: !user.isBlocked};
+    const userAccount: User = {
+      ...user,
+      isBlocked: !user.isBlocked
+    };
     this.databaseService.updateUserAccount(userAccount);
   }
 

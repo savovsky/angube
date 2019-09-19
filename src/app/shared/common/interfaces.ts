@@ -12,6 +12,7 @@ export interface User {
     birthdate: string;
     isAdmin: boolean;
     isBlocked: boolean;
+    communityCode: string;
 }
 
 export interface Link {
@@ -24,6 +25,7 @@ export interface MatFormField {
     type: string;
     placeholder: string;
     formControlName: string;
+    value?: string;
 }
 
 export interface Auth {

@@ -27,6 +27,7 @@ export class StringsService {
     email = 'email';
     password = 'password';
     confirmPassword = 'confirm password';
+    communityCode = 'Community Code';
     submit = 'submit';
     save = 'save';
     cancel = 'cancel';

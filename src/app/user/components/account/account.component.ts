@@ -6,7 +6,6 @@ import { DatabaseService } from '../../../shared/services/database.service';
 import { StringsService } from '../../../shared/services/strings.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { UsersService } from '../../../shared/services/users.service';
-import { Account } from '../../../shared/models/account.model';
 import { FormField } from '../../../shared/models/form-field.model';
 import { CustomValidators } from '../../../shared/common/custom.validators';
 import { User, MatFormField } from '../../../shared/common/interfaces';
@@ -182,16 +181,12 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   onAccountSave() {
     if (this.accountForm.valid) {
-      const userAccount = new Account(
-        this.userNameFormControl.value,
-        this.firstNameFormControl.value,
-        this.lastNameFormControl.value,
-        this.user.birthdate,
-        this.user.email,
-        this.user.isBlocked,
-        this.user.isAdmin,
-        this.user.uid
-      );
+      const userAccount: User = {
+        ...this.user,
+        userName: this.userNameFormControl.value,
+        firstName: this.firstNameFormControl.value,
+        lastName: this.lastNameFormControl.value,
+      };
 
       this.error = null;
       this.isRequesting = true;

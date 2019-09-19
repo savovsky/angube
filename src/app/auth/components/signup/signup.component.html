@@ -15,6 +15,7 @@
           [type]="frormsService.getType(field.type)"
           placeholder = "{{ field.placeholder | titlecase }}"
           formControlName="{{ field.formControlName }}"
+          value="{{ field.value ? field.value : '' }}"
         >
           <!-- [formControlName]="'emailFormControl'" with prop binding-->
           <!-- REMIND - (directive) - It is the same -->
