@@ -33,3 +33,13 @@ export interface Auth {
     displayName: string;
     ra: string;
 }
+
+export interface FormTemplate {
+    formHeader: {
+        formTitle: string,
+        formDate: string
+    };
+    formQuestion: string;
+    formAnswers: boolean[];
+    formFooter: string;
+}

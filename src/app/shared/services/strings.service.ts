@@ -11,6 +11,10 @@ export class StringsService {
     dashboard = 'dashboard';
     forms = 'forms';
 
+    // User
+    untitledForm = 'untitled form';
+
+    // User
     myAccount = 'my account';
     userAccount = 'user account';
     userDetails = 'user details';

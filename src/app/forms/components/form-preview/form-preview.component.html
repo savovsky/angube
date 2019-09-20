@@ -1,0 +1,54 @@
+
+<div class="form-preview-container">
+  <mat-card class="form-preview">
+    <mat-card-header>
+      <div mat-card-avatar class="form-header-image"></div>
+      <mat-card-title class="primary" *ngIf="formTitle, else untitledForm">
+        {{ formTitle | titlecase }}
+      </mat-card-title>
+      <ng-template #untitledForm>
+        <mat-card-title class="primary">
+          {{ str.untitledForm | titlecase }}
+        </mat-card-title>
+      </ng-template>
+      <mat-card-subtitle>{{ currentUserName | titlecase }}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="right form-date primary">{{ today | date:'dd/MM/yyyy' }}</div>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-content>
+      <div class="form-question primary">{{ formQuestion }}</div>
+      <div class="form-note" *ngIf="formNote">{{ formNote }}</div>
+      <div class="padd-20">
+        <mat-radio-group class="form-radio-group" [(ngModel)]="yourAnswer">
+          <mat-radio-button primary class="form-radio-btn" *ngFor="let answer of answers" [value]="answer">
+            {{ answer | titlecase }}
+          </mat-radio-button>
+          <mat-radio-button primary class="form-radio-btn">Other</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field class="form-option-other">
+          <input
+            matInput
+            placeholder="Your comment"
+            autocomplete="off"
+          >
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <div class="space-between">
+      <button
+        mat-raised-button
+        class="wide-45"
+        color="primary"
+        type="submit"
+      >{{ str.save | titlecase }}
+      </button>
+      <button
+        mat-raised-button
+        class="wide-45"
+        type="button"
+      >{{ str.cancel | titlecase }}
+      </button>
+    </div>
+  </mat-card>
+</div>
+
