@@ -95,6 +95,10 @@ body {
     width: 100%;
 }
 
+.wide-30 {
+    width: 30%;
+}
+
 .wide-45 {
     width: 45%;
 }
@@ -140,6 +144,10 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.mat-tab-links {
+    justify-content: center;
 }
 
 .mat-icon {

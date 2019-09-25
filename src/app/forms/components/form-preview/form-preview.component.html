@@ -19,6 +19,7 @@
       <div class="form-question primary">{{ formQuestion }}</div>
       <div class="form-note" *ngIf="formNote">{{ formNote }}</div>
       <div class="padd-20">
+        <app-form-select-choice></app-form-select-choice>
         <mat-radio-group class="form-radio-group" [(ngModel)]="yourAnswer">
           <mat-radio-button primary class="form-radio-btn" *ngFor="let answer of answers" [value]="answer">
             {{ answer | titlecase }}
@@ -37,17 +38,24 @@
     <div class="space-between">
       <button
         mat-raised-button
-        class="wide-45"
+        class="wide-30"
         color="primary"
         type="submit"
       >{{ str.save | titlecase }}
       </button>
       <button
         mat-raised-button
-        class="wide-45"
+        class="wide-30"
         type="button"
       >{{ str.cancel | titlecase }}
       </button>
+      <button
+        mat-raised-button
+        class="wide-30"
+        color="accent"
+        type="submit"
+      >{{ str.preview | titlecase }}
+    </button>
     </div>
   </mat-card>
 </div>

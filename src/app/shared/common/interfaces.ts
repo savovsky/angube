@@ -43,3 +43,8 @@ export interface FormTemplate {
     formAnswers: boolean[];
     formFooter: string;
 }
+
+export interface FormSelectChoice {
+    value: string;
+    viewValue: string;
+}
