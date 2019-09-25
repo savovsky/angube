@@ -1,0 +1,13 @@
+<mat-radio-group class="form-radio-group" [(ngModel)]="yourAnswer">
+  <mat-radio-button primary class="form-radio-btn" *ngFor="let answer of answers" [value]="answer">
+    {{ answer | titlecase }}
+  </mat-radio-button>
+  <mat-radio-button primary class="form-radio-btn">Other</mat-radio-button>
+</mat-radio-group>
+<mat-form-field class="form-option-other">
+  <input
+    matInput
+    placeholder="Your comment"
+    autocomplete="off"
+  >
+</mat-form-field>

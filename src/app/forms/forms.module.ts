@@ -11,6 +11,7 @@ import { FormQuestionComponent } from './components/form-template/form-question/
 import { FormAnswersComponent } from './components/form-template/form-answers/form-answers.component';
 import { FormFooterComponent } from './components/form-template/form-footer/form-footer.component';
 import { FormAnswersChoiceComponent } from './components/form-template/form-answers-choice/form-answers-choice.component';
+import { FormAnswersRadioComponent } from './components/form-template/form-answers-radio/form-answers-radio.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FormAnswersChoiceComponent } from './components/form-template/form-answ
     FormQuestionComponent,
     FormAnswersComponent,
     FormFooterComponent,
-    FormAnswersChoiceComponent
+    FormAnswersChoiceComponent,
+    FormAnswersRadioComponent
   ],
   imports: [
     SharedModule,

@@ -7,9 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormAnswersComponent implements OnInit {
 
-  answers = ['option 1', 'option 2'];
-  yourAnswer: string;
-
   constructor() { }
 
   ngOnInit() {
