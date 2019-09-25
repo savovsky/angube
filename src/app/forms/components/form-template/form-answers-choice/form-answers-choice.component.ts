@@ -1,5 +1,7 @@
+import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit } from '@angular/core';
-import { FormSelectChoice } from 'src/app/shared/common/interfaces';
+import { FormAnswerType } from 'src/app/shared/common/interfaces';
+
 
 @Component({
   selector: 'app-form-answers-choice',
@@ -8,20 +10,23 @@ import { FormSelectChoice } from 'src/app/shared/common/interfaces';
 })
 export class FormAnswersChoiceComponent implements OnInit {
 
-  selected = 'singleChoice';
+  answersTypeId: string;
 
-  options: FormSelectChoice[] = [
-    {value: 'singleChoice', viewValue: 'single choice'},
-    {value: 'multipleChoices', viewValue: 'multiple choices'}
+  options: FormAnswerType[] = [
+    {id: 'singleChoice', name: 'single choice'},
+    {id: 'multipleChoice', name: 'multiple choice'}
   ];
 
-  constructor() { }
+  constructor(
+    private formTemplateService: FormTemplateService
+  ) { }
 
   ngOnInit() {
+    this.answersTypeId = this.formTemplateService.answersTypeId;
   }
 
-  changeClient(value) {
-    console.log(value);
+  onSelectionChange(answersTypeId: string) {
+    this.formTemplateService.changeAnswersType(answersTypeId);
   }
 
 }

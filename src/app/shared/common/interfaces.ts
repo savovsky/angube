@@ -44,7 +44,7 @@ export interface FormTemplate {
     formFooter: string;
 }
 
-export interface FormSelectChoice {
-    value: string;
-    viewValue: string;
+export interface FormAnswerType {
+    id: string;
+    name: string;
 }

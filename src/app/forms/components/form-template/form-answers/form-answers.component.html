@@ -1,4 +1,5 @@
 <div>
   <app-form-answers-choice></app-form-answers-choice>
-  <app-form-answers-radio></app-form-answers-radio>
+  <app-form-answers-radio *ngIf="isSingleChoice"></app-form-answers-radio>
+  <app-form-answers-checkbox *ngIf="isMultipleChoice"></app-form-answers-checkbox>
 </div>

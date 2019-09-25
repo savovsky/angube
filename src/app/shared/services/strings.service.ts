@@ -12,7 +12,7 @@ export class StringsService {
     forms = 'forms';
 
     // User
-    untitledForm = 'untitled form';
+    untitled = 'untitled';
 
     // User
     myAccount = 'my account';
