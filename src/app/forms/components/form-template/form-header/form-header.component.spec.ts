@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormSelectChoiceComponent } from './form-select-choice.component';
+import { FormHeaderComponent } from './form-header.component';
 
-describe('FormSelectChoiceComponent', () => {
-  let component: FormSelectChoiceComponent;
-  let fixture: ComponentFixture<FormSelectChoiceComponent>;
+describe('FormHeaderComponent', () => {
+  let component: FormHeaderComponent;
+  let fixture: ComponentFixture<FormHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormSelectChoiceComponent ]
+      declarations: [ FormHeaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormSelectChoiceComponent);
+    fixture = TestBed.createComponent(FormHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,14 @@
+<mat-card-header>
+  <div mat-card-avatar class="form-user-image"></div>
+  <mat-card-title class="primary" *ngIf="formTitle, else untitledForm">
+    {{ formTitle | titlecase }}
+  </mat-card-title>
+  <ng-template #untitledForm>
+    <mat-card-title class="primary">
+      {{ str.untitledForm | titlecase }}
+    </mat-card-title>
+  </ng-template>
+  <mat-card-subtitle>{{ currentUserName | titlecase }}</mat-card-subtitle>
+</mat-card-header>
+<div class="right form-date">{{ today | date:'dd/MM/yyyy' }}</div>
+<mat-divider [inset]="true"></mat-divider>

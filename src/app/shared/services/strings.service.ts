@@ -36,7 +36,6 @@ export class StringsService {
     submit = 'submit';
     save = 'save';
     cancel = 'cancel';
-    preview = 'preview';
     edit = 'edit';
     message = 'message';
     block = 'block';
@@ -70,4 +69,8 @@ export class StringsService {
 
     // Icons
     powerOff = 'power_off';
+
+    // Forms
+    preview = 'preview';
+    createForm = 'create form';
 }

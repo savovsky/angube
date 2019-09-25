@@ -1,0 +1,12 @@
+.form-template-container {
+    display: flex;
+    margin: 0;
+    padding: 20px;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.form-template {
+    min-width: 300px;
+    max-width: 400px;
+}
