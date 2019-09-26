@@ -75,6 +75,10 @@ body {
     justify-content: flex-end;
 }
 
+.display-flex {
+    display: flex;
+}
+
 .space-between {
     display: flex;
     justify-content: space-between;
@@ -101,6 +105,10 @@ body {
 
 .wide-45 {
     width: 45%;
+}
+
+.wide-65 {
+    width: 65%;
 }
 
 .top-note {
@@ -165,3 +173,7 @@ body {
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
     background-color:rgb(103, 57, 182, 0);
 }
+
+/* .mat-form-field-appearance-legacy .mat-form-field-infix {
+    width: 45%;
+} */

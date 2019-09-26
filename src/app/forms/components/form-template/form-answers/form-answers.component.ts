@@ -1,6 +1,7 @@
 import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { StringsService } from 'src/app/shared/services/strings.service';
 
 @Component({
   selector: 'app-form-answers',
@@ -14,7 +15,8 @@ export class FormAnswersComponent implements OnInit, OnDestroy {
   answersTypeChangeSubscription: Subscription;
 
   constructor(
-    private formTemplateService: FormTemplateService
+    private formTemplateService: FormTemplateService,
+    public str: StringsService
   ) { }
 
   ngOnInit() {

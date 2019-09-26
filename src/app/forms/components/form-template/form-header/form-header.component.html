@@ -1,5 +1,10 @@
+<div class="display-flex">
+<app-form-edit-menu *ngIf="!formTemplateService.isPreview"></app-form-edit-menu>
 <mat-card-header>
-  <div mat-card-avatar class="form-user-image"></div>
+  <div
+    mat-card-avatar class="form-user-image"
+    *ngIf="formTemplateService.isPreview"
+  ></div>
   <mat-card-title class="primary" *ngIf="formTitle, else untitled">
     {{ formTitle | titlecase }}
   </mat-card-title>
@@ -8,7 +13,7 @@
       {{ str.untitled | titlecase }}
     </mat-card-title>
   </ng-template>
-  <mat-card-subtitle>{{ currentUserName }}</mat-card-subtitle>
+  <mat-card-subtitle *ngIf="formTemplateService.isPreview">{{ currentUserName }}</mat-card-subtitle>
 </mat-card-header>
-<div class="right form-date">{{ today | date:'dd/MM/yyyy' }}</div>
-<mat-divider [inset]="true"></mat-divider>
+</div>
+<div class="right form-date" *ngIf="formTemplateService.isPreview">{{ today | date:'dd/MM/yyyy' }}</div>

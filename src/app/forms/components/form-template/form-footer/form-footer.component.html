@@ -17,7 +17,8 @@
     mat-raised-button
     class="wide-30"
     color="accent"
-    type="submit"
-  >{{ str.preview | titlecase }}
+    type="button"
+    (click)="onPreviewEdit()"
+  >{{ previewEditBtn | titlecase }}
   </button>
 </div>

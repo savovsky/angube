@@ -1,3 +1,4 @@
+import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { UsersService } from 'src/app/shared/services/users.service';
@@ -17,6 +18,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private usersService: UsersService,
+    public formTemplateService: FormTemplateService,
     public str: StringsService
   ) { }
 

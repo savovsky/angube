@@ -13,6 +13,7 @@ export class FormTemplateService {
 
   answersTypeId = 'singleChoice';
   answersTypeChanged = new Subject();
+  isPreview = true;
 
   options: FormAnswerType[] = [
     {id: 'singleChoice', name: 'single choice'},
@@ -24,5 +25,9 @@ export class FormTemplateService {
   changeAnswersType(id: string) {
     this.answersTypeId = id;
     this.answersTypeChanged.next();
+  }
+
+  togglePreviewEdit() {
+    this.isPreview = !this.isPreview;
   }
 }

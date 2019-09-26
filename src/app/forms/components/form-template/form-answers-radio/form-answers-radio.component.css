@@ -3,11 +3,19 @@
     flex-direction: column;
 }
 
-.form-radio-btn {
+.form-radio-btn:not(.option-other) {
     margin: 10px 0;
 }
 
-.form-option-other {
-    width: 100%;
-    min-height: 60px;
+.mat-input-element {
+    caret-color: initial;
+}
+
+/* .option-other {
+    display: inline-block;
+} */
+
+.eho {
+    display: inline-block;
+    width: 80%;
 }

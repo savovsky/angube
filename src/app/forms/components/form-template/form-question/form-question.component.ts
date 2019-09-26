@@ -1,3 +1,4 @@
+import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
 
@@ -15,6 +16,7 @@ export class FormQuestionComponent implements OnInit {
   'Aliquam lobortis fermentum justo car maximus. Class aptent taciti sociosqu add litora.';
 
   constructor(
+    public formTemplateService: FormTemplateService,
     public str: StringsService
   ) { }
 

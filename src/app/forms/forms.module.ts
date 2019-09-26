@@ -13,6 +13,7 @@ import { FormFooterComponent } from './components/form-template/form-footer/form
 import { FormAnswersChoiceComponent } from './components/form-template/form-answers-choice/form-answers-choice.component';
 import { FormAnswersRadioComponent } from './components/form-template/form-answers-radio/form-answers-radio.component';
 import { FormAnswersCheckboxComponent } from './components/form-template/form-answers-checkbox/form-answers-checkbox.component';
+import { FormEditMenuComponent } from './components/form-template/form-edit-menu/form-edit-menu.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormAnswersCheckboxComponent } from './components/form-template/form-an
     FormFooterComponent,
     FormAnswersChoiceComponent,
     FormAnswersRadioComponent,
-    FormAnswersCheckboxComponent
+    FormAnswersCheckboxComponent,
+    FormEditMenuComponent
   ],
   imports: [
     SharedModule,
