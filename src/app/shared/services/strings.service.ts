@@ -35,6 +35,7 @@ export class StringsService {
     communityCode = 'Community Code';
     submit = 'submit';
     save = 'save';
+    saveAndPublish = 'save and publish';
     cancel = 'cancel';
     edit = 'edit';
     message = 'message';
@@ -74,4 +75,7 @@ export class StringsService {
     preview = 'preview';
     createForm = 'create form';
     option = 'option';
+    formTitle = 'your title';
+    formQuestion = 'your question';
+    formNote = 'your note';
 }

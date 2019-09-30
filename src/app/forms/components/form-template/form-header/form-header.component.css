@@ -17,3 +17,8 @@
 .mat-card-subtitle {
     margin-bottom: 0;
 }
+
+.title-edit-mode {
+    margin: 0;
+    padding: 3px 0 0;
+}

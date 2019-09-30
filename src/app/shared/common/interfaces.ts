@@ -34,14 +34,14 @@ export interface Auth {
     ra: string;
 }
 
-export interface FormTemplate {
-    formHeader: {
-        formTitle: string,
-        formDate: string
-    };
+export interface Form {
+    formTitle: string;
+    formDate: number;
     formQuestion: string;
-    formAnswers: boolean[];
-    formFooter: string;
+    formNote: string;
+    // formQuestion: string;
+    // formAnswers: boolean[];
+    // formFooter: string;
 }
 
 export interface FormAnswerType {

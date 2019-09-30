@@ -1,25 +1,35 @@
 <div class="space-between">
-  <button
-    mat-raised-button
-    class="wide-30"
-    color="primary"
-    type="submit"
-  >{{ str.save | titlecase }}
-  </button>
-  <button
-    mat-raised-button
-    class="wide-30"
-    type="button"
-    routerLink="/app/forms"
-    (click)="onCancel()"
-  >{{ str.cancel | titlecase }}
-  </button>
-  <button
-    mat-raised-button
-    class="wide-30"
-    color="accent"
-    type="button"
-    (click)="onPreviewEdit()"
-  >{{ previewEditBtn | titlecase }}
-  </button>
+    <button
+        mat-raised-button
+        class="wide-48"
+        type="button"
+        [color]="'secondary'"
+        routerLink="/app/forms"
+    >{{ str.save | titlecase }}
+    </button>
+    <button
+        mat-raised-button
+        class="wide-48"
+        type="button"
+        routerLink="/app/forms"
+        (click)="onCancel()"
+    >{{ str.cancel | titlecase }}
+    </button>
+</div>
+<div class="space-between m-top-10">
+    <button
+        mat-raised-button
+        class="wide-48" color="primary"
+        type="button"
+        routerLink="/app/dashboard"
+    >{{ str.saveAndPublish | titlecase }}
+    </button>
+    <button
+        mat-raised-button
+        class="wide-48"
+        color="accent"
+        type="button"
+        (click)="onPreviewEdit()"
+    >{{ previewEditBtn | titlecase }}
+    </button>
 </div>

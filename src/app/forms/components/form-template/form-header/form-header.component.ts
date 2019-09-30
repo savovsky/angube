@@ -11,9 +11,9 @@ import { Subscription } from 'rxjs';
 })
 export class FormHeaderComponent implements OnInit, OnDestroy {
 
-  formTitle = '';
+  formTitle: string;
   currentUserName: string;
-  today: number = Date.now();
+  createdDate: number;
   currentUserUpdateSubscription: Subscription;
 
   constructor(
@@ -23,7 +23,9 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.setFormTitleToDefault();
     this.setCurrentUserName();
+    this.setCreatedDate();
     this.currentUserUpdateSubscription = this.usersService.currentUserUpdated.subscribe(
       () => {
         this.setCurrentUserName();
@@ -31,13 +33,20 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  isEditMode() {
-    return !this.formTemplateService.isPreview;
+  setFormTitleToDefault() {
+    this.formTitle = this.formTemplateService.formTemplate.formTitle;
   }
-
 
   setCurrentUserName() {
     this.currentUserName = this.usersService.currentUserAccount.userName;
+  }
+
+  setCreatedDate() {
+    this.createdDate = this.formTemplateService.formTemplate.formDate;
+  }
+
+  isEditMode() {
+    return !this.formTemplateService.isPreview;
   }
 
   ngOnDestroy() {

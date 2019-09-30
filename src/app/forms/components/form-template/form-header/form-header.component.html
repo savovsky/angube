@@ -2,15 +2,13 @@
 	<app-form-edit-menu class="form-templ-edit-icon" *ngIf="isEditMode()"></app-form-edit-menu>
 	<mat-card-header>
 		<div mat-card-avatar class="form-user-image" *ngIf="!isEditMode()"></div>
-		<mat-card-title class="primary" *ngIf="formTitle, else untitled">
-			{{ formTitle | titlecase }}
+		<mat-card-title
+			class="primary"
+			[ngClass]="{ 'title-edit-mode': isEditMode() }"
+			[ngStyle]="{ 'margin-left': isEditMode() ? '-16px' : 'unset' }"
+		>{{ formTitle | titlecase }}
 		</mat-card-title>
-		<ng-template #untitled>
-			<mat-card-title class="primary">
-				{{ str.untitled | titlecase }}
-			</mat-card-title>
-		</ng-template>
 		<mat-card-subtitle *ngIf="!isEditMode()">{{ currentUserName }}</mat-card-subtitle>
 	</mat-card-header>
 </div>
-<div class="right form-date" *ngIf="!isEditMode()">{{ today | date:'dd/MM/yyyy' }}</div>
+<div class="right form-date" *ngIf="!isEditMode()">{{ createdDate | date:'dd/MM/yyyy' }}</div>
