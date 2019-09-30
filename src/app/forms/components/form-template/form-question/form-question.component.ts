@@ -1,6 +1,6 @@
 import { FormTemplateService } from './../../../services/form-template.service';
-import { Component, OnInit } from '@angular/core';
-import { StringsService } from 'src/app/shared/services/strings.service';
+import { Component } from '@angular/core';
+
 
 
 @Component({
@@ -8,7 +8,7 @@ import { StringsService } from 'src/app/shared/services/strings.service';
   templateUrl: './form-question.component.html',
   styleUrls: ['./form-question.component.css']
 })
-export class FormQuestionComponent implements OnInit {
+export class FormQuestionComponent {
 
   formQuestion = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
   'Class aptent taciti add litora?';
@@ -16,11 +16,11 @@ export class FormQuestionComponent implements OnInit {
   'Aliquam lobortis fermentum justo car maximus. Class aptent taciti sociosqu add litora.';
 
   constructor(
-    public formTemplateService: FormTemplateService,
-    public str: StringsService
+    private formTemplateService: FormTemplateService
   ) { }
 
-  ngOnInit() {
+  isEditMode() {
+    return !this.formTemplateService.isPreview;
   }
 
 }

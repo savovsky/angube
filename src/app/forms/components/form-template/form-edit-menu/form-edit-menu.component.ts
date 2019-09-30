@@ -12,8 +12,7 @@ export class FormEditMenuComponent implements OnInit {
 
   constructor(
     public usersService: UsersService,
-    public authService: AuthService
-    ,
+    public authService: AuthService,
     public str: StringsService
   ) { }
 

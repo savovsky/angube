@@ -1,14 +1,14 @@
 <div>
-  <app-form-answers-radio *ngIf="isSingleChoice"></app-form-answers-radio>
-  <app-form-answers-checkbox *ngIf="isMultipleChoice"></app-form-answers-checkbox>
-  <div class="options-tools">
-    <button
-      mat-raised-button
-      class="add-option-btn"
-      type="button"
-      *ngIf="!formTemplateService.isPreview"
-      >{{ str.addOption | titlecase }}
-    </button>
-    <app-form-answers-choice *ngIf="!formTemplateService.isPreview"></app-form-answers-choice>
-  </div>
+    <app-form-answers-radio *ngIf="isSingleChoice"></app-form-answers-radio>
+    <app-form-answers-checkbox *ngIf="isMultipleChoice"></app-form-answers-checkbox>
+    <div class="options-tools">
+        <button
+            mat-raised-button class="add-option-btn"
+            type="button"
+            *ngIf="isEditMode()"
+        >
+            <mat-icon>playlist_add</mat-icon>
+        </button>
+        <app-form-answers-choice *ngIf="isEditMode()"></app-form-answers-choice>
+    </div>
 </div>

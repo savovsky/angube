@@ -1,19 +1,16 @@
-<div class="display-flex">
-<app-form-edit-menu *ngIf="!formTemplateService.isPreview"></app-form-edit-menu>
-<mat-card-header>
-  <div
-    mat-card-avatar class="form-user-image"
-    *ngIf="formTemplateService.isPreview"
-  ></div>
-  <mat-card-title class="primary" *ngIf="formTitle, else untitled">
-    {{ formTitle | titlecase }}
-  </mat-card-title>
-  <ng-template #untitled>
-    <mat-card-title class="primary">
-      {{ str.untitled | titlecase }}
-    </mat-card-title>
-  </ng-template>
-  <mat-card-subtitle *ngIf="formTemplateService.isPreview">{{ currentUserName }}</mat-card-subtitle>
-</mat-card-header>
+<div class="template-header-wrapper">
+	<app-form-edit-menu class="form-templ-edit-icon" *ngIf="isEditMode()"></app-form-edit-menu>
+	<mat-card-header>
+		<div mat-card-avatar class="form-user-image" *ngIf="!isEditMode()"></div>
+		<mat-card-title class="primary" *ngIf="formTitle, else untitled">
+			{{ formTitle | titlecase }}
+		</mat-card-title>
+		<ng-template #untitled>
+			<mat-card-title class="primary">
+				{{ str.untitled | titlecase }}
+			</mat-card-title>
+		</ng-template>
+		<mat-card-subtitle *ngIf="!isEditMode()">{{ currentUserName }}</mat-card-subtitle>
+	</mat-card-header>
 </div>
-<div class="right form-date" *ngIf="formTemplateService.isPreview">{{ today | date:'dd/MM/yyyy' }}</div>
+<div class="right form-date" *ngIf="!isEditMode()">{{ today | date:'dd/MM/yyyy' }}</div>

@@ -1,8 +1,10 @@
-.add-option-btn {
-    width: 180px;
-    display: block;
+.options-tools {
+    display: flex;
+    padding: 0 0 20px;
 }
 
-.options-tools {
-    padding: 0 20px;
+.add-option-btn {
+    height: 36px;
+    width: 30%;
+    margin: 0 20px 0 0;
 }

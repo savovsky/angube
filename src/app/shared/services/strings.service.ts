@@ -73,5 +73,5 @@ export class StringsService {
     // Forms
     preview = 'preview';
     createForm = 'create form';
-    addOption = 'add option';
+    option = 'option';
 }

@@ -1,5 +1,9 @@
 .form-question {
-    padding: 10px 0;
+    padding:  9px 0 0;
     font-size: 18px;
     line-height: 1.4;
+}
+
+.form-note {
+    padding:  12px 0 9px;
 }

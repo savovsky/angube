@@ -177,3 +177,8 @@ body {
 /* .mat-form-field-appearance-legacy .mat-form-field-infix {
     width: 45%;
 } */
+
+.form-templ-edit-icon {
+    position: relative;
+    left: -5px;
+}

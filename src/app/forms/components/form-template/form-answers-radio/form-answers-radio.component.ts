@@ -1,21 +1,22 @@
 import { FormTemplateService } from './../../../services/form-template.service';
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-form-answers-radio',
   templateUrl: './form-answers-radio.component.html',
   styleUrls: ['./form-answers-radio.component.css']
 })
-export class FormAnswersRadioComponent implements OnInit {
+export class FormAnswersRadioComponent {
 
   answers = ['option 1', 'option 2'];
   yourAnswer: string;
 
   constructor(
-    public formTemplateService: FormTemplateService
+    private formTemplateService: FormTemplateService
   ) { }
 
-  ngOnInit() {
+  isEditMode() {
+    return !this.formTemplateService.isPreview;
   }
 
 }

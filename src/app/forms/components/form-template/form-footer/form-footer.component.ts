@@ -25,4 +25,8 @@ export class FormFooterComponent implements OnInit {
     this.previewEditBtn = this.formTemplateService.isPreview ? this.str.edit : this.str.preview;
   }
 
+  onCancel() {
+    this.formTemplateService.setToDefault();
+  }
+
 }

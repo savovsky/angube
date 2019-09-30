@@ -1,9 +1,19 @@
+.template-header-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+
 .form-user-image {
-    background-image: url('../../../../../assets/img/kamen1.jpg');
+    background-image: url('../../../../../assets/img/avatar1.png');
     background-size: cover;
 }
 
 .form-date {
-    padding: 0 0 5px;
     font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-card-subtitle {
+    margin-bottom: 0;
 }

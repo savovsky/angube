@@ -18,7 +18,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private usersService: UsersService,
-    public formTemplateService: FormTemplateService,
+    private formTemplateService: FormTemplateService,
     public str: StringsService
   ) { }
 
@@ -31,12 +31,17 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.currentUserUpdateSubscription.unsubscribe();
+  isEditMode() {
+    return !this.formTemplateService.isPreview;
   }
+
 
   setCurrentUserName() {
     this.currentUserName = this.usersService.currentUserAccount.userName;
+  }
+
+  ngOnDestroy() {
+    this.currentUserUpdateSubscription.unsubscribe();
   }
 
 }

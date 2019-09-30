@@ -1,9 +1,9 @@
 
 <div class="display-flex">
-    <app-form-edit-menu *ngIf="!formTemplateService.isPreview"></app-form-edit-menu>
+    <app-form-edit-menu class="form-templ-edit-icon" *ngIf="isEditMode()"></app-form-edit-menu>
     <div class="form-question primary">{{ formQuestion }}</div>
 </div>
 <div class="display-flex">
-    <app-form-edit-menu *ngIf="!formTemplateService.isPreview"></app-form-edit-menu>
+    <app-form-edit-menu class="form-templ-edit-icon" *ngIf="isEditMode()"></app-form-edit-menu>
     <div class="form-note" *ngIf="formNote">{{ formNote }}</div>
 </div>

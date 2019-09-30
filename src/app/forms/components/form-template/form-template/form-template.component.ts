@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { FormTemplateService } from './../../../services/form-template.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-form-template',
   templateUrl: './form-template.component.html',
   styleUrls: ['./form-template.component.css']
 })
-export class FormTemplateComponent implements OnInit {
+export class FormTemplateComponent {
 
-  constructor() { }
+  constructor(
+    public formTemplateService: FormTemplateService
+  ) { }
 
-  ngOnInit() {
+  isEditMode() {
+    return !this.formTemplateService.isPreview;
   }
 
 }

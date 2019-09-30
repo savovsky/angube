@@ -11,9 +11,9 @@ import { Subject } from 'rxjs';
 })
 export class FormTemplateService {
 
+  isPreview = true;
   answersTypeId = 'singleChoice';
   answersTypeChanged = new Subject();
-  isPreview = true;
 
   options: FormAnswerType[] = [
     {id: 'singleChoice', name: 'single choice'},
@@ -29,5 +29,10 @@ export class FormTemplateService {
 
   togglePreviewEdit() {
     this.isPreview = !this.isPreview;
+  }
+
+  setToDefault() {
+    this.isPreview = true;
+    this.answersTypeId = 'singleChoice';
   }
 }

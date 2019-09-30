@@ -1,7 +1,6 @@
 import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { StringsService } from 'src/app/shared/services/strings.service';
 
 @Component({
   selector: 'app-form-answers',
@@ -15,8 +14,7 @@ export class FormAnswersComponent implements OnInit, OnDestroy {
   answersTypeChangeSubscription: Subscription;
 
   constructor(
-    private formTemplateService: FormTemplateService,
-    public str: StringsService
+    private formTemplateService: FormTemplateService
   ) { }
 
   ngOnInit() {
@@ -31,8 +29,8 @@ export class FormAnswersComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.answersTypeChangeSubscription.unsubscribe();
+  isEditMode() {
+    return !this.formTemplateService.isPreview;
   }
 
   setIsSingleChoice() {
@@ -41,6 +39,10 @@ export class FormAnswersComponent implements OnInit, OnDestroy {
 
   setIsMultipleChoice() {
     this.isMultipleChoice = this.formTemplateService.answersTypeId === 'multipleChoice';
+  }
+
+  ngOnDestroy() {
+    this.answersTypeChangeSubscription.unsubscribe();
   }
 
 }
