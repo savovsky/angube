@@ -10,7 +10,7 @@ import { Component, OnInit} from '@angular/core';
 export class FormAnswersRadioComponent implements OnInit {
 
   formOptions: FormOption[];
-  formOptionOther: FormOption;
+  optionOther: FormOption;
   yourAnswer: string;
 
   constructor(
@@ -27,7 +27,7 @@ export class FormAnswersRadioComponent implements OnInit {
   }
 
   getFormOptionOther() {
-    this.formOptionOther = this.formTemplateService.formTemplate.formOptionOther;
+    this.optionOther = this.formTemplateService.formTemplate.formOptionOther;
   }
 
   isEditMode() {

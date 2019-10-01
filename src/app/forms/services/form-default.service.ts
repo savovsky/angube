@@ -20,7 +20,7 @@ export class FormDefaultService {
     template.formQuestion = this.str.formQuestion;
     template.formNote = this.str.formNote;
     template.formOptions = [ new FormOption(), new FormOption() ];
-    template.formOptionOther = { id: 'other', value: '' };
+    template.formOptionOther = { id: this.str.otherOptionId, value: '' };
 
     return template;
   }

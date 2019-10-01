@@ -1,3 +1,4 @@
+import { FormEditMenuService } from './../../../services/form-edit-menu.service';
 import { Component, Input } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
 
@@ -11,6 +12,7 @@ export class FormEditMenuComponent {
   @Input() itemId?: string;
 
   constructor(
+    private formEditMenuService: FormEditMenuService,
     public str: StringsService
   ) { }
 
@@ -20,6 +22,10 @@ export class FormEditMenuComponent {
 
   onDelete() {
     console.log(this.itemId);
+  }
+
+  isDeleteDisabled() {
+    return this.formEditMenuService.isDeleteDisabled(this.itemId);
   }
 
 }
