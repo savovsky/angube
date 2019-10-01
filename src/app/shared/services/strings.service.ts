@@ -38,6 +38,7 @@ export class StringsService {
     saveAndPublish = 'save and publish';
     cancel = 'cancel';
     edit = 'edit';
+    delete = 'delete';
     message = 'message';
     block = 'block';
     unblock = 'unblock';

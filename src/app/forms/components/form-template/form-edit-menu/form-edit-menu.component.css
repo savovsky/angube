@@ -1,4 +1,6 @@
 .mat-menu-item {
+    display: flex;
+    align-items: center;
     padding-right: 24px;
 }
 

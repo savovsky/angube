@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/shared/services/users.service';
+import { Component, Input } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
-import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-form-edit-menu',
   templateUrl: './form-edit-menu.component.html',
   styleUrls: ['./form-edit-menu.component.css']
 })
-export class FormEditMenuComponent implements OnInit {
+export class FormEditMenuComponent {
+
+  @Input() itemId?: string;
 
   constructor(
-    public usersService: UsersService,
-    public authService: AuthService,
     public str: StringsService
   ) { }
 
-  ngOnInit() {
+  onEdit() {
+    console.log(this.itemId);
   }
 
-  onLogout() {
-    this.authService.logOut();
+  onDelete() {
+    console.log(this.itemId);
   }
 
 }

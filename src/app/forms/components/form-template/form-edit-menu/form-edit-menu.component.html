@@ -1,27 +1,13 @@
-<button
-  mat-icon-button
-  [matMenuTriggerFor]="menu"
->
-  <mat-icon>more_vert</mat-icon>
+<button mat-icon-button [matMenuTriggerFor]="menu">
+	<mat-icon>more_vert</mat-icon>
 </button>
-  <mat-menu #menu="matMenu">
-    <!-- My Account -->
-    <button
-      mat-menu-item
-      [routerLink]="['/app/account', usersService.currentUserName]"
-      [queryParams]="{ id: usersService.currentUserUid }"
-    >
-      <mat-icon>person</mat-icon>
-      <span>{{ str.myAccount | titlecase }}</span>
-    </button>
-    <!-- Log Out -->
-    <button
-    mat-menu-item
-    routerLink=""
-    *ngIf="!!authService.token"
-    (click)="onLogout()"
-    >
-      <mat-icon>power_off</mat-icon>
-      <span>{{ str.logOut | titlecase }}</span>
-    </button>
-  </mat-menu>
+<mat-menu #menu="matMenu">
+	<button mat-menu-item (click)="onEdit()">
+		<mat-icon>edit</mat-icon>
+		<span>{{ str.edit | titlecase }}</span>
+	</button>
+	<button mat-menu-item (click)="onDelete()">
+		<mat-icon>delete</mat-icon>
+		<span>{{ str.delete | titlecase }}</span>
+	</button>
+</mat-menu>
