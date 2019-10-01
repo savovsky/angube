@@ -41,4 +41,9 @@ export class FormTemplateService {
     this.formTemplateChanged.next();
   }
 
+  removeFormOption(otionId: string) {
+    this.formTemplate.formOptions = this.formTemplate.formOptions.filter((el) => el.id !== otionId);
+    this.formTemplateChanged.next();
+  }
+
 }

@@ -35,7 +35,7 @@ export class StringsService {
     communityCode = 'Community Code';
     submit = 'submit';
     save = 'save';
-    saveAndPublish = 'save and publish';
+    saveAndPublish = 'save & publish';
     cancel = 'cancel';
     edit = 'edit';
     delete = 'delete';

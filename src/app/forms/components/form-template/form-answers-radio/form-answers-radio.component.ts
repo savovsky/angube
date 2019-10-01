@@ -1,16 +1,19 @@
 import { FormOption } from './../../../../shared/common/interfaces';
 import { FormTemplateService } from './../../../services/form-template.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-answers-radio',
   templateUrl: './form-answers-radio.component.html',
   styleUrls: ['./form-answers-radio.component.css']
 })
-export class FormAnswersRadioComponent implements OnInit {
+export class FormAnswersRadioComponent implements OnInit, OnDestroy {
 
   formOptions: FormOption[];
   optionOther: FormOption;
+  formTemplateChangeSubscription: Subscription;
+
   yourAnswer: string;
 
   constructor(
@@ -20,6 +23,12 @@ export class FormAnswersRadioComponent implements OnInit {
   ngOnInit() {
     this.getFormOptions();
     this.getFormOptionOther();
+    this.formTemplateChangeSubscription = this.formTemplateService.formTemplateChanged.subscribe(
+      () => {
+        this.getFormOptions();
+        this.getFormOptionOther();
+      }
+    );
   }
 
   getFormOptions() {
@@ -32,6 +41,10 @@ export class FormAnswersRadioComponent implements OnInit {
 
   isEditMode() {
     return !this.formTemplateService.isPreview;
+  }
+
+  ngOnDestroy() {
+    this.formTemplateChangeSubscription.unsubscribe();
   }
 
 }
