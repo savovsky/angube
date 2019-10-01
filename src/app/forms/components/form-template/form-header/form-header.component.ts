@@ -23,25 +23,25 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.setFormTitleToDefault();
-    this.setCurrentUserName();
-    this.setCreatedDate();
+    this.getFormTitle();
+    this.getCurrentUserName();
+    this.getFormDate();
     this.currentUserUpdateSubscription = this.usersService.currentUserUpdated.subscribe(
       () => {
-        this.setCurrentUserName();
+        this.getCurrentUserName();
       }
     );
   }
 
-  setFormTitleToDefault() {
+  getFormTitle() {
     this.formTitle = this.formTemplateService.formTemplate.formTitle;
   }
 
-  setCurrentUserName() {
+  getCurrentUserName() {
     this.currentUserName = this.usersService.currentUserAccount.userName;
   }
 
-  setCreatedDate() {
+  getFormDate() {
     this.createdDate = this.formTemplateService.formTemplate.formDate;
   }
 

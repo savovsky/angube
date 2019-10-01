@@ -5,7 +5,9 @@ export class FormTemplate {
     public formTitle = '',
     public formDate = null,
     public formQuestion = '',
-    public formNote = ''
+    public formNote = '',
+    public formOptions = [],
+    public formOptionOther = {}
   ) { }
 
 }

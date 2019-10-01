@@ -1,5 +1,5 @@
 import { FormTemplateService } from './../../../services/form-template.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 
@@ -8,16 +8,27 @@ import { Component } from '@angular/core';
   templateUrl: './form-question.component.html',
   styleUrls: ['./form-question.component.css']
 })
-export class FormQuestionComponent {
+export class FormQuestionComponent implements OnInit {
 
-  formQuestion = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-  'Class aptent taciti add litora?';
-  formNote = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aptent taciti sociosqu add litora.' +
-  'Aliquam lobortis fermentum justo car maximus. Class aptent taciti sociosqu add litora.';
+  formQuestion: string;
+  formNote: string;
 
   constructor(
     private formTemplateService: FormTemplateService
   ) { }
+
+  ngOnInit() {
+    this.getFormQuestion();
+    this.getFormNote();
+  }
+
+  getFormQuestion() {
+    this.formQuestion = this.formTemplateService.formTemplate.formQuestion;
+  }
+
+  getFormNote() {
+    this.formNote = this.formTemplateService.formTemplate.formNote;
+  }
 
   isEditMode() {
     return !this.formTemplateService.isPreview;

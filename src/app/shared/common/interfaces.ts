@@ -34,14 +34,19 @@ export interface Auth {
     ra: string;
 }
 
+export interface FormOption {
+    id: string;
+    value: string;
+    img?: string;
+}
+
 export interface Form {
     formTitle: string;
     formDate: number;
     formQuestion: string;
     formNote: string;
-    // formQuestion: string;
-    // formAnswers: boolean[];
-    // formFooter: string;
+    formOptions: FormOption[];
+    formOptionOther: FormOption;
 }
 
 export interface FormAnswerType {

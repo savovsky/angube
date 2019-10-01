@@ -16,7 +16,7 @@ export class FormTemplateService {
   isPreview = true;
   answersTypeId = 'singleChoice';
   answersTypeChanged = new Subject();
-  formTemplate: Form;
+  formTemplate;
 
   options: FormAnswerType[] = [
     {id: 'singleChoice', name: 'single choice'},

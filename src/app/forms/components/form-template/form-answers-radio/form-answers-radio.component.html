@@ -1,11 +1,11 @@
 <mat-radio-group class="form-radio-group" [(ngModel)]="yourAnswer">
-  <div *ngFor="let answer of answers">
+  <div *ngFor="let option of formOptions">
     <app-form-edit-menu class="form-templ-edit-icon" *ngIf="isEditMode()"></app-form-edit-menu>
     <mat-radio-button
       primary
       class="form-radio-btn"
-      [value]="answer"
-    >{{ answer | titlecase }}
+      [value]="option.id"
+    >{{ option.value | titlecase }}
     </mat-radio-button>
   </div>
   <div>
