@@ -1,4 +1,4 @@
-import { Form } from './../../shared/common/interfaces';
+import { Form, FormOption } from './../../shared/common/interfaces';
 import { FormDefaultService } from './form-default.service';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -22,11 +22,6 @@ export class FormTemplateService {
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
   }
 
-  setIsMultipleChoice(isMultiple: boolean) {
-    this.formTemplate.isMultipleChoice = isMultiple;
-    this.formTemplateChanged.next();
-  }
-
   togglePreviewEdit() {
     this.isPreview = !this.isPreview;
   }
@@ -34,6 +29,16 @@ export class FormTemplateService {
   setToDefault() {
     this.isPreview = true;
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
+  }
+
+  setIsMultipleChoice(isMultiple: boolean) {
+    this.formTemplate.isMultipleChoice = isMultiple;
+    this.formTemplateChanged.next();
+  }
+
+  addFormOption(newOption: FormOption) {
+    this.formTemplate.formOptions.push(newOption);
+    this.formTemplateChanged.next();
   }
 
 }
