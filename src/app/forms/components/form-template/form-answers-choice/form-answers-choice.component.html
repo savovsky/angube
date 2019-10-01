@@ -1,10 +1,8 @@
-<mat-form-field>
-  <mat-select
-    [value]="answersTypeId"
-    (selectionChange)="onSelectionChange($event.value)"
-  >
-    <mat-option *ngFor="let option of options" [value]="option.id">
-      {{option.name}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<section>
+	<mat-slide-toggle
+		color="primary"
+		[checked]="isMultipleChoice"
+		(change)="onSlideChange($event.checked)"
+	>{{ str.multipleChoice | capitalize }}
+	</mat-slide-toggle>
+</section>

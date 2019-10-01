@@ -78,4 +78,5 @@ export class StringsService {
     formTitle = 'your title';
     formQuestion = 'your question';
     formNote = 'your note';
+    multipleChoice = 'multiple choice';
 }

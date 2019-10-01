@@ -1,7 +1,6 @@
 import { Form } from './../../shared/common/interfaces';
 import { FormDefaultService } from './form-default.service';
 import { Injectable } from '@angular/core';
-import { FormAnswerType } from 'src/app/shared/common/interfaces';
 import { Subject } from 'rxjs';
 
 /**
@@ -14,14 +13,8 @@ import { Subject } from 'rxjs';
 export class FormTemplateService {
 
   isPreview = true;
-  answersTypeId = 'singleChoice';
-  answersTypeChanged = new Subject();
-  formTemplate;
-
-  options: FormAnswerType[] = [
-    {id: 'singleChoice', name: 'single choice'},
-    {id: 'multipleChoice', name: 'multiple choice'}
-  ];
+  formTemplateChanged = new Subject();
+  formTemplate: Form;
 
   constructor(
     private formDefaultService: FormDefaultService
@@ -29,9 +22,9 @@ export class FormTemplateService {
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
   }
 
-  changeAnswersType(id: string) {
-    this.answersTypeId = id;
-    this.answersTypeChanged.next();
+  setIsMultipleChoice(isMultiple: boolean) {
+    this.formTemplate.isMultipleChoice = isMultiple;
+    this.formTemplateChanged.next();
   }
 
   togglePreviewEdit() {
@@ -40,6 +33,7 @@ export class FormTemplateService {
 
   setToDefault() {
     this.isPreview = true;
-    this.answersTypeId = 'singleChoice';
+    this.formTemplate = this.formDefaultService.getDefaultTemplate();
   }
+
 }

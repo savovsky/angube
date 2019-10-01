@@ -7,7 +7,8 @@ export class FormTemplate {
     public formQuestion = '',
     public formNote = '',
     public formOptions = [],
-    public formOptionOther = {}
+    public formOptionOther = {},
+    public isMultipleChoice = false
   ) { }
 
 }

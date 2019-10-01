@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { FormsRoutingModule } from './forms-routing.module';
-import { MatRadioModule, MatSelectModule } from '@angular/material';
+import { MatRadioModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 
 import { FormComponent } from './components/form/form.component';
 import { FormsComponent } from './components/forms/forms.component';
@@ -14,6 +14,7 @@ import { FormAnswersChoiceComponent } from './components/form-template/form-answ
 import { FormAnswersRadioComponent } from './components/form-template/form-answers-radio/form-answers-radio.component';
 import { FormAnswersCheckboxComponent } from './components/form-template/form-answers-checkbox/form-answers-checkbox.component';
 import { FormEditMenuComponent } from './components/form-template/form-edit-menu/form-edit-menu.component';
+import { FormAnswersToolsComponent } from './components/form-template/form-answers-tools/form-answers-tools.component';
 
 
 @NgModule({
@@ -28,13 +29,15 @@ import { FormEditMenuComponent } from './components/form-template/form-edit-menu
     FormAnswersChoiceComponent,
     FormAnswersRadioComponent,
     FormAnswersCheckboxComponent,
-    FormEditMenuComponent
+    FormEditMenuComponent,
+    FormAnswersToolsComponent
   ],
   imports: [
     SharedModule,
     MatRadioModule,
     FormsRoutingModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule
   ]
 })
 export class FormsModule { }

@@ -46,10 +46,6 @@ export interface Form {
     formQuestion: string;
     formNote: string;
     formOptions: FormOption[];
-    formOptionOther: FormOption;
-}
-
-export interface FormAnswerType {
-    id: string;
-    name: string;
+    formOptionOther: any;
+    isMultipleChoice: boolean;
 }

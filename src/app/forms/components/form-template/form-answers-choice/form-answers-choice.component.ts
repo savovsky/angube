@@ -1,6 +1,6 @@
 import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit } from '@angular/core';
-import { FormAnswerType } from 'src/app/shared/common/interfaces';
+import { StringsService } from 'src/app/shared/services/strings.service';
 
 
 @Component({
@@ -10,23 +10,24 @@ import { FormAnswerType } from 'src/app/shared/common/interfaces';
 })
 export class FormAnswersChoiceComponent implements OnInit {
 
-  answersTypeId: string;
-
-  options: FormAnswerType[] = [
-    {id: 'singleChoice', name: 'single choice'},
-    {id: 'multipleChoice', name: 'multiple choice'}
-  ];
+  isMultipleChoice: boolean;
 
   constructor(
-    private formTemplateService: FormTemplateService
+    private formTemplateService: FormTemplateService,
+    public str: StringsService
   ) { }
 
   ngOnInit() {
-    this.answersTypeId = this.formTemplateService.answersTypeId;
+    this.getIsMultipleChoice();
   }
 
-  onSelectionChange(answersTypeId: string) {
-    this.formTemplateService.changeAnswersType(answersTypeId);
+  getIsMultipleChoice() {
+    this.isMultipleChoice = this.formTemplateService.formTemplate.isMultipleChoice;
+  }
+
+  onSlideChange(isSlideOn: boolean) {
+    this.isMultipleChoice = isSlideOn;
+    this.formTemplateService.setIsMultipleChoice(isSlideOn);
   }
 
 }

@@ -25,8 +25,7 @@ export class FormDefaultService {
     ];
     template.formOptionOther = { id: 'other', value: '' };
 
-    console.log('default template = ', template);
-
     return template;
   }
+
 }
