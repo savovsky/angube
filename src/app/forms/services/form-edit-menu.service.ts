@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormTemplateService } from './form-template.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 
 @Injectable({
@@ -9,6 +10,7 @@ export class FormEditMenuService {
   itemsDeleteBtnDisabled: string[];
 
   constructor(
+    private formTemplateService: FormTemplateService,
     private str: StringsService
   ) {
     this.itemsDeleteBtnDisabled = [
@@ -21,5 +23,9 @@ export class FormEditMenuService {
 
   isDeleteDisabled(id: string) {
     return this.itemsDeleteBtnDisabled.find((el) => el === id);
+  }
+
+  removeOption(id: string) {
+    this.formTemplateService.removeFormOption(id);
   }
 }

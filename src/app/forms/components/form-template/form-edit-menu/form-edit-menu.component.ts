@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { IFormOption } from './../../../../shared/common/interfaces';
 import { FormEditDialogComponent } from './../form-edit-dialog/form-edit-dialog.component';
-import { FormTemplateService } from './../../../services/form-template.service';
 import { FormEditMenuService } from './../../../services/form-edit-menu.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { MatDialog } from '@angular/material';
@@ -12,10 +12,9 @@ import { MatDialog } from '@angular/material';
 })
 export class FormEditMenuComponent {
 
-  @Input() itemId?: string;
+  @Input() item?: IFormOption;
 
   constructor(
-    private formTemplateService: FormTemplateService,
     private formEditMenuService: FormEditMenuService,
     public str: StringsService,
     public dialog: MatDialog
@@ -23,26 +22,26 @@ export class FormEditMenuComponent {
   ) { }
 
   onEdit() {
-    console.log(this.itemId);
+    console.log(this.item);
     const dialogRef = this.dialog.open(FormEditDialogComponent, {
-      width: '250px',
-      // data: {name: this.name, animal: this.animal}
-      data: {name: 'miro', animal: 'dog'}
+      data: {
+        header: this.item.id,
+        value: this.item.value
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+      // this.value = result;
     });
   }
 
   onDelete() {
-    console.log(this.itemId);
-    this.formTemplateService.removeFormOption(this.itemId);
+    this.formEditMenuService.removeOption(this.item.id);
   }
 
   isDeleteDisabled() {
-    return this.formEditMenuService.isDeleteDisabled(this.itemId);
+    return this.formEditMenuService.isDeleteDisabled(this.item.id);
   }
 
 }

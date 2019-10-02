@@ -1,5 +1,6 @@
-import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { IFormOption } from './../../../../shared/common/interfaces';
+import { FormTemplateService } from './../../../services/form-template.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { Subscription } from 'rxjs';
@@ -11,10 +12,11 @@ import { Subscription } from 'rxjs';
 })
 export class FormHeaderComponent implements OnInit, OnDestroy {
 
-  formTitle: string;
+  formTitle: IFormOption;
   currentUserName: string;
   createdDate: number;
   currentUserUpdateSubscription: Subscription;
+  formTemplateChangeSubscription: Subscription;
 
   constructor(
     private usersService: UsersService,
@@ -27,9 +29,10 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
     this.getCurrentUserName();
     this.getFormDate();
     this.currentUserUpdateSubscription = this.usersService.currentUserUpdated.subscribe(
-      () => {
-        this.getCurrentUserName();
-      }
+      () => { this.getCurrentUserName(); }
+    );
+    this.formTemplateChangeSubscription = this.formTemplateService.formTemplateChanged.subscribe(
+      () => { this.getFormTitle(); }
     );
   }
 
@@ -51,6 +54,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.currentUserUpdateSubscription.unsubscribe();
+    this.formTemplateChangeSubscription.unsubscribe();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Form, FormOption } from './../../shared/common/interfaces';
+import { IForm, IFormOption } from './../../shared/common/interfaces';
 import { FormDefaultService } from './form-default.service';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -14,12 +14,13 @@ export class FormTemplateService {
 
   isPreview = true;
   formTemplateChanged = new Subject();
-  formTemplate: Form;
+  formTemplate: IForm;
 
   constructor(
     private formDefaultService: FormDefaultService
   ) {
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
+
   }
 
   togglePreviewEdit() {
@@ -36,7 +37,7 @@ export class FormTemplateService {
     this.formTemplateChanged.next();
   }
 
-  addFormOption(newOption: FormOption) {
+  addFormOption(newOption: IFormOption) {
     this.formTemplate.formOptions.push(newOption);
     this.formTemplateChanged.next();
   }

@@ -2,18 +2,18 @@
 <div class="display-flex">
     <app-form-edit-menu
         class="form-templ-edit-icon"
-        [itemId]="str.questionId"
+        [item]="formQuestion"
         *ngIf="isEditMode()"
     >
     </app-form-edit-menu>
-    <div class="form-question primary">{{ formQuestion | capitalize }}</div>
+    <div class="form-question primary">{{ formQuestion.value | capitalize }}</div>
 </div>
 <div class="display-flex">
     <app-form-edit-menu
         class="form-templ-edit-icon"
-        [itemId]="str.noteId"
+        [item]="formNote"
         *ngIf="isEditMode()"
     >
     </app-form-edit-menu>
-    <div class="form-note" *ngIf="formNote">{{ formNote | capitalize }}</div>
+    <div class="form-note" *ngIf="formNote.value">{{ formNote.value | capitalize }}</div>
 </div>

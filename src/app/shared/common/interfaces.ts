@@ -34,18 +34,23 @@ export interface Auth {
     ra: string;
 }
 
-export interface FormOption {
+export interface IFormOption {
     id: string;
     value: string;
     img?: string;
 }
 
-export interface Form {
-    formTitle: string;
+export interface IForm {
+    formTitle: IFormOption;
     formDate: number;
-    formQuestion: string;
-    formNote: string;
-    formOptions: FormOption[];
-    formOptionOther: any;
+    formQuestion: IFormOption;
+    formNote: IFormOption;
+    formOptions: IFormOption[];
+    formOptionOther: IFormOption;
     isMultipleChoice: boolean;
 }
+
+export interface DialogData {
+    header: string;
+    value: string;
+  }

@@ -1,10 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { DialogData } from './../../../../shared/common/interfaces';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-form-edit-dialog',

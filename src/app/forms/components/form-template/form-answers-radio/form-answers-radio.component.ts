@@ -1,4 +1,4 @@
-import { FormOption } from './../../../../shared/common/interfaces';
+import { IFormOption } from './../../../../shared/common/interfaces';
 import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class FormAnswersRadioComponent implements OnInit, OnDestroy {
 
-  formOptions: FormOption[];
-  optionOther: FormOption;
+  formOptions: IFormOption[];
+  optionOther: IFormOption;
   formTemplateChangeSubscription: Subscription;
 
   yourAnswer: string;
