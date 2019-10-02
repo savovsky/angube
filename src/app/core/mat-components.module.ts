@@ -12,7 +12,8 @@ import {
   MatCardModule,
   MatTabsModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from '@angular/material';
 
 
@@ -29,7 +30,8 @@ import {
     MatCardModule,
     MatTabsModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class MatComponentsModule { }

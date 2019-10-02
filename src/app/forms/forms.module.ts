@@ -15,6 +15,7 @@ import { FormAnswersRadioComponent } from './components/form-template/form-answe
 import { FormAnswersCheckboxComponent } from './components/form-template/form-answers-checkbox/form-answers-checkbox.component';
 import { FormEditMenuComponent } from './components/form-template/form-edit-menu/form-edit-menu.component';
 import { FormAnswersToolsComponent } from './components/form-template/form-answers-tools/form-answers-tools.component';
+import { FormEditDialogComponent } from './components/form-template/form-edit-dialog/form-edit-dialog.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FormAnswersToolsComponent } from './components/form-template/form-answe
     FormAnswersRadioComponent,
     FormAnswersCheckboxComponent,
     FormEditMenuComponent,
-    FormAnswersToolsComponent
+    FormAnswersToolsComponent,
+    FormEditDialogComponent
   ],
   imports: [
     SharedModule,
@@ -38,6 +40,9 @@ import { FormAnswersToolsComponent } from './components/form-template/form-answe
     FormsRoutingModule,
     MatSelectModule,
     MatSlideToggleModule
-  ]
+  ],
+  entryComponents: [
+    FormEditDialogComponent
+ ]
 })
 export class FormsModule { }

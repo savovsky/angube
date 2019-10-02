@@ -1,7 +1,9 @@
+import { Component, Input } from '@angular/core';
+import { FormEditDialogComponent } from './../form-edit-dialog/form-edit-dialog.component';
 import { FormTemplateService } from './../../../services/form-template.service';
 import { FormEditMenuService } from './../../../services/form-edit-menu.service';
-import { Component, Input } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-form-edit-menu',
@@ -15,11 +17,23 @@ export class FormEditMenuComponent {
   constructor(
     private formTemplateService: FormTemplateService,
     private formEditMenuService: FormEditMenuService,
-    public str: StringsService
+    public str: StringsService,
+    public dialog: MatDialog
+
   ) { }
 
   onEdit() {
     console.log(this.itemId);
+    const dialogRef = this.dialog.open(FormEditDialogComponent, {
+      width: '250px',
+      // data: {name: this.name, animal: this.animal}
+      data: {name: 'miro', animal: 'dog'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 
   onDelete() {
