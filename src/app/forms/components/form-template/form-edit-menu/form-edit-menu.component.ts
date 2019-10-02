@@ -40,8 +40,16 @@ export class FormEditMenuComponent {
     this.formEditMenuService.removeOption(this.item.id);
   }
 
-  isDeleteDisabled() {
+  get isEditDisabled() {
+    return this.item.id === this.str.otherOptionId;
+  }
+
+  get isDeleteDisabled() {
     return this.formEditMenuService.isDeleteDisabled(this.item.id);
   }
+
+  // get isImgDisabled() {
+  //   return this.formEditMenuService.isDeleteDisabled(this.item.id);
+  // }
 
 }

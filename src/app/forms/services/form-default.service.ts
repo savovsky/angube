@@ -15,16 +15,16 @@ export class FormDefaultService {
   getDefaultTemplate(): IForm {
     return {
       formTitle: {
-        id: 'title',
+        id: this.str.titleId,
         value: this.str.formTitle
       },
       formDate: Date.now(),
       formQuestion: {
-        id: 'question',
+        id: this.str.questionId,
         value: this.str.formQuestion
       },
       formNote: {
-        id: 'note',
+        id: this.str.noteId,
         value: this.str.formNote
       },
       formOptions: [
@@ -32,7 +32,7 @@ export class FormDefaultService {
         new FormOptionModel()
       ],
       formOptionOther: {
-        id: 'other',
+        id: this.str.otherOptionId,
         value: ''
       },
       isMultipleChoice: false

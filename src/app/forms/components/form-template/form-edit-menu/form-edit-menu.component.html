@@ -7,6 +7,7 @@
 <mat-menu #menu="matMenu">
 	<button
 		mat-menu-item
+		[disabled]="isEditDisabled"
 		(click)="onEdit()"
 	>
 		<mat-icon>edit</mat-icon>
@@ -15,7 +16,7 @@
 	<button
 		mat-menu-item
 		(click)="onDelete()"
-		[disabled]="isDeleteDisabled()"
+		[disabled]="isDeleteDisabled"
 	>
 		<mat-icon>delete</mat-icon>
 		<span>{{ str.delete | titlecase }}</span>
