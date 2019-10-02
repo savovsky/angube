@@ -84,4 +84,6 @@ export class StringsService {
     questionId = 'question';
     noteId = 'note';
     otherOptionId = 'other';
+    addOption = 'add option';
+    editMenu = 'edit menu';
 }

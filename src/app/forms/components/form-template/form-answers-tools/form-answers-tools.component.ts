@@ -1,6 +1,7 @@
-import { FormOption } from './../../../models/form-option.model';
-import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { StringsService } from 'src/app/shared/services/strings.service';
+import { FormTemplateService } from './../../../services/form-template.service';
+import { FormOption } from './../../../models/form-option.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +15,8 @@ export class FormAnswersToolsComponent  implements OnInit, OnDestroy {
   formTemplateChangeSubscription: Subscription;
 
   constructor(
-    private formTemplateService: FormTemplateService
+    private formTemplateService: FormTemplateService,
+    public str: StringsService
   ) { }
 
   ngOnInit() {
