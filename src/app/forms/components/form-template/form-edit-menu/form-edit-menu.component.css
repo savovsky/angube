@@ -21,3 +21,10 @@ button:hover:enabled:not(.mat-icon-button) {
     color: #673ab7;
     opacity: 1;
 }
+
+.slide-toggle-wrapper {
+    padding: 20px 24px 10px 20px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}

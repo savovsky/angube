@@ -1,4 +1,4 @@
-import { IForm, IFormOption } from './../../shared/common/interfaces';
+import { IForm, IFormItem } from './../../shared/common/interfaces';
 import { FormDefaultService } from './form-default.service';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -37,13 +37,18 @@ export class FormTemplateService {
     this.formTemplateChanged.next();
   }
 
-  addFormOption(newOption: IFormOption) {
-    this.formTemplate.formOptions.push(newOption);
+  addFormOption(newOption: IFormItem) {
+    this.formTemplate.options.push(newOption);
     this.formTemplateChanged.next();
   }
 
   removeFormOption(otionId: string) {
-    this.formTemplate.formOptions = this.formTemplate.formOptions.filter((el) => el.id !== otionId);
+    this.formTemplate.options = this.formTemplate.options.filter((el) => el.id !== otionId);
+    this.formTemplateChanged.next();
+  }
+
+  toggleEnableFormItem(itemId: string) {
+    this.formTemplate[`${itemId}`].isEnable = !this.formTemplate[`${itemId}`].isEnable;
     this.formTemplateChanged.next();
   }
 

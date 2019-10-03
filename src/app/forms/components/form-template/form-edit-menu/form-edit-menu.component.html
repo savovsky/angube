@@ -21,4 +21,21 @@
 		<mat-icon>delete</mat-icon>
 		<span>{{ str.delete | titlecase }}</span>
 	</button>
+	<button
+		mat-menu-item
+		(click)="onAddImage()"
+		[disabled]="isAddImgDisabled"
+	>
+		<mat-icon>image</mat-icon>
+		<span>{{ str.addImage | titlecase }}</span>
+	</button>
+	<section class="slide-toggle-wrapper">
+		<mat-slide-toggle
+			color="primary"
+			[disabled]="isSliderDisabled"
+			[checked]="true"
+			(change)="onSlideChange()"
+		>{{ str.enable | capitalize }}
+		</mat-slide-toggle>
+	</section>
 </mat-menu>

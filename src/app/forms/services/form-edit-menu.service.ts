@@ -8,6 +8,8 @@ import { StringsService } from 'src/app/shared/services/strings.service';
 export class FormEditMenuService {
 
   itemsDeleteBtnDisabled: string[];
+  itemsAddImageDisabled: string[];
+  itemsSliderEnabled: string[];
 
   constructor(
     private formTemplateService: FormTemplateService,
@@ -17,7 +19,18 @@ export class FormEditMenuService {
       this.str.titleId,
       this.str.questionId,
       this.str.noteId,
-      this.str.otherOptionId
+      this.str.optionOtherId
+    ];
+
+    this.itemsAddImageDisabled = [
+      this.str.titleId,
+      this.str.questionId,
+      this.str.optionOtherId
+    ];
+
+    this.itemsSliderEnabled = [
+      this.str.noteId,
+      this.str.optionOtherId
     ];
   }
 
@@ -25,7 +38,20 @@ export class FormEditMenuService {
     return this.itemsDeleteBtnDisabled.find((el) => el === id);
   }
 
+  isAddImgDisabled(id: string) {
+    return this.itemsAddImageDisabled.find((el) => el === id);
+  }
+
+  isSliderDisabled(id: string) {
+    return !this.itemsSliderEnabled.find((el) => el === id);
+  }
+
   removeOption(id: string) {
     this.formTemplateService.removeFormOption(id);
   }
+
+  toggleEnableItem(id: string) {
+    this.formTemplateService.toggleEnableFormItem(id);
+  }
+
 }

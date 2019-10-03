@@ -1,4 +1,4 @@
-import { IFormOption } from './../../../../shared/common/interfaces';
+import { IFormItem } from './../../../../shared/common/interfaces';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormTemplateService } from './../../../services/form-template.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
@@ -13,8 +13,8 @@ import { Subscription } from 'rxjs';
 })
 export class FormQuestionComponent implements OnInit, OnDestroy {
 
-  formQuestion: IFormOption;
-  formNote: IFormOption;
+  formQuestion: IFormItem;
+  formNote: IFormItem;
   formTemplateChangeSubscription: Subscription;
 
   constructor(
@@ -29,16 +29,17 @@ export class FormQuestionComponent implements OnInit, OnDestroy {
       () => {
         this.getFormQuestion();
         this.getFormNote();
+        console.log(this.formQuestion);
       }
     );
   }
 
   getFormQuestion() {
-    this.formQuestion = this.formTemplateService.formTemplate.formQuestion;
+    this.formQuestion = this.formTemplateService.formTemplate.question;
   }
 
   getFormNote() {
-    this.formNote = this.formTemplateService.formTemplate.formNote;
+    this.formNote = this.formTemplateService.formTemplate.note;
   }
 
   isEditMode() {

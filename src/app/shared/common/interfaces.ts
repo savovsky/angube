@@ -34,19 +34,20 @@ export interface Auth {
     ra: string;
 }
 
-export interface IFormOption {
+export interface IFormItem {
     id: string;
     value: string;
     img?: string;
+    isEnable: boolean;
 }
 
 export interface IForm {
-    formTitle: IFormOption;
-    formDate: number;
-    formQuestion: IFormOption;
-    formNote: IFormOption;
-    formOptions: IFormOption[];
-    formOptionOther: IFormOption;
+    title: IFormItem;
+    date: number;
+    question: IFormItem;
+    note: IFormItem;
+    options: IFormItem[];
+    optionOther: IFormItem;
     isMultipleChoice: boolean;
 }
 

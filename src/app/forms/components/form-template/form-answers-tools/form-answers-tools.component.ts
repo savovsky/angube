@@ -35,7 +35,7 @@ export class FormAnswersToolsComponent  implements OnInit, OnDestroy {
   }
 
   getOptionsCount() {
-    this.optionsCount = this.formTemplateService.formTemplate.formOptions.length;
+    this.optionsCount = this.formTemplateService.formTemplate.options.length;
   }
 
   ngOnDestroy() {

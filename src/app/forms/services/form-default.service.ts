@@ -14,26 +14,31 @@ export class FormDefaultService {
 
   getDefaultTemplate(): IForm {
     return {
-      formTitle: {
+      title: {
         id: this.str.titleId,
-        value: this.str.formTitle
+        value: this.str.formTitle,
+        isEnable: true
       },
-      formDate: Date.now(),
-      formQuestion: {
+      date: Date.now(),
+      question: {
         id: this.str.questionId,
-        value: this.str.formQuestion
+        value: this.str.formQuestion,
+        isEnable: true
       },
-      formNote: {
+      note: {
         id: this.str.noteId,
-        value: this.str.formNote
+        value: this.str.formNote,
+        img: '',
+        isEnable: true
       },
-      formOptions: [
+      options: [
         new FormOptionModel(),
         new FormOptionModel()
       ],
-      formOptionOther: {
-        id: this.str.otherOptionId,
-        value: ''
+      optionOther: {
+        id: this.str.optionOtherId,
+        value: '',
+        isEnable: true
       },
       isMultipleChoice: false
     };

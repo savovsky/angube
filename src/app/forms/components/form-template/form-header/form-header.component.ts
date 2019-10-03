@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IFormOption } from './../../../../shared/common/interfaces';
+import { IFormItem } from './../../../../shared/common/interfaces';
 import { FormTemplateService } from './../../../services/form-template.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { UsersService } from 'src/app/shared/services/users.service';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class FormHeaderComponent implements OnInit, OnDestroy {
 
-  formTitle: IFormOption;
+  formTitle: IFormItem;
   currentUserName: string;
   createdDate: number;
   currentUserUpdateSubscription: Subscription;
@@ -37,7 +37,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
   }
 
   getFormTitle() {
-    this.formTitle = this.formTemplateService.formTemplate.formTitle;
+    this.formTitle = this.formTemplateService.formTemplate.title;
   }
 
   getCurrentUserName() {
@@ -45,7 +45,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
   }
 
   getFormDate() {
-    this.createdDate = this.formTemplateService.formTemplate.formDate;
+    this.createdDate = this.formTemplateService.formTemplate.date;
   }
 
   isEditMode() {

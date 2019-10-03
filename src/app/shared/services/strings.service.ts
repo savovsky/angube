@@ -44,6 +44,7 @@ export class StringsService {
     unblock = 'unblock';
     yes = 'yes';
     notNow = 'not now';
+    addImage = 'add image';
 
     blockedUser = 'blocked user';
     like = 'like';
@@ -80,10 +81,14 @@ export class StringsService {
     formQuestion = 'your question';
     formNote = 'your note';
     multipleChoice = 'multiple choice';
+
+    addOption = 'add option';
+    editMenu = 'edit menu';
+    disable = 'disable';
+    enable = 'enable';
+
     titleId = 'title';
     questionId = 'question';
     noteId = 'note';
-    otherOptionId = 'other';
-    addOption = 'add option';
-    editMenu = 'edit menu';
+    optionOtherId = 'optionOther';
 }

@@ -2,7 +2,7 @@
 	class="form-radio-group"
 	[(ngModel)]="yourAnswer"
 >
-	<div *ngFor="let option of formOptions">
+	<div *ngFor="let option of options">
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
 			[item]="option"
