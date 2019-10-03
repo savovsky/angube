@@ -16,7 +16,7 @@
 	<button
 		mat-menu-item
 		(click)="onDelete()"
-		[disabled]="isDeleteDisabled"
+		[disabled]="!isItemOption"
 	>
 		<mat-icon>delete</mat-icon>
 		<span>{{ str.delete | titlecase }}</span>
@@ -33,7 +33,7 @@
 		<mat-slide-toggle
 			color="primary"
 			[disabled]="isSliderDisabled"
-			[checked]="true"
+			[checked]="isSliderOn"
 			(change)="onSlideChange()"
 		>{{ str.enable | capitalize }}
 		</mat-slide-toggle>

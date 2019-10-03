@@ -5,7 +5,7 @@
 	<div *ngFor="let option of options">
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
-			[item]="option"
+			[itemId]="option.id"
 			*ngIf="isEditMode()"
 		>
 		</app-form-edit-menu>
@@ -18,7 +18,7 @@
 	<div>
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
-			[item]="optionOther"
+			[itemId]="optionOther.id"
 			*ngIf="isEditMode()"
 		>
 		</app-form-edit-menu>

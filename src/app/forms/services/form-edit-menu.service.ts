@@ -7,7 +7,7 @@ import { StringsService } from 'src/app/shared/services/strings.service';
 })
 export class FormEditMenuService {
 
-  itemsDeleteBtnDisabled: string[];
+  itemsExcludeOption: string[];
   itemsAddImageDisabled: string[];
   itemsSliderEnabled: string[];
 
@@ -15,7 +15,7 @@ export class FormEditMenuService {
     private formTemplateService: FormTemplateService,
     private str: StringsService
   ) {
-    this.itemsDeleteBtnDisabled = [
+    this.itemsExcludeOption = [
       this.str.titleId,
       this.str.questionId,
       this.str.noteId,
@@ -34,8 +34,8 @@ export class FormEditMenuService {
     ];
   }
 
-  isDeleteDisabled(id: string) {
-    return this.itemsDeleteBtnDisabled.find((el) => el === id);
+  isItemOption(id: string) {
+    return !this.itemsExcludeOption.find((el) => el === id);
   }
 
   isAddImgDisabled(id: string) {
@@ -44,6 +44,30 @@ export class FormEditMenuService {
 
   isSliderDisabled(id: string) {
     return !this.itemsSliderEnabled.find((el) => el === id);
+  }
+
+  isSliderOn(id: string) {
+    if (!this.isSliderDisabled(id)) {
+      return this.formTemplateService.formTemplate[`${id}`].isEnable;
+    }
+
+    return true;
+  }
+
+  getItemName(id: string) {
+    if (!this.isItemOption(id)) {
+      return this.formTemplateService.formTemplate[`${id}`].id;
+    }
+
+    return this.str.option;
+  }
+
+  getItemValue(id: string) {
+    if (!this.isItemOption(id)) {
+      return this.formTemplateService.formTemplate[`${id}`].value;
+    }
+
+    return this.formTemplateService.formTemplate.options.find((el) => el.id === id).value;
   }
 
   removeOption(id: string) {

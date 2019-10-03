@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { IFormItem } from './../../../../shared/common/interfaces';
+import { Component, Input } from '@angular/core';
 import { FormEditDialogComponent } from './../form-edit-dialog/form-edit-dialog.component';
 import { FormEditMenuService } from './../../../services/form-edit-menu.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
@@ -10,9 +9,9 @@ import { MatDialog } from '@angular/material';
   templateUrl: './form-edit-menu.component.html',
   styleUrls: ['./form-edit-menu.component.css']
 })
-export class FormEditMenuComponent implements OnChanges {
+export class FormEditMenuComponent {
 
-  @Input() item?: IFormItem;
+  @Input() itemId?: string;
 
   constructor(
     private formEditMenuService: FormEditMenuService,
@@ -21,17 +20,11 @@ export class FormEditMenuComponent implements OnChanges {
 
   ) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // changes.prop contains the old and the new value...
-    console.log(this.item.id, changes);
-  }
-
   onEdit() {
-    console.log(this.item);
     const dialogRef = this.dialog.open(FormEditDialogComponent, {
       data: {
-        header: this.item.id,
-        value: this.item.value
+        header: this.getItemName(),
+        value: this.getItemValue()
       }
     });
 
@@ -41,8 +34,16 @@ export class FormEditMenuComponent implements OnChanges {
     });
   }
 
+  getItemName() {
+    return this.formEditMenuService.getItemName(this.itemId);
+  }
+
+  getItemValue() {
+    return this.formEditMenuService.getItemValue(this.itemId);
+  }
+
   onDelete() {
-    this.formEditMenuService.removeOption(this.item.id);
+    this.formEditMenuService.removeOption(this.itemId);
   }
 
   onAddImage() {
@@ -50,27 +51,27 @@ export class FormEditMenuComponent implements OnChanges {
   }
 
   onSlideChange() {
-    return this.formEditMenuService.toggleEnableItem(this.item.id);
+    return this.formEditMenuService.toggleEnableItem(this.itemId);
   }
 
   get isEditDisabled() {
-    return this.item.id === this.str.optionOtherId;
+    return this.itemId === this.str.optionOtherId;
   }
 
-  get isDeleteDisabled() {
-    return this.formEditMenuService.isDeleteDisabled(this.item.id);
+  get isItemOption() {
+    return this.formEditMenuService.isItemOption(this.itemId);
   }
 
   get isAddImgDisabled() {
-    return this.formEditMenuService.isAddImgDisabled(this.item.id);
+    return this.formEditMenuService.isAddImgDisabled(this.itemId);
   }
 
   get isSliderDisabled() {
-    return this.formEditMenuService.isSliderDisabled(this.item.id);
+    return this.formEditMenuService.isSliderDisabled(this.itemId);
   }
 
   get isSliderOn() {
-    return this.item.isEnable;
+    return this.formEditMenuService.isSliderOn(this.itemId);
   }
 
 }

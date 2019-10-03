@@ -13,8 +13,8 @@ import { Subscription } from 'rxjs';
 })
 export class FormQuestionComponent implements OnInit, OnDestroy {
 
-  formQuestion: IFormItem;
-  formNote: IFormItem;
+  question: IFormItem;
+  note: IFormItem;
   formTemplateChangeSubscription: Subscription;
 
   constructor(
@@ -29,17 +29,16 @@ export class FormQuestionComponent implements OnInit, OnDestroy {
       () => {
         this.getFormQuestion();
         this.getFormNote();
-        console.log(this.formQuestion);
       }
     );
   }
 
   getFormQuestion() {
-    this.formQuestion = this.formTemplateService.formTemplate.question;
+    this.question = this.formTemplateService.formTemplate.question;
   }
 
   getFormNote() {
-    this.formNote = this.formTemplateService.formTemplate.note;
+    this.note = this.formTemplateService.formTemplate.note;
   }
 
   isEditMode() {

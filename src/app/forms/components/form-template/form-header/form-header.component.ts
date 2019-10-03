@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class FormHeaderComponent implements OnInit, OnDestroy {
 
-  formTitle: IFormItem;
+  title: IFormItem;
   currentUserName: string;
   createdDate: number;
   currentUserUpdateSubscription: Subscription;
@@ -37,7 +37,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
   }
 
   getFormTitle() {
-    this.formTitle = this.formTemplateService.formTemplate.title;
+    this.title = this.formTemplateService.formTemplate.title;
   }
 
   getCurrentUserName() {
