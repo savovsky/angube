@@ -17,12 +17,8 @@
     </app-form-edit-menu>
     <div
         class="form-note"
-        *ngIf="note.value && note.isEnable"
-    >{{ note.value | capitalize }}
-    </div>
-    <div
-        class="form-note form-note-disabled"
-        *ngIf="isEditMode() && note.value && !note.isEnable"
+        *ngIf="isDisplayAllowed"
+        [ngClass]="{'form-note-disabled': !note.isEnable}"
     >{{ note.value | capitalize }}
     </div>
 </div>

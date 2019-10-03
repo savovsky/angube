@@ -43,6 +43,15 @@ export class FormAnswersRadioComponent implements OnInit, OnDestroy {
     return !this.formTemplateService.isPreview;
   }
 
+  get isDisplayAllowed() {
+    if (this.optionOther.isEnable) {
+      return true;
+    } else if (this.isEditMode()) {
+      return true;
+    }
+    return false;
+  }
+
   ngOnDestroy() {
     this.formTemplateChangeSubscription.unsubscribe();
   }

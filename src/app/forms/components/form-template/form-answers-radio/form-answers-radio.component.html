@@ -10,7 +10,8 @@
 		>
 		</app-form-edit-menu>
 		<mat-radio-button
-			primary class="form-radio-btn"
+			primary
+			class="form-radio-btn"
 			[value]="option"
 		>{{ option.value | titlecase }}
 		</mat-radio-button>
@@ -22,9 +23,21 @@
 			*ngIf="isEditMode()"
 		>
 		</app-form-edit-menu>
-		<mat-radio-button primary class="form-radio-btn option-other"></mat-radio-button>
-		<mat-form-field>
-			<input matInput placeholder="Other" autocomplete="off">
-		</mat-form-field>
+		<mat-radio-button
+			primary
+			class="form-radio-btn option-other"
+			[disabled]="!optionOther.isEnable"
+			*ngIf="isDisplayAllowed"
+		>
+			<mat-form-field>
+				<input
+					matInput
+					[disabled]="!optionOther.isEnable"
+					placeholder="Other"
+					autocomplete="off"
+				>
+			</mat-form-field>
+		</mat-radio-button>
+
 	</div>
 </mat-radio-group>

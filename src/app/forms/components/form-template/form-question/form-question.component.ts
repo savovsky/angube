@@ -45,6 +45,15 @@ export class FormQuestionComponent implements OnInit, OnDestroy {
     return !this.formTemplateService.isPreview;
   }
 
+  get isDisplayAllowed() {
+    if (this.note.value && this.note.isEnable) {
+      return true;
+    } else if (this.isEditMode()) {
+      return true;
+    }
+    return false;
+  }
+
   ngOnDestroy() {
     this.formTemplateChangeSubscription.unsubscribe();
   }
