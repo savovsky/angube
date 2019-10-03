@@ -4,7 +4,17 @@
         <input matInput [(ngModel)]="data.value">
     </mat-form-field>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="data.value" cdkFocusInitial>Ok</button>
+<div mat-dialog-actions class="form-dialog-btns-wrapper">
+    <button
+        mat-stroked-button
+        color="primary"
+        [mat-dialog-close]="data.value"
+        cdkFocusInitial
+    >{{ str.save | capitalize }}
+    </button>
+    <button
+        mat-stroked-button
+        (click)="onNoClick()"
+    >{{ str.cancel | capitalize }}
+    </button>
 </div>
