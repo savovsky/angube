@@ -1,3 +1,13 @@
+.form-footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.template-footer-wrapper {
+    padding: 16px 0 0;
+}
+
 .mat-secondary {
     background-color:#00bcd4;
     color: #fff;

@@ -29,4 +29,8 @@ export class FormFooterComponent implements OnInit {
     this.formTemplateService.setToDefault();
   }
 
+  get isEditMode() {
+    return !this.formTemplateService.isPreview;
+  }
+
 }
