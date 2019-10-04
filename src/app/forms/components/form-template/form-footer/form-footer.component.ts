@@ -1,3 +1,4 @@
+import { DatabaseFormsService } from './../../../../shared/services/database-forms.service';
 import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
@@ -13,11 +14,17 @@ export class FormFooterComponent implements OnInit {
 
   constructor(
     private formTemplateService: FormTemplateService,
+    private databaseFormsService: DatabaseFormsService,
     public str: StringsService
   ) { }
 
   ngOnInit() {
     this.previewEditBtn = this.formTemplateService.isPreview ? this.str.edit : this.str.preview;
+  }
+
+  onSave() {
+    this.databaseFormsService.updateForm();
+    this.formTemplateService.setToDefault();
   }
 
   onPreviewEdit() {

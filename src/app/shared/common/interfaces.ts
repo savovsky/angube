@@ -42,6 +42,7 @@ export interface IFormItem {
 }
 
 export interface IForm {
+    id: string;
     title: IFormItem;
     date: number;
     question: IFormItem;

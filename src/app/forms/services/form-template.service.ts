@@ -20,7 +20,6 @@ export class FormTemplateService {
     private formDefaultService: FormDefaultService
   ) {
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
-
   }
 
   togglePreviewEdit() {

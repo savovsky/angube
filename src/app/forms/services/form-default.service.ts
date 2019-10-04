@@ -2,6 +2,7 @@ import { FormOptionModel } from './../models/form-option.model';
 import { Injectable } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { IForm } from 'src/app/shared/common/interfaces';
+import { v4 as uuid } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class FormDefaultService {
 
   getDefaultTemplate(): IForm {
     return {
+      id: uuid(),
       title: {
         id: this.str.titleId,
         value: this.str.formTitle,
