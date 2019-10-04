@@ -6,17 +6,18 @@ import { UsersService } from './users.service';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/shared/common/interfaces';
 import { IForm } from '../common/interfaces';
+import { IFormDashboard } from './../common/interfaces';
 import * as Utils from '../common/utils';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DatabaseFormsService {
+export class DatabaseDashboardService {
 
   token: string;
   user: User;
   form: IForm;
-  databaseFormUpdate = new Subject();
+  databaseDashboardUpdate = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -29,22 +30,31 @@ export class DatabaseFormsService {
     this.form = this.formTemplateService.formTemplate;
   }
 
-  updateForm() {
-    this.http.put(this.updateFormUrl(), this.form)
+  updateDashboardForm() {
+    this.http.put(this.updateDashboardFormUrl(), this.dashboardForm())
       .subscribe(
         (response) => {
-          Utils.consoleLog(`(DatabaseFormsService) Update Form  - Response: `, 'darkGoldenRod', response);
+          Utils.consoleLog(`(DatabaseDashboardService) Update DashboardForm  - Response: `, 'darkGoldenRod', response);
           // this.usersService.updateCurrentUser(response);
-          this.databaseFormUpdate.next();
+          this.databaseDashboardUpdate.next();
         },
-        (error) => Utils.consoleLog(`(DatabaseFormsService) Update Form - Error: `, 'red', error)
+        (error) => Utils.consoleLog(`(DatabaseDashboardService) Update DashboardForm - Error: `, 'red', error)
       );
   }
 
-  updateFormUrl() {
+  updateDashboardFormUrl() {
     // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    return Utils.firebaseUrl() + this.user.communityCode + '/forms/' + this.user.uid + '/' + this.form.id + '/form.json?auth=' + this.token;
+    return Utils.firebaseUrl() + this.user.communityCode + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
+  }
+
+  dashboardForm(): IFormDashboard {
+    return {
+      author: this.user.uid,
+      id: this.form.id,
+      img: '',
+      publishedDate: this.form.date,
+      title: this.form.title.value
+    };
   }
 
 }
-

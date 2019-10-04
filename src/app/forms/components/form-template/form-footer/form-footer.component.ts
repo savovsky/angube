@@ -1,6 +1,7 @@
+import { Component, OnInit } from '@angular/core';
+import { DatabaseDashboardService } from './../../../../shared/services/database-dashboard.service';
 import { DatabaseFormsService } from './../../../../shared/services/database-forms.service';
 import { FormTemplateService } from './../../../services/form-template.service';
-import { Component, OnInit } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class FormFooterComponent implements OnInit {
   constructor(
     private formTemplateService: FormTemplateService,
     private databaseFormsService: DatabaseFormsService,
+    private databaseDashboardService: DatabaseDashboardService,
     public str: StringsService
   ) { }
 
@@ -24,6 +26,12 @@ export class FormFooterComponent implements OnInit {
 
   onSave() {
     this.databaseFormsService.updateForm();
+    this.formTemplateService.setToDefault();
+  }
+
+  onSaveAndPublish() {
+    this.databaseFormsService.updateForm();
+    this.databaseDashboardService.updateDashboardForm();
     this.formTemplateService.setToDefault();
   }
 

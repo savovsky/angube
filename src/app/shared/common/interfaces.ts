@@ -52,6 +52,14 @@ export interface IForm {
     isMultipleChoice: boolean;
 }
 
+export interface IFormDashboard {
+    author: string;
+    id: string;
+    img: string;
+    publishedDate: number;
+    title: string;
+}
+
 export interface DialogData {
     header: string;
     value: string;
