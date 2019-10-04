@@ -13,6 +13,8 @@ export class FormEditMenuComponent {
 
   @Input() itemId?: string;
 
+  itemValue: string;
+
   constructor(
     private formEditMenuService: FormEditMenuService,
     public str: StringsService,
@@ -29,8 +31,9 @@ export class FormEditMenuComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.value = result;
+      console.log('The dialog was closed', result);
+      this.itemValue = result;
+      this.updateItemValue();
     });
   }
 
@@ -40,6 +43,11 @@ export class FormEditMenuComponent {
 
   getItemValue() {
     return this.formEditMenuService.getItemValue(this.itemId);
+  }
+
+  updateItemValue() {
+    const value = this.itemValue ? this.itemValue : '';
+    this.formEditMenuService.updateItemValue(this.itemId, value);
   }
 
   onDelete() {

@@ -1,7 +1,10 @@
 <h1 mat-dialog-title>{{ data.header | titlecase }}</h1>
 <div mat-dialog-content>
     <mat-form-field>
-        <input matInput [(ngModel)]="data.value">
+        <input
+            matInput
+            [(ngModel)]="data.value"
+        >
     </mat-form-field>
 </div>
 <div mat-dialog-actions class="form-dialog-btns-wrapper">
@@ -9,7 +12,6 @@
         mat-stroked-button
         color="primary"
         [mat-dialog-close]="data.value"
-        cdkFocusInitial
     >{{ str.save | capitalize }}
     </button>
     <button

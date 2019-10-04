@@ -70,6 +70,15 @@ export class FormEditMenuService {
     return this.formTemplateService.formTemplate.options.find((el) => el.id === id).value;
   }
 
+  updateItemValue(id: string, value: string) {
+    if (!this.isItemOption(id)) {
+      this.formTemplateService.formTemplate[`${id}`].value = value;
+    } else {
+      this.formTemplateService.formTemplate.options.find((el) => el.id === id).value = value;
+    }
+
+  }
+
   removeOption(id: string) {
     this.formTemplateService.removeFormOption(id);
   }
