@@ -61,6 +61,7 @@ export class DatabaseDashboardService {
     console.log('this.user', this.user);
     const user = this.usersService.currentUserAccount;
     console.log('user', user);
+    console.log('ehoooo');
 
 
     return this.http.get(Utils.firebaseUrl() + this.user.communityCode + '/dashboard/.json?auth=' + this.token);
