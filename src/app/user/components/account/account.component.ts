@@ -12,6 +12,8 @@ import { User, MatFormField } from '../../../shared/common/interfaces';
 import * as Utils from '../../../shared/common/utils';
 import { Subscription } from 'rxjs';
 import { RouterExtService } from '../../../shared/services/router-ext.service';
+import * as CurrentUserActions from '../../../shared/store/actions/currentUser.action';
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -30,11 +32,13 @@ export class AccountComponent implements OnInit, OnDestroy {
   subscription1: Subscription;
   subscription2: Subscription;
   subscription3: Subscription;
+  subscription4: Subscription;
   userNameForm = 'userNameForm';
   firstNameForm = 'firstNameForm';
   lastNameForm = 'lastNameForm';
 
   constructor(
+    private store: Store<{currentUser: User}>,
     private route: ActivatedRoute,
     private authService: AuthService,
     private databaseService: DatabaseService,
@@ -69,69 +73,77 @@ export class AccountComponent implements OnInit, OnDestroy {
       new FormField('text', this.str.lastName, this.lastNameForm)
     ];
 
-    this.subscription1 = this.usersService.currentUserUpdated
-      .subscribe(
-        () => {
-          this.user = this.usersService.currentUserAccount;
-          this.setFormValues();
-        }
-      );
+    // this.subscription1 = this.usersService.currentUserUpdated
+    //   .subscribe(
+    //     () => {
+    //       this.user = this.usersService.currentUserAccount;
+    //       this.setFormValues();
+    //     }
+    //   );
 
-    this.subscription2 = this.databaseService.updateUserSuccess
-      .subscribe(
-        () => {
-          Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
-          if (this.canNavigateToHome()) {
-            this.router.navigate(['app/home']);
-          } else {
-            this.router.navigate([this.routerExtService.previousPath]);
-          }
-        }
-      );
+    // this.subscription2 = this.databaseService.updateUserSuccess
+    //   .subscribe(
+    //     () => {
+    //       Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
+    //       if (this.canNavigateToHome()) {
+    //         this.router.navigate(['app/home']);
+    //       } else {
+    //         this.router.navigate([this.routerExtService.previousPath]);
+    //       }
+    //     }
+    //   );
 
-    if (this.isCurrentUser) {
-      this.isRequesting = false;
-      this.user = this.usersService.currentUserAccount;
-      this.setFormValues();
-    } else { // When Admin editing a user.
-      this.subscription3 = this.databaseService.getUserData(userUid)
-        .subscribe(
-          (response: User) => {
-            if (response) {
-              Utils.consoleLog(`(AccountComponent) Get user data - Seccess: `, 'pink', response);
-              this.user = response;
-              this.setFormValues();
-              // REMIND
-              // .patchValue({....}) - for updating only a part of the form
-              // .reset() - reset the entire form
-            } else {
-              Utils.consoleLog(`(AccountComponent) Get user data - Seccess but null: `, 'pink', response);
-              // TODO Error Screen - Max lecture 249.
-              // This is the case when user is authenticated, but
-              // there is no user's data in Data Storage for this user.(deleted)
-            }
-          },
-          (error) => {
-             // TODO Error Screen - Max lecture 249.
-            Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error);
-          },
-          () => {
-            this.isRequesting = false;
-            Utils.consoleLog(`(AccountComponent) Get user data - Completed`, 'pink');
-          }
-        );
-    }
+    // if (this.isCurrentUser) {
+    //   this.isRequesting = false;
+    //   this.user = this.usersService.currentUserAccount;
+    //   this.setFormValues();
+    // } else { // When Admin editing a user.
+    //   this.subscription3 = this.databaseService.getUserData(userUid)
+    //     .subscribe(
+    //       (response: User) => {
+    //         if (response) {
+    //           Utils.consoleLog(`(AccountComponent) Get user data - Seccess: `, 'pink', response);
+    //           this.user = response;
+    //           this.setFormValues();
+    //           // REMIND
+    //           // .patchValue({....}) - for updating only a part of the form
+    //           // .reset() - reset the entire form
+    //         } else {
+    //           Utils.consoleLog(`(AccountComponent) Get user data - Seccess but null: `, 'pink', response);
+    //           // TODO Error Screen - Max lecture 249.
+    //           // This is the case when user is authenticated, but
+    //           // there is no user's data in Data Storage for this user.(deleted)
+    //         }
+    //       },
+    //       (error) => {
+    //          // TODO Error Screen - Max lecture 249.
+    //         Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error);
+    //       },
+    //       () => {
+    //         this.isRequesting = false;
+    //         Utils.consoleLog(`(AccountComponent) Get user data - Completed`, 'pink');
+    //       }
+    //     );
+    // }
+
+    this.subscription4 = this.store.select('currentUser').subscribe(
+      (user: User) => {
+        this.user = user;
+        this.setFormValues();
+      }
+    );
   }
 
   ngOnDestroy() {
-    this.subscription1.unsubscribe();
-    this.subscription2.unsubscribe();
+    // this.subscription1.unsubscribe();
+    // this.subscription2.unsubscribe();
+    this.subscription4.unsubscribe();
 
-    if (this.subscription3) {
-      this.subscription3.unsubscribe();
-    } else {
-      return;
-    }
+    // if (this.subscription3) {
+    //   this.subscription3.unsubscribe();
+    // } else {
+    //   return;
+    // }
   }
 
   setFormValues() {
@@ -189,8 +201,9 @@ export class AccountComponent implements OnInit, OnDestroy {
       };
 
       this.error = null;
-      this.isRequesting = true;
-      this.databaseService.updateUserAccount(userAccount);
+      // this.isRequesting = true;
+      // this.databaseService.updateUserAccount(userAccount);
+      this.store.dispatch(new CurrentUserActions.UpdateCurrentUser(userAccount));
     }
   }
 

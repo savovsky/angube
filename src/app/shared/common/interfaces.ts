@@ -15,6 +15,12 @@ export interface User {
     communityCode: string;
 }
 
+export interface IMyAccount {
+    userName: string;
+    firstName: string;
+    lastName: string;
+}
+
 export interface Link {
     link: string;
     routerLink: string;

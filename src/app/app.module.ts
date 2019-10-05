@@ -11,12 +11,12 @@ import { UserModule } from './user/user.module';
 import { AppRoutingModule } from './core/app-routing.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AdminModule } from './admin/admin.module';
+import { StoreModule } from '@ngrx/store';
+import { currentUserReducer } from './shared/store/reducers/currentUser.reducer';
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     SharedModule,
@@ -28,7 +28,10 @@ import { AdminModule } from './admin/admin.module';
     BrowserAnimationsModule,
     HttpClientModule,
     LayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({
+      currentUser: currentUserReducer
+    })
   ],
   bootstrap: [AppComponent]
 })
