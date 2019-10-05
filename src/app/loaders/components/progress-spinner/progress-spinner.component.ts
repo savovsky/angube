@@ -9,7 +9,8 @@ export class ProgressSpinnerComponent {
 
   color = 'primary';
   mode = 'indeterminate';
-  diameter = 170;
+  diameter = 70;
+  diameterS = 70;
   strokeWidth = 5;
 
 }

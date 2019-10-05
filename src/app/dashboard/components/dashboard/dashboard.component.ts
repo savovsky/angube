@@ -1,6 +1,7 @@
 import { DatabaseDashboardService } from './../../../shared/services/database-dashboard.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
+import * as Utils from '../../../shared/common/utils';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   isFetching: boolean;
-  databaseDashboardUpdateSubscription: Subscription;
+  // subscription: Subscription;
 
   constructor(
     public databaseDashboardService: DatabaseDashboardService
@@ -18,13 +19,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isFetching = true;
-    this.databaseDashboardUpdateSubscription = this.databaseDashboardService.databaseDashboardUpdate.subscribe(
-      () => { this.isFetching = false; }
-    );
+    this.databaseDashboardService.getDashboardData()
+      .subscribe(
+        (response) => {
+          this.isFetching = false
+          Utils.consoleLog(`(databaseDashboardService) Get Daashboard Data  - Response: `, 'darkGoldenRod', response);
+            // this.usersService.updateUser(response);
+          // this.updateUserSuccess.next();
+        },
+        (error) => Utils.consoleLog(`(databaseDashboardService) Get Dashboard Data - Error: `, 'red', error),
+        () => {
+          this.isFetching = false;
+          Utils.consoleLog(`(AccountComponent) Getting Dashboard Data - Completed`, 'pink');
+        }
+      );
   }
 
   ngOnDestroy() {
-    this.databaseDashboardUpdateSubscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
 }

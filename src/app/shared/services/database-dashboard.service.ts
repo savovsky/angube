@@ -17,7 +17,7 @@ export class DatabaseDashboardService {
   token: string;
   user: User;
   form: IForm;
-  databaseDashboardUpdate = new Subject();
+  dashboardUpdate = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -26,7 +26,7 @@ export class DatabaseDashboardService {
     private formTemplateService: FormTemplateService
   ) {
     this.token = this.authService.token;
-    this.user = this.usersService.currentUser;
+    this.user = this.usersService.currentUserAccount;
     this.form = this.formTemplateService.formTemplate;
   }
 
@@ -36,7 +36,7 @@ export class DatabaseDashboardService {
         (response) => {
           Utils.consoleLog(`(DatabaseDashboardService) Update DashboardForm  - Response: `, 'darkGoldenRod', response);
           // this.usersService.updateCurrentUser(response);
-          this.databaseDashboardUpdate.next();
+          this.dashboardUpdate.next();
         },
         (error) => Utils.consoleLog(`(DatabaseDashboardService) Update DashboardForm - Error: `, 'red', error)
       );
@@ -55,6 +55,15 @@ export class DatabaseDashboardService {
       publishedDate: this.form.date,
       title: this.form.title.value
     };
+  }
+
+  getDashboardData() {
+    console.log('this.user', this.user);
+    const user = this.usersService.currentUserAccount;
+    console.log('user', user);
+
+
+    return this.http.get(Utils.firebaseUrl() + this.user.communityCode + '/dashboard/.json?auth=' + this.token);
   }
 
 }
