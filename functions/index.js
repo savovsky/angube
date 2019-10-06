@@ -7,3 +7,9 @@ const functions = require('firebase-functions');
 //  response.send("Hello from Firebase!");
 // });
 
+exports.onFileChange = functions.storage.object().onFinalize((object, context) => {
+    console.log('Object', object);
+    console.log('Context', context);
+    return;
+});
+
