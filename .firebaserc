@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "angube-92c87"
+    "default": "angube-92c87",
+    "angube": "angube-92c87"
   }
 }
