@@ -13,6 +13,7 @@ import { NavbarModule } from './navbar/navbar.module';
 import { AdminModule } from './admin/admin.module';
 import { StoreModule } from '@ngrx/store';
 import { currentUserReducer } from './shared/store/reducers/currentUser.reducer';
+import { dashboardReducer } from './shared/store/reducers/dashboard.reducer';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { currentUserReducer } from './shared/store/reducers/currentUser.reducer'
     LayoutModule,
     AppRoutingModule,
     StoreModule.forRoot({
-      currentUser: currentUserReducer
+      currentUser: currentUserReducer,
+      dashboard: dashboardReducer
     })
   ],
   bootstrap: [AppComponent]

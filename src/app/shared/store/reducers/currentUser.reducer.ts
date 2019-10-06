@@ -1,25 +1,13 @@
-import * as CurrentUserActions from '../actions/currentUser.action';
-
-const initialState = {
-    userName: 'eho',
-    firstName: 'beho',
-    lastName: '',
-    birthdate: '',
-    email: '',
-    isBlocked: false,
-    isAdmin: false,
-    uid: '',
-    communityCode: ''
-};
+import * as Action from '../actions/currentUser.action';
+import * as InitialState from '../initilal-states';
 
 
-export function currentUserReducer(
-    state = initialState,
-    action: CurrentUserActions.UpdateCurrentUser
-    ) {
-        console.log(action.payload);
+export const currentUserReducer = (
+    state = InitialState.currentUser,
+    action: Action.UpdateCurrentUser
+    ) => {
     switch (action.type) {
-        case CurrentUserActions.UPDATE_CURRENT_USER: {
+        case Action.UPDATE_CURRENT_USER: {
             return {
                 ...state,
                 ...action.payload

@@ -6,7 +6,7 @@ import { UsersService } from './users.service';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/shared/common/interfaces';
 import { IForm } from '../common/interfaces';
-import { IFormDashboard } from './../common/interfaces';
+import { IDashboardItem } from './../common/interfaces';
 import * as Utils from '../common/utils';
 
 @Injectable({
@@ -47,7 +47,7 @@ export class DatabaseDashboardService {
     return Utils.firebaseUrl() + this.user.communityCode + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
   }
 
-  dashboardForm(): IFormDashboard {
+  dashboardForm(): IDashboardItem {
     return {
       author: this.user.uid,
       id: this.form.id,

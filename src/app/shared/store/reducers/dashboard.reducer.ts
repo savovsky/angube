@@ -1,37 +1,37 @@
-import { Action } from '@ngrx/store';
-
-const initialState = {
-    fetching: false,
-    fetchedFulfilled: false,
-    fetchedRejected: false,
-    forms: {
-        '123456': {
-            author: 'miro',
-            formId: '123456',
-            img: '',
-            publishDate: '31/08/1977',
-            title: 'Birthday',
-        }
-    },
-    notes: {
-        qwerty: {
-            author: 'miro',
-            noteId: 'qwerty',
-            publishDate: '31/08/1977',
-            title: 'Birthday',
-        }
-    }
-};
+import * as Action from '../actions/dashboard.action';
+import * as InitialState from '../initilal-states';
 
 
-export function dashboardReducer(state = initialState, action: Action) {
+export const dashboardReducer = (
+    state = InitialState.dashboard,
+    action: Action.DashboardActions
+    ) => {
     switch (action.type) {
-        case 'FETCH_CONFIG_START': {
+        case 'FETCH_DASHBOARD_START': {
             return {
                 ...state,
                 fetching: true,
-                fetchedFulfilled: false,
-                fetchedRejected: false
+                fetchFulfilled: false,
+                fetchRejected: false
+            };
+        }
+        case 'FETCH_DASHBOARD_FULFILLED': {
+            return {
+                ...state,
+                fetching: true,
+                fetchFulfilled: true,
+                fetchRejected: false,
+                ...action.payload
+            };
+        }
+        case 'FETCH_DASHBOARD_REJECTED': {
+            return {
+                ...state,
+                fetching: false,
+                fetchFulfilled: false,
+                fetchRejected: true,
+                errMsg: action.payload
+
             };
         }
 

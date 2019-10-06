@@ -7,5 +7,5 @@ export class UpdateCurrentUser implements Action {
 
     readonly type = UPDATE_CURRENT_USER;
 
-    constructor(public payload: IMyAccount) {}
+    constructor(public payload: IMyAccount) { }
 }
