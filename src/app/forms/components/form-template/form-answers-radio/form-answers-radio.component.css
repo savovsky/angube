@@ -1,0 +1,17 @@
+.form-radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-radio-btn:not(.option-other) {
+    margin: 10px 0;
+}
+
+.mat-input-element {
+    caret-color: initial;
+}
+
+.eho {
+    display: inline-block;
+    width: 80%;
+}

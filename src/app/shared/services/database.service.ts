@@ -26,7 +26,7 @@ export class DatabaseService {
     const currentUserUid = this.authService.uid;
 
     // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    this.http.put(this.url + user.communityCode + '/' + user.uid + '.json?auth=' + token, user)
+    this.http.put(this.url + user.communityCode + '/users/' + user.uid + '.json?auth=' + token, user)
       .subscribe(
         (response: User) => {
           if (response.uid === currentUserUid) {
@@ -46,7 +46,7 @@ export class DatabaseService {
     const token = this.authService.token;
 
     // TODO 'ng68b/' is hard-coded - use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    return this.http.get(this.url + 'ng68b/' + uid + '.json?auth=' + token);
+    return this.http.get(this.url + 'ng68b/users/' + uid + '.json?auth=' + token);
   }
 
   getAllUsersData() {
@@ -54,7 +54,7 @@ export class DatabaseService {
     const token = this.authService.token;
 
     // TODO 'ng68b/' is hard-coded - use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    return this.http.get(this.url + 'ng68b/' + '.json?auth=' + token)
+    return this.http.get(this.url + 'ng68b/users/' + '.json?auth=' + token)
       .pipe(
         map((data: []) => {
           // Creating an array from response object values.

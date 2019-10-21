@@ -12,3 +12,7 @@ export const consoleLog = (msg: string, color?: string, arg?: any) => {
         }
         return;
 };
+
+export const firebaseUrl = () => {
+    return 'https://angube-92c87.firebaseio.com/communities/';
+};

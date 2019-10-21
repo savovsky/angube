@@ -1,0 +1,43 @@
+<mat-radio-group
+	class="form-radio-group"
+	[(ngModel)]="yourAnswer"
+>
+	<div *ngFor="let option of options">
+		<app-form-edit-menu
+			class="form-templ-edit-icon"
+			[itemId]="option.id"
+			*ngIf="isEditMode()"
+		>
+		</app-form-edit-menu>
+		<mat-radio-button
+			primary
+			class="form-radio-btn"
+			[value]="option"
+		>{{ option.value | titlecase }}
+		</mat-radio-button>
+	</div>
+	<div>
+		<app-form-edit-menu
+			class="form-templ-edit-icon"
+			[itemId]="optionOther.id"
+			*ngIf="isEditMode()"
+		>
+		</app-form-edit-menu>
+		<mat-radio-button
+			primary
+			class="form-radio-btn option-other"
+			[disabled]="!optionOther.isEnable"
+			*ngIf="isDisplayAllowed"
+		>
+			<mat-form-field>
+				<input
+					matInput
+					[disabled]="!optionOther.isEnable"
+					placeholder="Other"
+					autocomplete="off"
+				>
+			</mat-form-field>
+		</mat-radio-button>
+
+	</div>
+</mat-radio-group>

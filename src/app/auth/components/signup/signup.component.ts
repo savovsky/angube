@@ -52,9 +52,13 @@ export class SignupComponent implements OnInit {
       Validators.required,
       CustomValidators.mustBeEqualTo('passwordForm')
     ]);
-    formGroupObj[this.communityCodeForm] = new FormControl('', [
-      Validators.required
-    ]);
+    formGroupObj[this.communityCodeForm] = new FormControl(
+      {
+        value: 'ng68b',
+        disabled: true
+      },
+      [Validators.required]
+    );
 
     this.signUpForm = new FormGroup(formGroupObj);
 
@@ -103,6 +107,7 @@ export class SignupComponent implements OnInit {
   }
 
   get communityCodeFormControl() {
+    console.log('ehoooo', this.signUpForm.get('communityCodeForm'));
     return this.signUpForm.get('communityCodeForm'); // TODO Why not using this.confirmPasswordForm
   }
 

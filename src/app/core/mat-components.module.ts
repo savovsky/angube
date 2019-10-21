@@ -11,7 +11,10 @@ import {
   MatInputModule,
   MatCardModule,
   MatTabsModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatTooltipModule,
+  MatDialogModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 
@@ -27,7 +30,10 @@ import {
     MatProgressBarModule,
     MatCardModule,
     MatTabsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MatComponentsModule { }

@@ -1,0 +1,12 @@
+<div class="answers-tools-wrapper">
+	<button
+		mat-raised-button
+		[matTooltip]="str.addOption | titlecase"
+		class="add-option-btn"
+		type="button"
+		[disabled]="isOptionsTen()"
+		(click)="onAddOption()"
+	><mat-icon>playlist_add</mat-icon>
+	</button>
+	<app-form-answers-choice></app-form-answers-choice>
+</div>

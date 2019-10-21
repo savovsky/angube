@@ -8,8 +8,13 @@ export class StringsService {
     menu = 'menu';
     home = 'home';
     users = 'users';
-    myDashboard = 'my dashboard';
+    dashboard = 'dashboard';
+    forms = 'forms';
 
+    // User
+    untitled = 'untitled';
+
+    // User
     myAccount = 'my account';
     userAccount = 'user account';
     userDetails = 'user details';
@@ -30,13 +35,16 @@ export class StringsService {
     communityCode = 'Community Code';
     submit = 'submit';
     save = 'save';
+    saveAndPublish = 'save & publish';
     cancel = 'cancel';
     edit = 'edit';
+    delete = 'delete';
     message = 'message';
     block = 'block';
     unblock = 'unblock';
     yes = 'yes';
     notNow = 'not now';
+    addImage = 'add image';
 
     blockedUser = 'blocked user';
     like = 'like';
@@ -64,4 +72,23 @@ export class StringsService {
 
     // Icons
     powerOff = 'power_off';
+
+    // Forms
+    preview = 'preview';
+    createForm = 'create form';
+    option = 'option';
+    formTitle = 'your title';
+    formQuestion = 'your question';
+    formNote = 'your note';
+    multipleChoice = 'multiple choice';
+
+    addOption = 'add option';
+    editMenu = 'edit menu';
+    disable = 'disable';
+    enable = 'enable';
+
+    titleId = 'title';
+    questionId = 'question';
+    noteId = 'note';
+    optionOtherId = 'optionOther';
 }

@@ -14,6 +14,13 @@ body {
     opacity: 1;
 }
 
+.page-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+}
+
 .container {
     height: 100%;
     padding: 0;
@@ -60,16 +67,24 @@ body {
                 0 1px 3px 0 rgba(0,0,0,.2);
 } */
 
+.left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.primary {
+    color: #673ab7;
+    font-weight: 500;
+}
+
 .right {
     display: flex;
     justify-content: flex-end;
 }
 
-.right.primary {
-    color: #673ab7;
-    font-weight: bold
+.display-flex {
+    display: flex;
 }
-
 
 .space-between {
     display: flex;
@@ -91,8 +106,20 @@ body {
     width: 100%;
 }
 
+.wide-30 {
+    width: 30%;
+}
+
 .wide-45 {
     width: 45%;
+}
+
+.wide-48 {
+    width: 48%;
+}
+
+.wide-65 {
+    width: 65%;
 }
 
 .top-note {
@@ -104,12 +131,20 @@ body {
     margin-top: 5px;
 }
 
+.m-top-10 {
+    margin-top: 10px;
+}
+
 .right-10 {
     margin-right: 10px;
 }
 
 .padd-5 {
     padding: 5px;
+}
+
+.padd-20 {
+    padding: 20px;
 }
 
 .progress-err-container {
@@ -130,6 +165,31 @@ body {
     text-overflow: ellipsis;
 }
 
+.mat-tab-links {
+    justify-content: center;
+}
+
 .mat-icon {
     margin-right: 6px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    border-color: rgb(103, 57, 182); 
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background-color:rgb(103, 57, 182);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:rgb(103, 57, 182, 0);
+}
+
+/* .mat-form-field-appearance-legacy .mat-form-field-infix {
+    width: 45%;
+} */
+
+.form-templ-edit-icon {
+    position: relative;
+    left: -5px;
 }

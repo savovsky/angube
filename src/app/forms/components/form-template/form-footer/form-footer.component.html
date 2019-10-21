@@ -1,0 +1,58 @@
+<div class="form-footer-wrapper" *ngIf="!isEditMode">
+    <button
+        mat-stroked-button
+        class="wide-48"
+        color="primary"
+        type="button"
+        disabled
+    >{{ str.submit | titlecase }}
+    </button>
+    <button
+        mat-stroked-button
+        class="wide-48"
+        type="button"
+        disabled
+    >{{ str.cancel | titlecase }}
+    </button>
+</div>
+<mat-divider [inset]="true"></mat-divider>
+<div class="template-footer-wrapper">
+    <div class="space-between">
+        <button
+            mat-raised-button
+            class="wide-48"
+            type="button"
+            [color]="'secondary'"
+            routerLink="/app/forms"
+            (click)="onSave()"
+        >{{ str.save | titlecase }}
+        </button>
+        <button
+            mat-raised-button
+            class="wide-48"
+            type="button"
+            routerLink="/app/forms"
+            (click)="onCancel()"
+        >{{ str.cancel | titlecase }}
+        </button>
+    </div>
+    <div class="space-between m-top-10">
+        <button
+            mat-raised-button
+            class="wide-48"
+            color="primary"
+            type="button"
+            routerLink="/app/dashboard"
+            (click)="onSaveAndPublish()"
+        >{{ str.saveAndPublish | titlecase }}
+        </button>
+        <button
+            mat-raised-button
+            class="wide-48"
+            color="accent"
+            type="button"
+            (click)="onPreviewEdit()"
+        >{{ previewEditBtn | titlecase }}
+        </button>
+    </div>
+</div>

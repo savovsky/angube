@@ -15,9 +15,14 @@ export class NavLinksService {
       icon: 'home'
     },
     {
-      link: this.str.myDashboard,
+      link: this.str.dashboard,
       routerLink: '/app/dashboard',
       icon: 'web'
+    },
+    {
+      link: this.str.forms,
+      routerLink: '/app/forms',
+      icon: 'live_help'
     },
     {
       link: this.str.users,
@@ -25,5 +30,4 @@ export class NavLinksService {
       icon: 'group'
     }
   ];
-
 }

@@ -33,3 +33,34 @@ export interface Auth {
     displayName: string;
     ra: string;
 }
+
+export interface IFormItem {
+    id: string;
+    value: string;
+    img?: string;
+    isEnable: boolean;
+}
+
+export interface IForm {
+    id: string;
+    title: IFormItem;
+    date: number;
+    question: IFormItem;
+    note: IFormItem;
+    options: IFormItem[];
+    optionOther: IFormItem;
+    isMultipleChoice: boolean;
+}
+
+export interface IFormDashboard {
+    author: string;
+    id: string;
+    img: string;
+    publishedDate: number;
+    title: string;
+}
+
+export interface DialogData {
+    header: string;
+    value: string;
+  }

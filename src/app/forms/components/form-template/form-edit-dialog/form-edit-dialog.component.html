@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{ data.header | titlecase }}</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input
+            matInput
+            [(ngModel)]="data.value"
+        >
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="form-dialog-btns-wrapper">
+    <button
+        mat-stroked-button
+        color="primary"
+        [mat-dialog-close]="data.value"
+    >{{ str.save | capitalize }}
+    </button>
+    <button
+        mat-stroked-button
+        (click)="onNoClick()"
+    >{{ str.cancel | capitalize }}
+    </button>
+</div>
