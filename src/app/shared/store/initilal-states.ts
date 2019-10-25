@@ -1,7 +1,7 @@
 import { User } from '../common/interfaces';
 
 
-export const currentUser:User = {
+export const currentUser: User = {
     userName: 'eho',
     firstName: 'beho',
     lastName: '',

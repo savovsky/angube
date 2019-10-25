@@ -24,7 +24,7 @@ export class FetchDashboardRejected implements Action {
     constructor(public payload: '') { }
 }
 
-export type DashboardActions = 
+export type DashboardActions =
     FetchDashboardStart |
     FetchDashboardFulfilled |
     FetchDashboardRejected;
