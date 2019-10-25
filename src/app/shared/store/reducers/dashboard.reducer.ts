@@ -2,10 +2,10 @@ import * as Action from '../actions/dashboard.action';
 import * as InitialState from '../initilal-states';
 
 
-export const dashboardReducer = (
+export function dashboardReducer(
     state = InitialState.dashboard,
     action: Action.DashboardActions
-    ) => {
+    ) {
     switch (action.type) {
         case 'FETCH_DASHBOARD_START': {
             return {

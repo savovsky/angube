@@ -2,10 +2,10 @@ import * as Action from '../actions/currentUser.action';
 import * as InitialState from '../initilal-states';
 
 
-export const currentUserReducer = (
+export function currentUserReducer(
     state = InitialState.currentUser,
     action: Action.UpdateCurrentUser
-    ) => {
+    ) {
     switch (action.type) {
         case Action.UPDATE_CURRENT_USER: {
             return {
@@ -17,5 +17,4 @@ export const currentUserReducer = (
         default:
             return state;
     }
-
 }
