@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.databaseDashboardService.getDashboardData()
       .subscribe(
         (response) => {
-          this.isFetching = false
+          this.isFetching = false;
           Utils.consoleLog(`(databaseDashboardService) Get Daashboard Data  - Response: `, 'darkGoldenRod', response);
             // this.usersService.updateUser(response);
           // this.updateUserSuccess.next();
