@@ -14,6 +14,8 @@ import { AdminModule } from './admin/admin.module';
 import { StoreModule } from '@ngrx/store';
 import { currentUserReducer } from './shared/store/reducers/currentUser.reducer';
 import { dashboardReducer } from './shared/store/reducers/dashboard.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { DashboardEffects } from './shared/store/effects/dashboard.effects';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { dashboardReducer } from './shared/store/reducers/dashboard.reducer';
     StoreModule.forRoot({
       currentUser: currentUserReducer,
       dashboard: dashboardReducer
-    })
+    }),
+    EffectsModule.forRoot([DashboardEffects])
   ],
   bootstrap: [AppComponent]
 })

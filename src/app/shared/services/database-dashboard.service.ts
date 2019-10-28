@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormTemplateService } from './../../forms/services/form-template.service';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
@@ -57,20 +57,4 @@ export class DatabaseDashboardService {
       title: this.form.title.value
     };
   }
-
-  getDashboardData() {
-    // console.log('this.user', this.user);
-    // const user = this.usersService.currentUserAccount;
-    // console.log('user', user);
-    // console.log('ehoooo');
-
-    return this.http.get(
-      // Utils.firebaseUrl() + this.user.communityCode + '/dashboard/.json?auth=' + this.token,
-      Utils.firebaseUrl() + 'ng68b' + '/dashboard/.json?auth=' + this.token,
-      {
-        params: new HttpParams().set('print', 'pretty')
-      }
-      );
-  }
-
 }

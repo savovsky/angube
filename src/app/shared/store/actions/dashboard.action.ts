@@ -21,10 +21,7 @@ export class FetchDashboardRejected implements Action {
 
     readonly type = FETCH_DASHBOARD_REJECTED;
 
-    constructor(public payload: '') { }
+    constructor(public payload: string) { }
 }
 
-export type DashboardActions =
-    FetchDashboardStart |
-    FetchDashboardFulfilled |
-    FetchDashboardRejected;
+export type DashboardActions = FetchDashboardStart | FetchDashboardFulfilled | FetchDashboardRejected;

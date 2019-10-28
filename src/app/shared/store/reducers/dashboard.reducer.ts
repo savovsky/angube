@@ -7,12 +7,13 @@ export function dashboardReducer(
     action: Action.DashboardActions
     ) {
     switch (action.type) {
-        case Action.FETCH_DASHBOARD_START: {
+        case 'FETCH_DASHBOARD_START': {
             return {
                 ...state,
                 fetching: true,
                 fetchFulfilled: false,
-                fetchRejected: false
+                fetchRejected: false,
+                errMsg: ''
             };
         }
         case 'FETCH_DASHBOARD_FULFILLED': {
@@ -21,7 +22,9 @@ export function dashboardReducer(
                 fetching: false,
                 fetchFulfilled: true,
                 fetchRejected: false,
-                ...action.payload
+                errMsg: '',
+                forms: { ...action.payload.forms },
+                notes: { ...action.payload.notes }
             };
         }
         case 'FETCH_DASHBOARD_REJECTED': {
