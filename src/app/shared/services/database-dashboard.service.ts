@@ -44,7 +44,8 @@ export class DatabaseDashboardService {
 
   updateDashboardFormUrl() {
     // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    return Utils.firebaseUrl() + this.user.communityCode + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
+    // return Utils.firebaseUrl() + this.user.communityCode + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
+    return Utils.firebaseUrl() + 'ng68b' + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
   }
 
   dashboardForm(): IDashboardItem {
@@ -58,14 +59,14 @@ export class DatabaseDashboardService {
   }
 
   getDashboardData() {
-    console.log('this.user', this.user);
-    const user = this.usersService.currentUserAccount;
-    console.log('user', user);
-    console.log('ehoooo');
-
+    // console.log('this.user', this.user);
+    // const user = this.usersService.currentUserAccount;
+    // console.log('user', user);
+    // console.log('ehoooo');
 
     return this.http.get(
-      Utils.firebaseUrl() + this.user.communityCode + '/dashboard/.json?auth=' + this.token,
+      // Utils.firebaseUrl() + this.user.communityCode + '/dashboard/.json?auth=' + this.token,
+      Utils.firebaseUrl() + 'ng68b' + '/dashboard/.json?auth=' + this.token,
       {
         params: new HttpParams().set('print', 'pretty')
       }

@@ -7,7 +7,7 @@ export function dashboardReducer(
     action: Action.DashboardActions
     ) {
     switch (action.type) {
-        case 'FETCH_DASHBOARD_START': {
+        case Action.FETCH_DASHBOARD_START: {
             return {
                 ...state,
                 fetching: true,
@@ -18,7 +18,7 @@ export function dashboardReducer(
         case 'FETCH_DASHBOARD_FULFILLED': {
             return {
                 ...state,
-                fetching: true,
+                fetching: false,
                 fetchFulfilled: true,
                 fetchRejected: false,
                 ...action.payload

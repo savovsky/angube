@@ -1,7 +1,10 @@
 import { DatabaseDashboardService } from './../../../shared/services/database-dashboard.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as Utils from '../../../shared/common/utils';
+import { IDashboardStore, IDashboardItem } from './../../../shared/common/interfaces';
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +14,24 @@ import * as Utils from '../../../shared/common/utils';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   isFetching: boolean;
+  subscriptionStore: Subscription;
+  forms: IDashboardItem[];
   // subscription: Subscription;
 
   constructor(
-    public databaseDashboardService: DatabaseDashboardService
+    private databaseDashboardService: DatabaseDashboardService,
+    private store: Store<{ dashboard: IDashboardStore }>
   ) { }
 
   ngOnInit() {
     this.isFetching = true;
+    this.subscriptionStore = this.store.select('dashboard').subscribe(
+      (res) => {
+        console.log('res', res);
+        this.forms = Object.values(res.forms);
+        console.log('forms = ', this.forms);
+      }
+    );
     this.databaseDashboardService.getDashboardData()
       .subscribe(
         (response) => {
@@ -36,6 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscriptionStore.unsubscribe();
     // this.subscription.unsubscribe();
   }
 

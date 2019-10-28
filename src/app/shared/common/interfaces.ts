@@ -74,4 +74,14 @@ export interface IDashboard {
 export interface DialogData {
     header: string;
     value: string;
-  }
+}
+
+// TODO do not use 'any' in the interface
+export interface IDashboardStore {
+    fetching: boolean;
+    fetchFulfilled: boolean;
+    fetchRejected: boolean;
+    errMsg: string;
+    forms: any;
+    notes: any;
+}
