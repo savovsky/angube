@@ -7,6 +7,7 @@ export function dashboardReducer(
     state = InitialState.dashboard,
     action: Action.DashboardActions
     ) {
+
     switch (action.type) {
         case Action.FETCH_DASHBOARD_START: {
             return {

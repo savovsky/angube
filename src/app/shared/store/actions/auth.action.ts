@@ -9,6 +9,8 @@ export const LOGOUT = 'LOGOUT';
 export class VerifyAuthStart implements Action {
 
     readonly type = VERIFY_AUTH_START;
+
+    constructor(public payload: any) { } // TODO do not use any!
 }
 
 export class VerifyAuthFulfilled implements Action {

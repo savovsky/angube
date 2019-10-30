@@ -1,3 +1,4 @@
+import { IDashboardStore, IDashboardItem } from './../common/interfaces';
 import { User } from '../common/interfaces';
 
 
@@ -13,7 +14,7 @@ export const currentUser: User = {
     communityCode: ''
 };
 
-export const dashboard = {
+export const dashboard: IDashboardStore = {
     fetching: false,
     fetchFulfilled: false,
     fetchRejected: false,
@@ -22,8 +23,8 @@ export const dashboard = {
     deleteFulfilled: false,
     deletedRejected: false,
     deleteItemErr: '',
-    forms: [],
-    notes: []
+    forms: [] as IDashboardItem[],
+    notes: [] as IDashboardItem[]
 };
 
 export const auth = {

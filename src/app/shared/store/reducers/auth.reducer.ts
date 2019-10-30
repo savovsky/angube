@@ -1,7 +1,5 @@
-
 import * as Action from '../actions/auth.action';
 import * as InitialState from '../initilal-states';
-
 
 export function authReducer(
     state = InitialState.auth,

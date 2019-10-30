@@ -67,8 +67,8 @@ export interface IDashboardItem {
 }
 
 export interface IDashboard {
-    forms: {};
-    notes: {};
+    forms: IDashboardItem[];
+    notes: IDashboardItem[];
 }
 
 export interface DialogData {
