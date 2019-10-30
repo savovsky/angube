@@ -2,4 +2,11 @@
 <div class="page-loader" *ngIf="isFetching">
   <app-progress-spinner></app-progress-spinner>
 </div>
+<div class="card" *ngFor="let form of forms">
+    <h3>{{ form.title }}</h3>
+    <p>date: {{ form.publishedDate | date }}</p>
+    <p>id: {{ form.id }}</p>
+    <p>author: {{ form.author }}</p>
+    <button (click)="onDelete('forms', form.id)">Delete</button>
+</div>
 

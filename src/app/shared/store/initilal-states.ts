@@ -2,8 +2,8 @@ import { User } from '../common/interfaces';
 
 
 export const currentUser: User = {
-    userName: 'eho',
-    firstName: 'beho',
+    userName: 'user name',
+    firstName: 'first name',
     lastName: '',
     birthdate: '',
     email: '',
@@ -17,22 +17,11 @@ export const dashboard = {
     fetching: false,
     fetchFulfilled: false,
     fetchRejected: false,
-    errMsg: '',
-    forms: {
-        '123456': {
-            author: 'miro',
-            formId: '123456',
-            img: '',
-            publishDate: '31/08/1977',
-            title: 'Birthday',
-        }
-    },
-    notes: {
-        qwerty: {
-            author: 'miro',
-            noteId: 'qwerty',
-            publishDate: '31/08/1977',
-            title: 'Birthday',
-        }
-    }
+    fetchDashboardErr: '',
+    deleting: false,
+    deleteFulfilled: false,
+    deletedRejected: false,
+    deleteItemErr: '',
+    forms: [],
+    notes: []
 };

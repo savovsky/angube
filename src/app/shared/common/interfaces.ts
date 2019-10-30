@@ -81,7 +81,11 @@ export interface IDashboardStore {
     fetching: boolean;
     fetchFulfilled: boolean;
     fetchRejected: boolean;
-    errMsg: string;
-    forms: any;
-    notes: any;
+    fetchDashboardErr: string;
+    deleting: boolean;
+    deleteFulfilled: boolean;
+    deletedRejected: boolean;
+    deleteItemErr: string;
+    forms: IDashboardItem[];
+    notes: IDashboardItem[];
 }

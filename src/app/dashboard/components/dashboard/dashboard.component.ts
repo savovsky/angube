@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IDashboardStore, IDashboardItem } from './../../../shared/common/interfaces';
 import * as Action from '../../../shared/store/actions/dashboard.action';
+import * as Utils from '../../../shared/common/utils';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   isFetching: boolean;
   forms: IDashboardItem[];
+  notes: IDashboardItem[];
   subscriptionStore: Subscription;
 
   constructor(
@@ -25,14 +27,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.store.dispatch(new Action.FetchDashboardStart());
     this.subscriptionStore = this.store.select('dashboard').subscribe(
       (store) => {
+        Utils.consoleLog('(DashboardComponent) Dashboard Store: ', 'limegreen', store);
         this.isFetching = store.fetching;
-        console.log('dashboard store = ', store);
-        if (store.fetchFulfilled) {
-          this.forms = Object.values(store.forms);
-          console.log('forms = ', this.forms);
-        }
+        this.forms = store.forms;
+        this.notes = store.notes;
       }
     );
+  }
+
+  onDelete(type: string, id: string) {
+    this.store.dispatch(new Action.RemoveDashboardItemStart({ type, id }));
   }
 
   ngOnDestroy() {

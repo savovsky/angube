@@ -8,6 +8,7 @@ import { IDashboard } from './../../common/interfaces';
 import * as Utils from '../../common/utils';
 import * as Action from './../actions/dashboard.action';
 
+
 @Injectable() // it allows the DI for this class
 export class DashboardEffects {
   @Effect()
@@ -20,11 +21,37 @@ export class DashboardEffects {
         ).pipe(
           map((response: IDashboard) => {
             Utils.consoleLog(`(DashboardEffects) Get Dashboard Data  - Response: `, 'darkGoldenRod', response);
+
             return new Action.FetchDashboardFulfilled(response);
           }),
           catchError((error: HttpErrorResponse) => {
             Utils.consoleLog(`(DashboardEffects) Get Dashboard Data - Error: `, 'red', error);
+
             return of(new Action.FetchDashboardRejected(error.error.error));
+          })
+        );
+      })
+    );
+
+  @Effect()
+    deleteDashboardItem$ = this.actions$.pipe(
+      ofType(Action.REMOVE_DASHBOARD_ITEM_START),
+      switchMap((action: Action.RemoveDashboardItemStart) => {
+        const type = action.payload.type;
+        const id = action.payload.id;
+
+        return this.http.delete(
+          Utils.firebaseUrl() + 'ng68b' + '/dashboard/' + type + '/' + id + '.json?auth=' + this.authService.token
+        ).pipe(
+          map(() => {
+            Utils.consoleLog(`(DashboardEffects) Delete Dashboard Item  - Success! `, 'darkGoldenRod');
+
+            return new Action.RemoveDashboardItemFulfilled({ type, id });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            Utils.consoleLog(`(DashboardEffects) Delete Dashboard Item - Error: `, 'red', error);
+
+            return of(new Action.RemoveDashboardItemRejected(error.error.error));
           })
         );
       })

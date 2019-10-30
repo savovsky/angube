@@ -4,6 +4,9 @@ import { IDashboard } from '../../common/interfaces';
 export const FETCH_DASHBOARD_START = 'FETCH_DASHBOARD_START';
 export const FETCH_DASHBOARD_FULFILLED = 'FETCH_DASHBOARD_FULFILLED';
 export const FETCH_DASHBOARD_REJECTED = 'FETCH_DASHBOARD_REJECTED';
+export const REMOVE_DASHBOARD_ITEM_START = 'REMOVE_DASHBOARD_ITEM_START';
+export const REMOVE_DASHBOARD_ITEM_FULFILLED = 'REMOVE_DASHBOARD_ITEM_FULFILLED';
+export const REMOVE_DASHBOARD_ITEM_REJECTED = 'REMOVE_DASHBOARD_ITEM_REJECTED';
 
 export class FetchDashboardStart implements Action {
 
@@ -21,7 +24,34 @@ export class FetchDashboardRejected implements Action {
 
     readonly type = FETCH_DASHBOARD_REJECTED;
 
-    constructor(public payload: string) { }
+    constructor(public payload: string) { } // payload = error message
 }
 
-export type DashboardActions = FetchDashboardStart | FetchDashboardFulfilled | FetchDashboardRejected;
+export class RemoveDashboardItemStart implements Action {
+
+    readonly type = REMOVE_DASHBOARD_ITEM_START;
+
+    constructor(public payload: { type: string, id: string }) { }
+}
+
+export class RemoveDashboardItemFulfilled implements Action {
+
+    readonly type = REMOVE_DASHBOARD_ITEM_FULFILLED;
+
+    constructor(public payload: { type: string, id: string }) { } // payload = id
+}
+
+export class RemoveDashboardItemRejected implements Action {
+
+    readonly type = REMOVE_DASHBOARD_ITEM_REJECTED;
+
+    constructor(public payload: string) { } // payload = error message
+}
+
+export type DashboardActions = // pure TypeScript
+    FetchDashboardStart |
+    FetchDashboardFulfilled |
+    FetchDashboardRejected |
+    RemoveDashboardItemStart |
+    RemoveDashboardItemFulfilled |
+    RemoveDashboardItemRejected;

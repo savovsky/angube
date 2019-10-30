@@ -1,3 +1,4 @@
+import { IDashboardItem } from './../../common/interfaces';
 import * as Action from '../actions/dashboard.action';
 import * as InitialState from '../initilal-states';
 
@@ -7,34 +8,64 @@ export function dashboardReducer(
     action: Action.DashboardActions
     ) {
     switch (action.type) {
-        case 'FETCH_DASHBOARD_START': {
+        case Action.FETCH_DASHBOARD_START: {
             return {
                 ...state,
                 fetching: true,
                 fetchFulfilled: false,
                 fetchRejected: false,
-                errMsg: ''
+                fetchDashboardErr: ''
             };
         }
-        case 'FETCH_DASHBOARD_FULFILLED': {
+        case Action.FETCH_DASHBOARD_FULFILLED: {
             return {
                 ...state,
                 fetching: false,
                 fetchFulfilled: true,
                 fetchRejected: false,
-                errMsg: '',
-                forms: { ...action.payload.forms },
-                notes: { ...action.payload.notes }
+                fetchDashboardErr: '',
+                forms: Object.values(action.payload.forms),
+                notes: Object.values(action.payload.notes)
             };
         }
-        case 'FETCH_DASHBOARD_REJECTED': {
+        case Action.FETCH_DASHBOARD_REJECTED: {
             return {
                 ...state,
                 fetching: false,
                 fetchFulfilled: false,
                 fetchRejected: true,
-                errMsg: action.payload
-
+                fetchDashboardErr: action.payload
+            };
+        }
+        case Action.REMOVE_DASHBOARD_ITEM_START: {
+            return {
+                ...state,
+                deleting: true,
+                deleteFulfilled: false,
+                deletedRejected: false,
+                deleteItemErr: ''
+            };
+        }
+        case Action.REMOVE_DASHBOARD_ITEM_FULFILLED: {
+            return {
+                ...state,
+                deleting: false,
+                deleteFulfilled: true,
+                deletedRejected: false,
+                deleteItemErr: '',
+                [action.payload.type]: state[action.payload.type].filter(
+                    (item: IDashboardItem) => item.id !== action.payload.id
+                )
+                // e.g. notes: notes.filter(.....)
+            };
+        }
+        case Action.REMOVE_DASHBOARD_ITEM_REJECTED: {
+            return {
+                ...state,
+                deleting: false,
+                deleteFulfilled: false,
+                deletedRejected: true,
+                deleteItemErr: action.payload
             };
         }
 
