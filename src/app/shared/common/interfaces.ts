@@ -78,9 +78,19 @@ export interface DialogData {
 
 // Store
 export interface IAppStore {
-    dashboard: IDashboardStore;
     auth: IAuthStore;
+    dashboard: IDashboardStore;
     currentUser: any;
+}
+
+export interface IAuthStore {
+    verifying: boolean;
+    verifyFulfilled: boolean;
+    verifyRejected: boolean;
+    verifyAuthErr: string;
+    uid: string;
+    email: string;
+    password: string;
 }
 
 export interface IDashboardStore {
@@ -94,14 +104,4 @@ export interface IDashboardStore {
     deleteItemErr: string;
     forms: IDashboardItem[];
     notes: IDashboardItem[];
-}
-
-export interface IAuthStore {
-    verifying: boolean;
-    verifyFulfilled: boolean;
-    verifyRejected: boolean;
-    verifyAuthErr: string;
-    uid: string;
-    email: string;
-    password: string;
 }
