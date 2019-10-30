@@ -12,10 +12,9 @@ import { AppRoutingModule } from './core/app-routing.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AdminModule } from './admin/admin.module';
 import { StoreModule } from '@ngrx/store';
-import { currentUserReducer } from './shared/store/reducers/currentUser.reducer';
-import { dashboardReducer } from './shared/store/reducers/dashboard.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './shared/store/effects/dashboard.effects';
+import { appReducer } from './shared/store/app.reducer';
 
 
 @NgModule({
@@ -32,10 +31,7 @@ import { DashboardEffects } from './shared/store/effects/dashboard.effects';
     HttpClientModule,
     LayoutModule,
     AppRoutingModule,
-    StoreModule.forRoot({
-      currentUser: currentUserReducer,
-      dashboard: dashboardReducer
-    }),
+    StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([DashboardEffects])
   ],
   bootstrap: [AppComponent]

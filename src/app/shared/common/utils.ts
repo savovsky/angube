@@ -14,5 +14,6 @@ export const consoleLog = (msg: string, color?: string, arg?: any) => {
 };
 
 export const firebaseUrl = () => {
+    // Can I use property u: "angube-92c87.firebaseapp.com" from the auth responce?
     return 'https://angube-92c87.firebaseio.com/communities/';
 };

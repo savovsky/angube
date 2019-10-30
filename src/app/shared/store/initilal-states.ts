@@ -25,3 +25,13 @@ export const dashboard = {
     forms: [],
     notes: []
 };
+
+export const auth = {
+    verifying: false,
+    verifyFulfilled: false,
+    verifyRejected: false,
+    verifyAuthErr: '',
+    uid: '',
+    email: '',
+    password: ''
+};

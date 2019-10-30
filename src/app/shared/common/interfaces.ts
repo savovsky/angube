@@ -76,7 +76,13 @@ export interface DialogData {
     value: string;
 }
 
-// TODO do not use 'any' in the interface
+// Store
+export interface IAppStore {
+    dashboard: IDashboardStore;
+    auth: IAuthStore;
+    currentUser: any;
+}
+
 export interface IDashboardStore {
     fetching: boolean;
     fetchFulfilled: boolean;
@@ -88,4 +94,14 @@ export interface IDashboardStore {
     deleteItemErr: string;
     forms: IDashboardItem[];
     notes: IDashboardItem[];
+}
+
+export interface IAuthStore {
+    verifying: boolean;
+    verifyFulfilled: boolean;
+    verifyRejected: boolean;
+    verifyAuthErr: string;
+    uid: string;
+    email: string;
+    password: string;
 }

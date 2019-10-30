@@ -55,8 +55,7 @@ export function dashboardReducer(
                 deleteItemErr: '',
                 [action.payload.type]: state[action.payload.type].filter(
                     (item: IDashboardItem) => item.id !== action.payload.id
-                )
-                // e.g. notes: notes.filter(.....)
+                ) // e.g. notes: notes.filter(.....)
             };
         }
         case Action.REMOVE_DASHBOARD_ITEM_REJECTED: {

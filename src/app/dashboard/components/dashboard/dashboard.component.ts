@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { IDashboardStore, IDashboardItem } from './../../../shared/common/interfaces';
-import * as Action from '../../../shared/store/actions/dashboard.action';
+import { IAppStore, IDashboardItem } from './../../../shared/common/interfaces';
+import * as DashboardAction from '../../../shared/store/actions/dashboard.action';
 import * as Utils from '../../../shared/common/utils';
 
 
@@ -16,16 +16,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isFetching: boolean;
   forms: IDashboardItem[];
   notes: IDashboardItem[];
-  subscriptionStore: Subscription;
+  storeSubscription: Subscription;
 
   constructor(
-    private store: Store<{ dashboard: IDashboardStore }>
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
     this.isFetching = true;
-    this.store.dispatch(new Action.FetchDashboardStart());
-    this.subscriptionStore = this.store.select('dashboard').subscribe(
+    this.store.dispatch(new DashboardAction.FetchDashboardStart());
+    this.storeSubscription = this.store.select('dashboard').subscribe(
       (store) => {
         Utils.consoleLog('(DashboardComponent) Dashboard Store: ', 'limegreen', store);
         this.isFetching = store.fetching;
@@ -36,11 +36,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onDelete(type: string, id: string) {
-    this.store.dispatch(new Action.RemoveDashboardItemStart({ type, id }));
+    this.store.dispatch(new DashboardAction.RemoveDashboardItemStart({ type, id }));
   }
 
   ngOnDestroy() {
-    this.subscriptionStore.unsubscribe();
+    this.storeSubscription.unsubscribe();
   }
 
 }

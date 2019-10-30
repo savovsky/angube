@@ -38,7 +38,7 @@ export class RemoveDashboardItemFulfilled implements Action {
 
     readonly type = REMOVE_DASHBOARD_ITEM_FULFILLED;
 
-    constructor(public payload: { type: string, id: string }) { } // payload = id
+    constructor(public payload: { type: string, id: string }) { }
 }
 
 export class RemoveDashboardItemRejected implements Action {
@@ -49,9 +49,9 @@ export class RemoveDashboardItemRejected implements Action {
 }
 
 export type DashboardActions = // pure TypeScript
-    FetchDashboardStart |
-    FetchDashboardFulfilled |
-    FetchDashboardRejected |
-    RemoveDashboardItemStart |
-    RemoveDashboardItemFulfilled |
-    RemoveDashboardItemRejected;
+    | FetchDashboardStart
+    | FetchDashboardFulfilled
+    | FetchDashboardRejected
+    | RemoveDashboardItemStart
+    | RemoveDashboardItemFulfilled
+    | RemoveDashboardItemRejected;
