@@ -34,12 +34,6 @@ export interface MatFormField {
     value?: string;
 }
 
-export interface Auth {
-    uid: string;
-    displayName: string;
-    ra: string;
-}
-
 export interface IFormItem {
     id: string;
     value: string;
@@ -79,8 +73,9 @@ export interface DialogData {
 // Store
 export interface IAppStore {
     auth: IAuthStore;
+    signIn: ISignInStore;
     dashboard: IDashboardStore;
-    currentUser: any;
+    currentUser: any; // TODO Do not use any!
 }
 
 export interface IAuthStore {
@@ -91,6 +86,24 @@ export interface IAuthStore {
     uid: string;
     email: string;
     password: string;
+    token: string;
+}
+
+export interface Auth {
+    uid: string;
+    displayName: string;
+    ra: string;
+}
+
+export interface ISignInStore {
+    signing: boolean;
+    signInFulfilled: boolean;
+    signInRejected: boolean;
+    signInErr: string;
+    uid: string;
+    email: string;
+    password: string;
+    token: string;
 }
 
 export interface IDashboardStore {

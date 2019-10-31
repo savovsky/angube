@@ -1,8 +1,7 @@
-import { IDashboardStore, IDashboardItem } from './../common/interfaces';
-import { User } from '../common/interfaces';
+import * as Interface from './../common/interfaces';
 
 
-export const currentUser: User = {
+export const currentUser: Interface.User = {
     userName: 'user name',
     firstName: 'first name',
     lastName: '',
@@ -14,7 +13,7 @@ export const currentUser: User = {
     communityCode: ''
 };
 
-export const dashboard: IDashboardStore = {
+export const dashboard: Interface.IDashboardStore = {
     fetching: false,
     fetchFulfilled: false,
     fetchRejected: false,
@@ -23,16 +22,28 @@ export const dashboard: IDashboardStore = {
     deleteFulfilled: false,
     deletedRejected: false,
     deleteItemErr: '',
-    forms: [] as IDashboardItem[],
-    notes: [] as IDashboardItem[]
+    forms: [],
+    notes: []
 };
 
-export const auth = {
+export const auth: Interface.IAuthStore = {
     verifying: false,
     verifyFulfilled: false,
     verifyRejected: false,
     verifyAuthErr: '',
     uid: '',
     email: '',
-    password: ''
+    password: '',
+    token: ''
+};
+
+export const signIn: Interface.ISignInStore = {
+    signing: false,
+    signInFulfilled: false,
+    signInRejected: false,
+    signInErr: '',
+    uid: '',
+    email: '',
+    password: '',
+    token: ''
 };

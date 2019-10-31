@@ -25,7 +25,7 @@ export class SignInRejected implements Action {
     constructor(public payload: string) { } // payload = error message
 }
 
-export type AuthActions =
+export type SignInActions =
     | SignInStart
     | SignInFulfilled
     | SignInRejected;
