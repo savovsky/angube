@@ -1,4 +1,4 @@
-import * as Action from '../actions/signIn.action';
+import * as Action from '../actions/signin.action';
 import * as InitialState from '../initilal-states';
 
 export function signInReducer(
@@ -9,28 +9,28 @@ export function signInReducer(
         case Action.SIGNIN_START: {
             return {
                 ...state,
-                verifying: true,
-                verifyFulfilled: false,
-                verifyRejected: false,
-                verifyAuthErr: ''
+                signing: true,
+                signInFulfilled: false,
+                signInRejected: false,
+                signInErr: ''
             };
         }
         case Action.SIGNIN_FULFILLED: {
             return {
                 ...state,
-                verifying: false,
-                verifyFulfilled: true,
-                verifyRejected: false,
-                verifyAuthErr: ''
+                signing: false,
+                signInFulfilled: true,
+                signInRejected: false,
+                signInErr: ''
             };
         }
         case Action.SIGNIN_REJECTED: {
             return {
                 ...state,
-                verifying: false,
-                verifyFulfilled: false,
-                verifyRejected: true,
-                verifyAuthErr: action.payload
+                signing: false,
+                signInFulfilled: false,
+                signInRejected: true,
+                signInErr: action.payload
             };
         }
 

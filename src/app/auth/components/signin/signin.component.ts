@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { SignError, MatFormField } from 'src/app/shared/common/interfaces';
+// import { SignError, MatFormField } from 'src/app/shared/common/interfaces';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/shared/services/forms.service';
+import { Store } from '@ngrx/store';
+import { SignError, MatFormField, IAppStore } from './../../../shared/common/interfaces';
+import * as SignInAction from '../../../shared/store/actions/signin.action';
+import { Subscription } from 'rxjs';
+import * as Utils from '../../../shared/common/utils';
 
 
 @Component({
@@ -13,7 +18,7 @@ import { FormsService } from 'src/app/shared/services/forms.service';
   styleUrls: ['./signin.component.css'],
   providers: [FormsService]
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, OnDestroy {
 
   error: any;
   isFetching = false;
@@ -21,11 +26,13 @@ export class SigninComponent implements OnInit {
   signInForm: FormGroup;
   emailForm = 'emailForm';
   passwordForm = 'passwordForm';
+  storeSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
     public frormsService: FormsService,
-    public str: StringsService
+    public str: StringsService,
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
@@ -45,11 +52,19 @@ export class SigninComponent implements OnInit {
       new FormField('password', this.str.password, this.passwordForm)
     ];
 
-    this.authService.signInError
-      .subscribe((err: SignError) => {
+    this.authService.signInError.subscribe(
+      (err: SignError) => {
         this.isFetching = false;
         this.error = err.message;
-      });
+      }
+    );
+
+    // ------------------
+    this.storeSubscription = this.store.select('signIn').subscribe(
+      (store) => {
+        Utils.consoleLog('(SigninComponent) SignIn Store: ', 'limegreen', store);
+      }
+    );
   }
 
   get emailFormControl() {
@@ -88,6 +103,12 @@ export class SigninComponent implements OnInit {
       this.error = null;
       this.isFetching = true;
       this.authService.signInUser(email, password);
+      // ------------------
+      this.store.dispatch(new SignInAction.SignInStart({ email, password }));
     }
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 }

@@ -8,7 +8,7 @@ export class SignInStart implements Action {
 
     readonly type = SIGNIN_START;
 
-    constructor(public payload: any) { } // TODO do not use any!
+    constructor(public payload: { email: string, password: string }) { }
 }
 
 export class SignInFulfilled implements Action {
