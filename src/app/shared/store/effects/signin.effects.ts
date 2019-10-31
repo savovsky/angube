@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { of, from } from 'rxjs';
-import { switchMap, catchError, map, filter } from 'rxjs/operators';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import * as Action from '../actions/signin.action';
 import * as Utils from '../../common/utils';
@@ -26,7 +26,7 @@ export class SignInEffects {
 
       return from(this.signInFirebaseUser()).pipe(
         map((response) => {
-          Utils.consoleLog(`(SignInEffects) Sign In  - Response: `, 'darkGoldenRod', response);
+          Utils.consoleLog('(SignInEffects) Sign In  - Response: ', 'darkGoldenRod', response);
           const uid = firebase.auth().currentUser.uid;
           const email = firebase.auth().currentUser.email;
 
@@ -34,23 +34,25 @@ export class SignInEffects {
         }),
         catchError((error) => {
           Utils.consoleLog('(SignInEffects) Sign In - Error: ', 'red', error);
-
           return of(new Action.SignInRejected(error.message));
         })
       );
-    }),
-    filter((action) => action.type === Action.SIGNIN_FULFILLED),
-    switchMap((eho) => {
-      return from(this.getSignedUserToken()).pipe(
-        map((token: string) => {
-          Utils.consoleLog('(SignInEffects) Get Token  - Seccess! ', 'darkGoldenRod');
+    })
+  );
 
-          // return new Action.FetchDashboardFulfilled(response);
+  @Effect()
+  fetchToken$ = this.actions$.pipe(
+    ofType(Action.SIGNIN_FULFILLED),
+    map(() => new Action.FetchTokenStart()),
+    switchMap(() => {
+      return from(this.getSignedUserToken()).pipe(
+        map((token) => {
+          Utils.consoleLog('(SignInEffects) Fetch Token - Seccess! ', 'darkGoldenRod');
+          return new Action.FetchTokenFulfilled(token);
         }),
         catchError((error) => {
-          Utils.consoleLog('(SignInEffects) Get Token - Error: ', 'red', error);
-
-          return of();
+          Utils.consoleLog('(SignInEffects) Fetch Token - Error: ', 'red', error);
+          return of(new Action.FetchTokenRejected(error.message));
         })
       );
     })

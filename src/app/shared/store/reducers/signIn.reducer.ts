@@ -8,11 +8,8 @@ export function signInReducer(
     switch (action.type) {
         case Action.SIGNIN_START: {
             return {
-                ...state,
-                signing: true,
-                signInFulfilled: false,
-                signInRejected: false,
-                signInErr: ''
+                ...InitialState.signIn,
+                signing: true
             };
         }
         case Action.SIGNIN_FULFILLED: {
@@ -23,7 +20,7 @@ export function signInReducer(
                 signInRejected: false,
                 signInErr: '',
                 uid: action.payload.uid,
-                email: action.payload.email,
+                email: action.payload.email
             };
         }
         case Action.SIGNIN_REJECTED: {
@@ -33,6 +30,34 @@ export function signInReducer(
                 signInFulfilled: false,
                 signInRejected: true,
                 signInErr: action.payload
+            };
+        }
+        case Action.FETCH_TOKEN_START: {
+            return {
+                ...state,
+                fetchingToken: true,
+                fetchTokenFulfilled: false,
+                fetchTokenRejected: false,
+                fetchTokenErr: ''
+            };
+        }
+        case Action.FETCH_TOKEN_FULFILLED: {
+            return {
+                ...state,
+                fetchingToken: false,
+                fetchTokenFulfilled: true,
+                fetchTokenRejected: false,
+                fetchTokenErr: '',
+                token: action.payload
+            };
+        }
+        case Action.FETCH_TOKEN_FULFILLED: {
+            return {
+                ...state,
+                fetchingToken: false,
+                fetchTokenFulfilled: false,
+                fetchTokenRejected: true,
+                fetchTokenErr: action.payload
             };
         }
 

@@ -100,6 +100,10 @@ export interface ISignInStore {
     signInFulfilled: boolean;
     signInRejected: boolean;
     signInErr: string;
+    fetchingToken: boolean;
+    fetchTokenFulfilled: boolean;
+    fetchTokenRejected: boolean;
+    fetchTokenErr: string;
     uid: string;
     email: string;
     password: string;
