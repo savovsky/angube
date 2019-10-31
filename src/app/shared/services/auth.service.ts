@@ -84,7 +84,7 @@ export class AuthService {
           )
           .then(
               (token: string) => {
-                  Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime', token);
+                  Utils.consoleLog(`(AuthService) getIdToken Seccess`, 'lime');
                   this.currentUserToken(token);
                   this.router.navigate(['app/home']);
                   return this.firebaseSetPersistence();

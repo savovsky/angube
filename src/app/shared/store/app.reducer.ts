@@ -7,8 +7,8 @@ import { currentUserReducer } from './reducers/currentUser.reducer';
 
 
 export const appReducer: ActionReducerMap<IAppStore> = {
-    auth: authReducer,
-    signIn: signInReducer,
-    dashboard: dashboardReducer,
-    currentUser: currentUserReducer
+  auth: authReducer,
+  signIn: signInReducer,
+  dashboard: dashboardReducer,
+  currentUser: currentUserReducer
 };
