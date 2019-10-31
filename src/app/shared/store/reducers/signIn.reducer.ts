@@ -21,7 +21,9 @@ export function signInReducer(
                 signing: false,
                 signInFulfilled: true,
                 signInRejected: false,
-                signInErr: ''
+                signInErr: '',
+                uid: action.payload.uid,
+                email: action.payload.email,
             };
         }
         case Action.SIGNIN_REJECTED: {

@@ -15,7 +15,7 @@ export class SignInFulfilled implements Action {
 
     readonly type = SIGNIN_FULFILLED;
 
-    constructor(public payload: any) { } // TODO do not use any!
+    constructor(public payload: { uid: string, email: string }) { }
 }
 
 export class SignInRejected implements Action {

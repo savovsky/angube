@@ -48,7 +48,7 @@ export class RemoveDashboardItemRejected implements Action {
     constructor(public payload: string) { } // payload = error message
 }
 
-export type DashboardActions = // pure TypeScript
+export type DashboardActions = // pure TypeScript - union type
     | FetchDashboardStart
     | FetchDashboardFulfilled
     | FetchDashboardRejected

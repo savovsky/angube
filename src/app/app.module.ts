@@ -13,8 +13,9 @@ import { NavbarModule } from './navbar/navbar.module';
 import { AdminModule } from './admin/admin.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { DashboardEffects } from './shared/store/effects/dashboard.effects';
 import { appReducer } from './shared/store/app.reducer';
+import { DashboardEffects } from './shared/store/effects/dashboard.effects';
+import { SignInEffects } from './shared/store/effects/signin.effects';
 
 
 @NgModule({
@@ -32,7 +33,10 @@ import { appReducer } from './shared/store/app.reducer';
     LayoutModule,
     AppRoutingModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([DashboardEffects])
+    EffectsModule.forRoot([
+      DashboardEffects,
+      SignInEffects
+    ])
   ],
   bootstrap: [AppComponent]
 })

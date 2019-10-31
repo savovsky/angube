@@ -3,10 +3,10 @@ import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http'
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map } from 'rxjs/operators';
-import { AuthService } from '../../services/auth.service';
-import { IDashboard } from './../../common/interfaces';
-import * as Utils from '../../common/utils';
 import * as Action from './../actions/dashboard.action';
+import * as Utils from '../../common/utils';
+import { IDashboard } from './../../common/interfaces';
+import { AuthService } from '../../services/auth.service';
 
 
 @Injectable() // it allows the DI for this class
