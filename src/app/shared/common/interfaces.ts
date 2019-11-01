@@ -1,4 +1,9 @@
-export interface SignError {
+export interface SignError { // REMOVE
+    code: string;
+    message: string;
+}
+
+export interface IAuthentErr {
     code: string;
     message: string;
 }

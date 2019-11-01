@@ -5,6 +5,7 @@ import { of, from } from 'rxjs';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import * as Action from '../actions/authent.action';
+import { IAuthentErr } from './../../common/interfaces';
 import * as Utils from '../../common/utils';
 
 
@@ -20,6 +21,29 @@ export class AuthentEffects {
   ) { }
 
   @Effect()
+  signUp$ = this.actions$.pipe(
+    ofType(Action.SIGNUP_START),
+    switchMap((action: Action.SignUpStart) => {
+      this.email = action.payload.email;
+      this.password = action.payload.password;
+
+      return from(this.signUpFirebaseUser()).pipe(
+        map((response) => {
+          Utils.consoleLog('(AuthentEffects) Sign Up  - Response: ', 'darkGoldenRod', response);
+          const uid = firebase.auth().currentUser.uid;
+          const email = firebase.auth().currentUser.email;
+
+          return new Action.AuthentFulfilled({ uid, email });
+        }),
+        catchError((error: IAuthentErr) => {
+          Utils.consoleLog('(AuthentEffects) Sign Up - Error: ', 'red', error);
+          return of(new Action.AuthentRejected(error.message));
+        })
+      );
+    })
+  );
+
+  @Effect()
   signIn$ = this.actions$.pipe(
     ofType(Action.SIGNIN_START),
     switchMap((action: Action.SignInStart) => {
@@ -32,11 +56,11 @@ export class AuthentEffects {
           const uid = firebase.auth().currentUser.uid;
           const email = firebase.auth().currentUser.email;
 
-          return new Action.SignInFulfilled({ uid, email });
+          return new Action.AuthentFulfilled({ uid, email });
         }),
-        catchError((error) => {
+        catchError((error: IAuthentErr) => {
           Utils.consoleLog('(AuthentEffects) Sign In - Error: ', 'red', error);
-          return of(new Action.SignInRejected(error.message));
+          return of(new Action.AuthentRejected(error.message));
         })
       );
     })
@@ -44,7 +68,7 @@ export class AuthentEffects {
 
   @Effect()
   fetchToken$ = this.actions$.pipe(
-    ofType(Action.SIGNIN_FULFILLED),
+    ofType(Action.AUTHENT_FULFILLED),
     map(() => new Action.FetchTokenStart()),
     switchMap(() => {
       return from(this.getSignedUserToken()).pipe(
@@ -68,10 +92,45 @@ export class AuthentEffects {
     })
   );
 
+  @Effect({ dispatch: false })
+  navigateOnSignUpSuccess$ = this.actions$.pipe(
+    // TODO Find how to make difference between signin and sighup at that point
+    ofType(Action.FETCH_TOKEN_FULFILLED),
+    tap(() => {
+      this.router.navigate(['app/home']);
+      // this.router.navigate(['question']);
+    })
+  );
+
+  @Effect()
+  logOut$ = this.actions$.pipe(
+    ofType(Action.LOG_OUT_START),
+    switchMap(() => {
+      return from(this.signOutFirebaseUser()).pipe(
+        map((response) => {
+          Utils.consoleLog('(AuthentEffects) Log Out  - Response: ', 'darkGoldenRod', response);
+          return new Action.LogOutFulfilled();
+        }),
+        catchError((error: IAuthentErr) => {
+          Utils.consoleLog('(AuthentEffects) Log Out - Error: ', 'red', error);
+          return of(new Action.AuthentRejected(error.message));
+        })
+      );
+    })
+  );
+
 
   // https://firebase.google.com/docs/auth/web/password-auth
+  signUpFirebaseUser() {
+    return firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
+  }
+
   signInFirebaseUser() {
     return firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+  }
+
+  signOutFirebaseUser() {
+    return firebase.auth().signOut();
   }
 
   // Gets a JWT token used to identify the user to a Firebase service.

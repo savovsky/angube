@@ -12,21 +12,28 @@ export function authentReducer(
                 signing: true
             };
         }
-        case Action.SIGNIN_FULFILLED: {
+        case Action.SIGNUP_START: {
+            return {
+                ...InitialState.authent,
+                signingUp: true
+            };
+        }
+        case Action.AUTHENT_FULFILLED: {
             return {
                 ...state,
                 signing: false,
+                signingUp: false,
                 authentFulfilled: true,
                 authentRejected: false,
-                authentErr: '',
                 uid: action.payload.uid,
                 email: action.payload.email
             };
         }
-        case Action.SIGNIN_REJECTED: {
+        case Action.AUTHENT_REJECTED: {
             return {
                 ...state,
                 signing: false,
+                signingUp: false,
                 authentFulfilled: false,
                 authentRejected: true,
                 authentErr: action.payload
@@ -47,17 +54,44 @@ export function authentReducer(
                 fetchingToken: false,
                 fetchTokenFulfilled: true,
                 fetchTokenRejected: false,
-                fetchTokenErr: '',
                 token: action.payload
             };
         }
-        case Action.FETCH_TOKEN_FULFILLED: {
+        case Action.FETCH_TOKEN_REJECTED: {
             return {
                 ...state,
                 fetchingToken: false,
                 fetchTokenFulfilled: false,
                 fetchTokenRejected: true,
                 fetchTokenErr: action.payload
+            };
+        }
+        case Action.LOG_OUT_START: {
+            return {
+                ...state,
+                loggingOut: true,
+                logOutFulfilled: false,
+                logOutRejected: false
+            };
+        }
+        case Action.LOG_OUT_FULFILLED: {
+            return {
+                ...state,
+                loggingOut: false,
+                logOutFulfilled: true,
+                logOutRejected: false,
+                uid: '',
+                token: '',
+                email: ''
+            };
+        }
+        case Action.LOG_OUT_REJECTED: {
+            return {
+                ...state,
+                loggingOut: false,
+                logOutFulfilled: false,
+                logOutRejected: true,
+                logOutErr: action.payload
             };
         }
         case Action.VERIFY_AUTHENT_START: {
@@ -74,8 +108,7 @@ export function authentReducer(
                 ...state,
                 verifyingAuthent: false,
                 verifyAuthentFulfilled: true,
-                verifyAuthentRejected: false,
-                verifyAuthentErr: ''
+                verifyAuthentRejected: false
             };
         }
         case Action.VERIFY_AUTHENT_REJECTED: {
