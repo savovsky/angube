@@ -1,14 +1,12 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { IAppStore } from '../common/interfaces';
-import { authReducer } from './reducers/auth.reducer';
-import { signInReducer } from './reducers/signin.reducer';
+import { authentReducer } from './reducers/authent.reducer';
 import { dashboardReducer } from './reducers/dashboard.reducer';
 import { currentUserReducer } from './reducers/currentUser.reducer';
 
 
 export const appReducer: ActionReducerMap<IAppStore> = {
-  auth: authReducer,
-  signIn: signInReducer,
+  authent: authentReducer,
   dashboard: dashboardReducer,
   currentUser: currentUserReducer
 };

@@ -15,6 +15,17 @@ export interface User {
     communityCode: string;
 }
 
+export interface DialogData {
+    header: string;
+    value: string;
+}
+
+export interface Auth {
+    uid: string;
+    displayName: string;
+    ra: string;
+}
+
 export interface IMyAccount {
     userName: string;
     firstName: string;
@@ -65,49 +76,34 @@ export interface IDashboard {
     notes: IDashboardItem[];
 }
 
-export interface DialogData {
-    header: string;
-    value: string;
-}
-
 // Store
 export interface IAppStore {
-    auth: IAuthStore;
-    signIn: ISignInStore;
+    authent: IAuthentStore;
     dashboard: IDashboardStore;
     currentUser: any; // TODO Do not use any!
 }
 
-export interface IAuthStore {
-    verifying: boolean;
-    verifyFulfilled: boolean;
-    verifyRejected: boolean;
-    verifyAuthErr: string;
-    uid: string;
-    email: string;
-    password: string;
-    token: string;
-}
-
-export interface Auth {
-    uid: string;
-    displayName: string;
-    ra: string;
-}
-
-export interface ISignInStore {
+export interface IAuthentStore {
     signing: boolean;
-    signInFulfilled: boolean;
-    signInRejected: boolean;
-    signInErr: string;
+    signingUp: boolean;
+    authentFulfilled: boolean;
+    authentRejected: boolean;
+    authentErr: string;
     fetchingToken: boolean;
     fetchTokenFulfilled: boolean;
     fetchTokenRejected: boolean;
     fetchTokenErr: string;
+    loggingOut: boolean;
+    logOutFulfilled: boolean;
+    logOutRejected: boolean;
+    logOutErr: string;
+    verifyingAuthent: boolean;
+    verifyAuthentFulfilled: boolean;
+    verifyAuthentRejected: boolean;
+    verifyAuthentErr: string;
     uid: string;
-    email: string;
-    password: string;
     token: string;
+    email: string; // TODO Do I need it here ?
 }
 
 export interface IDashboardStore {

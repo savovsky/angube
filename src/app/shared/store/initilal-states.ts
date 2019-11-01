@@ -26,28 +26,25 @@ export const dashboard: Interface.IDashboardStore = {
     notes: []
 };
 
-export const auth: Interface.IAuthStore = {
-    verifying: false,
-    verifyFulfilled: false,
-    verifyRejected: false,
-    verifyAuthErr: '',
-    uid: '',
-    email: '',
-    password: '',
-    token: ''
-};
-
-export const signIn: Interface.ISignInStore = {
+export const authent: Interface.IAuthentStore = {
     signing: false,
-    signInFulfilled: false,
-    signInRejected: false,
-    signInErr: '',
+    signingUp: false,
+    authentFulfilled: false,
+    authentRejected: false,
+    authentErr: '',
     fetchingToken: false,
     fetchTokenFulfilled: false,
     fetchTokenRejected: false,
     fetchTokenErr: '',
+    loggingOut: false,
+    logOutFulfilled: false,
+    logOutRejected: false,
+    logOutErr: '',
+    verifyingAuthent: false,
+    verifyAuthentFulfilled: false,
+    verifyAuthentRejected: false,
+    verifyAuthentErr: '',
     uid: '',
-    email: '',
-    password: '',
-    token: ''
+    token: '',
+    email: ''
 };

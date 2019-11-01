@@ -7,7 +7,7 @@ import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/shared/services/forms.service';
 import { Store } from '@ngrx/store';
 import { SignError, MatFormField, IAppStore } from './../../../shared/common/interfaces';
-import * as SignInAction from '../../../shared/store/actions/signin.action';
+import * as SignInAction from '../../../shared/store/actions/authent.action';
 import { Subscription } from 'rxjs';
 import * as Utils from '../../../shared/common/utils';
 
@@ -60,7 +60,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     );
 
     // ------------------
-    this.storeSubscription = this.store.select('signIn').subscribe(
+    this.storeSubscription = this.store.select('authent').subscribe(
       (store) => {
         Utils.consoleLog('(SigninComponent) SignIn Store: ', 'limegreen', store);
       }

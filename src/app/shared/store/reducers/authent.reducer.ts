@@ -1,14 +1,14 @@
-import * as Action from '../actions/signin.action';
+import * as Action from '../actions/authent.action';
 import * as InitialState from '../initilal-states';
 
-export function signInReducer(
-    state = InitialState.signIn,
-    action: Action.SignInActions
+export function authentReducer(
+    state = InitialState.authent,
+    action: Action.AuthentActions
     ) {
     switch (action.type) {
         case Action.SIGNIN_START: {
             return {
-                ...InitialState.signIn,
+                ...InitialState.authent,
                 signing: true
             };
         }
@@ -16,9 +16,9 @@ export function signInReducer(
             return {
                 ...state,
                 signing: false,
-                signInFulfilled: true,
-                signInRejected: false,
-                signInErr: '',
+                authentFulfilled: true,
+                authentRejected: false,
+                authentErr: '',
                 uid: action.payload.uid,
                 email: action.payload.email
             };
@@ -27,9 +27,9 @@ export function signInReducer(
             return {
                 ...state,
                 signing: false,
-                signInFulfilled: false,
-                signInRejected: true,
-                signInErr: action.payload
+                authentFulfilled: false,
+                authentRejected: true,
+                authentErr: action.payload
             };
         }
         case Action.FETCH_TOKEN_START: {
@@ -58,6 +58,33 @@ export function signInReducer(
                 fetchTokenFulfilled: false,
                 fetchTokenRejected: true,
                 fetchTokenErr: action.payload
+            };
+        }
+        case Action.VERIFY_AUTHENT_START: {
+            return {
+                ...state,
+                verifyingAuthent: true,
+                verifyAuthentFulfilled: false,
+                verifyAuthentRejected: false,
+                verifyAuthentErr: ''
+            };
+        }
+        case Action.VERIFY_AUTHENT_FULFILLED: {
+            return {
+                ...state,
+                verifyingAuthent: false,
+                verifyAuthentFulfilled: true,
+                verifyAuthentRejected: false,
+                verifyAuthentErr: ''
+            };
+        }
+        case Action.VERIFY_AUTHENT_REJECTED: {
+            return {
+                ...state,
+                verifyingAuthent: false,
+                verifyAuthentFulfilled: false,
+                verifyAuthentRejected: true,
+                verifyAuthentErr: action.payload
             };
         }
 
