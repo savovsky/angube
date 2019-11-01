@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { CustomValidators } from 'src/app/shared/common/custom.validators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DatabaseService } from 'src/app/shared/services/database.service';
-import { SignError, MatFormField, User } from 'src/app/shared/common/interfaces';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/shared/services/forms.service';
-import { Router } from '@angular/router';
+import { IAppStore, SignError, MatFormField, User } from './../../../shared/common/interfaces';
+import * as AuthentAction from '../../../shared/store/actions/authent.action';
+import * as Utils from '../../../shared/common/utils';
 
 
 @Component({
@@ -16,7 +20,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css'],
   providers: [FormsService]
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   error: any;
   isFetching = false;
   fields: MatFormField[];
@@ -25,13 +29,15 @@ export class SignupComponent implements OnInit {
   passwordForm = 'passwordForm';
   confirmPasswordForm = 'confirmPasswordForm';
   communityCodeForm = 'communityCodeForm';
+  storeSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private databaseService: DatabaseService,
     private router: Router,
     public frormsService: FormsService,
-    public str: StringsService
+    public str: StringsService,
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
@@ -92,6 +98,13 @@ export class SignupComponent implements OnInit {
         this.isFetching = false;
         this.error = err.message;
       });
+
+    // ------------------
+    this.storeSubscription = this.store.select('authent').subscribe(
+      (store) => {
+        Utils.consoleLog('(SignupComponent) authent Store: ', 'limegreen', store);
+      }
+    );
   }
 
   get emailFormControl() {
@@ -165,6 +178,12 @@ export class SignupComponent implements OnInit {
       this.error = null;
       this.isFetching = true;
       this.authService.signUpUser(email, password);
+      // ------------------
+      this.store.dispatch(new AuthentAction.SignUpStart({ email, password }));
     }
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 }

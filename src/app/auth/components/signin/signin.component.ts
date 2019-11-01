@@ -7,7 +7,7 @@ import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/shared/services/forms.service';
 import { Store } from '@ngrx/store';
 import { SignError, MatFormField, IAppStore } from './../../../shared/common/interfaces';
-import * as SignInAction from '../../../shared/store/actions/authent.action';
+import * as AuthentAction from '../../../shared/store/actions/authent.action';
 import { Subscription } from 'rxjs';
 import * as Utils from '../../../shared/common/utils';
 
@@ -62,7 +62,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     // ------------------
     this.storeSubscription = this.store.select('authent').subscribe(
       (store) => {
-        Utils.consoleLog('(SigninComponent) SignIn Store: ', 'limegreen', store);
+        Utils.consoleLog('(SigninComponent) authent Store: ', 'limegreen', store);
       }
     );
   }
@@ -104,7 +104,7 @@ export class SigninComponent implements OnInit, OnDestroy {
       this.isFetching = true;
       this.authService.signInUser(email, password);
       // ------------------
-      this.store.dispatch(new SignInAction.SignInStart({ email, password }));
+      this.store.dispatch(new AuthentAction.SignInStart({ email, password }));
     }
   }
 

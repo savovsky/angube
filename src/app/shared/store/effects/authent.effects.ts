@@ -107,8 +107,8 @@ export class AuthentEffects {
     ofType(Action.LOG_OUT_START),
     switchMap(() => {
       return from(this.signOutFirebaseUser()).pipe(
-        map((response) => {
-          Utils.consoleLog('(AuthentEffects) Log Out  - Response: ', 'darkGoldenRod', response);
+        map(() => {
+          Utils.consoleLog('(AuthentEffects) Log Out - Succsess: ', 'darkGoldenRod');
           return new Action.LogOutFulfilled();
         }),
         catchError((error: IAuthentErr) => {
