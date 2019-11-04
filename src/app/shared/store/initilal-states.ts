@@ -1,5 +1,9 @@
+import { v4 as uuid } from 'uuid';
+import { StringsService } from '../services/strings.service';
+import { FormOptionModel } from './../../forms/models/form-option.model';
 import * as Interface from './../common/interfaces';
 
+const str = new StringsService();
 
 export const currentUser: Interface.User = {
     userName: 'user name',
@@ -47,4 +51,36 @@ export const authent: Interface.IAuthentStore = {
     uid: '',
     token: '',
     email: ''
+};
+
+export const formTemplate: Interface.IForm = {
+    isPreview: false,
+    date: Date.now(),
+    id: uuid(),
+    isMultipleChoice: false,
+    note: {
+        id: str.noteId,
+        img: '',
+        isEnable: true,
+        value: str.formNote
+    },
+    optionOther: {
+        id: str.optionOtherId,
+        isEnable: true,
+        value: ''
+    },
+    options: [
+        new FormOptionModel(),
+        new FormOptionModel()
+    ],
+    question: {
+        id: str.questionId,
+        isEnable: true,
+        value: str.formQuestion
+    },
+    title: {
+        id: str.titleId,
+        isEnable: true,
+        value: str.formTitle
+    }
 };

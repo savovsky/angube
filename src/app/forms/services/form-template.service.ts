@@ -12,9 +12,10 @@ import { Subject } from 'rxjs';
 })
 export class FormTemplateService {
 
-  isPreview = true;
+  isPreview = false;
   formTemplateChanged = new Subject();
-  formTemplate: IForm;
+  // formTemplate: IForm;
+  formTemplate;
 
   constructor(
     private formDefaultService: FormDefaultService

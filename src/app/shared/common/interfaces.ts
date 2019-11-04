@@ -54,20 +54,21 @@ export interface MatFormField {
 
 export interface IFormItem {
     id: string;
-    value: string;
     img?: string;
     isEnable: boolean;
+    value: string;
 }
 
 export interface IForm {
-    id: string;
-    title: IFormItem;
+    isPreview: boolean;
     date: number;
-    question: IFormItem;
-    note: IFormItem;
-    options: IFormItem[];
-    optionOther: IFormItem;
+    id: string;
     isMultipleChoice: boolean;
+    note: IFormItem;
+    optionOther: IFormItem;
+    options: IFormItem[];
+    question: IFormItem;
+    title: IFormItem;
 }
 
 export interface IDashboardItem {
@@ -89,6 +90,7 @@ export interface IAppStore {
     authent: IAuthentStore;
     dashboard: IDashboardStore;
     currentUser: any; // TODO Do not use any!
+    formTemplate: IForm;
 }
 
 export interface IAuthentStore {

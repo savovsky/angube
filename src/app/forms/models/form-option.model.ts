@@ -5,9 +5,9 @@ export class FormOptionModel implements IFormItem {
 
   constructor(
     public id = uuid(),
-    public value = 'option',
     public img = '',
-    public isEnable = true
+    public isEnable = true,
+    public value = 'option'
   ) { }
 
 }
