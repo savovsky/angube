@@ -1,3 +1,5 @@
+import { RouterReducerState } from '@ngrx/router-store';
+
 export interface SignError { // REMOVE
     code: string;
     message: string;
@@ -83,6 +85,7 @@ export interface IDashboard {
 
 // Store
 export interface IAppStore {
+    router: RouterReducerState;
     authent: IAuthentStore;
     dashboard: IDashboardStore;
     currentUser: any; // TODO Do not use any!

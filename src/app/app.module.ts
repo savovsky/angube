@@ -18,6 +18,7 @@ import { StoreRouterConnectingModule} from '@ngrx/router-store';
 import { appReducer } from './shared/store/app.reducer';
 import { appEffects } from './shared/store/app.effects';
 import { environment } from './../environments/environment';
+import { CustomSerializer } from './shared/store/custom-route-serializer';
 
 
 @NgModule({
@@ -34,10 +35,11 @@ import { environment } from './../environments/environment';
     HttpClientModule,
     LayoutModule,
     AppRoutingModule,
-    StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot(appEffects),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer })
+    // https://ngrx.io/guide/router-store, https://www.youtube.com/watch?v=mgH4FGs9M4g, https://ngrx.io/guide/router-store/configuration
   ],
   bootstrap: [AppComponent]
 })
