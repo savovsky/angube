@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { of, from } from 'rxjs';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
+import { IAuthentErr } from './../../common/interfaces';
 import * as firebase from 'firebase/app';
 import * as Action from '../actions/authent.action';
-import { IAuthentErr } from './../../common/interfaces';
 import * as Utils from '../../common/utils';
 
 
@@ -30,14 +30,11 @@ export class AuthentEffects {
       return from(this.signUpFirebaseUser()).pipe(
         map((response) => {
           Utils.consoleLog('(AuthentEffects) Sign Up  - Response: ', 'darkGoldenRod', response);
-          const uid = firebase.auth().currentUser.uid;
-          const email = firebase.auth().currentUser.email;
-
-          return new Action.AuthentFulfilled({ uid, email });
+          return this.handleAuthentSuccsess();
         }),
         catchError((error: IAuthentErr) => {
           Utils.consoleLog('(AuthentEffects) Sign Up - Error: ', 'red', error);
-          return of(new Action.AuthentRejected(error.message));
+          return this.handleAuthentError(error);
         })
       );
     })
@@ -53,14 +50,11 @@ export class AuthentEffects {
       return from(this.signInFirebaseUser()).pipe(
         map((response) => {
           Utils.consoleLog('(AuthentEffects) Sign In  - Response: ', 'darkGoldenRod', response);
-          const uid = firebase.auth().currentUser.uid;
-          const email = firebase.auth().currentUser.email;
-
-          return new Action.AuthentFulfilled({ uid, email });
+          return this.handleAuthentSuccsess();
         }),
-        catchError((error: IAuthentErr) => {
-          Utils.consoleLog('(AuthentEffects) Sign In - Error: ', 'red', error);
-          return of(new Action.AuthentRejected(error.message));
+        catchError((error) => {
+          Utils.consoleLog(`(AuthentEffects) Sign In - Error: `, 'red', error);
+          return this.handleAuthentError(error);
         })
       );
     })
@@ -140,5 +134,17 @@ export class AuthentEffects {
 
   // TODO Include firebaseSetPersistence
   // https://firebase.google.com/docs/auth/web/auth-state-persistence
+
+
+  handleAuthentSuccsess() {
+    const uid = firebase.auth().currentUser.uid;
+    const email = firebase.auth().currentUser.email;
+
+    return new Action.AuthentFulfilled({ uid, email });
+  }
+
+  handleAuthentError(error: IAuthentErr) {
+    return of(new Action.AuthentRejected(error.message));
+  }
 
 }
