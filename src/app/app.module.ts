@@ -13,8 +13,11 @@ import { NavbarModule } from './navbar/navbar.module';
 import { AdminModule } from './admin/admin.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule} from '@ngrx/router-store';
 import { appReducer } from './shared/store/app.reducer';
 import { appEffects } from './shared/store/app.effects';
+import { environment } from './../environments/environment';
 
 
 @NgModule({
@@ -31,8 +34,10 @@ import { appEffects } from './shared/store/app.effects';
     HttpClientModule,
     LayoutModule,
     AppRoutingModule,
+    StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot(appEffects)
+    EffectsModule.forRoot(appEffects),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production })
   ],
   bootstrap: [AppComponent]
 })
