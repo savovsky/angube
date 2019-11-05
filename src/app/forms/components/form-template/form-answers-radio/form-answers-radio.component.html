@@ -5,8 +5,8 @@
 	<div *ngFor="let option of options">
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
-			[itemId]="option.id"
 			*ngIf="isEditMode"
+			[itemId]="option.id"
 		>
 		</app-form-edit-menu>
 		<mat-radio-button
@@ -19,8 +19,8 @@
 	<div>
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
-			[itemId]="optionOther.id"
 			*ngIf="isEditMode"
+			[itemId]="optionOther.id"
 		>
 		</app-form-edit-menu>
 		<mat-radio-button
@@ -32,9 +32,9 @@
 			<mat-form-field>
 				<input
 					matInput
-					[disabled]="!optionOther.isEnable"
 					placeholder="Other"
 					autocomplete="off"
+					[disabled]="!optionOther.isEnable"
 				>
 			</mat-form-field>
 		</mat-radio-button>

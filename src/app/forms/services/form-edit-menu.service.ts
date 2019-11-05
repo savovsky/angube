@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormTemplateService } from './form-template.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
+import { IForm } from './../../shared/common/interfaces';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ export class FormEditMenuService {
   itemsSliderEnabled: string[];
 
   constructor(
-    private formTemplateService: FormTemplateService,
     private str: StringsService
   ) {
     this.itemsExcludeOption = [
@@ -46,45 +46,28 @@ export class FormEditMenuService {
     return !this.itemsSliderEnabled.find((el) => el === id);
   }
 
-  isSliderOn(id: string) {
+  isSliderOn(id: string, store: IForm) {
     if (!this.isSliderDisabled(id)) {
-      return this.formTemplateService.formTemplate[`${id}`].isEnable;
+      return store[`${id}`].isEnable;
     }
 
     return true;
   }
 
-  getItemName(id: string) {
+  getItemName(id: string, store: IForm) {
     if (!this.isItemOption(id)) {
-      return this.formTemplateService.formTemplate[`${id}`].id;
+      return store[`${id}`].id;
     }
 
     return this.str.option;
   }
 
-  getItemValue(id: string) {
+  getItemValue(id: string, store: IForm) {
     if (!this.isItemOption(id)) {
-      return this.formTemplateService.formTemplate[`${id}`].value;
+      return store[`${id}`].value;
     }
 
-    return this.formTemplateService.formTemplate.options.find((el) => el.id === id).value;
-  }
-
-  updateItemValue(id: string, value: string) {
-    if (!this.isItemOption(id)) {
-      this.formTemplateService.formTemplate[`${id}`].value = value;
-    } else {
-      this.formTemplateService.formTemplate.options.find((el) => el.id === id).value = value;
-    }
-
-  }
-
-  removeOption(id: string) {
-    this.formTemplateService.removeFormOption(id);
-  }
-
-  toggleEnableItem(id: string) {
-    this.formTemplateService.toggleEnableFormItem(id);
+    return store.options.find((el) => el.id === id).value;
   }
 
 }

@@ -33,7 +33,7 @@ export function formTemplateReducer(
                 options: [...state.options, new FormOptionModel()]
             };
         }
-        case Action.REMOVE_FORM_OPTION: {
+        case Action.REMOVE_OPTION: {
             return {
                 ...state,
                 options: state.options.filter(
@@ -41,13 +41,36 @@ export function formTemplateReducer(
                 )
             };
         }
-        case Action.TOGGLE_ENABLE_FORM_ITEM: {
+        case Action.TOGGLE_ENABLE_ITEM: {
             return {
                 ...state,
                 [action.payload]: {
                     ...state[action.payload],
                     isEnable: !state[action.payload].isEnable
                 }
+            };
+        }
+        case Action.UPDATE_NON_OPTION_ITEM_VALUE: {
+            return {
+                ...state,
+                [action.payload.id]: {
+                    ...state[action.payload.id],
+                    value: action.payload.value
+                }
+            };
+        }
+        case Action.UPDATE_OPTION_ITEM_VALUE: {
+            return {
+                ...state,
+                options: [...state.options.map((item: IFormItem) => {
+                    if (item.id === action.payload.id) {
+                        return {
+                            ...item,
+                            value: action.payload.value
+                        };
+                    }
+                    return item;
+                })]
             };
         }
 

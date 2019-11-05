@@ -1,26 +1,43 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { FormEditDialogComponent } from './../form-edit-dialog/form-edit-dialog.component';
 import { FormEditMenuService } from './../../../services/form-edit-menu.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { MatDialog } from '@angular/material';
+import * as FormTemplateAction from './../../../../shared/store/actions/formTemplate.action';
+import { IAppStore, IForm } from './../../../../shared/common/interfaces';
+import * as Utils from '../../../../shared/common/utils';
 
 @Component({
   selector: 'app-form-edit-menu',
   templateUrl: './form-edit-menu.component.html',
   styleUrls: ['./form-edit-menu.component.css']
 })
-export class FormEditMenuComponent {
+export class FormEditMenuComponent implements OnInit, OnDestroy {
 
   @Input() itemId?: string;
 
   itemValue: string;
+  formTemplateStore: IForm;
+  storeSubscription: Subscription;
 
   constructor(
     private formEditMenuService: FormEditMenuService,
     public str: StringsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store<IAppStore>
 
   ) { }
+
+  ngOnInit() {
+    this.storeSubscription = this.store.select('formTemplate').subscribe(
+      (store) => {
+        Utils.consoleLog('(FormEditMenuComponent) FormTemplate Store: ', 'limegreen', store);
+        this.formTemplateStore = store;
+      }
+    );
+  }
 
   onEdit() {
     const dialogRef = this.dialog.open(FormEditDialogComponent, {
@@ -38,20 +55,25 @@ export class FormEditMenuComponent {
   }
 
   getItemName() {
-    return this.formEditMenuService.getItemName(this.itemId);
+    return this.formEditMenuService.getItemName(this.itemId, this.formTemplateStore);
   }
 
   getItemValue() {
-    return this.formEditMenuService.getItemValue(this.itemId);
+    return this.formEditMenuService.getItemValue(this.itemId, this.formTemplateStore);
   }
 
   updateItemValue() {
+    const id = this.itemId;
     const value = this.itemValue ? this.itemValue : '';
-    this.formEditMenuService.updateItemValue(this.itemId, value);
+    if (this.formEditMenuService.isItemOption(id)) {
+      this.store.dispatch(new FormTemplateAction.UpdateOptionItemValue({ id, value }));
+    } else {
+      this.store.dispatch(new FormTemplateAction.UpdateNonOptionItemValue({ id, value }));
+    }
   }
 
   onDelete() {
-    this.formEditMenuService.removeOption(this.itemId);
+    this.store.dispatch(new FormTemplateAction.RemoveOption(this.itemId));
   }
 
   onAddImage() {
@@ -59,7 +81,11 @@ export class FormEditMenuComponent {
   }
 
   onSlideChange() {
-    return this.formEditMenuService.toggleEnableItem(this.itemId);
+    this.store.dispatch(new FormTemplateAction.ToggleEnableItem(this.itemId));
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
   get isEditDisabled() {
@@ -79,7 +105,7 @@ export class FormEditMenuComponent {
   }
 
   get isSliderOn() {
-    return this.formEditMenuService.isSliderOn(this.itemId);
+    return this.formEditMenuService.isSliderOn(this.itemId, this.formTemplateStore);
   }
 
 }
