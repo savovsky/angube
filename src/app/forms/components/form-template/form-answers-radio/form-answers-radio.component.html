@@ -6,7 +6,7 @@
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
 			[itemId]="option.id"
-			*ngIf="isEditMode()"
+			*ngIf="isEditMode"
 		>
 		</app-form-edit-menu>
 		<mat-radio-button
@@ -20,14 +20,14 @@
 		<app-form-edit-menu
 			class="form-templ-edit-icon"
 			[itemId]="optionOther.id"
-			*ngIf="isEditMode()"
+			*ngIf="isEditMode"
 		>
 		</app-form-edit-menu>
 		<mat-radio-button
 			primary
 			class="form-radio-btn option-other"
-			[disabled]="!optionOther.isEnable"
 			*ngIf="isDisplayAllowed"
+			[disabled]="!optionOther.isEnable"
 		>
 			<mat-form-field>
 				<input

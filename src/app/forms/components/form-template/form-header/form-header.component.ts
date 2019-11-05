@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IFormItem } from './../../../../shared/common/interfaces';
-import { FormTemplateService } from './../../../services/form-template.service';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { Subscription } from 'rxjs';
+import { IFormItem, IAppStore } from './../../../../shared/common/interfaces';
+import * as Utils from '../../../../shared/common/utils';
 
 @Component({
   selector: 'app-form-header',
@@ -12,49 +13,44 @@ import { Subscription } from 'rxjs';
 })
 export class FormHeaderComponent implements OnInit, OnDestroy {
 
+  isEditMode: boolean;
   title: IFormItem;
   currentUserName: string;
   createdDate: number;
   currentUserUpdateSubscription: Subscription;
-  formTemplateChangeSubscription: Subscription;
+  storeSubscription: Subscription;
 
   constructor(
     private usersService: UsersService,
-    private formTemplateService: FormTemplateService,
-    public str: StringsService
+    public str: StringsService,
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
-    this.getFormTitle();
+    // TODO Wire up with 'currentUser' store.
     this.getCurrentUserName();
-    this.getFormDate();
     this.currentUserUpdateSubscription = this.usersService.currentUserUpdated.subscribe(
       () => { this.getCurrentUserName(); }
     );
-    this.formTemplateChangeSubscription = this.formTemplateService.formTemplateChanged.subscribe(
-      () => { this.getFormTitle(); }
-    );
-  }
 
-  getFormTitle() {
-    this.title = this.formTemplateService.formTemplate.title;
+    // -------------
+    this.storeSubscription = this.store.select('formTemplate').subscribe(
+      (store) => {
+        Utils.consoleLog('(FormHeaderComponent) FormTemplate Store: ', 'limegreen', store);
+        this.isEditMode = !store.isPreview;
+        this.title = store.title;
+        this.createdDate = store.date;
+      }
+    );
   }
 
   getCurrentUserName() {
     this.currentUserName = this.usersService.currentUserAccount.userName;
   }
 
-  getFormDate() {
-    this.createdDate = this.formTemplateService.formTemplate.date;
-  }
-
-  isEditMode() {
-    return !this.formTemplateService.isPreview;
-  }
-
   ngOnDestroy() {
     this.currentUserUpdateSubscription.unsubscribe();
-    this.formTemplateChangeSubscription.unsubscribe();
+    this.storeSubscription.unsubscribe();
   }
 
 }

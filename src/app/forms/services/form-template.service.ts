@@ -23,23 +23,9 @@ export class FormTemplateService {
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
   }
 
-  togglePreviewEdit() {
-    this.isPreview = !this.isPreview;
-  }
-
   setToDefault() {
     this.isPreview = true;
     this.formTemplate = this.formDefaultService.getDefaultTemplate();
-  }
-
-  setIsMultipleChoice(isMultiple: boolean) {
-    this.formTemplate.isMultipleChoice = isMultiple;
-    this.formTemplateChanged.next();
-  }
-
-  addFormOption(newOption: IFormItem) {
-    this.formTemplate.options.push(newOption);
-    this.formTemplateChanged.next();
   }
 
   removeFormOption(otionId: string) {

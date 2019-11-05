@@ -1,27 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { DatabaseDashboardService } from './../../../../shared/services/database-dashboard.service';
 import { DatabaseFormsService } from './../../../../shared/services/database-forms.service';
 import { FormTemplateService } from './../../../services/form-template.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
+import * as FormTemplateAction from './../../../../shared/store/actions/formTemplate.action';
+import { IAppStore } from './../../../../shared/common/interfaces';
+import * as Utils from '../../../../shared/common/utils';
 
 @Component({
   selector: 'app-form-footer',
   templateUrl: './form-footer.component.html',
   styleUrls: ['./form-footer.component.css']
 })
-export class FormFooterComponent implements OnInit {
+export class FormFooterComponent implements OnInit, OnDestroy {
 
-  previewEditBtn: string;
+  isEditMode: boolean;
+  editPreviewBtn: string;
+  storeSubscription: Subscription;
 
   constructor(
     private formTemplateService: FormTemplateService,
     private databaseFormsService: DatabaseFormsService,
     private databaseDashboardService: DatabaseDashboardService,
-    public str: StringsService
+    public str: StringsService,
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
-    this.previewEditBtn = this.formTemplateService.isPreview ? this.str.edit : this.str.preview;
+    this.storeSubscription = this.store.select('formTemplate').subscribe(
+      (store) => {
+        Utils.consoleLog('(FormFooterComponent) FormTemplate Store: ', 'limegreen', store);
+        this.isEditMode = !store.isPreview;
+        this.editPreviewBtn = store.isPreview ? this.str.edit : this.str.preview;
+      }
+    );
   }
 
   onSave() {
@@ -36,16 +50,15 @@ export class FormFooterComponent implements OnInit {
   }
 
   onPreviewEdit() {
-    this.formTemplateService.togglePreviewEdit();
-    this.previewEditBtn = this.formTemplateService.isPreview ? this.str.edit : this.str.preview;
+    this.store.dispatch(new FormTemplateAction.TogglePreviewEdit());
   }
 
   onCancel() {
     this.formTemplateService.setToDefault();
   }
 
-  get isEditMode() {
-    return !this.formTemplateService.isPreview;
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
 }

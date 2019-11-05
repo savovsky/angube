@@ -87,6 +87,7 @@ export class StringsService {
     disable = 'disable';
     enable = 'enable';
 
+    // Form items id
     titleId = 'title';
     questionId = 'question';
     noteId = 'note';

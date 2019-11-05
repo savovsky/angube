@@ -1,9 +1,9 @@
 <div class="answers-tools-wrapper">
 	<button
 		mat-raised-button
-		[matTooltip]="str.addOption | titlecase"
 		class="add-option-btn"
 		type="button"
+		[matTooltip]="str.addOption | titlecase"
 		[disabled]="isOptionsTen()"
 		(click)="onAddOption()"
 	><mat-icon>playlist_add</mat-icon>

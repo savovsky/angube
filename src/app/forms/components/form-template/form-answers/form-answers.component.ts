@@ -1,6 +1,8 @@
-import { FormTemplateService } from './../../../services/form-template.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { IAppStore } from './../../../../shared/common/interfaces';
+import * as Utils from '../../../../shared/common/utils';
 
 @Component({
   selector: 'app-form-answers',
@@ -9,30 +11,26 @@ import { Subscription } from 'rxjs';
 })
 export class FormAnswersComponent implements OnInit, OnDestroy {
 
+  isEditMode: boolean;
   isMultipleChoice: boolean;
-  formTemplateChangeSubscription: Subscription;
+  storeSubscription: Subscription;
 
   constructor(
-    private formTemplateService: FormTemplateService
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
-    this.getIsMultipleChoice();
-    this.formTemplateChangeSubscription = this.formTemplateService.formTemplateChanged.subscribe(
-      () => { this.getIsMultipleChoice(); }
+    this.storeSubscription = this.store.select('formTemplate').subscribe(
+      (store) => {
+        Utils.consoleLog('(FormAnswersComponent) FormTemplate Store: ', 'limegreen', store);
+        this.isEditMode = !store.isPreview;
+        this.isMultipleChoice = store.isMultipleChoice;
+      }
     );
   }
 
-  getIsMultipleChoice() {
-    this.isMultipleChoice = this.formTemplateService.formTemplate.isMultipleChoice;
-  }
-
-  isEditMode() {
-    return !this.formTemplateService.isPreview;
-  }
-
   ngOnDestroy() {
-    this.formTemplateChangeSubscription.unsubscribe();
+    this.storeSubscription.unsubscribe();
   }
 
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StringsService } from 'src/app/shared/services/strings.service';
-import { FormTemplateService } from './../../../services/form-template.service';
-import { FormOptionModel } from './../../../models/form-option.model';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { StringsService } from 'src/app/shared/services/strings.service';
+import * as FormTemplateAction from './../../../../shared/store/actions/formTemplate.action';
+import { IAppStore } from './../../../../shared/common/interfaces';
+import * as Utils from '../../../../shared/common/utils';
 
 @Component({
   selector: 'app-form-answers-tools',
@@ -12,34 +14,32 @@ import { Subscription } from 'rxjs';
 export class FormAnswersToolsComponent  implements OnInit, OnDestroy {
 
   optionsCount: number;
-  formTemplateChangeSubscription: Subscription;
+  storeSubscription: Subscription;
 
   constructor(
-    private formTemplateService: FormTemplateService,
-    public str: StringsService
+    public str: StringsService,
+    private store: Store<IAppStore>
   ) { }
 
   ngOnInit() {
-    this.getOptionsCount();
-    this.formTemplateChangeSubscription = this.formTemplateService.formTemplateChanged.subscribe(
-      () => { this.getOptionsCount(); }
+    this.storeSubscription = this.store.select('formTemplate').subscribe(
+      (store) => {
+        Utils.consoleLog('(FormAnswersToolsComponent) FormTemplate Store: ', 'limegreen', store);
+        this.optionsCount = store.options.length;
+      }
     );
   }
 
   onAddOption() {
-    this.formTemplateService.addFormOption(new FormOptionModel());
+    this.store.dispatch(new FormTemplateAction.AddFormOption());
   }
 
   isOptionsTen() {
     return this.optionsCount > 9;
   }
 
-  getOptionsCount() {
-    this.optionsCount = this.formTemplateService.formTemplate.options.length;
-  }
-
   ngOnDestroy() {
-    this.formTemplateChangeSubscription.unsubscribe();
+    this.storeSubscription.unsubscribe();
   }
 
 }

@@ -1,9 +1,8 @@
-
 <div class="form-question-wrapper">
     <app-form-edit-menu
         class="form-templ-edit-icon"
+        *ngIf="isEditMode"
         [itemId]="question.id"
-        *ngIf="isEditMode()"
     >
     </app-form-edit-menu>
     <div class="form-question primary">{{ question.value | capitalize }}</div>
@@ -11,8 +10,8 @@
 <div class="form-question-wrapper">
     <app-form-edit-menu
         class="form-templ-edit-icon"
+        *ngIf="isEditMode"
         [itemId]="note.id"
-        *ngIf="isEditMode()"
     >
     </app-form-edit-menu>
     <div
