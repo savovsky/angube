@@ -23,7 +23,7 @@ export class FormAnswersComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store.select('formTemplate').subscribe(
       (store) => {
         Utils.consoleLog('(FormAnswersComponent) FormTemplate Store: ', 'limegreen', store);
-        this.isEditMode = !store.isPreview;
+        this.isEditMode = !store.isPreviewMode;
         this.isMultipleChoice = store.isMultipleChoice;
       }
     );

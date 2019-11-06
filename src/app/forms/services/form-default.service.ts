@@ -1,9 +1,9 @@
-import { FormOptionModel } from './../models/form-option.model';
 import { Injectable } from '@angular/core';
+import { FormOptionModel } from './../models/form-option.model';
 import { StringsService } from 'src/app/shared/services/strings.service';
-// import { IForm } from 'src/app/shared/common/interfaces';
 import { v4 as uuid } from 'uuid';
 
+// TODO Delete this file, when Store is wired up!
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,6 @@ export class FormDefaultService {
     private str: StringsService
   ) { }
 
-  // getDefaultTemplate(): IForm {
   getDefaultTemplate() {
     return {
       id: uuid(),

@@ -1,18 +1,18 @@
 import { Action } from '@ngrx/store';
 
-export const SIGNIN_START = 'SIGNIN_START';
-export const SIGNUP_START = 'SIGNUP_START';
-export const AUTHENT_FULFILLED = 'AUTHENT_FULFILLED';
-export const AUTHENT_REJECTED = 'AUTHENT_REJECTED';
-export const FETCH_TOKEN_START = 'FETCH_TOKEN_START';
-export const FETCH_TOKEN_FULFILLED = 'FETCH_TOKEN_FULFILLED';
-export const FETCH_TOKEN_REJECTED = 'FETCH_TOKEN_REJECTED';
-export const LOG_OUT_START = 'LOG_OUT_START';
-export const LOG_OUT_FULFILLED = 'LOG_OUT_FULFILLED';
-export const LOG_OUT_REJECTED = 'LOG_OUT_REJECTED';
-export const VERIFY_AUTHENT_START = 'VERIFY_AUTHENT_START';
-export const VERIFY_AUTHENT_FULFILLED = 'VERIFY_AUTHENT_FULFILLED';
-export const VERIFY_AUTHENT_REJECTED = 'VERIFY_AUTHENT_REJECTED';
+export const SIGNIN_START = '[Authentication] SIGNIN_START';
+export const SIGNUP_START = '[Authentication] SIGNUP_START';
+export const AUTHENT_FULFILLED = '[Authentication] AUTHENT_FULFILLED';
+export const AUTHENT_REJECTED = '[Authentication] AUTHENT_REJECTED';
+export const FETCH_TOKEN_START = '[Authentication] FETCH_TOKEN_START';
+export const FETCH_TOKEN_FULFILLED = '[Authentication] FETCH_TOKEN_FULFILLED';
+export const FETCH_TOKEN_REJECTED = '[Authentication] FETCH_TOKEN_REJECTED';
+export const LOG_OUT_START = '[Authentication] LOG_OUT_START';
+export const LOG_OUT_FULFILLED = '[Authentication] LOG_OUT_FULFILLED';
+export const LOG_OUT_REJECTED = '[Authentication] LOG_OUT_REJECTED';
+export const VERIFY_AUTHENT_START = '[Authentication] VERIFY_AUTHENT_START';
+export const VERIFY_AUTHENT_FULFILLED = '[Authentication] VERIFY_AUTHENT_FULFILLED';
+export const VERIFY_AUTHENT_REJECTED = '[Authentication] VERIFY_AUTHENT_REJECTED';
 
 export class SignInStart implements Action {
     readonly type = SIGNIN_START;

@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { IFormItem } from './../../common/interfaces';
 import * as Action from '../actions/formTemplate.action';
 import { FormOptionModel } from 'src/app/forms/models/form-option.model';
@@ -10,10 +11,22 @@ export function formTemplateReducer(
     ) {
 
     switch (action.type) {
+        case Action.SET_FORM_ID: {
+            return {
+                ...state,
+                id: uuid()
+            };
+        }
+        case Action.SET_FORM_DATE: {
+            return {
+                ...state,
+                date: Date.now()
+            };
+        }
         case Action.TOGGLE_PREVIEW_EDIT: {
             return {
                 ...state,
-                isPreview: !state.isPreview
+                isPreviewMode: !state.isPreviewMode
             };
         }
         case Action.SET_TO_DEFAULT: {
@@ -27,7 +40,7 @@ export function formTemplateReducer(
                 isMultipleChoice: !state.isMultipleChoice
             };
         }
-        case Action.ADD_FORM_OPTION: {
+        case Action.ADD_OPTION: {
             return {
                 ...state,
                 options: [...state.options, new FormOptionModel()]
@@ -71,6 +84,32 @@ export function formTemplateReducer(
                     }
                     return item;
                 })]
+            };
+        }
+        case Action.UPLOAD_START: {
+            return {
+                ...state,
+                uploading: true,
+                uploadFulfilled: false,
+                uploadRejected: false,
+                uploadErr: ''
+            };
+        }
+        case Action.UPLOAD_FULFILLED: {
+            return {
+                ...state,
+                uploading: false,
+                uploadFulfilled: true,
+                uploadRejected: false
+            };
+        }
+        case Action.UPLOAD_REJECTED: {
+            return {
+                ...state,
+                uploading: false,
+                uploadFulfilled: false,
+                uploadRejected: true,
+                uploadErr: action.payload
             };
         }
 

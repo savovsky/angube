@@ -26,7 +26,7 @@ export class FormAnswersRadioComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store.select('formTemplate').subscribe(
       (store) => {
         Utils.consoleLog('(FormAnswersRadioComponent) FormTemplate Store: ', 'limegreen', store);
-        this.isEditMode = !store.isPreview;
+        this.isEditMode = !store.isPreviewMode;
         this.options = store.options;
         this.optionOther = store.optionOther;
       }

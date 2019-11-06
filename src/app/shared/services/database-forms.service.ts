@@ -5,9 +5,11 @@ import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/shared/common/interfaces';
-import { IForm } from '../common/interfaces';
+import { IFormStore } from '../common/interfaces';
 import * as Utils from '../common/utils';
 
+
+// TODO Delete this file, when Store is wired up!
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,7 @@ export class DatabaseFormsService {
 
   token: string;
   user: User;
-  form: IForm;
+  form: IFormStore;
   databaseFormUpdate = new Subject();
 
   constructor(

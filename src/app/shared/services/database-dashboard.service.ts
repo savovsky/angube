@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/shared/common/interfaces';
-import { IForm } from '../common/interfaces';
+import { IFormStore } from '../common/interfaces';
 import { IDashboardItem } from './../common/interfaces';
 import * as Utils from '../common/utils';
 
@@ -16,7 +16,7 @@ export class DatabaseDashboardService {
 
   token: string;
   user: User;
-  form: IForm;
+  form: IFormStore;
   dashboardUpdate = new Subject();
 
   constructor(

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StringsService } from 'src/app/shared/services/strings.service';
-import { IForm } from './../../shared/common/interfaces';
+import { IFormStore } from './../../shared/common/interfaces';
 
 
 @Injectable({
@@ -46,7 +46,7 @@ export class FormEditMenuService {
     return !this.itemsSliderEnabled.find((el) => el === id);
   }
 
-  isSliderOn(id: string, store: IForm) {
+  isSliderOn(id: string, store: IFormStore) {
     if (!this.isSliderDisabled(id)) {
       return store[`${id}`].isEnable;
     }
@@ -54,7 +54,7 @@ export class FormEditMenuService {
     return true;
   }
 
-  getItemName(id: string, store: IForm) {
+  getItemName(id: string, store: IFormStore) {
     if (!this.isItemOption(id)) {
       return store[`${id}`].id;
     }
@@ -62,7 +62,7 @@ export class FormEditMenuService {
     return this.str.option;
   }
 
-  getItemValue(id: string, store: IForm) {
+  getItemValue(id: string, store: IFormStore) {
     if (!this.isItemOption(id)) {
       return store[`${id}`].value;
     }

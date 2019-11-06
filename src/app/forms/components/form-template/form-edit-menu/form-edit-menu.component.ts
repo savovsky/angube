@@ -6,7 +6,7 @@ import { FormEditMenuService } from './../../../services/form-edit-menu.service'
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { MatDialog } from '@angular/material';
 import * as FormTemplateAction from './../../../../shared/store/actions/formTemplate.action';
-import { IAppStore, IForm } from './../../../../shared/common/interfaces';
+import { IAppStore, IFormStore } from './../../../../shared/common/interfaces';
 import * as Utils from '../../../../shared/common/utils';
 
 @Component({
@@ -19,7 +19,7 @@ export class FormEditMenuComponent implements OnInit, OnDestroy {
   @Input() itemId?: string;
 
   itemValue: string;
-  formTemplateStore: IForm;
+  formTemplateStore: IFormStore;
   storeSubscription: Subscription;
 
   constructor(

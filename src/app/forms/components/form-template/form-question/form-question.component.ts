@@ -27,7 +27,7 @@ export class FormQuestionComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store.select('formTemplate').subscribe(
       (store) => {
         Utils.consoleLog('(FormFooterComponent) FormTemplate Store: ', 'limegreen', store);
-        this.isEditMode = !store.isPreview;
+        this.isEditMode = !store.isPreviewMode;
         this.question = store.question;
         this.note = store.note;
       }

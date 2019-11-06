@@ -59,8 +59,7 @@ export interface IFormItem {
     value: string;
 }
 
-export interface IForm {
-    isPreview: boolean;
+export interface IFormTemplate {
     date: number;
     id: string;
     isMultipleChoice: boolean;
@@ -69,6 +68,14 @@ export interface IForm {
     options: IFormItem[];
     question: IFormItem;
     title: IFormItem;
+}
+
+export interface IFormStore extends IFormTemplate {
+    uploading: boolean;
+    uploadFulfilled: boolean;
+    uploadRejected: boolean;
+    uploadErr: string;
+    isPreviewMode: boolean;
 }
 
 export interface IDashboardItem {
@@ -90,7 +97,7 @@ export interface IAppStore {
     authent: IAuthentStore;
     dashboard: IDashboardStore;
     currentUser: any; // TODO Do not use any!
-    formTemplate: IForm;
+    formTemplate: IFormStore;
 }
 
 export interface IAuthentStore {

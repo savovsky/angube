@@ -37,7 +37,7 @@ export class FormHeaderComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store.select('formTemplate').subscribe(
       (store) => {
         Utils.consoleLog('(FormHeaderComponent) FormTemplate Store: ', 'limegreen', store);
-        this.isEditMode = !store.isPreview;
+        this.isEditMode = !store.isPreviewMode;
         this.title = store.title;
         this.createdDate = store.date;
       }

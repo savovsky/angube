@@ -31,7 +31,7 @@ export class FormAnswersToolsComponent  implements OnInit, OnDestroy {
   }
 
   onAddOption() {
-    this.store.dispatch(new FormTemplateAction.AddFormOption());
+    this.store.dispatch(new FormTemplateAction.AddOption());
   }
 
   isOptionsTen() {

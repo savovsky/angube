@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+
 import { StringsService } from '../services/strings.service';
 import { FormOptionModel } from './../../forms/models/form-option.model';
 import * as Interface from './../common/interfaces';
@@ -53,10 +53,14 @@ export const authent: Interface.IAuthentStore = {
     email: ''
 };
 
-export const formTemplate: Interface.IForm = {
-    isPreview: false,
-    date: Date.now(),
-    id: uuid(),
+export const formTemplate: Interface.IFormStore = {
+    uploading: false,
+    uploadFulfilled: false,
+    uploadRejected: false,
+    uploadErr: '',
+    isPreviewMode: false,
+    date: null,
+    id: '',
     isMultipleChoice: false,
     note: {
         id: str.noteId,
