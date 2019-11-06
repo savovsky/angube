@@ -86,7 +86,7 @@ export function formTemplateReducer(
                 })]
             };
         }
-        case Action.UPLOAD_START: {
+        case Action.UPLOAD_FORM_START: {
             return {
                 ...state,
                 uploading: true,
@@ -95,7 +95,7 @@ export function formTemplateReducer(
                 uploadErr: ''
             };
         }
-        case Action.UPLOAD_FULFILLED: {
+        case Action.UPLOAD_FORM_FULFILLED: {
             return {
                 ...state,
                 uploading: false,
@@ -103,7 +103,7 @@ export function formTemplateReducer(
                 uploadRejected: false
             };
         }
-        case Action.UPLOAD_REJECTED: {
+        case Action.UPLOAD_FORM_REJECTED: {
             return {
                 ...state,
                 uploading: false,

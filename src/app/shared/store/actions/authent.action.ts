@@ -29,7 +29,7 @@ export class SignUpStart implements Action {
 export class AuthentFulfilled implements Action {
     readonly type = AUTHENT_FULFILLED;
 
-    constructor(public payload: { uid: string, email: string }) { }
+    constructor(public payload: { uid: string, email: string, isSignIn: boolean }) { }
 }
 
 export class AuthentRejected implements Action {
@@ -40,12 +40,14 @@ export class AuthentRejected implements Action {
 
 export class FetchTokenStart implements Action {
     readonly type = FETCH_TOKEN_START;
+
+    constructor(public payload: boolean) { } // // payload = isSignIn
 }
 
 export class FetchTokenFulfilled implements Action {
     readonly type = FETCH_TOKEN_FULFILLED;
 
-    constructor(public payload: string) { } // // payload = token
+    constructor(public payload: { token: string, isSignIn: boolean }) { }
 }
 
 export class FetchTokenRejected implements Action {

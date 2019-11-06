@@ -30,7 +30,7 @@ export class AuthentEffects {
       return from(this.signUpFirebaseUser()).pipe(
         map((response) => {
           Utils.consoleLog('(AuthentEffects) Sign Up  - Response: ', 'darkGoldenRod', response);
-          return this.handleAuthentSuccsess();
+          return this.handleAuthentSuccsess(false);
         }),
         catchError((error: IAuthentErr) => {
           Utils.consoleLog('(AuthentEffects) Sign Up - Error: ', 'red', error);
@@ -50,7 +50,7 @@ export class AuthentEffects {
       return from(this.signInFirebaseUser()).pipe(
         map((response) => {
           Utils.consoleLog('(AuthentEffects) Sign In  - Response: ', 'darkGoldenRod', response);
-          return this.handleAuthentSuccsess();
+          return this.handleAuthentSuccsess(true);
         }),
         catchError((error) => {
           Utils.consoleLog(`(AuthentEffects) Sign In - Error: `, 'red', error);
@@ -63,12 +63,12 @@ export class AuthentEffects {
   @Effect()
   fetchToken$ = this.actions$.pipe(
     ofType(Action.AUTHENT_FULFILLED),
-    map(() => new Action.FetchTokenStart()),
-    switchMap(() => {
+    map((action: Action.AuthentFulfilled) => new Action.FetchTokenStart(action.payload.isSignIn)),
+    switchMap((action) => {
       return from(this.getSignedUserToken()).pipe(
         map((token) => {
           Utils.consoleLog('(AuthentEffects) Fetch Token - Seccess! ', 'darkGoldenRod');
-          return new Action.FetchTokenFulfilled(token);
+          return new Action.FetchTokenFulfilled({ token, isSignIn: action.payload});
         }),
         catchError((error) => {
           Utils.consoleLog('(AuthentEffects) Fetch Token - Error: ', 'red', error);
@@ -79,20 +79,14 @@ export class AuthentEffects {
   );
 
   @Effect({ dispatch: false }) // Informing 'ngrx effects' this one will not dispatch an action.
-  navigateOnSignInSuccess$ = this.actions$.pipe(
+  navigateOnAuthentSuccess$ = this.actions$.pipe(
     ofType(Action.FETCH_TOKEN_FULFILLED),
-    tap(() => {
-      this.router.navigate(['app/home']);
-    })
-  );
-
-  @Effect({ dispatch: false })
-  navigateOnSignUpSuccess$ = this.actions$.pipe(
-    // TODO Find how to make difference between signin and sighup at that point
-    ofType(Action.FETCH_TOKEN_FULFILLED),
-    tap(() => {
-      this.router.navigate(['app/home']);
-      // this.router.navigate(['question']);
+    tap((action: Action.FetchTokenFulfilled) => {
+      if (action.payload.isSignIn) {
+        this.router.navigate(['app/home']);
+      } else {
+        this.router.navigate(['question']);
+      }
     })
   );
 
@@ -136,11 +130,11 @@ export class AuthentEffects {
   // https://firebase.google.com/docs/auth/web/auth-state-persistence
 
 
-  handleAuthentSuccsess() {
+  handleAuthentSuccsess(isSignIn: boolean) {
     const uid = firebase.auth().currentUser.uid;
     const email = firebase.auth().currentUser.email;
 
-    return new Action.AuthentFulfilled({ uid, email });
+    return new Action.AuthentFulfilled({ uid, email, isSignIn });
   }
 
   handleAuthentError(error: IAuthentErr) {

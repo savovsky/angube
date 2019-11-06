@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { DatabaseDashboardService } from './../../../../shared/services/database-dashboard.service';
-import { DatabaseFormsService } from './../../../../shared/services/database-forms.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import * as FormTemplateAction from './../../../../shared/store/actions/formTemplate.action';
 import { IAppStore, IFormStore } from './../../../../shared/common/interfaces';
@@ -21,8 +19,6 @@ export class FormFooterComponent implements OnInit, OnDestroy {
   storeSubscription: Subscription;
 
   constructor(
-    private databaseFormsService: DatabaseFormsService,
-    private databaseDashboardService: DatabaseDashboardService,
     public str: StringsService,
     private store: Store<IAppStore>
   ) { }
@@ -39,15 +35,12 @@ export class FormFooterComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    // this.databaseFormsService.updateForm();
-    this.store.dispatch(new FormTemplateAction.UploadStart(this.getFormTemplate()));
-    this.store.dispatch(new FormTemplateAction.SetToDefault());
+    this.store.dispatch(new FormTemplateAction.UploadFormStart(this.formTemplateStore));
   }
 
   onSaveAndPublish() {
-    // this.databaseFormsService.updateForm();
-    this.store.dispatch(new FormTemplateAction.UploadStart(this.getFormTemplate()));
-    this.databaseDashboardService.updateDashboardForm();
+    this.store.dispatch(new FormTemplateAction.UploadFormStart(this.formTemplateStore));
+    this.store.dispatch(new FormTemplateAction.UploadFormToDashboardStart(this.formTemplateStore));
     this.store.dispatch(new FormTemplateAction.SetToDefault());
   }
 
@@ -57,12 +50,6 @@ export class FormFooterComponent implements OnInit, OnDestroy {
 
   onCancel() {
     this.store.dispatch(new FormTemplateAction.SetToDefault());
-  }
-
-  getFormTemplate() {
-    const { uploading, uploadFulfilled, uploadRejected, uploadErr, isPreviewMode,  ...formTemplate } = this.formTemplateStore;
-
-    return formTemplate;
   }
 
   ngOnDestroy() {

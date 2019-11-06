@@ -54,7 +54,7 @@ export function authentReducer(
                 fetchingToken: false,
                 fetchTokenFulfilled: true,
                 fetchTokenRejected: false,
-                token: action.payload
+                token: action.payload.token
             };
         }
         case Action.FETCH_TOKEN_REJECTED: {

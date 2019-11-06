@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IFormTemplate } from './../../common/interfaces';
+import { IFormTemplate, IFormStore } from './../../common/interfaces';
 
 export const SET_FORM_ID = '[Form Template] SET_FORM_ID';
 export const SET_FORM_DATE = '[Form Template] SET_FORM_DATE';
@@ -11,9 +11,12 @@ export const REMOVE_OPTION = '[Form Template] REMOVE_OPTION';
 export const TOGGLE_ENABLE_ITEM = '[Form Template] TOGGLE_ENABLE_ITEM';
 export const UPDATE_NON_OPTION_ITEM_VALUE = '[Form Template] UPDATE_NON_OPTION_ITEM_VALUE';
 export const UPDATE_OPTION_ITEM_VALUE = '[Form Template] UPDATE_OPTION_ITEM_VALUE';
-export const UPLOAD_START = '[Form Template] UPLOAD_START';
-export const UPLOAD_FULFILLED = '[Form Template] UPLOAD_FULFILLED';
-export const UPLOAD_REJECTED = '[Form Template] UPLOAD_REJECTED';
+export const UPLOAD_FORM_START = '[Form Template] UPLOAD_FORM_START';
+export const UPLOAD_FORM_FULFILLED = '[Form Template] UPLOAD_FORM_FULFILLED';
+export const UPLOAD_FORM_REJECTED = '[Form Template] UPLOAD_FORM_REJECTED';
+export const UPLOAD_FORM_TO_DASHBOARD_START = '[Form Template] UPLOAD_FORM_TO_DASHBOARD_START';
+export const UPLOAD_FORM_TO_DASHBOARD_FULFILLED = '[Form Template] UPLOAD_FORM_TO_DASHBOARD_FULFILLED';
+export const UPLOAD_FORM_TO_DASHBOARD_REJECTED = '[Form Template] UPLOAD_FORM_TO_DASHBOARD_REJECTED';
 
 
 export class SetFormId implements Action {
@@ -64,19 +67,34 @@ export class UpdateOptionItemValue implements Action {
     constructor(public payload: { id: string, value: string }) { }
 }
 
-export class UploadStart implements Action {
-    readonly type = UPLOAD_START;
+export class UploadFormStart implements Action {
+    readonly type = UPLOAD_FORM_START;
 
-    constructor(public payload: IFormTemplate) { }
+    constructor(public payload: IFormStore) { }
 }
 
-export class UploadFulfilled implements Action {
-    readonly type = UPLOAD_FULFILLED;
-
+export class UploadFormFulfilled implements Action {
+    readonly type = UPLOAD_FORM_FULFILLED;
 }
 
-export class UploadRejected implements Action {
-    readonly type = UPLOAD_REJECTED;
+export class UploadFormRejected implements Action {
+    readonly type = UPLOAD_FORM_REJECTED;
+
+    constructor(public payload: string) { } // payload = error message
+}
+
+export class UploadFormToDashboardStart implements Action {
+    readonly type = UPLOAD_FORM_TO_DASHBOARD_START;
+
+    constructor(public payload: IFormStore) { }
+}
+
+export class UploadFormToDashboardFulfilled implements Action {
+    readonly type = UPLOAD_FORM_TO_DASHBOARD_FULFILLED;
+}
+
+export class UploadFormToDashboardRejected implements Action {
+    readonly type = UPLOAD_FORM_TO_DASHBOARD_REJECTED;
 
     constructor(public payload: string) { } // payload = error message
 }
@@ -93,6 +111,9 @@ export type FormTemplateActions =
     | ToggleEnableItem
     | UpdateNonOptionItemValue
     | UpdateOptionItemValue
-    | UploadStart
-    | UploadFulfilled
-    | UploadRejected;
+    | UploadFormStart
+    | UploadFormFulfilled
+    | UploadFormRejected
+    | UploadFormToDashboardStart
+    | UploadFormToDashboardFulfilled
+    | UploadFormToDashboardRejected;
