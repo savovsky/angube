@@ -2,4 +2,21 @@
     <app-form-answers-radio *ngIf="!isMultipleChoice"></app-form-answers-radio>
     <app-form-answers-checkbox *ngIf="isMultipleChoice"></app-form-answers-checkbox>
     <app-form-answers-tools *ngIf="isEditMode"></app-form-answers-tools>
+    <div class="form-footer-wrapper" *ngIf="!isEditMode">
+        <button
+            mat-stroked-button
+            class="wide-48"
+            color="primary"
+            type="button"
+            disabled
+        >{{ str.submit | titlecase }}
+        </button>
+        <button
+            mat-stroked-button
+            class="wide-48"
+            type="button"
+            disabled
+        >{{ str.cancel | titlecase }}
+        </button>
+    </div>
 </div>

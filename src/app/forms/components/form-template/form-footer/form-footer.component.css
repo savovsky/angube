@@ -1,11 +1,5 @@
-.form-footer-wrapper {
-    display: flex;
-    justify-content: space-between;
-    padding: 16px 0;
-}
-
-.template-footer-wrapper {
-    padding: 16px 0 0;
+.form-template-btns-wrapper {
+    margin-top: 20px;
 }
 
 .mat-secondary {

@@ -39,6 +39,7 @@ export class FormFooterComponent implements OnInit, OnDestroy {
   }
 
   onSaveAndPublish() {
+    // TODO Use one dispatch + effects with two 2 requests
     this.store.dispatch(new FormTemplateAction.UploadFormStart(this.formTemplateStore));
     this.store.dispatch(new FormTemplateAction.UploadFormToDashboardStart(this.formTemplateStore));
     this.store.dispatch(new FormTemplateAction.SetToDefault());

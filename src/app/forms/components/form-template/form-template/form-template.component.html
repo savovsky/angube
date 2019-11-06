@@ -1,12 +1,14 @@
 <div class="form-template-container">
-	<mat-card class="form-template">
-		<app-form-header></app-form-header>
-		<mat-divider [inset]="true"></mat-divider>
-		<mat-card-content>
-			<app-form-question></app-form-question>
+	<div class="form-template">
+		<mat-card>
+			<app-form-header></app-form-header>
 			<mat-divider [inset]="true"></mat-divider>
-			<app-form-answers></app-form-answers>
-		</mat-card-content>
+			<mat-card-content>
+				<app-form-question></app-form-question>
+				<mat-divider [inset]="true"></mat-divider>
+				<app-form-answers></app-form-answers>
+			</mat-card-content>
+		</mat-card>
 		<app-form-footer></app-form-footer>
-	</mat-card>
+	</div>
 </div>
