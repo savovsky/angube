@@ -22,6 +22,19 @@ export interface User {  // TODO Remove when refactoring is done.
     communityCode: string;
 }
 
+export interface IUser {
+    uid: string;
+    userName: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    birthdate: string;
+    isAdmin: boolean;
+    isBlocked: boolean;
+    phoneNumber: string;
+    communityId: string;
+}
+
 export interface DialogData {
     header: string;
     value: string;
@@ -122,19 +135,6 @@ export interface IAuthentStore {
     uid: string;
     token: string;
     email: string; // TODO Do I need it here ?
-    communityId: string;
-}
-
-export interface IUser {
-    uid: string;
-    userName: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    birthdate: string;
-    isAdmin: boolean;
-    isBlocked: boolean;
-    phoneNumber: string;
     communityId: string;
 }
 

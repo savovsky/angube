@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { IAppStore, IUser } from './../../../shared/common/interfaces';
 import { DatabaseService } from '../../../shared/services/database.service';
-import { UsersService } from '../../../shared/services/users.service';
 import { StringsService } from '../../../shared/services/strings.service';
 import { User } from '../../../shared/common/interfaces';
+import * as UsersAction from '../../../shared/store/actions/users.action';
+import * as Utils from '../../../shared/common/utils';
 
 
 @Component({
@@ -10,20 +14,41 @@ import { User } from '../../../shared/common/interfaces';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit, OnDestroy {
+
+  // TODO Add Loader.
+  isFetching: boolean;
+  users: IUser[];
+  storeSubscription: Subscription;
 
   constructor(
     private databaseService: DatabaseService,
-    public usersService: UsersService,
-    public str: StringsService
+    public str: StringsService,
+    private store: Store<IAppStore>
   ) { }
 
-  onBlockUnblock(user: User) {
-    const userAccount: User = {
+  ngOnInit() {
+    this.isFetching = true;
+    this.store.dispatch(new UsersAction.FetchUsersStart());
+    this.storeSubscription = this.store.select('users').subscribe(
+      (store) => {
+        Utils.consoleLog('(UsersComponent) Users Store: ', 'limegreen', store);
+        this.isFetching = store.fetching;
+        this.users = store.users;
+      }
+    );
+  }
+
+  onBlockUnblock(user: IUser) {
+    const userAccount = {
       ...user,
       isBlocked: !user.isBlocked
     };
     this.databaseService.updateUserAccount(userAccount);
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
 }
