@@ -4,6 +4,7 @@ export const SIGNIN_START = '[Authentication] SIGNIN_START';
 export const SIGNUP_START = '[Authentication] SIGNUP_START';
 export const AUTHENT_FULFILLED = '[Authentication] AUTHENT_FULFILLED';
 export const AUTHENT_REJECTED = '[Authentication] AUTHENT_REJECTED';
+export const AUTHENT_UPDATE = '[Authentication] AUTHENT_UPDATE';
 export const FETCH_TOKEN_START = '[Authentication] FETCH_TOKEN_START';
 export const FETCH_TOKEN_FULFILLED = '[Authentication] FETCH_TOKEN_FULFILLED';
 export const FETCH_TOKEN_REJECTED = '[Authentication] FETCH_TOKEN_REJECTED';
@@ -36,6 +37,12 @@ export class AuthentRejected implements Action {
     readonly type = AUTHENT_REJECTED;
 
     constructor(public payload: string) { } // payload = error message
+}
+
+export class AuthentUpdate implements Action {
+    readonly type = AUTHENT_UPDATE;
+
+    constructor(public payload: { uid: string, token: string, email: string }) { }
 }
 
 export class FetchTokenStart implements Action {
@@ -94,6 +101,7 @@ export type AuthentActions =
     | SignUpStart
     | AuthentFulfilled
     | AuthentRejected
+    | AuthentUpdate
     | FetchTokenStart
     | FetchTokenFulfilled
     | FetchTokenRejected

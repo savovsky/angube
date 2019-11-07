@@ -40,10 +40,11 @@ export interface DialogData {
     value: string;
 }
 
-export interface Auth {
+export interface IAuth {
     uid: string;
     displayName: string;
-    ra: string;
+    ra: string; // ra = token
+    email: string;
 }
 
 export interface IMyAccount {

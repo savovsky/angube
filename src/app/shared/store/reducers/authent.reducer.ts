@@ -39,6 +39,14 @@ export function authentReducer(
                 authentErr: action.payload
             };
         }
+        case Action.AUTHENT_UPDATE: {
+            return {
+                ...state,
+                uid: action.payload.uid,
+                token: action.payload.token,
+                email: action.payload.email
+            };
+        }
         case Action.FETCH_TOKEN_START: {
             return {
                 ...state,
