@@ -1,10 +1,11 @@
 import { ActionReducerMap } from '@ngrx/store';
+import { routerReducer } from '@ngrx/router-store';
 import { IAppStore } from '../common/interfaces';
 import { authentReducer } from './reducers/authent.reducer';
 import { dashboardReducer } from './reducers/dashboard.reducer';
 import { currentUserReducer } from './reducers/currentUser.reducer';
-import { routerReducer } from '@ngrx/router-store';
 import { formTemplateReducer } from './reducers/formTemplate.reducer';
+import { usersReducer } from './reducers/users.reducer';
 
 
 export const appReducer: ActionReducerMap<IAppStore> = {
@@ -12,5 +13,6 @@ export const appReducer: ActionReducerMap<IAppStore> = {
   authent: authentReducer,
   dashboard: dashboardReducer,
   currentUser: currentUserReducer,
-  formTemplate: formTemplateReducer
+  formTemplate: formTemplateReducer,
+  users: usersReducer
 };

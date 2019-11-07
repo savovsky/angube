@@ -50,7 +50,8 @@ export const authent: Interface.IAuthentStore = {
     verifyAuthentErr: '',
     uid: '',
     token: '',
-    email: ''
+    email: '', // TODO Do I need it here ?
+    communityId: 'ng68b'
 };
 
 export const formTemplate: Interface.IFormStore = {
@@ -87,4 +88,12 @@ export const formTemplate: Interface.IFormStore = {
         isEnable: true,
         value: str.formTitle
     }
+};
+
+export const users: Interface.IUsersStore = {
+    fetching: false,
+    fetchFulfilled: false,
+    fetchRejected: false,
+    fetchUsersErr: '',
+    users: []
 };

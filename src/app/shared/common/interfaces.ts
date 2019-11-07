@@ -1,6 +1,6 @@
 import { RouterReducerState } from '@ngrx/router-store';
 
-export interface SignError { // REMOVE
+export interface SignError { // TODO Remove when refactoring is done.
     code: string;
     message: string;
 }
@@ -10,7 +10,7 @@ export interface IAuthentErr {
     message: string;
 }
 
-export interface User {
+export interface User {  // TODO Remove when refactoring is done.
     uid: string;
     userName: string;
     firstName: string;
@@ -98,6 +98,7 @@ export interface IAppStore {
     dashboard: IDashboardStore;
     currentUser: any; // TODO Do not use any!
     formTemplate: IFormStore;
+    users: IUsersStore;
 }
 
 export interface IAuthentStore {
@@ -121,6 +122,43 @@ export interface IAuthentStore {
     uid: string;
     token: string;
     email: string; // TODO Do I need it here ?
+    communityId: string;
+}
+
+export interface IUser {
+    uid: string;
+    userName: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    birthdate: string;
+    isAdmin: boolean;
+    isBlocked: boolean;
+    phoneNumber: string;
+    communityId: string;
+}
+
+export interface IUserStore extends IUser {
+    fetching: boolean;
+    fetchFulfilled: boolean;
+    fetchRejected: boolean;
+    fetchUserErr: string;
+    updating: boolean;
+    updateFulfilled: boolean;
+    updateRejected: boolean;
+    updateUserErr: string;
+    deleting: boolean;
+    deleteFulfilled: boolean;
+    deletedRejected: boolean;
+    deleteUserErr: string;
+}
+
+export interface IUsersStore {
+    fetching: boolean;
+    fetchFulfilled: boolean;
+    fetchRejected: boolean;
+    fetchUsersErr: string;
+    users: IUser[];
 }
 
 export interface IDashboardStore {
