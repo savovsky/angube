@@ -112,6 +112,7 @@ export interface IAppStore {
     currentUser: any; // TODO Do not use any!
     formTemplate: IFormStore;
     users: IUsersStore;
+    user: IUserStore;
 }
 
 export interface IAuthentStore {
@@ -138,7 +139,7 @@ export interface IAuthentStore {
     communityId: string;
 }
 
-export interface IUserStore extends IUser {
+export interface IUserStore {
     fetching: boolean;
     fetchFulfilled: boolean;
     fetchRejected: boolean;
@@ -151,6 +152,7 @@ export interface IUserStore extends IUser {
     deleteFulfilled: boolean;
     deletedRejected: boolean;
     deleteUserErr: string;
+    user: IUser;
 }
 
 export interface IUsersStore {

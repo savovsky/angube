@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { IAppStore, IUser } from './../../../shared/common/interfaces';
-import { DatabaseService } from '../../../shared/services/database.service';
 import { StringsService } from '../../../shared/services/strings.service';
-import { User } from '../../../shared/common/interfaces';
+import { IAppStore, IUser } from './../../../shared/common/interfaces';
 import * as UsersAction from '../../../shared/store/actions/users.action';
+import * as UserAction from '../../../shared/store/actions/user.action';
 import * as Utils from '../../../shared/common/utils';
 
 
@@ -16,27 +15,32 @@ import * as Utils from '../../../shared/common/utils';
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
-  // TODO Add Loader.
-  isFetching: boolean;
+  // TODO Add Loader for fetching users and local loaders when requesting.
+  isFetchingUsers: boolean;
+  isUpdatingUser: boolean;
   users: IUser[];
   storeSubscription: Subscription;
 
   constructor(
-    private databaseService: DatabaseService,
-    public str: StringsService,
-    private store: Store<IAppStore>
+    private store: Store<IAppStore>,
+    public str: StringsService
   ) { }
 
   ngOnInit() {
-    this.isFetching = true;
+    this.isFetchingUsers = true;
     this.store.dispatch(new UsersAction.FetchUsersStart());
-    this.storeSubscription = this.store.select('users').subscribe(
+    this.storeSubscription = this.store.select(appState => appState).subscribe(
       (store) => {
-        Utils.consoleLog('(UsersComponent) Users Store: ', 'limegreen', store);
-        this.isFetching = store.fetching;
-        this.users = store.users;
+        Utils.consoleLog('(UsersComponent) Store: ', 'limegreen', store);
+        this.isFetchingUsers = store.users.fetching;
+        this.isUpdatingUser = store.user.updating;
+        this.users = store.users.users;
       }
     );
+  }
+
+  onMessage(user: IUser) {
+    console.log('Create message to user: ', user);
   }
 
   onBlockUnblock(user: IUser) {
@@ -44,7 +48,8 @@ export class UsersComponent implements OnInit, OnDestroy {
       ...user,
       isBlocked: !user.isBlocked
     };
-    this.databaseService.updateUserAccount(userAccount);
+
+    this.store.dispatch(new UserAction.UpdateUserStart(userAccount));
   }
 
   ngOnDestroy() {

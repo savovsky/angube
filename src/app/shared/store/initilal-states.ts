@@ -1,6 +1,6 @@
-
 import { StringsService } from '../services/strings.service';
 import { FormOptionModel } from './../../forms/models/form-option.model';
+import { User } from './../models/user.model';
 import * as Interface from './../common/interfaces';
 
 const str = new StringsService();
@@ -88,6 +88,22 @@ export const formTemplate: Interface.IFormStore = {
         isEnable: true,
         value: str.formTitle
     }
+};
+
+export const user: Interface.IUserStore = {
+    fetching: false,
+    fetchFulfilled: false,
+    fetchRejected: false,
+    fetchUserErr: '',
+    updating: false,
+    updateFulfilled: false,
+    updateRejected: false,
+    updateUserErr: '',
+    deleting: false,
+    deleteFulfilled: false,
+    deletedRejected: false,
+    deleteUserErr: '',
+    user: new User()
 };
 
 export const users: Interface.IUsersStore = {

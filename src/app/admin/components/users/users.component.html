@@ -1,3 +1,6 @@
+<div class="page-loader" *ngIf="isFetchingUsers">
+  <app-progress-spinner></app-progress-spinner>
+</div>
 <div class="container">
   <mat-accordion class="example-headers-align">
     <mat-expansion-panel *ngFor="let user of users">
@@ -14,7 +17,11 @@
           [queryParams]="{ id: user.uid }"
         >{{ str.edit | titlecase }}
         </button>
-        <button mat-stroked-button>{{ str.message | titlecase }}</button>
+        <button
+          mat-stroked-button
+          (click)="onMessage(user)"
+        >{{ str.message | titlecase }}
+        </button>
         <button
           mat-stroked-button
           color="warn"

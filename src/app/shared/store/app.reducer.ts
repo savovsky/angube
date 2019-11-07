@@ -6,6 +6,7 @@ import { dashboardReducer } from './reducers/dashboard.reducer';
 import { currentUserReducer } from './reducers/currentUser.reducer';
 import { formTemplateReducer } from './reducers/formTemplate.reducer';
 import { usersReducer } from './reducers/users.reducer';
+import { userReducer } from './reducers/user.reducer';
 
 
 export const appReducer: ActionReducerMap<IAppStore> = {
@@ -14,5 +15,6 @@ export const appReducer: ActionReducerMap<IAppStore> = {
   dashboard: dashboardReducer,
   currentUser: currentUserReducer,
   formTemplate: formTemplateReducer,
-  users: usersReducer
+  users: usersReducer,
+  user: userReducer
 };

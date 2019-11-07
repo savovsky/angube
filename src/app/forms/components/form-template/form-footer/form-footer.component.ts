@@ -26,7 +26,7 @@ export class FormFooterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.storeSubscription = this.store.select(appState => appState).subscribe(
       (store) => {
-        Utils.consoleLog('(FormFooterComponenttt) FormTemplate Store: ', 'limegreen', store);
+        Utils.consoleLog('(FormFooterComponenttt) Store: ', 'limegreen', store);
         this.isEditMode = !store.formTemplate.isPreviewMode;
         this.editPreviewBtn = store.formTemplate.isPreviewMode ? this.str.edit : this.str.preview;
         this.formTemplateStore = store.formTemplate;
