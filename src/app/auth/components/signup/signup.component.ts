@@ -1,19 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CustomValidators } from 'src/app/shared/common/custom.validators';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { DatabaseService } from 'src/app/shared/services/database.service';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { FormField } from 'src/app/shared/models/form-field.model';
 import { FormsService } from 'src/app/shared/services/forms.service';
-import { IAppStore, SignError, MatFormField, User } from './../../../shared/common/interfaces';
+import { IAppStore, MatFormField } from './../../../shared/common/interfaces';
+import { User } from './../../../shared/models/user.model';
 import * as AuthentAction from '../../../shared/store/actions/authent.action';
+import * as UserAction from '../../../shared/store/actions/user.action';
 import * as Utils from '../../../shared/common/utils';
 
-
+// Check account.component
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -21,8 +20,8 @@ import * as Utils from '../../../shared/common/utils';
   providers: [FormsService]
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  error: any;
-  isFetching = false;
+  error: string;
+  isFetching: boolean;
   fields: MatFormField[];
   signUpForm: FormGroup;
   emailForm = 'emailForm';
@@ -32,20 +31,15 @@ export class SignupComponent implements OnInit, OnDestroy {
   storeSubscription: Subscription;
 
   constructor(
-    private authService: AuthService,
-    private databaseService: DatabaseService,
-    private router: Router,
+    private store: Store<IAppStore>,
     public frormsService: FormsService,
-    public str: StringsService,
-    private store: Store<IAppStore>
+    public str: StringsService
   ) { }
 
   ngOnInit() {
     const formGroupObj = {};
 
     formGroupObj[this.emailForm] = new FormControl('', [
-      // REMIND The first argument is for default input value
-      // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
       Validators.required,
       Validators.email
     ]);
@@ -75,53 +69,47 @@ export class SignupComponent implements OnInit, OnDestroy {
       new FormField('text', this.str.communityCode, this.communityCodeForm, 'ng68b')
     ];
 
-    // REMIND Max, Section 15, Lecture 202
-    // this.signUpForm.valueChanges
-    //   .subscribe((value) => console.log('signUpForm value', value));
-    // this.signUpForm.statusChanges
-    //   .subscribe((status) => console.log('signUpForm status', status));
-
-    this.authService.signUpSuccess
-      .subscribe((user: User) => {
-        // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-        const userAccount: User = {
-          ...user,
-          communityCode: this.communityCodeFormControl.value
-        };
-
-        this.databaseService.updateUserAccount(userAccount);
-        this.router.navigate(['question']);
-      });
-
-    this.authService.signUpError
-      .subscribe((err: SignError) => {
-        this.isFetching = false;
-        this.error = err.message;
-      });
-
-    // ------------------
     this.storeSubscription = this.store.select('authent').subscribe(
       (store) => {
         Utils.consoleLog('(SignupComponent) authent Store: ', 'limegreen', store);
+        this.isFetching = store.signingUp || store.fetchingToken;
+        this.error = store.authentErr;
+
+        if (store.fetchTokenFulfilled) {
+          this.store.dispatch(new UserAction.UpdateUserStart({
+            ...new User(),
+            uid: store.uid,
+            userName: this.getCurrentUserEmailLocalPart(store.email),
+            email: store.email,
+            communityId: this.communityIdFormControl.value
+          }));
+        }
       }
     );
   }
 
+  /**
+   * Extract and return email lolcal part,
+   * e.g. my_name@abc.com -> return 'my_name'.
+   */
+  getCurrentUserEmailLocalPart(email: string) {
+    return email.substring(0, email.lastIndexOf('@'));
+  }
+
   get emailFormControl() {
-    return this.signUpForm.get('emailForm'); // TODO Why not using this.emailForm
+    return this.signUpForm.get(this.emailForm);
   }
 
   get passwordFormControl() {
-    return this.signUpForm.get('passwordForm'); // TODO Why not using this.passwordForm
+    return this.signUpForm.get(this.passwordForm);
   }
 
   get passwordConfirmFormControl() {
-    return this.signUpForm.get('confirmPasswordForm'); // TODO Why not using this.confirmPasswordForm
+    return this.signUpForm.get(this.confirmPasswordForm);
   }
 
-  get communityCodeFormControl() {
-    console.log('ehoooo', this.signUpForm.get('communityCodeForm'));
-    return this.signUpForm.get('communityCodeForm'); // TODO Why not using this.confirmPasswordForm
+  get communityIdFormControl() {
+    return this.signUpForm.get(this.communityCodeForm);
   }
 
   getErrorMessage(fieldLabel: string) {
@@ -175,10 +163,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     // const password: string = this.signUpForm.value.passwordForm;
 
     if (this.signUpForm.valid) {
-      this.error = null;
-      this.isFetching = true;
-      this.authService.signUpUser(email, password);
-      // ------------------
+      this.error = '';
       this.store.dispatch(new AuthentAction.SignUpStart({ email, password }));
     }
   }

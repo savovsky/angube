@@ -1,48 +1,42 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { DatabaseService } from '../../../shared/services/database.service';
-import { StringsService } from '../../../shared/services/strings.service';
-import { AuthService } from '../../../shared/services/auth.service';
-import { UsersService } from '../../../shared/services/users.service';
-import { FormField } from '../../../shared/models/form-field.model';
-import { CustomValidators } from '../../../shared/common/custom.validators';
-import { User, MatFormField } from '../../../shared/common/interfaces';
-import * as Utils from '../../../shared/common/utils';
+import { FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { StringsService } from '../../../shared/services/strings.service';
 import { RouterExtService } from '../../../shared/services/router-ext.service';
-// import * as CurrentUserActions from '../../../shared/store/actions/currentUser.action';
-// import { Store } from '@ngrx/store';
+import { AccountService } from './../../services/account.service';
+import { IUser, MatFormField, IAppStore } from '../../../shared/common/interfaces';
+import * as UserAction from '../../../shared/store/actions/user.action';
+import * as Utils from '../../../shared/common/utils';
 
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.css'],
+  providers: [AccountService]
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
-  error: any;
-  isRequesting = true;
-  isCurrentUser = true;
-  user: User;
+  userId: string;
+  communityId: string;
+  isCurrentUser: boolean;
+  isRequesting: boolean;
+  user: IUser;
   fields: MatFormField[];
   accountForm: FormGroup;
-  subscription1: Subscription;
-  subscription2: Subscription;
-  subscription3: Subscription;
-  subscription4: Subscription;
+  storeSubscription: Subscription;
+
   userNameForm = 'userNameForm';
   firstNameForm = 'firstNameForm';
   lastNameForm = 'lastNameForm';
 
   constructor(
-    // private store: Store<{currentUser: User}>,
+    private store: Store<IAppStore>,
+    private accountService: AccountService,
     private route: ActivatedRoute,
-    private authService: AuthService,
-    private databaseService: DatabaseService,
-    private usersService: UsersService,
     private location: Location,
     private router: Router,
     private routerExtService: RouterExtService,
@@ -50,100 +44,33 @@ export class AccountComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const userUid = this.route.snapshot.queryParamMap.get('id');
-    const currentUserUid = this.authService.uid;
-    const formGroupObj = {};
-    this.isCurrentUser = currentUserUid === userUid;
+    this.userId = this.route.snapshot.queryParamMap.get('id');
+    this.fields = this.accountService.accountFormFields();
+    this.accountForm = this.accountService.accountFormGroup();
 
-    formGroupObj[this.userNameForm] = new FormControl('', [
-      Validators.required,
-      CustomValidators.cannotContainSpace
-    ]);
-    formGroupObj[this.firstNameForm] = new FormControl('', [
-      CustomValidators.cannotContainSpace
-    ]);
-    formGroupObj[this.lastNameForm] = new FormControl('', [
-      CustomValidators.cannotContainSpace
-    ]);
-    this.accountForm = new FormGroup(formGroupObj);
+    // REMIND Max, Section 15, Lecture 202
+    // this.accountForm.valueChanges
+    //   .subscribe((value) => console.log('accountForm value', value));
+    // this.accountForm.statusChanges
+    //   .subscribe((status) => console.log('accountForm status', status));
 
-    this.fields = [
-      new FormField('text', this.str.userName, this.userNameForm),
-      new FormField('text', this.str.firstName, this.firstNameForm),
-      new FormField('text', this.str.lastName, this.lastNameForm)
-    ];
+    this.storeSubscription = this.store.select(appState => appState).subscribe(
+      (store) => {
+        Utils.consoleLog('(AccountComponent) Store: ', 'gold', store);
+        this.communityId = store.authent.communityId;
+        this.user = store.user.user;
+        this.isCurrentUser = store.authent.uid === this.userId;
+        this.isRequesting = store.user.fetching || store.user.updating;
 
-    this.subscription1 = this.usersService.currentUserUpdated
-      .subscribe(
-        () => {
-          this.user = this.usersService.currentUserAccount;
-          this.setFormValues();
-        }
-      );
+        this.setFormValues();
+      }
+    );
 
-    this.subscription2 = this.databaseService.updateUserSuccess
-      .subscribe(
-        () => {
-          Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
-          if (this.canNavigateToHome()) {
-            this.router.navigate(['app/home']);
-          } else {
-            this.router.navigate([this.routerExtService.previousPath]);
-          }
-        }
-      );
+    this.store.dispatch(new UserAction.FetchUserStart({
+      userId: this.userId,
+      communityId: this.communityId
+    }));
 
-    if (this.isCurrentUser) {
-      this.isRequesting = false;
-      this.user = this.usersService.currentUserAccount;
-      this.setFormValues();
-    } else { // When Admin editing a user.
-      this.subscription3 = this.databaseService.getUserData(userUid)
-        .subscribe(
-          (response: User) => {
-            if (response) {
-              Utils.consoleLog(`(AccountComponent) Get user data - Seccess: `, 'pink', response);
-              this.user = response;
-              this.setFormValues();
-              // REMIND
-              // .patchValue({....}) - for updating only a part of the form
-              // .reset() - reset the entire form
-            } else {
-              Utils.consoleLog(`(AccountComponent) Get user data - Seccess but null: `, 'pink', response);
-              // TODO Error Screen - Max lecture 249.
-              // This is the case when user is authenticated, but
-              // there is no user's data in Data Storage for this user.(deleted)
-            }
-          },
-          (error) => {
-             // TODO Error Screen - Max lecture 249.
-            Utils.consoleLog(`(AccountComponent) Get user data - Error: `, 'red', error);
-          },
-          () => {
-            this.isRequesting = false;
-            Utils.consoleLog(`(AccountComponent) Get user data - Completed`, 'pink');
-          }
-        );
-    }
-
-    // this.subscription4 = this.store.select('currentUser').subscribe(
-    //   (user: User) => {
-    //     this.user = user;
-    //     this.setFormValues();
-    //   }
-    // );
-  }
-
-  ngOnDestroy() {
-    this.subscription1.unsubscribe();
-    this.subscription2.unsubscribe();
-    // this.subscription4.unsubscribe();
-
-    if (this.subscription3) {
-      this.subscription3.unsubscribe();
-    } else {
-      return;
-    }
   }
 
   setFormValues() {
@@ -152,6 +79,9 @@ export class AccountComponent implements OnInit, OnDestroy {
       firstNameForm: this.user.firstName,
       lastNameForm: this.user.lastName
     });
+    // REMIND
+    // .patchValue({....}) - for updating only a part of the form
+    // .reset() - reset the entire form
   }
 
   get userNameFormControl() {
@@ -193,17 +123,14 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   onAccountSave() {
     if (this.accountForm.valid) {
-      const userAccount: User = {
+      const userAccount: IUser = {
         ...this.user,
         userName: this.userNameFormControl.value,
         firstName: this.firstNameFormControl.value,
         lastName: this.lastNameFormControl.value,
       };
 
-      this.error = null;
-      this.isRequesting = true;
-      this.databaseService.updateUserAccount(userAccount);
-      // this.store.dispatch(new CurrentUserActions.UpdateCurrentUser(userAccount));
+      this.store.dispatch(new UserAction.UpdateUserStart(userAccount));
     }
   }
 
@@ -223,6 +150,19 @@ export class AccountComponent implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+
+  // () => {
+  //   Utils.consoleLog(`(AccountComponent) updateUserSuccess`, 'pink');
+  //   if (this.canNavigateToHome()) {
+  //     this.router.navigate(['app/home']);
+  //   } else {
+  //     this.router.navigate([this.routerExtService.previousPath]);
+  //   }
+  // }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
 }
