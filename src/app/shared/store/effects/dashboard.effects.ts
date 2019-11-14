@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { switchMap, catchError, map } from 'rxjs/operators';
-import { IDashboard } from './../../common/interfaces';
-import { AuthService } from '../../services/auth.service';
+import { switchMap, catchError, map, withLatestFrom } from 'rxjs/operators';
+import { IAppStore, IDashboard } from './../../common/interfaces';
 import * as Action from './../actions/dashboard.action';
 import * as Utils from '../../common/utils';
 
@@ -12,21 +12,25 @@ import * as Utils from '../../common/utils';
 @Injectable() // it allows the DI for this class
 export class DashboardEffects {
 
+  private communityId: string;
+  private token: string;
+
   constructor(
     // actions$ - stream of dispatched actions - observable. It must never die!
     private actions$: Actions,
     private http: HttpClient,
-    private authService: AuthService
+    private store$: Store<IAppStore>
   ) { }
 
   @Effect()
   fetchDashboard$ = this.actions$.pipe( // do not call subscribe, ngrx Effects will do it !
     ofType(Action.FETCH_DASHBOARD_START), // special operator form @ngrx/effects not from rxjs !
-    switchMap(() => {
-      return this.http.get(
-        Utils.firebaseUrl() + 'ng68b' + '/dashboard/.json?auth=' + this.authService.token,
-        { params: new HttpParams().set('print', 'pretty') }
-      ).pipe(
+    withLatestFrom(this.store$),
+    switchMap(([, store]: [Action.FetchDashboardStart, IAppStore]) => {
+      this.communityId = store.authent.communityId;
+      this.token = store.authent.token;
+
+      return this.http.get(this.urlDashboard(), { params: new HttpParams().set('print', 'pretty') }).pipe(
         map((response: IDashboard) => {
           Utils.consoleLog(`(DashboardEffects) Get Dashboard Data  - Response: `, 'darkGoldenRod', response);
           return new Action.FetchDashboardFulfilled(response);
@@ -42,13 +46,14 @@ export class DashboardEffects {
   @Effect()
   deleteDashboardItem$ = this.actions$.pipe(
     ofType(Action.REMOVE_DASHBOARD_ITEM_START),
-    switchMap((action: Action.RemoveDashboardItemStart) => {
+    withLatestFrom(this.store$),
+    switchMap(([action, store]: [Action.RemoveDashboardItemStart, IAppStore]) => {
+      this.communityId = store.authent.communityId;
+      this.token = store.authent.token;
       const type = action.payload.type;
       const id = action.payload.id;
 
-      return this.http.delete(
-        Utils.firebaseUrl() + 'ng68b' + '/dashboard/' + type + '/' + id + '.json?auth=' + this.authService.token
-      ).pipe(
+      return this.http.delete(this.urlDashboarditem(type, id)).pipe(
         map(() => {
           Utils.consoleLog(`(DashboardEffects) Delete Dashboard Item  - Success! `, 'darkGoldenRod');
           return new Action.RemoveDashboardItemFulfilled({ type, id });
@@ -61,4 +66,15 @@ export class DashboardEffects {
     })
   );
 
+  urlDashboard() {
+    return  Utils.firebaseUrl() + this.communityId + '/dashboard/.json?auth=' + this.token;
+  }
+
+  urlDashboarditem(type: string, id: string) {
+    return  Utils.firebaseUrl() + this.communityId + '/dashboard/' + type + '/' + id + '.json?auth=' + this.token;
+  }
+
 }
+
+// REMIND https://medium.com/@viestursv/how-to-get-store-state-in-ngrx-effect-fab9e9c8f087
+// REMIND https://blog.angularindepth.com/ngrx-tips-tricks-69feb20a42a7

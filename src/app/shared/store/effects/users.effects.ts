@@ -1,29 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { switchMap, catchError, map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { IUser } from './../../common/interfaces';
-import { AuthService } from '../../services/auth.service';
+import { of } from 'rxjs';
+import { switchMap, catchError, map, withLatestFrom } from 'rxjs/operators';
+import { IAppStore, IUser } from './../../common/interfaces';
 import * as Action from '../actions/users.action';
 import * as Utils from '../../common/utils';
-import { UsersService } from '../../services/users.service';
 
 
 @Injectable()
 export class UsersEffects {
 
+  private communityId: string;
+  private userId: string;
+  private token: string;
+
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private authService: AuthService,
-    private usersService: UsersService
+    private store$: Store<IAppStore>
   ) { }
 
   @Effect()
   fetchUsers$ = this.actions$.pipe(
     ofType(Action.FETCH_USERS_START),
-    switchMap(() => {
+    withLatestFrom(this.store$),
+    switchMap(([action, store]: [Action.FetchUsersStart, IAppStore]) => {
+      this.communityId = store.authent.communityId;
+      this.userId = store.authent.uid;
+      this.token = store.authent.token;
+
       return this.http.get(this.urlUsers()).pipe(
         map((response) => {
           Utils.consoleLog('(UsersEffects) Get Users - Success: ', 'darkGoldenRod', response);
@@ -38,19 +45,15 @@ export class UsersEffects {
   );
 
   urlUsers() {
-    const communityId = 'ng68b';
-    const token = this.authService.token;
 
-    return Utils.firebaseUrl() + communityId + '/users/.json?auth=' + token;
+    return Utils.firebaseUrl() + this.communityId + '/users/.json?auth=' + this.token;
   }
 
   transformResponce(response) {
-    const userId = this.usersService.currentUser.uid;
-
     // Creating an array from response object values.
     const usersArr: IUser[] = Object.values(response);
     // Reordering the array - current user at index 0.
-    const currentUserIndex = usersArr.findIndex((user: IUser) => user.uid === userId);
+    const currentUserIndex = usersArr.findIndex((user: IUser) => user.uid === this.userId);
     usersArr.splice(0, 0, usersArr.splice(currentUserIndex, 1)[0]);
 
     return usersArr;

@@ -102,6 +102,3 @@ export class UserEffects {
   }
 
 }
-
-// REMIND https://medium.com/@viestursv/how-to-get-store-state-in-ngrx-effect-fab9e9c8f087
-// REMIND https://blog.angularindepth.com/ngrx-tips-tricks-69feb20a42a7
