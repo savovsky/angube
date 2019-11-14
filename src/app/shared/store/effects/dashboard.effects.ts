@@ -32,11 +32,11 @@ export class DashboardEffects {
 
       return this.http.get(this.urlDashboard(), { params: new HttpParams().set('print', 'pretty') }).pipe(
         map((response: IDashboard) => {
-          Utils.consoleLog(`(DashboardEffects) Get Dashboard Data  - Response: `, 'darkGoldenRod', response);
+          Utils.consoleLog('(DashboardEffects) Get Dashboard Data  - Response: ', 'darkGoldenRod', response);
           return new Action.FetchDashboardFulfilled(response);
         }),
         catchError((error: HttpErrorResponse) => {
-          Utils.consoleLog(`(DashboardEffects) Get Dashboard Data - Error: `, 'red', error);
+          Utils.consoleLog('(DashboardEffects) Get Dashboard Data - Error: ', 'red', error);
           return of(new Action.FetchDashboardRejected(error.error.error));
         })
       );
@@ -55,11 +55,11 @@ export class DashboardEffects {
 
       return this.http.delete(this.urlDashboarditem(type, id)).pipe(
         map(() => {
-          Utils.consoleLog(`(DashboardEffects) Delete Dashboard Item  - Success! `, 'darkGoldenRod');
+          Utils.consoleLog('(DashboardEffects) Delete Dashboard Item  - Success! ', 'darkGoldenRod');
           return new Action.RemoveDashboardItemFulfilled({ type, id });
         }),
         catchError((error: HttpErrorResponse) => {
-          Utils.consoleLog(`(DashboardEffects) Delete Dashboard Item - Error: `, 'red', error);
+          Utils.consoleLog('(DashboardEffects) Delete Dashboard Item - Error: ', 'red', error);
           return of(new Action.RemoveDashboardItemRejected(error.error.error));
         })
       );

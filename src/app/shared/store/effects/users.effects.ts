@@ -26,7 +26,7 @@ export class UsersEffects {
   fetchUsers$ = this.actions$.pipe(
     ofType(Action.FETCH_USERS_START),
     withLatestFrom(this.store$),
-    switchMap(([action, store]: [Action.FetchUsersStart, IAppStore]) => {
+    switchMap(([, store]: [Action.FetchUsersStart, IAppStore]) => {
       this.communityId = store.authent.communityId;
       this.userId = store.authent.uid;
       this.token = store.authent.token;

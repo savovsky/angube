@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 import * as Action from '../actions/authent.action';
 import * as Utils from '../../common/utils';
 
-
+// TODO Use Cloud function - Custom Claims - to add Community (Group) Id for each user.
 @Injectable()
 export class AuthentEffects {
 

@@ -3,7 +3,7 @@ import { CustomValidators } from './../../shared/common/custom.validators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormField } from 'src/app/shared/models/form-field.model';
 import { StringsService } from './../../shared/services/strings.service';
-import { User } from '../../shared/common/interfaces';
+import { User, IUser } from '../../shared/common/interfaces';
 import { Account } from '../../shared/models/account.model';
 
 @Injectable()
@@ -63,6 +63,40 @@ export class AccountService {
       new FormField('text', this.str.firstName, this.firstNameForm),
       new FormField('text', this.str.lastName, this.lastNameForm)
     ];
+  }
+
+  formFieldErrorMessage(formGroup: FormGroup, formControlName: string) {
+    switch (formControlName) {
+      case this.userNameForm:
+        if (formGroup.get(formControlName).hasError('required')) {
+          return this.str.requiredField;
+        } else if (formGroup.get(formControlName).hasError('cannotContainSpace')) {
+          return this.str.cannotContainSpace;
+        }
+        return;
+      case this.firstNameForm:
+        if (formGroup.get(formControlName).hasError('cannotContainSpace')) {
+          return this.str.cannotContainSpace;
+        }
+        return;
+      case this.lastNameForm:
+        if (formGroup.get(formControlName).hasError('cannotContainSpace')) {
+          return this.str.cannotContainSpace;
+        }
+        return;
+
+      default: return;
+    }
+
+  }
+
+  userAccount(formGroup: FormGroup, user: IUser) {
+    return {
+      ...user,
+      userName: formGroup.get(this.userNameForm).value,
+      firstName: formGroup.get(this.firstNameForm).value,
+      lastName: formGroup.get(this.lastNameForm).value
+    };
   }
 
 }

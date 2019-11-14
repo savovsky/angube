@@ -25,13 +25,9 @@ export class AccountComponent implements OnInit, OnDestroy {
   isCurrentUser: boolean;
   isRequesting: boolean;
   user: IUser;
-  fields: MatFormField[];
-  accountForm: FormGroup;
+  formFields: MatFormField[];
+  accountFormGroup: FormGroup;
   storeSubscription: Subscription;
-
-  userNameForm = 'userNameForm';
-  firstNameForm = 'firstNameForm';
-  lastNameForm = 'lastNameForm';
 
   constructor(
     private store: Store<IAppStore>,
@@ -45,14 +41,14 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userId = this.route.snapshot.queryParamMap.get('id');
-    this.fields = this.accountService.accountFormFields();
-    this.accountForm = this.accountService.accountFormGroup();
+    this.formFields = this.accountService.accountFormFields();
+    this.accountFormGroup = this.accountService.accountFormGroup();
 
     // REMIND Max, Section 15, Lecture 202
-    // this.accountForm.valueChanges
-    //   .subscribe((value) => console.log('accountForm value', value));
-    // this.accountForm.statusChanges
-    //   .subscribe((status) => console.log('accountForm status', status));
+    // this.accountFormGroup.valueChanges
+    //   .subscribe((value) => console.log('accountFormGroup value', value));
+    // this.accountFormGroup.statusChanges
+    //   .subscribe((status) => console.log('accountFormGroup status', status));
 
     this.storeSubscription = this.store.select(appState => appState).subscribe(
       (store) => {
@@ -74,7 +70,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   setFormValues() {
-    this.accountForm.setValue({
+    this.accountFormGroup.setValue({
       userNameForm: this.user.userName,
       firstNameForm: this.user.firstName,
       lastNameForm: this.user.lastName
@@ -84,51 +80,14 @@ export class AccountComponent implements OnInit, OnDestroy {
     // .reset() - reset the entire form
   }
 
-  get userNameFormControl() {
-    return this.accountForm.get(this.userNameForm);
-  }
-  // REMIND - act on exact FormControl
-  // this.userNameFormControl.reset(response.userName);
-
-  get firstNameFormControl() {
-    return this.accountForm.get(this.firstNameForm);
+  errorMessage(formControlName: string): string {
+    return this.accountService.formFieldErrorMessage(this.accountFormGroup, formControlName);
   }
 
-  get lastNameFormControl() {
-    return this.accountForm.get(this.lastNameForm);
-  }
-
-  getErrorMessage(fieldLabel: string) {
-    switch (fieldLabel) {
-      case this.str.userName:
-        if (this.userNameFormControl.hasError('required')) {
-          return this.str.requiredField;
-        } else if (this.userNameFormControl.hasError('cannotContainSpace')) {
-          return this.str.cannotContainSpace;
-        }
-        return;
-      case this.str.firstName:
-        if (this.firstNameFormControl.hasError('cannotContainSpace')) {
-          return this.str.cannotContainSpace;
-        }
-        return;
-      case this.str.lastName:
-        if (this.lastNameFormControl.hasError('cannotContainSpace')) {
-          return this.str.cannotContainSpace;
-        }
-        return;
-      default: return;
-    }
-  }
 
   onAccountSave() {
-    if (this.accountForm.valid) {
-      const userAccount: IUser = {
-        ...this.user,
-        userName: this.userNameFormControl.value,
-        firstName: this.firstNameFormControl.value,
-        lastName: this.lastNameFormControl.value,
-      };
+    if (this.accountFormGroup.valid) {
+      const userAccount: IUser = this.accountService.userAccount(this.accountFormGroup, this.user);
 
       this.store.dispatch(new UserAction.UpdateUserStart(userAccount));
     }
@@ -149,6 +108,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     ) {
       return true;
     }
+
     return false;
   }
 

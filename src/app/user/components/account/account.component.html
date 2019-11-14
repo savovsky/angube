@@ -7,11 +7,11 @@
     </ng-template>
     <form
       class="example-form"
-      [formGroup]="accountForm"
+      [formGroup]="accountFormGroup"
       (ngSubmit)="onAccountSave()"
     >
         <mat-form-field
-          *ngFor="let field of fields"
+          *ngFor="let field of formFields"
           class="example-full-width"
         >
           <input
@@ -20,7 +20,8 @@
             placeholder = "{{ field.placeholder | titlecase }}"
             formControlName="{{ field.formControlName }}"
           >
-          <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
+          <!-- <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error> -->
+          <mat-error>{{ (errorMessage(field.formControlName) | capitalize) }}</mat-error>
         </mat-form-field>
 
 
