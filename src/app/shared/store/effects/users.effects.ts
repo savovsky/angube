@@ -45,7 +45,6 @@ export class UsersEffects {
   );
 
   urlUsers() {
-
     return Utils.firebaseUrl() + this.communityId + '/users/.json?auth=' + this.token;
   }
 

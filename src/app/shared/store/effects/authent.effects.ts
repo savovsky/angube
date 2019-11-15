@@ -83,7 +83,7 @@ export class AuthentEffects {
     ofType(Action.FETCH_TOKEN_FULFILLED),
     tap((action: Action.FetchTokenFulfilled) => {
       if (action.payload.isSignIn) {
-        this.router.navigate(['app/home']);
+        this.router.navigate(['app/dashboard']);
       } else {
         this.router.navigate(['question']);
       }
