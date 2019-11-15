@@ -14,7 +14,7 @@ export const currentUser: Interface.User = {
     isBlocked: false,
     isAdmin: false,
     uid: '',
-    communityCode: ''
+    communityId: ''
 };
 
 export const dashboard: Interface.IDashboardStore = {

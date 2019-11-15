@@ -3,11 +3,11 @@
     <div class="right primary">{{ str.signUp | titlecase }}</div>
     <form
       class="example-form"
-      [formGroup]="signUpForm"
+      [formGroup]="signupFormGroup"
       (ngSubmit)="onSignUp()"
     >
       <mat-form-field
-        *ngFor="let field of fields"
+        *ngFor="let field of formFields"
         class="example-full-width"
       >
         <input
@@ -26,7 +26,7 @@
           (click)="frormsService.onVisibilityClick($event)"
         >{{ frormsService.hide ? 'visibility_off' : 'visibility' }}
         </mat-icon>
-        <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
+        <mat-error>{{ errorMessage(field.formControlName) | capitalize }}</mat-error>
         </mat-form-field>
 
         <button

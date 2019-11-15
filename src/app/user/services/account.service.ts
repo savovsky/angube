@@ -41,6 +41,8 @@ export class AccountService {
   accountFormGroup() {
     const formGroupObj = {};
 
+    // REMIND The first argument is for default input value
+    // You can have a FormGroup in FormGroup (nested) - Grouping Controls
     formGroupObj[this.userNameForm] = new FormControl('', [
       Validators.required,
       CustomValidators.cannotContainSpace
@@ -51,8 +53,6 @@ export class AccountService {
     formGroupObj[this.lastNameForm] = new FormControl('', [
       CustomValidators.cannotContainSpace
     ]);
-    // REMIND The first argument is for default input value
-    // You can have a FormGroup in FormGroup (nested) - REMIND Grouping Controls
 
     return new FormGroup(formGroupObj);
   }
@@ -66,21 +66,26 @@ export class AccountService {
   }
 
   formFieldErrorMessage(formGroup: FormGroup, formControlName: string) {
+    const formField = formGroup.get(formControlName);
+
     switch (formControlName) {
+
       case this.userNameForm:
-        if (formGroup.get(formControlName).hasError('required')) {
+        if (formField.hasError('required')) {
           return this.str.requiredField;
-        } else if (formGroup.get(formControlName).hasError('cannotContainSpace')) {
+        } else if (formField.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;
+
       case this.firstNameForm:
-        if (formGroup.get(formControlName).hasError('cannotContainSpace')) {
+        if (formField.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;
+
       case this.lastNameForm:
-        if (formGroup.get(formControlName).hasError('cannotContainSpace')) {
+        if (formField.hasError('cannotContainSpace')) {
           return this.str.cannotContainSpace;
         }
         return;

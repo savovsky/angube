@@ -26,7 +26,7 @@ export class DatabaseService {
     const currentUserUid = this.authService.uid;
 
     // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    this.http.put(this.url + user.communityCode + '/users/' + user.uid + '.json?auth=' + token, user)
+    this.http.put(this.url + user.communityId + '/users/' + user.uid + '.json?auth=' + token, user)
       .subscribe(
         (response: User) => {
           if (response.uid === currentUserUid) {

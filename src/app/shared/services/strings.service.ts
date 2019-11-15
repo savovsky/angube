@@ -32,7 +32,7 @@ export class StringsService {
     email = 'email';
     password = 'password';
     confirmPassword = 'confirm password';
-    communityCode = 'Community Code';
+    communityId = 'Community Id';
     submit = 'submit';
     save = 'save';
     saveAndPublish = 'save & publish';

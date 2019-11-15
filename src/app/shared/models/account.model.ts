@@ -11,7 +11,7 @@ export class Account {
     public isBlocked = false,
     public isAdmin = false,
     public uid = '',
-    public communityCode = ''
+    public communityId = ''
   ) { }
 
 }

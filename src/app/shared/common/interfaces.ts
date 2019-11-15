@@ -19,7 +19,7 @@ export interface User {  // TODO Remove when refactoring is done.
     birthdate: string;
     isAdmin: boolean;
     isBlocked: boolean;
-    communityCode: string;
+    communityId: string;
 }
 
 export interface IUser {

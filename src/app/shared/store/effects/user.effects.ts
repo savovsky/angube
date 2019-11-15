@@ -58,8 +58,8 @@ export class UserEffects {
     switchMap(([action, store]: [Action.UpdateUserStart, IAppStore]) => {
       const user = action.payload;
 
-      this.communityId = action.payload.communityId;
-      this.userId = action.payload.uid;
+      this.communityId = user.communityId;
+      this.userId = user.uid;
       this.token = store.authent.token;
 
       return this.http.put(this.urlUser(), user).pipe(

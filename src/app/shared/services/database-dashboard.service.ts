@@ -45,7 +45,7 @@ export class DatabaseDashboardService {
 
   updateDashboardFormUrl() {
     // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    // return Utils.firebaseUrl() + this.user.communityCode + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
+    // return Utils.firebaseUrl() + this.user.communityId + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
     return Utils.firebaseUrl() + 'ng68b' + '/dashboard/forms/' + this.form.id + '.json?auth=' + this.token;
   }
 

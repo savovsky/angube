@@ -45,7 +45,7 @@ export class DatabaseFormsService {
 
   updateFormUrl() {
     // TODO Use Cloud function - Custom Claims - to add Community (Group) Code for each user
-    return Utils.firebaseUrl() + this.user.communityCode + '/forms/' + this.user.uid + '/' + this.form.id + '/form.json?auth=' + this.token;
+    return Utils.firebaseUrl() + this.user.communityId + '/forms/' + this.user.uid + '/' + this.form.id + '/form.json?auth=' + this.token;
   }
 
 }
