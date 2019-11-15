@@ -14,7 +14,7 @@ import * as Utils from '../../../shared/common/utils';
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
-  providers: [FormsService]
+  providers: [FormsService, SigninService]
 })
 export class SigninComponent implements OnInit, OnDestroy {
 

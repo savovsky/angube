@@ -4,9 +4,7 @@ import { CustomValidators } from './../../shared/common/custom.validators';
 import { FormField } from './../../shared/models/form-field.model';
 import { StringsService } from './../../shared/services/strings.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SignupService {
 
   private emailForm = 'emailForm';

@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormField } from './../../shared/models/form-field.model';
 import { StringsService } from 'src/app/shared/services/strings.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SigninService {
 
   private emailForm = 'emailForm';
