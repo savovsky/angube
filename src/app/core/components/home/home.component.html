@@ -1,7 +1,7 @@
 
 <div class="home-container">
     <app-card
-        *ngFor="let userObj of usersService.users; first as isFirst"
+        *ngFor="let userObj of users; first as isFirst"
         [user]="userObj"
         [isFirst]="isFirst"
     ></app-card>

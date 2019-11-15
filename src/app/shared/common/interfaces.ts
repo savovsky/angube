@@ -53,7 +53,7 @@ export interface IMyAccount {
     lastName: string;
 }
 
-export interface Link {
+export interface ILink {
     link: string;
     routerLink: string;
     icon: string;

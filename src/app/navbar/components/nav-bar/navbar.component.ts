@@ -3,14 +3,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../../shared/services/auth.service';
-import { ProgressService } from '../../services/progress.service';
 import { DatabaseService } from '../../../shared/services/database.service';
 import { User } from '../../../shared/common/interfaces';
-import * as Utils from '../../../shared/common/utils';
 import { StringsService } from 'src/app/shared/services/strings.service';
 import { NavLinksService } from '../../services/nav-links.service';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { RouterExtService } from 'src/app/shared/services/router-ext.service';
+import * as Utils from '../../../shared/common/utils';
 
 
 @Component({
@@ -21,6 +19,8 @@ import { RouterExtService } from 'src/app/shared/services/router-ext.service';
 })
 export class NavbarComponent implements OnInit {
 
+  isRequesting: boolean;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private databaseService: DatabaseService,
-    private progressService: ProgressService,
     private authService: AuthService,
     private usersService: UsersService,
     private str: StringsService,
@@ -37,9 +36,6 @@ export class NavbarComponent implements OnInit {
   ) { }
 
     ngOnInit() {
-      this.progressService.startProgresses(2);
-      // TODO Find better way for handling the progress bar and react on Errors.
-
       this.databaseService.getUserData(this.authService.uid)
         .subscribe(
           (response: User) => {
@@ -57,23 +53,7 @@ export class NavbarComponent implements OnInit {
             Utils.consoleLog(`(NavbarComponent) Get user data - Error: `, 'red', error); // TODO Error Screen
           },
           () => {
-            this.progressService.stopProgress();
             Utils.consoleLog(`(NavbarComponent) Get user data - Completed`, 'purple');
-          }
-        );
-
-      this.databaseService.getAllUsersData()
-        .subscribe(
-          (response: User[]) => {
-            Utils.consoleLog(`(NavbarComponent) Get users data - Seccess: `, 'magenta', response);
-            this.usersService.storeUsers(response);
-          },
-          (error) => {
-            Utils.consoleLog(`(NavbarComponent) Get users data - Error: `, 'red', error);
-          },
-          () => {
-            this.progressService.stopProgress();
-            Utils.consoleLog(`(NavbarComponent) Get users data  - Completed`, 'magenta');
           }
         );
     }
@@ -92,10 +72,6 @@ export class NavbarComponent implements OnInit {
 
     get currentUserName() {
       return this.usersService.currentUserName;
-    }
-
-    get isRequesting() {
-      return this.progressService.isRequesting();
     }
 
     get isCurrentUserAdmin() {

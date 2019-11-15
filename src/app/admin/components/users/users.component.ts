@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { StringsService } from '../../../shared/services/strings.service';
 import { IAppStore, IUser } from './../../../shared/common/interfaces';
 import * as UsersAction from '../../../shared/store/actions/users.action';
