@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import { AuthService } from 'src/app/shared/services/auth.service';
-// import { SignError, MatFormField } from 'src/app/shared/common/interfaces';
-import { StringsService } from 'src/app/shared/services/strings.service';
-import { FormField } from 'src/app/shared/models/form-field.model';
-import { FormsService } from 'src/app/shared/services/forms.service';
+import {FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { SignError, MatFormField, IAppStore } from './../../../shared/common/interfaces';
-import * as AuthentAction from '../../../shared/store/actions/authent.action';
 import { Subscription } from 'rxjs';
+import { SigninService } from './../../services/signin.service';
+import { StringsService } from 'src/app/shared/services/strings.service';
+import { FormsService } from 'src/app/shared/services/forms.service';
+import { MatFormField, IAppStore } from './../../../shared/common/interfaces';
+import * as AuthentAction from '../../../shared/store/actions/authent.action';
 import * as Utils from '../../../shared/common/utils';
 
 
@@ -20,90 +18,42 @@ import * as Utils from '../../../shared/common/utils';
 })
 export class SigninComponent implements OnInit, OnDestroy {
 
-  error: any;
-  isFetching = false;
-  fields: MatFormField[];
-  signInForm: FormGroup;
-  emailForm = 'emailForm';
-  passwordForm = 'passwordForm';
+  error: string;
+  isFetching: boolean;
+  formFields: MatFormField[];
+  signinFormGroup: FormGroup;
   storeSubscription: Subscription;
 
   constructor(
-    private authService: AuthService,
+    private store: Store<IAppStore>,
+    private signinService: SigninService,
     public frormsService: FormsService,
-    public str: StringsService,
-    private store: Store<IAppStore>
+    public str: StringsService
   ) { }
 
   ngOnInit() {
-    const formGroupObj = {};
+    this.signinFormGroup = this.signinService.signinFormGroup();
+    this.formFields = this.signinService.signinFormFields();
 
-    formGroupObj[this.emailForm] = new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]);
-    formGroupObj[this.passwordForm] = new FormControl('', [
-      Validators.required
-    ]);
-    this.signInForm = new FormGroup(formGroupObj);
-
-    this.fields = [
-      new FormField('email', this.str.email, this.emailForm),
-      new FormField('password', this.str.password, this.passwordForm)
-    ];
-
-    this.authService.signInError.subscribe(
-      (err: SignError) => {
-        this.isFetching = false;
-        this.error = err.message;
-      }
-    );
-
-    // ------------------
     this.storeSubscription = this.store.select('authent').subscribe(
       (store) => {
         Utils.consoleLog('(SigninComponent) authent Store: ', 'limegreen', store);
+        this.isFetching = store.signing || store.fetchingToken;
+        this.error = store.authentErr;
       }
     );
   }
 
-  get emailFormControl() {
-    return this.signInForm.get('emailForm');
-  }
-
-  get passwordFormControl() {
-    return this.signInForm.get('passwordForm');
-  }
-
-  getErrorMessage(fieldLabel: string) {
-    switch (fieldLabel) {
-      case this.str.email:
-        if (this.emailFormControl.hasError('required')) {
-          return this.str.requiredField;
-        } else if (
-          this.emailFormControl.hasError('email')
-          ) {
-          return this.str.invalidEmailAddress;
-        }
-        return;
-      case this.str.password:
-        if (this.passwordFormControl.hasError('required')) {
-          return this.str.requiredField;
-        }
-        return;
-      default: return;
-    }
+  errorMessage(formControlName: string): string {
+    return this.signinService.formFieldErrorMessage(this.signinFormGroup, formControlName);
   }
 
   onSignIn() {
-    const email: string = this.emailFormControl.value;
-    const password: string = this.passwordFormControl.value;
+    const email: string = this.signinFormGroup.value.emailForm;
+    const password: string = this.signinFormGroup.value.passwordForm;
 
-    if (this.signInForm.valid) {
-      this.error = null;
-      this.isFetching = true;
-      this.authService.signInUser(email, password);
-      // ------------------
+    if (this.signinFormGroup.valid) {
+      this.error = '';
       this.store.dispatch(new AuthentAction.SignInStart({ email, password }));
     }
   }

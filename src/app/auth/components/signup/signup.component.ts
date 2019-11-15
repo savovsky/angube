@@ -44,9 +44,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.signupFormGroup = this.signupService.signupFormGroup();
     this.formFields = this.signupService.signupFormFields(this.communityId);
 
-    console.log(this.signupFormGroup);
-    console.log(this.communityId);
-
     this.storeSubscription = this.store.select('authent').subscribe(
       (store) => {
         Utils.consoleLog('(SignupComponent) authent Store: ', 'limegreen', store);

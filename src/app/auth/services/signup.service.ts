@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidators } from './../../shared/common/custom.validators';
 import { FormField } from './../../shared/models/form-field.model';
 import { StringsService } from './../../shared/services/strings.service';
@@ -92,8 +92,5 @@ export class SignupService {
 
       default: return;
     }
-
   }
-
 }
-

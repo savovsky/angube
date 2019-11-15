@@ -3,11 +3,11 @@
       <div class="right primary">{{ str.signIn | titlecase }}</div>
     <form
       class="example-form"
-      [formGroup]="signInForm" 
+      [formGroup]="signinFormGroup" 
       (ngSubmit)="onSignIn()"
     >
       <mat-form-field
-        *ngFor="let field of fields"
+        *ngFor="let field of formFields"
         class="example-full-width"
       >
         <input
@@ -23,7 +23,7 @@
           (click)="frormsService.onVisibilityClick($event)"
         >{{ frormsService.hide ? 'visibility_off' : 'visibility' }}
         </mat-icon>
-        <mat-error>{{ (getErrorMessage(field.placeholder) | capitalize) }}</mat-error>
+        <mat-error>{{ errorMessage(field.formControlName) | capitalize }}</mat-error>
       </mat-form-field>
 
       <button
@@ -33,7 +33,7 @@
         type="submit"
       >{{ str.submit | uppercase }}
       </button>
-      <!-- REMIND [disabled]="!signInForm.valid && !signInForm.touched" -->
+      <!-- REMIND [disabled]="!signinFormGroup.valid && !signinFormGroup.touched" -->
       <!-- TODO put the Loader and Err Msg in reusable component -->
       <div class="progress-err-container">
         <mat-progress-bar mode="indeterminate" *ngIf="isFetching"></mat-progress-bar>
