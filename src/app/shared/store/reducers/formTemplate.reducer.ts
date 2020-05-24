@@ -75,7 +75,7 @@ export function formTemplateReducer(
         case Action.UPDATE_OPTION_ITEM_VALUE: {
             return {
                 ...state,
-                options: [...state.options.map((item: IFormItem) => {
+                options: [...state.options.map((item: IFormItem) => { // Remove spreding
                     if (item.id === action.payload.id) {
                         return {
                             ...item,
